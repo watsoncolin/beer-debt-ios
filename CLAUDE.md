@@ -52,7 +52,10 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
   clamps it to the last 30 days (it may predate `booksOpenedAt`; runs may
   not), an accidental beer may be removed with `LedgerStore.removeBeer`, and a
   run may be taken off the books with `LedgerStore.deleteRun` (its workout ID
-  lands in `Ledger.excludedWorkoutIDs` so it is never re-imported). `BeerEntry` is id + `createdAt` (+
+  lands in `Ledger.excludedWorkoutIDs` so it is never re-imported), and the
+  books can be opened earlier with `LedgerStore.reopenBooks` (Settings ›
+  About; earlier only, a year at most; `HealthSync.reopenBooks` then drops
+  the anchor and re-reads Health so older runs come in). `BeerEntry` is id + `createdAt` (+
   `recordedAt`, when it was logged),
   `RunEntry` (HealthKit workout UUID for dedup, meters), and `RulesChange`
   (rules effective from an instant). The `Ledger` holds all three plus

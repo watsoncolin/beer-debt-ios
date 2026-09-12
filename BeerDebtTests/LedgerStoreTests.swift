@@ -151,4 +151,25 @@ struct LedgerStoreTests {
         #expect(reloaded.ledger == store.ledger)
         #expect(reloaded.ledger.booksOpenedAt == t0)
     }
+
+    @Test func theBooksCanBeOpenedEarlierButNotLater() {
+        let dir = tempDir()
+        let store = LedgerStore(directory: dir, now: t0)
+        #expect(!store.reopenBooks(at: at(day), now: at(2 * day)))          // later: refused
+        #expect(!store.reopenBooks(at: t0, now: at(2 * day)))               // same: refused
+        #expect(store.reopenBooks(at: at(-3 * day), now: at(2 * day)))
+        #expect(store.ledger.booksOpenedAt == at(-3 * day))
+        // The opening rules move with the books, so day one is still under them.
+        #expect(store.ledger.rulesHistory.first?.effectiveAt == at(-3 * day))
+        // A run from the newly covered days now counts.
+        store.importRuns([run(2, endedAt: at(-2 * day))])
+        #expect(store.report(at: at(2 * day)).runs.first?.ignored == false)
+        #expect(LedgerStore(directory: dir, now: at(3 * day)).ledger.booksOpenedAt == at(-3 * day))
+    }
+
+    @Test func reopeningIsClampedToAYear() {
+        let store = LedgerStore(directory: tempDir(), now: t0)
+        #expect(store.reopenBooks(at: at(-800 * day), now: t0))
+        #expect(store.ledger.booksOpenedAt == at(-365 * day))
+    }
 }

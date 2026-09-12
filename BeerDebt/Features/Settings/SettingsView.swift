@@ -9,6 +9,7 @@ struct SettingsView: View {
     @State private var loaded = false
     @State private var notificationsDenied = false
     @State private var weeklyDenied = false
+    @State private var reopeningBooks = false
 
     private static let milesPresets: [Double] = [0.5, 1, 1.5, 2, 3, 5]
     private static let ratePresets: [Double] = [0, 0.05, 0.10, 0.15, 0.20, 0.25]
@@ -147,11 +148,26 @@ struct SettingsView: View {
             }
             .listRowBackground(Theme.card)
 
-            Section("About") {
-                LabeledContent("Books opened", value: Format.dateTime(store.ledger.booksOpenedAt))
+            Section {
+                Button {
+                    reopeningBooks = true
+                } label: {
+                    LabeledContent("Books opened", value: Format.dateTime(store.ledger.booksOpenedAt))
+                }
+                .foregroundStyle(Theme.cream)
                 LabeledContent("Version", value: Self.version)
+            } header: {
+                Text("About")
+            } footer: {
+                Text("Runs that ended before the books opened don't count. Tap the date to open the books earlier and pull those runs in from Apple Health.")
             }
             .listRowBackground(Theme.card)
+        }
+        .sheet(isPresented: $reopeningBooks) {
+            ReopenBooksSheet(current: store.ledger.booksOpenedAt) { date in
+                Task { await sync.reopenBooks(at: date) }
+            }
+            .presentationDetents([.medium])
         }
         .listRowBackground(Theme.card)
         .forestScreen()
@@ -180,5 +196,46 @@ struct SettingsView: View {
         let short = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?"
         return "\(short) (\(build))"
+    }
+}
+
+/// Pick an earlier opening for the books (Settings › About). Earlier only,
+/// at most a year back; the sync re-reads Health afterwards.
+private struct ReopenBooksSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    let current: Date
+    let onPick: (Date) -> Void
+    @State private var date: Date
+
+    init(current: Date, onPick: @escaping (Date) -> Void) {
+        self.current = current
+        self.onPick = onPick
+        _date = State(initialValue: current)
+    }
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section {
+                    DatePicker("Books opened", selection: $date,
+                               in: Date.now.addingTimeInterval(-LedgerStore.reopeningWindow)...current)
+                        .datePickerStyle(.graphical)
+                } footer: {
+                    Text("Runs from Apple Health that ended after this instant count. Beers already on the tab and interest already posted stay as they are.")
+                }
+                .listRowBackground(Theme.card)
+            }
+            .forestScreen()
+            .navigationTitle("Open the books earlier")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Move back") { onPick(date); dismiss() }
+                        .disabled(date >= current)
+                }
+            }
+        }
+        .preferredColorScheme(.dark)
     }
 }

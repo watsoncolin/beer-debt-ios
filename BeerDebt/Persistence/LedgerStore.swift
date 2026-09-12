@@ -152,6 +152,29 @@ final class LedgerStore {
         return true
     }
 
+    /// Moves the opening of the books earlier, so runs that ended in the newly
+    /// covered window can count. Earlier only (a later date would strand runs
+    /// already on the books), no more than a year back. The opening rules
+    /// move with it so they stay effective from day one. The caller must
+    /// re-read Health from scratch afterwards, since older workouts were
+    /// dropped at import. Returns false if the date wasn't earlier.
+    @discardableResult
+    func reopenBooks(at date: Date, now: Date = .now) -> Bool {
+        let earliest = now.addingTimeInterval(-Self.reopeningWindow).flooredToSecond
+        let opened = max(date.flooredToSecond, earliest)
+        guard opened < ledger.booksOpenedAt else { return false }
+        let previous = ledger.booksOpenedAt
+        ledger.booksOpenedAt = opened
+        if let first = ledger.rulesHistory.first, first.effectiveAt == previous {
+            ledger.rulesHistory[0] = RulesChange(effectiveAt: opened, rules: first.rules)
+        }
+        save()
+        return true
+    }
+
+    /// How far back the books can be reopened.
+    static let reopeningWindow: TimeInterval = 365 * 24 * 60 * 60
+
     /// Records a rules change effective from `date` forward. No-op if nothing
     /// changed. History is append-only so replay stays deterministic.
     func updateRules(_ rules: Rules, at date: Date = .now) {

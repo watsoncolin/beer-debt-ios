@@ -142,6 +142,15 @@ final class HealthSync {
         await sync()
     }
 
+    /// Moves the books-opened date back and re-reads Health from scratch so
+    /// runs from the newly covered days come in (the store dedups on workout
+    /// id, so nothing already imported doubles up).
+    func reopenBooks(at date: Date) async {
+        guard store.reopenBooks(at: date) else { return }
+        defaults.removeObject(forKey: Self.anchorKey)
+        await syncIfConnected()
+    }
+
     /// Reads what changed in Health since the last anchor and applies it.
     func sync() async {
         guard isConnected, !isSyncing else { return }
