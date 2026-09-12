@@ -60,8 +60,9 @@ struct RunStatement: Identifiable, Equatable, Sendable {
     let discardedMiles: Double
     /// Ended before the books were opened; contributes nothing.
     let ignored: Bool
-    /// The local day this run ended on reached a mile: a streak day.
-    let streakDay: Bool
+    /// Which day of a two-or-more-day streak this run's day was; nil for a
+    /// short day or a lone mile (see `StreakStatus.streakDayNumber`).
+    let streakDayNumber: Int?
 
     var id: UUID { run.id }
 }

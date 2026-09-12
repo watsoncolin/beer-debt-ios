@@ -894,8 +894,8 @@ streak". Never "You're crushing it".
 dashed; day one: lit, nothing earned yet; two or more: earned). Tapping it
 opens **Your Streak**: the count, what it has earned, this calendar week as
 seven circles, longest streak, total streak days, and the rule in four
-lines. Beer Added mentions an earned streak. Run rows in Runs get a "Streak
-day" tag. The run notification adds a streak line, and the moment day two
+lines. Beer Added mentions an earned streak. Run rows in Runs get a "Day N" tag once their streak
+reached two days (a lone mile is tagged nothing). The run notification adds a streak line, and the moment day two
 activates protection gets its own sheet (the running-shoe art), paired with
 Debt Free.
 

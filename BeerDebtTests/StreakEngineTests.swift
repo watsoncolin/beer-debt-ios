@@ -133,13 +133,25 @@ struct StreakEngineTests {
         #expect(r.streak.currentStreakDays == 6)
         #expect(r.balance.state == .credit)                     // the beer came out of banked credit
         #expect(r.streak.interestProtectionActive)
-        #expect(r.runs.allSatisfy { $0.streakDay })
+        #expect(r.runs.map(\.streakDayNumber) == [1, 2, 3, 4, 5, 6])
     }
 
     @Test func theReportCarriesTheStreak() {
         let l = ledger(openedAt: at(-day), runs: [run(1, endedAt: morning(0)), run(0.5, endedAt: at(-hour))])
         let r = report(l, at: t0)
         #expect(r.streak.currentStreakDays == 1)
-        #expect(r.runs.map(\.streakDay) == [true, true])   // same day, both tagged
+        // A lone mile is day one of nothing yet: no day number until tomorrow qualifies.
+        #expect(r.runs.map(\.streakDayNumber) == [nil, nil])
+    }
+
+    @Test func runsAreNumberedOnlyOnceAStreakReachesTwoDays() {
+        // Mon 1.3 (alone), Wed 1.0, Thu 1.0, Fri 0.5.
+        let l = ledger(openedAt: at(-day), runs: [run(1.3, endedAt: morning(0)), run(1, endedAt: morning(2)),
+                                                  run(1, endedAt: morning(3)), run(0.5, endedAt: morning(4))])
+        let r = report(l, at: at(4 * day))
+        #expect(r.runs.map(\.streakDayNumber) == [nil, 1, 2, nil])
+        // Both runs on a day share the day's number.
+        let two = ledger(openedAt: at(-day), runs: [run(0.6, endedAt: morning(0)), run(0.6, endedAt: at(-hour)), run(1, endedAt: morning(1))])
+        #expect(report(two, at: at(day)).runs.map(\.streakDayNumber) == [1, 1, 2])
     }
 }

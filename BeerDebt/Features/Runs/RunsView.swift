@@ -129,8 +129,8 @@ private struct RunCard: View {
                 } else {
                     Pill(text: "Applied", color: Theme.creditSoft)
                 }
-                if statement.streakDay {
-                    Pill(text: "🔥 Streak day", color: Theme.gold)
+                if let day = statement.streakDayNumber {
+                    Pill(text: "🔥 Day \(day)", color: Theme.gold)
                 }
             }
         }

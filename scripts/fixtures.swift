@@ -55,8 +55,8 @@ struct ExpectedBeer: Codable {
     }
 }
 struct ExpectedRun: Codable {
-    let id: UUID, debtPaidMiles: Double, creditEarnedMiles: Double, discardedMiles: Double, ignored: Bool, streakDay: Bool
-    init(_ s: RunStatement) { id = s.id; debtPaidMiles = s.debtPaidMiles; creditEarnedMiles = s.creditEarnedMiles; discardedMiles = s.discardedMiles; ignored = s.ignored; streakDay = s.streakDay }
+    let id: UUID, debtPaidMiles: Double, creditEarnedMiles: Double, discardedMiles: Double, ignored: Bool, streakDayNumber: Int?
+    init(_ s: RunStatement) { id = s.id; debtPaidMiles = s.debtPaidMiles; creditEarnedMiles = s.creditEarnedMiles; discardedMiles = s.discardedMiles; ignored = s.ignored; streakDayNumber = s.streakDayNumber }
 }
 struct ExpectedStreakDay: Codable {
     let day: Date, miles: Double, qualifies: Bool, streakNumber: Int, interestProtected: Bool

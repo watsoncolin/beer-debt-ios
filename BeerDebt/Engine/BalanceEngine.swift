@@ -207,7 +207,7 @@ private struct Replay {
     private mutating func apply(_ run: RunEntry) {
         guard run.endedAt >= ledger.booksOpenedAt else {
             runStatements.append(RunStatement(
-                run: run, debtPaidMiles: 0, creditEarnedMiles: 0, discardedMiles: 0, ignored: true, streakDay: false
+                run: run, debtPaidMiles: 0, creditEarnedMiles: 0, discardedMiles: 0, ignored: true, streakDayNumber: nil
             ))
             return
         }
@@ -242,7 +242,7 @@ private struct Replay {
             creditEarnedMiles: earned,
             discardedMiles: leftover - earned,
             ignored: false,
-            streakDay: streak.qualifies(on: run.endedAt)
+            streakDayNumber: streak.streakDayNumber(on: run.endedAt)
         ))
     }
 

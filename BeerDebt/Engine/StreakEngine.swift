@@ -42,6 +42,17 @@ struct StreakStatus: Equatable, Sendable {
     func qualifies(on date: Date) -> Bool { day(on: date)?.qualifies ?? false }
     func isProtected(on date: Date) -> Bool { day(on: date)?.interestProtected ?? false }
 
+    /// Which day of a streak `date` was, counting only streaks that reached
+    /// two days: a lone mile is day one of nothing yet, so it gets no number
+    /// until the next day qualifies.
+    func streakDayNumber(on date: Date) -> Int? {
+        let key = calendar.startOfDay(for: date)
+        guard let i = days.firstIndex(where: { $0.day == key }), days[i].qualifies else { return nil }
+        if days[i].streakNumber >= 2 { return days[i].streakNumber }
+        let continued = i + 1 < days.count && days[i + 1].streakNumber == 2
+        return continued ? 1 : nil
+    }
+
     static func none(calendar: Calendar) -> StreakStatus {
         StreakStatus(days: [], currentStreakDays: 0, longestStreakDays: 0, totalQualifyingDays: 0,
                      todayMiles: 0, todayQualifies: false, todayProtected: false, calendar: calendar)

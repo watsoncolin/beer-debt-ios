@@ -149,7 +149,7 @@ are in that config. Upload to App Store Connect goes through the API into the
   them to `RootView` (single `NavigationStack`, no tab bar) via the environment.
 - `Engine/` — `BalanceEngine` (replay; skips interest postings on protected
   streak days), `Balance` (output, incl. `Report.streak` and
-  `RunStatement.streakDay`), `StreakEngine` (pure: runs → calendar days →
+  `RunStatement.streakDayNumber`), `StreakEngine` (pure: runs → calendar days →
   `StreakStatus`; spec §25, decisions §B.5).
 - `Models/` — `BeerEntry`, `RunEntry`, `Rules` (+ `CompoundingPeriod`), `Ledger` (+ `RulesChange`).
 - `Persistence/` — `LedgerStore` (observable owner of the JSON ledger file).

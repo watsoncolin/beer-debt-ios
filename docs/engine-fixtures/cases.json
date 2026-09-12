@@ -1345,8 +1345,7 @@
             "debtPaidMiles" : 1,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000014",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -1512,8 +1511,7 @@
             "debtPaidMiles" : 1,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000017",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -1610,8 +1608,7 @@
             "debtPaidMiles" : 0.4,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000020",
-            "ignored" : false,
-            "streakDay" : false
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -1736,8 +1733,7 @@
             "debtPaidMiles" : 1.5,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000025",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -1849,8 +1845,7 @@
             "debtPaidMiles" : 0.5,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000028",
-            "ignored" : false,
-            "streakDay" : false
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -1947,8 +1942,7 @@
             "debtPaidMiles" : 0.5,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000028",
-            "ignored" : false,
-            "streakDay" : false
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -2051,8 +2045,7 @@
             "debtPaidMiles" : 1,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000031",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -2135,8 +2128,7 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 2,
             "id" : "00000000-0000-4000-8000-000000000033",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -2216,8 +2208,7 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 4,
             "id" : "00000000-0000-4000-8000-000000000035",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -2297,8 +2288,7 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000037",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -2378,8 +2368,7 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000037",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -2508,8 +2497,7 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000037",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -2687,8 +2675,7 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000039",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -3271,8 +3258,7 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000042",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -3369,8 +3355,7 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000045",
-            "ignored" : false,
-            "streakDay" : false
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -3453,8 +3438,7 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000049",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -3554,8 +3538,7 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000049",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -3670,8 +3653,7 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000049",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -3856,8 +3838,7 @@
             "debtPaidMiles" : 1,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000052",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -3940,8 +3921,7 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000054",
-            "ignored" : false,
-            "streakDay" : false
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -4034,8 +4014,7 @@
             "debtPaidMiles" : 0.97,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000057",
-            "ignored" : false,
-            "streakDay" : false
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -4131,8 +4110,7 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000060",
-            "ignored" : false,
-            "streakDay" : false
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -4229,8 +4207,7 @@
             "debtPaidMiles" : 0.9000000000000001,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000063",
-            "ignored" : false,
-            "streakDay" : false
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -5397,16 +5374,14 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 2,
             "id" : "00000000-0000-4000-8000-000000000072",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           },
           {
             "creditEarnedMiles" : 2,
             "debtPaidMiles" : 0,
             "discardedMiles" : 3,
             "id" : "00000000-0000-4000-8000-000000000074",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -5507,8 +5482,7 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000076",
-            "ignored" : true,
-            "streakDay" : false
+            "ignored" : true
           }
         ],
         "streak" : {
@@ -5595,8 +5569,7 @@
             "debtPaidMiles" : 1,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000079",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -5734,8 +5707,7 @@
             "debtPaidMiles" : 1.1,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000082",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -5924,8 +5896,7 @@
             "debtPaidMiles" : 1.21,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000085",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -6217,16 +6188,14 @@
             "debtPaidMiles" : 1.5,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000094",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           },
           {
             "creditEarnedMiles" : 1.0430000000000001,
             "debtPaidMiles" : 3.157,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000096",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -6461,24 +6430,21 @@
             "debtPaidMiles" : 1.5,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000094",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           },
           {
             "creditEarnedMiles" : 1.0430000000000001,
             "debtPaidMiles" : 3.157,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000096",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           },
           {
             "creditEarnedMiles" : 0.8,
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000098",
-            "ignored" : false,
-            "streakDay" : false
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -6747,32 +6713,28 @@
             "debtPaidMiles" : 1.5,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000094",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           },
           {
             "creditEarnedMiles" : 1.0430000000000001,
             "debtPaidMiles" : 3.157,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000096",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           },
           {
             "creditEarnedMiles" : 0.8,
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000098",
-            "ignored" : false,
-            "streakDay" : false
+            "ignored" : false
           },
           {
             "creditEarnedMiles" : 3,
             "debtPaidMiles" : 0.24253794691694602,
             "discardedMiles" : 2.757462053083054,
             "id" : "00000000-0000-4000-8000-000000000100",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -7056,8 +7018,7 @@
             "debtPaidMiles" : 1.2,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000107",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -7236,7 +7197,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000107",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 1
           },
           {
             "creditEarnedMiles" : 0,
@@ -7244,7 +7205,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000109",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 2
           }
         ],
         "streak" : {
@@ -7430,7 +7391,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000107",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 1
           },
           {
             "creditEarnedMiles" : 0,
@@ -7438,7 +7399,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000109",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 2
           }
         ],
         "streak" : {
@@ -7631,7 +7592,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000116",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 1
           },
           {
             "creditEarnedMiles" : 0,
@@ -7639,7 +7600,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000118",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 2
           }
         ],
         "streak" : {
@@ -7825,7 +7786,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000116",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 1
           },
           {
             "creditEarnedMiles" : 0,
@@ -7833,7 +7794,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000118",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 2
           }
         ],
         "streak" : {
@@ -8003,7 +7964,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000123",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 1
           },
           {
             "creditEarnedMiles" : 0,
@@ -8011,7 +7972,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000125",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 2
           }
         ],
         "streak" : {
@@ -8160,7 +8121,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000130",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 1
           },
           {
             "creditEarnedMiles" : 0.28944432198895376,
@@ -8168,7 +8129,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000132",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 2
           },
           {
             "creditEarnedMiles" : 1.1,
@@ -8176,23 +8137,21 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000134",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 3
           },
           {
             "creditEarnedMiles" : 0.4,
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000136",
-            "ignored" : false,
-            "streakDay" : false
+            "ignored" : false
           },
           {
             "creditEarnedMiles" : 1.2619300885064337,
             "debtPaidMiles" : 0,
             "discardedMiles" : 0.9380699114935664,
             "id" : "00000000-0000-4000-8000-000000000138",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -8348,7 +8307,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000140",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 1
           },
           {
             "creditEarnedMiles" : 1,
@@ -8356,7 +8315,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000142",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 2
           },
           {
             "creditEarnedMiles" : 1,
@@ -8364,7 +8323,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000144",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 3
           }
         ],
         "streak" : {
@@ -8484,7 +8443,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000140",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 1
           },
           {
             "creditEarnedMiles" : 1,
@@ -8492,7 +8451,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000142",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 2
           },
           {
             "creditEarnedMiles" : 1,
@@ -8500,7 +8459,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000144",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 3
           }
         ],
         "streak" : {
@@ -8626,16 +8585,14 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000146",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           },
           {
             "creditEarnedMiles" : 0.7,
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000148",
-            "ignored" : false,
-            "streakDay" : true
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -8724,8 +8681,7 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000150",
-            "ignored" : false,
-            "streakDay" : false
+            "ignored" : false
           }
         ],
         "streak" : {
@@ -8819,7 +8775,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000153",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 1
           },
           {
             "creditEarnedMiles" : 1.5,
@@ -8827,7 +8783,7 @@
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000155",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 2
           },
           {
             "creditEarnedMiles" : 0.06688982414067146,
@@ -8835,7 +8791,7 @@
             "discardedMiles" : 1.4331101758593285,
             "id" : "00000000-0000-4000-8000-000000000157",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 3
           },
           {
             "creditEarnedMiles" : 0.044816383676653526,
@@ -8843,7 +8799,7 @@
             "discardedMiles" : 1.4551836163233465,
             "id" : "00000000-0000-4000-8000-000000000159",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 4
           },
           {
             "creditEarnedMiles" : 0.044816383676653526,
@@ -8851,7 +8807,7 @@
             "discardedMiles" : 1.4551836163233465,
             "id" : "00000000-0000-4000-8000-000000000161",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 5
           },
           {
             "creditEarnedMiles" : 0.044816383676653526,
@@ -8859,7 +8815,7 @@
             "discardedMiles" : 1.4551836163233465,
             "id" : "00000000-0000-4000-8000-000000000163",
             "ignored" : false,
-            "streakDay" : true
+            "streakDayNumber" : 6
           }
         ],
         "streak" : {
