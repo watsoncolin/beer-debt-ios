@@ -92,7 +92,9 @@ copies: `AppIcon` (1024, no alpha), `BrandMark` and `MugArt` (512),
 `DebtFreeTrophy` (600), `HomeBackdrop` (original size, single scale). `Backdrop`
 in `Theme.swift` draws the scene under a scrim tuned so cream text stays
 legible over the sunset band; if the art changes, re-check `home-debt` in
-`scripts/screenshots.sh`. Store screenshots can still go through `~/app-utils`
+`scripts/screenshots.sh`. The launch screen is `LaunchScreen.storyboard`
+(same image, aspect-filled, flat 45% scrim) because the plist launch screen
+can't scale an image. Store screenshots can still go through `~/app-utils`
 later.
 
 ## Map

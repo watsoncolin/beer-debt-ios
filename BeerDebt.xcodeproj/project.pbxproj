@@ -16,6 +16,7 @@
 		336C352840EE6B0E6ED4A681 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F139958A6FB29822FC7DC24 /* HealthKitService.swift */; };
 		438F1CAAB9D5C95992A2CCE4 /* HealthSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB8823445610589169295E2 /* HealthSync.swift */; };
 		5161C6AC19D82C09C8374802 /* BeerEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F5273874DC97DC59FE5C9 /* BeerEntry.swift */; };
+		5DDE798717F5540A8DE4013A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FDB3E39011B92CA7C3933A1 /* LaunchScreen.storyboard */; };
 		64EF73099228E0893DC4279B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAF29C39DB7A99E66F329C1 /* SettingsView.swift */; };
 		69C38BD7B92F0BC3DD54E515 /* DebtFreeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5C88CBF61288D3D21372F5 /* DebtFreeSheet.swift */; };
 		711B864C99E5392E019D7BEC /* BalanceEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31AFC2644E14EA452E9060D /* BalanceEngine.swift */; };
@@ -49,6 +50,7 @@
 		13822F7CA03A532EE9930030 /* BeerAddedSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerAddedSheet.swift; sourceTree = "<group>"; };
 		179D84998FA1EF9C49416D25 /* LedgerStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerStoreTests.swift; sourceTree = "<group>"; };
 		1E7EA25B56EB364CFF949547 /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
+		1FDB3E39011B92CA7C3933A1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		375F3E2B6E42648F707FD2BD /* TestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSupport.swift; sourceTree = "<group>"; };
 		4BE9278FB4C759A48719A198 /* LedgerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerView.swift; sourceTree = "<group>"; };
 		559D02FEB5F142E1778EE4BF /* HealthOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthOnboardingView.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				E1F29F2C4116B049DAAC197D /* Assets.xcassets */,
 				BAA8780B796E04F305A4D1BD /* BeerDebt.entitlements */,
 				5B90EA698BA52D7359DEE5B8 /* Info.plist */,
+				1FDB3E39011B92CA7C3933A1 /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CE75843B63E71A9A84347CE /* Assets.xcassets in Resources */,
+				5DDE798717F5540A8DE4013A /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
