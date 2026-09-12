@@ -44,8 +44,8 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
 - **No third-party dependencies.** Don't add packages without a reason.
 - The `.xcodeproj` is committed but generated — never hand-edit it; change
   `project.yml` and regenerate.
-- The engine is pure. `BalanceEngine.calculateBalance(beers:runs:rules:at:)`
-  takes no clocks and does no I/O. `now` is always injected. Tests use fixed
+- The engine is pure. `BalanceEngine.report(for:at:)` takes a `Ledger` and an
+  instant, no clocks, no I/O. `now` is always injected. Tests use fixed
   `Date(timeIntervalSince1970:)` instants, never `.now`.
 - Events are append-only and immutable, with one exception: a beer's
   `createdAt` may be corrected through `LedgerStore.updateBeerDate`, which
@@ -96,9 +96,14 @@ JSON fixtures and run against the Kotlin engine.
 
 Originals live in `docs/art/` (generated with Codex, 2026-09-12): the app icon
 (mug with a trail, Colin's pick), the plain mug, the transparent trophy mug,
-and the portrait trail-and-mountains scene. The asset catalog holds resized
-copies: `AppIcon` (1024, no alpha), `BrandMark` and `MugArt` (512),
-`DebtFreeTrophy` (600), `HomeBackdrop` (original size, single scale). `Backdrop`
+the portrait trail-and-mountains scene, a transparent cut-out of the trail
+mug, and a foam-only layer (for a future Icon Composer layered icon; the
+matching body layer still needs a clean transparent render). The asset
+catalog holds resized copies: `AppIcon` light (1024, opaque green), dark and
+tinted variants (transparent / grayscale-transparent, generated from the
+cut-out by a PIL one-off), `BrandMark` (transparent trail mug, 600, used on
+onboarding and Beer Added), `DebtFreeTrophy` (600), `HomeBackdrop` (original
+size, single scale). `Backdrop`
 in `Theme.swift` draws the scene under a scrim tuned so cream text stays
 legible over the sunset band; if the art changes, re-check `home-debt` in
 `scripts/screenshots.sh`. The launch screen is `LaunchScreen.storyboard`
@@ -110,7 +115,7 @@ later.
 
 - `App/` — `BeerDebtApp` + `RootView` (single `NavigationStack`, no tab bar).
 - `Engine/` — `BalanceEngine` (replay), `Balance` (output).
-- `Models/` — `BeerEntry`, `RunEntry`, `Rules` (+ `InterestTerms`, `CompoundingPeriod`).
+- `Models/` — `BeerEntry`, `RunEntry`, `Rules` (+ `CompoundingPeriod`), `Ledger` (+ `RulesChange`).
 - `Persistence/` — `LedgerStore` (observable owner of the JSON ledger file).
 - `Health/` — `HealthKitService` (authorization, anchored workout query) and
   `HealthSync` (connect, sync-on-active, drops pre-books runs, debt-free
