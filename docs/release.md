@@ -14,10 +14,17 @@ Pawfect Edit and StrumBuddy.
 | Primary language | English (U.S.) |
 | First version | 1.0 (matches `MARKETING_VERSION` in `project.yml`) |
 
-Created 2026-09-12. Listing progress: privacy, support, and marketing URLs
-set; seven 6.9" screenshots uploaded (composed in `~/app-utils`, see
-CLAUDE.md). Still to fill: description, subtitle, keywords, category, age
-rating, App Privacy, review contact, and a build on the version.
+Created 2026-09-12. Listing filled the same day, mostly through the API:
+URLs, seven 6.9" screenshots (composed in `~/app-utils`, see CLAUDE.md),
+description / subtitle / keywords / promo text, copyright, categories
+(Health & Fitness, Lifestyle), age rating 17+ (alcohol references), content
+rights, App Privacy "Data Not Collected" (published), price Free, all 175
+territories, build attached, review notes with HealthKit test steps.
+
+Left before "Add for Review": the review contact's phone number (the API
+refuses to save the contact without it), and an on-device pass with a real
+run. Submission itself can go through the API (`reviewSubmissions`) or the
+button.
 
 ## Xcode Cloud workflow
 
