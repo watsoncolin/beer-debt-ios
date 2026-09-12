@@ -51,8 +51,30 @@ struct Rules: Codable, Hashable, Sendable {
     var maximumCreditBeers: Double = 3
     /// Fraction of banked credit lost per week, applied continuously. 0 = off (spec §9).
     var creditDecayRatePerWeek: Double = 0.10
+    /// A running streak of two or more days pauses debt interest (spec §25).
+    /// Not user-tunable; it exists as a rule so it switches on forward-only:
+    /// ledgers written before the feature decode it as off, and the store
+    /// appends a rules change turning it on at upgrade time.
+    var streakProtection: Bool = true
 
     static let `default` = Rules()
+
+    private enum CodingKeys: String, CodingKey {
+        case milesPerBeer, interestRate, interestPeriod, gracePeriod, maximumCreditBeers, creditDecayRatePerWeek, streakProtection
+    }
+
+    init() {}
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        milesPerBeer = try c.decode(Double.self, forKey: .milesPerBeer)
+        interestRate = try c.decode(Double.self, forKey: .interestRate)
+        interestPeriod = try c.decode(CompoundingPeriod.self, forKey: .interestPeriod)
+        gracePeriod = try c.decode(TimeInterval.self, forKey: .gracePeriod)
+        maximumCreditBeers = try c.decode(Double.self, forKey: .maximumCreditBeers)
+        creditDecayRatePerWeek = try c.decode(Double.self, forKey: .creditDecayRatePerWeek)
+        streakProtection = try c.decodeIfPresent(Bool.self, forKey: .streakProtection) ?? false
+    }
 
     var interestEnabled: Bool { interestRate > 0 }
     var creditDecayEnabled: Bool { creditDecayRatePerWeek > 0 }

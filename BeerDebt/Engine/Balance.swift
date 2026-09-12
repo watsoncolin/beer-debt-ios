@@ -60,6 +60,8 @@ struct RunStatement: Identifiable, Equatable, Sendable {
     let discardedMiles: Double
     /// Ended before the books were opened; contributes nothing.
     let ignored: Bool
+    /// The local day this run ended on reached a mile: a streak day.
+    let streakDay: Bool
 
     var id: UUID { run.id }
 }
@@ -78,6 +80,8 @@ struct Report: Equatable, Sendable {
     let nextInterestAt: Date?
     /// Credit that will decay away over the next week at the current rate.
     let creditExpiringThisWeekMiles: Double
+    /// The running streak as of `at` (spec §25).
+    let streak: StreakStatus
 
     func statement(for beerID: UUID) -> BeerStatement? {
         beers.first { $0.id == beerID }

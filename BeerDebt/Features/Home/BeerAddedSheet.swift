@@ -38,6 +38,22 @@ struct BeerAddedSheet: View {
 
                     if let opening, let statement, let entry {
                         headline(opening: opening, now: statement, entry: entry, balance: current.balance, rules: current.rules)
+                        if current.streak.interestProtectionActive {
+                            HStack(spacing: 10) {
+                                StreakFlame(lit: true, size: 28)
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text("\(current.streak.currentStreakDays) day streak")
+                                        .font(.subheadline.weight(.semibold))
+                                        .foregroundStyle(Theme.cream)
+                                    Text(current.streak.todayProtected ? "0% APR while your streak holds." : "Run 1+ mile today and this beer earns 0% APR.")
+                                        .font(.caption)
+                                        .foregroundStyle(Theme.cream.opacity(0.7))
+                                }
+                                Spacer()
+                            }
+                            .padding(14)
+                            .background(Theme.forestDeep.opacity(0.7), in: RoundedRectangle(cornerRadius: 14))
+                        }
                         if !statement.isPaid {
                             projection(statement, rules: current.rules, from: now)
                         }

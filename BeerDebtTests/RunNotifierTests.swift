@@ -55,4 +55,35 @@ struct RunNotifierTests {
             before: balance(.even), after: balance(.even), beersPaidOff: 0))
         #expect(m == nil)
     }
+
+    // MARK: Streaks (spec §25)
+
+    @Test func dayTwoActivationGetsItsOwnTitle() {
+        let m = RunNotifier.message(for: .init(addedRuns: [run(1.2, endedAt: t0)], removedRuns: 0,
+            before: balance(.debt, debt: 3), after: balance(.debt, debt: 1.8), beersPaidOff: 1,
+            streakDays: 2, streakDay: true, streakActivated: true))
+        #expect(m?.title == "2 day streak: 0% APR, earned")
+        #expect(m?.body == "Run logged: 1.2 mi. Paid off 1 beer. 1.8 mi still owed. Your debt interest is now paused.")
+    }
+
+    @Test func aStreakDayAddsOneLine() {
+        let m = RunNotifier.message(for: .init(addedRuns: [run(1.5, endedAt: t0)], removedRuns: 0,
+            before: balance(.even), after: balance(.credit, credit: 1.5), beersPaidOff: 0,
+            streakDays: 5, streakDay: true))
+        #expect(m == .init(title: "Run logged: 1.5 mi", body: "1.5 beers banked for later. 🔥 5 day streak, interest paused."))
+    }
+
+    @Test func dayOneNudgesTowardTomorrow() {
+        let m = RunNotifier.message(for: .init(addedRuns: [run(1.0, endedAt: t0)], removedRuns: 0,
+            before: balance(.debt, debt: 2), after: balance(.debt, debt: 1), beersPaidOff: 1,
+            streakDays: 1, streakDay: true))
+        #expect(m?.body.hasSuffix("🔥 Day one of a streak. Run 1+ mile tomorrow to pause interest.") == true)
+    }
+
+    @Test func aShortRunSaysNothingAboutStreaks() {
+        let m = RunNotifier.message(for: .init(addedRuns: [run(0.5, endedAt: t0)], removedRuns: 0,
+            before: balance(.debt, debt: 2), after: balance(.debt, debt: 1.5), beersPaidOff: 0,
+            streakDays: 3, streakDay: false))
+        #expect(m?.body == "Knocked 0.5 mi off your tab. 1.5 mi still owed.")
+    }
 }

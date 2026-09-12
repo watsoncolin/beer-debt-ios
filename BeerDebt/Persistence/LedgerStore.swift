@@ -45,6 +45,13 @@ final class LedgerStore {
             ledger = Ledger(openedAt: opened)
             save()
         }
+        // Streak protection arrived after 1.0. Ledgers from before decode it as
+        // off; switch it on from now, as a rules change, so history stands.
+        if !ledger.currentRules.streakProtection {
+            var rules = ledger.currentRules
+            rules.streakProtection = true
+            updateRules(rules, at: now)
+        }
     }
 
     // MARK: Reading

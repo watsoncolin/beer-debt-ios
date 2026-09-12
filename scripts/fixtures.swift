@@ -12,6 +12,10 @@ let week: TimeInterval = 7 * day
 /// 2026-09-12 20:00:00 UTC, a Saturday night at the bar.
 let t0 = Date(timeIntervalSince1970: 1_789_243_200)
 func at(_ offset: TimeInterval) -> Date { t0.addingTimeInterval(offset) }
+/// Streak days are local calendar days; the fixtures pin the calendar to UTC.
+var utc: Calendar { var c = Calendar(identifier: .gregorian); c.timeZone = TimeZone(identifier: "UTC")!; return c }
+/// 07:00 UTC on t0 + n days.
+func morning(_ n: Int) -> Date { at(Double(n) * day - 13 * hour) }
 
 var nextID = 0
 func uuid() -> UUID {
@@ -31,6 +35,7 @@ func run(_ miles: Double, endedAt: Date, importedAt: Date? = nil) -> RunEntry {
              distanceMeters: miles * RunEntry.metersPerMile, importedAt: importedAt ?? endedAt, sourceName: "Fixture")
 }
 var noDecay: Rules { var r = Rules.default; r.creditDecayRatePerWeek = 0; return r }
+var noStreak: Rules { var r = Rules.default; r.streakProtection = false; return r }
 func withChange(_ base: Ledger, at date: Date, _ mutate: (inout Rules) -> Void) -> Ledger {
     var l = base; var rules = l.currentRules; mutate(&rules)
     l.rulesHistory.append(RulesChange(effectiveAt: date, rules: rules)); return l
@@ -50,8 +55,21 @@ struct ExpectedBeer: Codable {
     }
 }
 struct ExpectedRun: Codable {
-    let id: UUID, debtPaidMiles: Double, creditEarnedMiles: Double, discardedMiles: Double, ignored: Bool
-    init(_ s: RunStatement) { id = s.id; debtPaidMiles = s.debtPaidMiles; creditEarnedMiles = s.creditEarnedMiles; discardedMiles = s.discardedMiles; ignored = s.ignored }
+    let id: UUID, debtPaidMiles: Double, creditEarnedMiles: Double, discardedMiles: Double, ignored: Bool, streakDay: Bool
+    init(_ s: RunStatement) { id = s.id; debtPaidMiles = s.debtPaidMiles; creditEarnedMiles = s.creditEarnedMiles; discardedMiles = s.discardedMiles; ignored = s.ignored; streakDay = s.streakDay }
+}
+struct ExpectedStreakDay: Codable {
+    let day: Date, miles: Double, qualifies: Bool, streakNumber: Int, interestProtected: Bool
+    init(_ d: StreakDay) { day = d.day; miles = d.miles; qualifies = d.qualifies; streakNumber = d.streakNumber; interestProtected = d.interestProtected }
+}
+struct ExpectedStreak: Codable {
+    let currentStreakDays: Int, longestStreakDays: Int, totalQualifyingDays: Int, todayMiles: Double, todayQualifies: Bool
+    let interestProtectionActive: Bool, todayProtected: Bool, days: [ExpectedStreakDay]
+    init(_ s: StreakStatus) {
+        currentStreakDays = s.currentStreakDays; longestStreakDays = s.longestStreakDays; totalQualifyingDays = s.totalQualifyingDays
+        todayMiles = s.todayMiles; todayQualifies = s.todayQualifies; interestProtectionActive = s.interestProtectionActive
+        todayProtected = s.todayProtected; days = s.days.map(ExpectedStreakDay.init)
+    }
 }
 struct ExpectedBalance: Codable {
     let state: String, debtMiles: Double, principalMiles: Double, interestMiles: Double, creditMiles: Double, creditBeers: Double
@@ -61,15 +79,15 @@ struct ExpectedBalance: Codable {
     }
 }
 struct Expected: Codable {
-    let balance: ExpectedBalance, beers: [ExpectedBeer], runs: [ExpectedRun], nextInterestAt: Date?, creditExpiringThisWeekMiles: Double
-    init(_ r: Report) { balance = .init(r.balance); beers = r.beers.map(ExpectedBeer.init); runs = r.runs.map(ExpectedRun.init); nextInterestAt = r.nextInterestAt; creditExpiringThisWeekMiles = r.creditExpiringThisWeekMiles }
+    let balance: ExpectedBalance, beers: [ExpectedBeer], runs: [ExpectedRun], nextInterestAt: Date?, creditExpiringThisWeekMiles: Double, streak: ExpectedStreak
+    init(_ r: Report) { balance = .init(r.balance); beers = r.beers.map(ExpectedBeer.init); runs = r.runs.map(ExpectedRun.init); nextInterestAt = r.nextInterestAt; creditExpiringThisWeekMiles = r.creditExpiringThisWeekMiles; streak = .init(r.streak) }
 }
 struct Case: Codable { let name: String, now: Date, ledger: Ledger, expected: Expected }
-struct Fixtures: Codable { let version: Int, tolerance: Double, note: String, cases: [Case] }
+struct Fixtures: Codable { let version: Int, tolerance: Double, timeZone: String, note: String, cases: [Case] }
 
 var cases: [Case] = []
 func add(_ name: String, _ l: Ledger, at now: Date) {
-    cases.append(Case(name: name, now: now, ledger: l, expected: Expected(BalanceEngine.report(for: l, at: now))))
+    cases.append(Case(name: name, now: now, ledger: l, expected: Expected(BalanceEngine.report(for: l, at: now, calendar: utc))))
 }
 func add(_ name: String, _ l: Ledger, at nows: [(String, Date)]) {
     for (suffix, now) in nows { add("\(name) @ \(suffix)", l, at: now) }
@@ -125,13 +143,42 @@ add("a busy fortnight", ledger(
     runs: [run(1.5, endedAt: at(day + 8 * hour)), run(4.2, endedAt: at(4 * day)), run(0.8, endedAt: at(8 * day + 6 * hour)), run(6, endedAt: at(11 * day))]
 ), at: [("5d", at(5 * day)), ("10d", at(10 * day)), ("14d", at(14 * day))])
 
+// MARK: - Running streaks (spec §24; mirror StreakEngineTests). Calendar days are UTC here.
+
+do {
+    let five = (0..<5).map { _ in beer(t0) }
+    add("streak: day two skips the posting, day three without a run posts again",
+        ledger(beers: five, runs: [run(1.2, endedAt: morning(1)), run(1.2, endedAt: morning(2))]),
+        at: [("1d1h", at(day + hour)), ("2d1h", at(2 * day + hour)), ("3d1h", at(3 * day + hour))])
+    let off = ledger(rules: noStreak, beers: (0..<5).map { _ in beer(t0) }, runs: [run(1.2, endedAt: morning(1)), run(1.2, endedAt: morning(2))])
+    add("streak: protection off keeps posting", off, at: at(2 * day + hour))
+    add("streak: protection switched on mid-day skips that day's posting",
+        withChange(off, at: at(2 * day - 8 * hour)) { $0.streakProtection = true }, at: at(2 * day + hour))
+}
+do { var weekly = Rules.default; weekly.interestPeriod = .weekly; weekly.gracePeriod = 0
+     add("streak: a weekly posting on a protected day is skipped whole",
+         ledger(rules: weekly, beers: [beer(t0), beer(t0), beer(t0)], runs: [run(1, endedAt: morning(6)), run(1, endedAt: morning(7))]),
+         at: at(week + hour)) }
+add("streak: a short day breaks it and the next mile is day one",
+    ledger(openedAt: at(-day), beers: [beer(t0), beer(t0), beer(t0)], runs: [run(1.3, endedAt: morning(0)), run(2.0, endedAt: morning(1)), run(1.1, endedAt: morning(2)),
+                                                          run(0.4, endedAt: morning(3)), run(2.2, endedAt: morning(4))]),
+    at: at(4 * day + hour))
+add("streak: alive until today is over",
+    ledger(openedAt: at(-4 * day), runs: [run(1, endedAt: morning(-3)), run(1, endedAt: morning(-2)), run(1, endedAt: morning(-1))]),
+    at: [("today", t0), ("tomorrow", at(day))])
+add("streak: two runs in one day add up", ledger(openedAt: at(-day), runs: [run(0.4, endedAt: morning(0)), run(0.7, endedAt: at(-2 * hour))]), at: t0)
+add("streak: just under a mile does not count", ledger(openedAt: at(-day), runs: [run(0.999, endedAt: morning(0))]), at: t0)
+add("streak: survives a new beer during credit",
+    ledger(openedAt: at(-day), beers: [beer(at(5 * day))], runs: (0..<6).map { run(1.5, endedAt: morning($0)) }), at: at(6 * day + hour))
+
 let encoder = JSONEncoder()
 encoder.dateEncodingStrategy = .iso8601
 encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
 let fixtures = Fixtures(
-    version: 1,
+    version: 2,
     tolerance: 1e-6,
-    note: "Generated by beer-debt-ios/scripts/fixtures.sh from the Swift BalanceEngine. Ledger JSON is the app's on-disk format. Compare doubles with |a-b| <= tolerance; dates are ISO 8601 UTC whole seconds.",
+    timeZone: "UTC",
+    note: "Generated by beer-debt-ios/scripts/fixtures.sh from the Swift BalanceEngine. Ledger JSON is the app's on-disk format. Compare doubles with |a-b| <= tolerance; dates are ISO 8601 UTC whole seconds. Streak days are calendar days in timeZone.",
     cases: cases
 )
 let data = try! encoder.encode(fixtures)

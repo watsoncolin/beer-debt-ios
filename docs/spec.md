@@ -860,3 +860,44 @@ choose the second one.
 This app succeeds or fails on that loop.
 
 The weekend version should be small enough that the developer actually uses it at a bar Saturday night and sees their run automatically pay the tab Sunday morning.
+
+# 25. Running Streaks
+
+Added 2026-09-12 from the "Running Streaks" handoff. Rewards consistency
+without touching what is owed.
+
+- A **streak day** is a local calendar day with at least 1.0 mile of verified
+  running (HealthKit / Health Connect; runs on the same day add up; a metre of
+  GPS slack is allowed, so a watch that says 1.00 mi counts).
+- Day one starts the streak. From day two on, each qualifying day is
+  **interest-protected**: interest postings that fall on that day are
+  skipped. Nothing already accrued is refunded, principal is untouched, credit
+  decay continues, and runs still repay debt as before.
+- A day under a mile ends the streak; the next qualifying day is day one
+  again. No freezes, rest days, or manual fixes.
+- Days follow the user's calendar, not 24-hour windows. The streak is
+  derived from the runs on the books every time the ledger is replayed, so a
+  late import or a deleted run simply changes the answer, including for
+  earlier today (a run this evening removes the posting that landed this
+  morning).
+- Protection is a rule (`streakProtection`) so it switches on forward-only:
+  ledgers from before the feature keep their history and turn it on at
+  upgrade. Not user-tunable.
+- Streaks live alongside debt and credit: they survive a zero balance, a
+  credit balance, and a new beer.
+
+**Copy.** The bank's voice, not a fitness app's: "5 day streak", "0% APR —
+earned", "Interest paused", "Run 1+ mile tomorrow to unlock 0% APR", "Start a
+streak". Never "You're crushing it".
+
+**Screens.** A streak card on Home under the balance (no streak: quiet and
+dashed; day one: lit, nothing earned yet; two or more: earned). Tapping it
+opens **Your Streak**: the count, what it has earned, this calendar week as
+seven circles, longest streak, total streak days, and the rule in four
+lines. Beer Added mentions an earned streak. Run rows in Runs get a "Streak
+day" tag. The run notification adds a streak line, and the moment day two
+activates protection gets its own sheet (the running-shoe art), paired with
+Debt Free.
+
+**Out of scope for now:** streak on the widget and in the weekly summary,
+reminders when a streak is at risk, any reward beyond the paused interest.

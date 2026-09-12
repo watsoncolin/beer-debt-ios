@@ -29,7 +29,7 @@ Tests use Swift Testing (`import Testing`, `@Test`, `#expect`).
 `scripts/screenshots.sh [udid|booted]` installs the current simulator build,
 seeds demo ledgers (debt and credit states), and screenshots every screen into
 `docs/screenshots/`. It relies on the DEBUG-only launch argument
-`-debugScreen ledger|runs|settings|beerAdded|beerDetail|debtFree` handled in
+`-debugScreen ledger|runs|settings|streak|beerAdded|beerDetail|debtFree|streakActivated` handled in
 `RootView` / `HomeView` / `LedgerView`, and on writing `ledger.json` straight into the app container.
 Keep the seed shapes in that script in sync with `Ledger`'s JSON.
 
@@ -59,6 +59,9 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
   `booksOpenedAt`. Never store a derived balance; always replay via
   `BalanceEngine.report(for:at:)`, which returns the `Balance` plus per-beer
   and per-run statements the Ledger screen renders.
+- `BalanceEngine.report(for:at:calendar:)`: the calendar decides streak days.
+  Views use the device calendar (the default); tests and `scripts/fixtures.swift`
+  pin UTC so numbers never depend on the machine.
 - Rules changes are forward-only (decisions.md §B). Don't snapshot rules onto
   events and don't recompute history when rules change; append a
   `RulesChange` through `LedgerStore.updateRules`.
@@ -122,7 +125,10 @@ catalog holds resized copies: `AppIcon` light (1024, opaque green), dark and
 tinted variants (transparent / grayscale-transparent, generated from the
 cut-out by a PIL one-off), `BrandMark` (transparent trail mug, 600, used on
 onboarding and Beer Added), `DebtFreeTrophy` (600), `HomeBackdrop` (original
-size, single scale). `Backdrop`
+size, single scale), and the streak set (2026-09-12, prompts in
+`design/streak-assets-v1/PROMPTS.md`): `StreakFlame`, `StreakFlameUnlit`,
+`StreakActivated` (600 each; `StreakFlame` falls back to the SF Symbol when
+an asset is missing). `Backdrop`
 in `Theme.swift` draws the scene under a scrim tuned so cream text stays
 legible over the sunset band; if the art changes, re-check `home-debt` in
 `scripts/screenshots.sh`. The launch screen is `LaunchScreen.storyboard`
@@ -141,7 +147,10 @@ are in that config. Upload to App Store Connect goes through the API into the
 - `App/` — `BeerDebtApp` owns `LedgerStore` and `HealthSync` (created in
   `init` so HealthKit background launches register the observer) and hands
   them to `RootView` (single `NavigationStack`, no tab bar) via the environment.
-- `Engine/` — `BalanceEngine` (replay), `Balance` (output).
+- `Engine/` — `BalanceEngine` (replay; skips interest postings on protected
+  streak days), `Balance` (output, incl. `Report.streak` and
+  `RunStatement.streakDay`), `StreakEngine` (pure: runs → calendar days →
+  `StreakStatus`; spec §25, decisions §B.5).
 - `Models/` — `BeerEntry`, `RunEntry`, `Rules` (+ `CompoundingPeriod`), `Ledger` (+ `RulesChange`).
 - `Persistence/` — `LedgerStore` (observable owner of the JSON ledger file).
 - `Health/` — `HealthKitService` (authorization, anchored workout query with
@@ -155,8 +164,10 @@ are in that config. Upload to App Store Connect goes through the API into the
 - `Features/` — `Home`, `Ledger/DebtView` ("Your Debt": active/paid beers,
   reached by tapping the Home balance), `Runs/RunsView` (range picker, Swift
   Charts bar chart, run cards; reached from the Home runs card), `Settings`,
-  `Onboarding`, `Shared/WidgetPreviewScreen` (DEBUG). Beer feedback and beer
-  detail are sheets.
+  `Onboarding`, `Streak` (`StreakCard` on Home, `StreakView` "Your Streak",
+  `StreakActivatedSheet`, `StreakFlame` + `StreakCopy` shared words),
+  `Shared/WidgetPreviewScreen` (DEBUG). Beer feedback, beer detail, debt
+  free, and streak activated are sheets.
 - `Theme/` — palette, `Backdrop`, `GoldButtonStyle`, `Pill`, `Format`
   (all number/date formatting; keep it out of views), and the app-wide dark
   treatment: `RootView` forces `.preferredColorScheme(.dark)`, every

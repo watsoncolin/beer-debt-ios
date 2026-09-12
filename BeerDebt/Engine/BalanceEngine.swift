@@ -16,6 +16,10 @@ import Foundation
 /// - A run pays the oldest debt first (interest, then principal). Leftover
 ///   miles become credit up to the cap; anything past the cap is discarded.
 /// - Rules changes apply forward only. Past postings are never recalculated.
+/// - A posting that falls on an interest-protected streak day (spec §25: the
+///   day and the day before each had a mile of running) is skipped while the
+///   `streakProtection` rule is on. Streak days are local calendar days in
+///   `calendar`, derived from the runs on the books as of `now`.
 enum BalanceEngine {
     static let epsilon = 1e-9
     static let week: TimeInterval = 7 * 24 * 60 * 60
@@ -25,8 +29,8 @@ enum BalanceEngine {
     /// cover is written off rather than left to accrue interest forever.
     static let writeOffThresholdMiles = 0.05
 
-    static func report(for ledger: Ledger, at now: Date) -> Report {
-        var replay = Replay(ledger: ledger, now: now)
+    static func report(for ledger: Ledger, at now: Date, calendar: Calendar = .current) -> Report {
+        var replay = Replay(ledger: ledger, now: now, calendar: calendar)
         return replay.run()
     }
 }
@@ -101,12 +105,18 @@ private struct Replay {
     /// The instant everything has been brought forward to.
     private var clock: Date
     private var runStatements: [RunStatement] = []
+    private let streak: StreakStatus
 
-    init(ledger: Ledger, now: Date) {
+    init(ledger: Ledger, now: Date, calendar: Calendar) {
         self.ledger = ledger
         self.now = now
         rules = ledger.rulesHistory.first?.rules ?? .default
         clock = min(ledger.booksOpenedAt, now)
+        streak = StreakEngine.calculate(
+            runs: ledger.runs.filter { $0.endedAt >= ledger.booksOpenedAt },
+            at: now,
+            calendar: calendar
+        )
     }
 
     mutating func run() -> Report {
@@ -137,7 +147,8 @@ private struct Replay {
         guard t >= clock else { return }
         for i in open.indices {
             while open[i].nextPostingAt <= t {
-                if rules.interestEnabled {
+                let paused = rules.streakProtection && streak.isProtected(on: open[i].nextPostingAt)
+                if rules.interestEnabled, !paused {
                     let step = open[i].outstanding * rules.interestRate
                     open[i].interestRemaining += step
                     open[i].interestAccrued += step
@@ -196,7 +207,7 @@ private struct Replay {
     private mutating func apply(_ run: RunEntry) {
         guard run.endedAt >= ledger.booksOpenedAt else {
             runStatements.append(RunStatement(
-                run: run, debtPaidMiles: 0, creditEarnedMiles: 0, discardedMiles: 0, ignored: true
+                run: run, debtPaidMiles: 0, creditEarnedMiles: 0, discardedMiles: 0, ignored: true, streakDay: false
             ))
             return
         }
@@ -230,7 +241,8 @@ private struct Replay {
             debtPaidMiles: debtPaid,
             creditEarnedMiles: earned,
             discardedMiles: leftover - earned,
-            ignored: false
+            ignored: false,
+            streakDay: streak.qualifies(on: run.endedAt)
         ))
     }
 
@@ -283,7 +295,8 @@ private struct Replay {
             runs: runStatements.sorted { $0.run.endedAt < $1.run.endedAt },
             rules: rules,
             nextInterestAt: rules.interestEnabled ? open.map(\.nextPostingAt).min() : nil,
-            creditExpiringThisWeekMiles: credit * rules.creditDecayRatePerWeek
+            creditExpiringThisWeekMiles: credit * rules.creditDecayRatePerWeek,
+            streak: streak
         )
     }
 }

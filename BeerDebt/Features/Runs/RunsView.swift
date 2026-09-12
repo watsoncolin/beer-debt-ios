@@ -123,10 +123,15 @@ private struct RunCard: View {
                 }
             }
             Spacer()
-            if statement.ignored {
-                Pill(text: "Ignored", color: Theme.cream.opacity(0.6))
-            } else {
-                Pill(text: "Applied", color: Theme.creditSoft)
+            VStack(alignment: .trailing, spacing: 6) {
+                if statement.ignored {
+                    Pill(text: "Ignored", color: Theme.cream.opacity(0.6))
+                } else {
+                    Pill(text: "Applied", color: Theme.creditSoft)
+                }
+                if statement.streakDay {
+                    Pill(text: "🔥 Streak day", color: Theme.gold)
+                }
             }
         }
     }

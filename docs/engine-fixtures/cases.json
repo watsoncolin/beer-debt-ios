@@ -16,7 +16,19 @@
         "creditExpiringThisWeekMiles" : 0,
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -35,7 +47,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -77,7 +90,19 @@
         "nextInterestAt" : "2026-09-13T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -99,7 +124,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -169,7 +195,19 @@
         "nextInterestAt" : "2026-09-13T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -199,7 +237,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -241,7 +280,19 @@
         "nextInterestAt" : "2026-09-13T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -263,7 +314,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 2
+              "milesPerBeer" : 2,
+              "streakProtection" : true
             }
           }
         ],
@@ -291,7 +343,19 @@
         "creditExpiringThisWeekMiles" : 0,
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -313,7 +377,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -355,7 +420,19 @@
         "nextInterestAt" : "2026-09-13T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -377,7 +454,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -419,7 +497,19 @@
         "nextInterestAt" : "2026-09-14T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -441,7 +531,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -483,7 +574,19 @@
         "nextInterestAt" : "2026-09-15T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -505,7 +608,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -547,7 +651,19 @@
         "nextInterestAt" : "2026-09-18T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -569,7 +685,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -611,7 +728,19 @@
         "nextInterestAt" : "2026-09-19T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -633,7 +762,8 @@
               "interestPeriod" : "weekly",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -675,7 +805,19 @@
         "nextInterestAt" : "2026-09-26T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -697,7 +839,8 @@
               "interestPeriod" : "weekly",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -739,7 +882,19 @@
         "nextInterestAt" : "2026-09-13T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -761,7 +916,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -803,7 +959,19 @@
         "nextInterestAt" : "2026-09-14T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -825,7 +993,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -867,7 +1036,19 @@
         "nextInterestAt" : "2026-09-19T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -889,7 +1070,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -931,7 +1113,19 @@
         "nextInterestAt" : "2026-09-20T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -953,7 +1147,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -995,7 +1190,19 @@
         "nextInterestAt" : "2026-09-21T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -1017,7 +1224,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -1057,7 +1265,19 @@
         "creditExpiringThisWeekMiles" : 0,
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -1079,7 +1299,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -1124,9 +1345,98 @@
             "debtPaidMiles" : 1,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000014",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-13T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-14T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-15T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-16T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-17T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-18T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-19T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-20T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-21T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-22T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -1148,7 +1458,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -1201,9 +1512,28 @@
             "debtPaidMiles" : 1,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000017",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 1,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1,
+              "qualifies" : true,
+              "streakNumber" : 1
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 1,
+          "todayProtected" : false,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -1225,7 +1555,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -1279,9 +1610,28 @@
             "debtPaidMiles" : 0.4,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000020",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : false
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0.4,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0.4,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -1303,7 +1653,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -1385,9 +1736,35 @@
             "debtPaidMiles" : 1.5,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000025",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 1,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1.5,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-13T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -1417,7 +1794,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -1471,9 +1849,28 @@
             "debtPaidMiles" : 0.5,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000028",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : false
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+            {
+              "day" : "2026-09-13T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0.5,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0.5,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -1495,7 +1892,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -1549,9 +1947,35 @@
             "debtPaidMiles" : 0.5,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000028",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : false
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+            {
+              "day" : "2026-09-13T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0.5,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-14T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -1573,7 +1997,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -1626,9 +2051,28 @@
             "debtPaidMiles" : 1,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000031",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 1,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 3,
+              "qualifies" : true,
+              "streakNumber" : 1
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 3,
+          "todayProtected" : false,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -1650,7 +2094,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -1690,9 +2135,28 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 2,
             "id" : "00000000-0000-4000-8000-000000000033",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 1,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 5,
+              "qualifies" : true,
+              "streakNumber" : 1
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 5,
+          "todayProtected" : false,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -1711,7 +2175,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -1751,9 +2216,28 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 4,
             "id" : "00000000-0000-4000-8000-000000000035",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 1,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 10,
+              "qualifies" : true,
+              "streakNumber" : 1
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 10,
+          "todayProtected" : false,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -1772,7 +2256,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 2
+              "milesPerBeer" : 2,
+              "streakProtection" : true
             }
           }
         ],
@@ -1812,9 +2297,28 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000037",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 1,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 2,
+              "qualifies" : true,
+              "streakNumber" : 1
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 2,
+          "todayProtected" : false,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -1833,7 +2337,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -1873,9 +2378,77 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000037",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 2,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-13T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-14T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-15T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-16T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-17T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-18T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-19T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -1894,7 +2467,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -1934,9 +2508,126 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000037",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 2,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-13T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-14T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-15T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-16T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-17T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-18T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-19T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-20T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-21T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-22T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-23T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-24T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-25T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-26T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -1955,7 +2646,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -1995,9 +2687,518 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000039",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 2,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-13T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-14T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-15T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-16T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-17T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-18T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-19T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-20T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-21T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-22T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-23T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-24T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-25T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-26T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-27T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-28T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-29T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-30T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-01T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-02T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-03T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-04T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-05T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-06T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-07T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-08T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-09T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-10T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-11T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-13T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-14T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-15T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-16T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-17T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-18T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-19T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-20T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-21T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-22T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-23T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-24T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-25T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-26T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-27T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-28T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-29T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-30T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-10-31T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-01T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-02T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-03T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-04T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-05T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-06T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-07T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-08T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-09T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-10T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-11T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-13T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-14T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-15T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-16T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-17T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-18T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-19T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-20T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-11-21T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -2016,7 +3217,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -2069,9 +3271,28 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000042",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 1,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 2,
+              "qualifies" : true,
+              "streakNumber" : 1
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 2,
+          "todayProtected" : false,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -2093,7 +3314,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -2147,9 +3369,28 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000045",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : false
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0.4,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0.4,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -2171,7 +3412,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -2211,9 +3453,28 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000049",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 1,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1,
+              "qualifies" : true,
+              "streakNumber" : 1
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 1,
+          "todayProtected" : false,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -2239,7 +3500,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -2292,9 +3554,28 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000049",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 1,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1,
+              "qualifies" : true,
+              "streakNumber" : 1
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 1,
+          "todayProtected" : false,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -2320,7 +3601,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -2388,9 +3670,28 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000049",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 1,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1,
+              "qualifies" : true,
+              "streakNumber" : 1
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 1,
+          "todayProtected" : false,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -2416,7 +3717,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -2466,7 +3768,19 @@
         "nextInterestAt" : "2026-09-13T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -2488,7 +3802,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -2541,9 +3856,28 @@
             "debtPaidMiles" : 1,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000052",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 1,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 2,
+              "qualifies" : true,
+              "streakNumber" : 1
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 2,
+          "todayProtected" : false,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -2565,7 +3899,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -2605,9 +3940,28 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000054",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : false
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0.04,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0.04,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -2626,7 +3980,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -2679,9 +4034,28 @@
             "debtPaidMiles" : 0.97,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000057",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : false
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0.97,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0.97,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -2703,7 +4077,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -2756,9 +4131,28 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000060",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : false
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0.97,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0.97,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -2780,7 +4174,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -2834,9 +4229,28 @@
             "debtPaidMiles" : 0.9000000000000001,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000063",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : false
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0.9000000000000001,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0.9000000000000001,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -2858,7 +4272,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -2922,7 +4337,19 @@
         "nextInterestAt" : "2026-09-13T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -2948,7 +4375,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           },
           {
@@ -2959,7 +4387,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 2
+              "milesPerBeer" : 2,
+              "streakProtection" : true
             }
           }
         ],
@@ -3001,7 +4430,19 @@
         "nextInterestAt" : "2026-09-15T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -3023,7 +4464,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           },
           {
@@ -3034,7 +4476,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -3074,7 +4517,19 @@
         "creditExpiringThisWeekMiles" : 0,
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -3096,7 +4551,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           },
           {
@@ -3107,7 +4563,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -3149,7 +4606,19 @@
         "nextInterestAt" : "2026-09-15T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -3171,7 +4640,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           },
           {
@@ -3182,7 +4652,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -3224,7 +4695,19 @@
         "nextInterestAt" : "2026-09-16T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -3246,7 +4729,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           },
           {
@@ -3257,7 +4741,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -3299,7 +4784,19 @@
         "nextInterestAt" : "2026-09-14T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -3321,7 +4818,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           },
           {
@@ -3332,7 +4830,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.2,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -3374,7 +4873,19 @@
         "nextInterestAt" : "2026-09-15T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -3396,7 +4907,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           },
           {
@@ -3407,7 +4919,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.2,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -3449,7 +4962,19 @@
         "nextInterestAt" : "2026-09-21T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -3471,7 +4996,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           },
           {
@@ -3482,7 +5008,8 @@
               "interestPeriod" : "weekly",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -3524,7 +5051,19 @@
         "nextInterestAt" : "2026-09-28T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -3546,7 +5085,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           },
           {
@@ -3557,7 +5097,8 @@
               "interestPeriod" : "weekly",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -3599,7 +5140,19 @@
         "nextInterestAt" : "2026-09-19T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -3621,7 +5174,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           },
           {
@@ -3632,7 +5186,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -3674,7 +5229,19 @@
         "nextInterestAt" : "2026-09-16T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -3696,7 +5263,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           },
           {
@@ -3707,7 +5275,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -3749,7 +5318,19 @@
         "nextInterestAt" : "2026-09-17T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -3771,7 +5352,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           },
           {
@@ -3782,7 +5364,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -3814,16 +5397,36 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 2,
             "id" : "00000000-0000-4000-8000-000000000072",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           },
           {
             "creditEarnedMiles" : 2,
             "debtPaidMiles" : 0,
             "discardedMiles" : 3,
             "id" : "00000000-0000-4000-8000-000000000074",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 1,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 10,
+              "qualifies" : true,
+              "streakNumber" : 1
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 10,
+          "todayProtected" : false,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -3842,7 +5445,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           },
           {
@@ -3853,7 +5457,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 5,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -3902,9 +5507,22 @@
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000076",
-            "ignored" : true
+            "ignored" : true,
+            "streakDay" : false
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -3923,7 +5541,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -3976,9 +5595,70 @@
             "debtPaidMiles" : 1,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000079",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-13T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-14T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-15T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-16T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-17T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-18T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -4000,7 +5680,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -4053,9 +5734,35 @@
             "debtPaidMiles" : 1.1,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000082",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 1,
+          "days" : [
+            {
+              "day" : "2026-09-13T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 2,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-14T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -4078,7 +5785,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -4128,7 +5836,19 @@
         "nextInterestAt" : "2026-09-13T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -4150,7 +5870,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -4203,9 +5924,28 @@
             "debtPaidMiles" : 1.21,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000085",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 1,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 3,
+              "qualifies" : true,
+              "streakNumber" : 1
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 3,
+          "todayProtected" : false,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 1
+        }
       },
       "ledger" : {
         "beers" : [
@@ -4227,7 +5967,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -4277,7 +6018,19 @@
         "nextInterestAt" : "2026-11-01T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -4299,7 +6052,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -4341,7 +6095,19 @@
         "nextInterestAt" : "2026-11-02T20:00:00Z",
         "runs" : [
 
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
       },
       "ledger" : {
         "beers" : [
@@ -4363,7 +6129,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -4450,16 +6217,57 @@
             "debtPaidMiles" : 1.5,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000094",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           },
           {
             "creditEarnedMiles" : 1.0430000000000001,
             "debtPaidMiles" : 3.157,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000096",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 1,
+          "days" : [
+            {
+              "day" : "2026-09-14T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1.5,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-15T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-16T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 4.2,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-17T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 2
+        }
       },
       "ledger" : {
         "beers" : [
@@ -4501,7 +6309,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -4652,23 +6461,100 @@
             "debtPaidMiles" : 1.5,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000094",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           },
           {
             "creditEarnedMiles" : 1.0430000000000001,
             "debtPaidMiles" : 3.157,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000096",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           },
           {
             "creditEarnedMiles" : 0.8,
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000098",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : false
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+            {
+              "day" : "2026-09-14T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1.5,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-15T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-16T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 4.2,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-17T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-18T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-19T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-20T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-21T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0.8,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-22T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 2
+        }
       },
       "ledger" : {
         "beers" : [
@@ -4710,7 +6596,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -4860,30 +6747,136 @@
             "debtPaidMiles" : 1.5,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000094",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           },
           {
             "creditEarnedMiles" : 1.0430000000000001,
             "debtPaidMiles" : 3.157,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000096",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           },
           {
             "creditEarnedMiles" : 0.8,
             "debtPaidMiles" : 0,
             "discardedMiles" : 0,
             "id" : "00000000-0000-4000-8000-000000000098",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : false
           },
           {
             "creditEarnedMiles" : 3,
             "debtPaidMiles" : 0.24253794691694602,
             "discardedMiles" : 2.757462053083054,
             "id" : "00000000-0000-4000-8000-000000000100",
-            "ignored" : false
+            "ignored" : false,
+            "streakDay" : true
           }
-        ]
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+            {
+              "day" : "2026-09-14T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1.5,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-15T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-16T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 4.2,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-17T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-18T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-19T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-20T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-21T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0.8,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-22T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-23T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 6,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-24T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-25T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-26T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 3
+        }
       },
       "ledger" : {
         "beers" : [
@@ -4925,7 +6918,8 @@
               "interestPeriod" : "daily",
               "interestRate" : 0.1,
               "maximumCreditBeers" : 3,
-              "milesPerBeer" : 1
+              "milesPerBeer" : 1,
+              "streakProtection" : true
             }
           }
         ],
@@ -4971,9 +6965,2053 @@
       },
       "name" : "a busy fortnight @ 14d",
       "now" : "2026-09-26T20:00:00Z"
+    },
+    {
+      "expected" : {
+        "balance" : {
+          "creditBeers" : 0,
+          "creditMiles" : 0,
+          "debtMiles" : 4.18,
+          "interestMiles" : 0.38,
+          "principalMiles" : 3.8,
+          "state" : "debt"
+        },
+        "beers" : [
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000102",
+            "interestAccruedMiles" : 0,
+            "interestRemainingMiles" : 0,
+            "number" : 1,
+            "paidAt" : "2026-09-13T07:00:00Z",
+            "paidMiles" : 1,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 0,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000103",
+            "interestAccruedMiles" : 0.08000000000000002,
+            "interestRemainingMiles" : 0.08000000000000002,
+            "nextInterestAt" : "2026-09-14T20:00:00Z",
+            "number" : 2,
+            "paidMiles" : 0.19999999999999996,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 0.8,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000104",
+            "interestAccruedMiles" : 0.1,
+            "interestRemainingMiles" : 0.1,
+            "nextInterestAt" : "2026-09-14T20:00:00Z",
+            "number" : 3,
+            "paidMiles" : 0,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 1,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000105",
+            "interestAccruedMiles" : 0.1,
+            "interestRemainingMiles" : 0.1,
+            "nextInterestAt" : "2026-09-14T20:00:00Z",
+            "number" : 4,
+            "paidMiles" : 0,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 1,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000106",
+            "interestAccruedMiles" : 0.1,
+            "interestRemainingMiles" : 0.1,
+            "nextInterestAt" : "2026-09-14T20:00:00Z",
+            "number" : 5,
+            "paidMiles" : 0,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 1,
+            "writtenOffMiles" : 0
+          }
+        ],
+        "creditExpiringThisWeekMiles" : 0,
+        "nextInterestAt" : "2026-09-14T20:00:00Z",
+        "runs" : [
+          {
+            "creditEarnedMiles" : 0,
+            "debtPaidMiles" : 1.2,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000107",
+            "ignored" : false,
+            "streakDay" : true
+          }
+        ],
+        "streak" : {
+          "currentStreakDays" : 1,
+          "days" : [
+            {
+              "day" : "2026-09-13T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1.2,
+              "qualifies" : true,
+              "streakNumber" : 1
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 1.2,
+          "todayProtected" : false,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 1
+        }
+      },
+      "ledger" : {
+        "beers" : [
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000102"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000103"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000104"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000105"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000106"
+          }
+        ],
+        "booksOpenedAt" : "2026-09-12T20:00:00Z",
+        "excludedWorkoutIDs" : [
+
+        ],
+        "rulesHistory" : [
+          {
+            "effectiveAt" : "2026-09-12T20:00:00Z",
+            "rules" : {
+              "creditDecayRatePerWeek" : 0.1,
+              "gracePeriod" : 86400,
+              "interestPeriod" : "daily",
+              "interestRate" : 0.1,
+              "maximumCreditBeers" : 3,
+              "milesPerBeer" : 1,
+              "streakProtection" : true
+            }
+          }
+        ],
+        "runs" : [
+          {
+            "distanceMeters" : 1931.2128,
+            "endedAt" : "2026-09-13T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000108",
+            "id" : "00000000-0000-4000-8000-000000000107",
+            "importedAt" : "2026-09-13T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-13T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 1931.2128,
+            "endedAt" : "2026-09-14T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000110",
+            "id" : "00000000-0000-4000-8000-000000000109",
+            "importedAt" : "2026-09-14T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-14T06:30:00Z"
+          }
+        ],
+        "version" : 1
+      },
+      "name" : "streak: day two skips the posting, day three without a run posts again @ 1d1h",
+      "now" : "2026-09-13T21:00:00Z"
+    },
+    {
+      "expected" : {
+        "balance" : {
+          "creditBeers" : 0,
+          "creditMiles" : 0,
+          "debtMiles" : 2.9800000000000004,
+          "interestMiles" : 0.2,
+          "principalMiles" : 2.7800000000000002,
+          "state" : "debt"
+        },
+        "beers" : [
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000102",
+            "interestAccruedMiles" : 0,
+            "interestRemainingMiles" : 0,
+            "number" : 1,
+            "paidAt" : "2026-09-13T07:00:00Z",
+            "paidMiles" : 1,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 0,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000103",
+            "interestAccruedMiles" : 0.08000000000000002,
+            "interestRemainingMiles" : 0,
+            "number" : 2,
+            "paidAt" : "2026-09-14T07:00:00Z",
+            "paidMiles" : 1.08,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 0,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000104",
+            "interestAccruedMiles" : 0.1,
+            "interestRemainingMiles" : 0,
+            "nextInterestAt" : "2026-09-15T20:00:00Z",
+            "number" : 3,
+            "paidMiles" : 0.31999999999999984,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 0.7800000000000001,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000105",
+            "interestAccruedMiles" : 0.1,
+            "interestRemainingMiles" : 0.1,
+            "nextInterestAt" : "2026-09-15T20:00:00Z",
+            "number" : 4,
+            "paidMiles" : 0,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 1,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000106",
+            "interestAccruedMiles" : 0.1,
+            "interestRemainingMiles" : 0.1,
+            "nextInterestAt" : "2026-09-15T20:00:00Z",
+            "number" : 5,
+            "paidMiles" : 0,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 1,
+            "writtenOffMiles" : 0
+          }
+        ],
+        "creditExpiringThisWeekMiles" : 0,
+        "nextInterestAt" : "2026-09-15T20:00:00Z",
+        "runs" : [
+          {
+            "creditEarnedMiles" : 0,
+            "debtPaidMiles" : 1.2,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000107",
+            "ignored" : false,
+            "streakDay" : true
+          },
+          {
+            "creditEarnedMiles" : 0,
+            "debtPaidMiles" : 1.2,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000109",
+            "ignored" : false,
+            "streakDay" : true
+          }
+        ],
+        "streak" : {
+          "currentStreakDays" : 2,
+          "days" : [
+            {
+              "day" : "2026-09-13T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1.2,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-14T00:00:00Z",
+              "interestProtected" : true,
+              "miles" : 1.2,
+              "qualifies" : true,
+              "streakNumber" : 2
+            }
+          ],
+          "interestProtectionActive" : true,
+          "longestStreakDays" : 2,
+          "todayMiles" : 1.2,
+          "todayProtected" : true,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 2
+        }
+      },
+      "ledger" : {
+        "beers" : [
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000102"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000103"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000104"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000105"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000106"
+          }
+        ],
+        "booksOpenedAt" : "2026-09-12T20:00:00Z",
+        "excludedWorkoutIDs" : [
+
+        ],
+        "rulesHistory" : [
+          {
+            "effectiveAt" : "2026-09-12T20:00:00Z",
+            "rules" : {
+              "creditDecayRatePerWeek" : 0.1,
+              "gracePeriod" : 86400,
+              "interestPeriod" : "daily",
+              "interestRate" : 0.1,
+              "maximumCreditBeers" : 3,
+              "milesPerBeer" : 1,
+              "streakProtection" : true
+            }
+          }
+        ],
+        "runs" : [
+          {
+            "distanceMeters" : 1931.2128,
+            "endedAt" : "2026-09-13T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000108",
+            "id" : "00000000-0000-4000-8000-000000000107",
+            "importedAt" : "2026-09-13T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-13T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 1931.2128,
+            "endedAt" : "2026-09-14T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000110",
+            "id" : "00000000-0000-4000-8000-000000000109",
+            "importedAt" : "2026-09-14T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-14T06:30:00Z"
+          }
+        ],
+        "version" : 1
+      },
+      "name" : "streak: day two skips the posting, day three without a run posts again @ 2d1h",
+      "now" : "2026-09-14T21:00:00Z"
+    },
+    {
+      "expected" : {
+        "balance" : {
+          "creditBeers" : 0,
+          "creditMiles" : 0,
+          "debtMiles" : 3.278,
+          "interestMiles" : 0.49800000000000005,
+          "principalMiles" : 2.7800000000000002,
+          "state" : "debt"
+        },
+        "beers" : [
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000102",
+            "interestAccruedMiles" : 0,
+            "interestRemainingMiles" : 0,
+            "number" : 1,
+            "paidAt" : "2026-09-13T07:00:00Z",
+            "paidMiles" : 1,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 0,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000103",
+            "interestAccruedMiles" : 0.08000000000000002,
+            "interestRemainingMiles" : 0,
+            "number" : 2,
+            "paidAt" : "2026-09-14T07:00:00Z",
+            "paidMiles" : 1.08,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 0,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000104",
+            "interestAccruedMiles" : 0.17800000000000002,
+            "interestRemainingMiles" : 0.07800000000000001,
+            "nextInterestAt" : "2026-09-16T20:00:00Z",
+            "number" : 3,
+            "paidMiles" : 0.31999999999999984,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 0.7800000000000001,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000105",
+            "interestAccruedMiles" : 0.21000000000000002,
+            "interestRemainingMiles" : 0.21000000000000002,
+            "nextInterestAt" : "2026-09-16T20:00:00Z",
+            "number" : 4,
+            "paidMiles" : 0,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 1,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000106",
+            "interestAccruedMiles" : 0.21000000000000002,
+            "interestRemainingMiles" : 0.21000000000000002,
+            "nextInterestAt" : "2026-09-16T20:00:00Z",
+            "number" : 5,
+            "paidMiles" : 0,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 1,
+            "writtenOffMiles" : 0
+          }
+        ],
+        "creditExpiringThisWeekMiles" : 0,
+        "nextInterestAt" : "2026-09-16T20:00:00Z",
+        "runs" : [
+          {
+            "creditEarnedMiles" : 0,
+            "debtPaidMiles" : 1.2,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000107",
+            "ignored" : false,
+            "streakDay" : true
+          },
+          {
+            "creditEarnedMiles" : 0,
+            "debtPaidMiles" : 1.2,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000109",
+            "ignored" : false,
+            "streakDay" : true
+          }
+        ],
+        "streak" : {
+          "currentStreakDays" : 2,
+          "days" : [
+            {
+              "day" : "2026-09-13T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1.2,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-14T00:00:00Z",
+              "interestProtected" : true,
+              "miles" : 1.2,
+              "qualifies" : true,
+              "streakNumber" : 2
+            },
+            {
+              "day" : "2026-09-15T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : true,
+          "longestStreakDays" : 2,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 2
+        }
+      },
+      "ledger" : {
+        "beers" : [
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000102"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000103"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000104"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000105"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000106"
+          }
+        ],
+        "booksOpenedAt" : "2026-09-12T20:00:00Z",
+        "excludedWorkoutIDs" : [
+
+        ],
+        "rulesHistory" : [
+          {
+            "effectiveAt" : "2026-09-12T20:00:00Z",
+            "rules" : {
+              "creditDecayRatePerWeek" : 0.1,
+              "gracePeriod" : 86400,
+              "interestPeriod" : "daily",
+              "interestRate" : 0.1,
+              "maximumCreditBeers" : 3,
+              "milesPerBeer" : 1,
+              "streakProtection" : true
+            }
+          }
+        ],
+        "runs" : [
+          {
+            "distanceMeters" : 1931.2128,
+            "endedAt" : "2026-09-13T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000108",
+            "id" : "00000000-0000-4000-8000-000000000107",
+            "importedAt" : "2026-09-13T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-13T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 1931.2128,
+            "endedAt" : "2026-09-14T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000110",
+            "id" : "00000000-0000-4000-8000-000000000109",
+            "importedAt" : "2026-09-14T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-14T06:30:00Z"
+          }
+        ],
+        "version" : 1
+      },
+      "name" : "streak: day two skips the posting, day three without a run posts again @ 3d1h",
+      "now" : "2026-09-15T21:00:00Z"
+    },
+    {
+      "expected" : {
+        "balance" : {
+          "creditBeers" : 0,
+          "creditMiles" : 0,
+          "debtMiles" : 3.278,
+          "interestMiles" : 0.49800000000000005,
+          "principalMiles" : 2.7800000000000002,
+          "state" : "debt"
+        },
+        "beers" : [
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000111",
+            "interestAccruedMiles" : 0,
+            "interestRemainingMiles" : 0,
+            "number" : 1,
+            "paidAt" : "2026-09-13T07:00:00Z",
+            "paidMiles" : 1,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 0,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000112",
+            "interestAccruedMiles" : 0.08000000000000002,
+            "interestRemainingMiles" : 0,
+            "number" : 2,
+            "paidAt" : "2026-09-14T07:00:00Z",
+            "paidMiles" : 1.08,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 0,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000113",
+            "interestAccruedMiles" : 0.17800000000000002,
+            "interestRemainingMiles" : 0.07800000000000001,
+            "nextInterestAt" : "2026-09-15T20:00:00Z",
+            "number" : 3,
+            "paidMiles" : 0.31999999999999984,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 0.7800000000000001,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000114",
+            "interestAccruedMiles" : 0.21000000000000002,
+            "interestRemainingMiles" : 0.21000000000000002,
+            "nextInterestAt" : "2026-09-15T20:00:00Z",
+            "number" : 4,
+            "paidMiles" : 0,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 1,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000115",
+            "interestAccruedMiles" : 0.21000000000000002,
+            "interestRemainingMiles" : 0.21000000000000002,
+            "nextInterestAt" : "2026-09-15T20:00:00Z",
+            "number" : 5,
+            "paidMiles" : 0,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 1,
+            "writtenOffMiles" : 0
+          }
+        ],
+        "creditExpiringThisWeekMiles" : 0,
+        "nextInterestAt" : "2026-09-15T20:00:00Z",
+        "runs" : [
+          {
+            "creditEarnedMiles" : 0,
+            "debtPaidMiles" : 1.2,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000116",
+            "ignored" : false,
+            "streakDay" : true
+          },
+          {
+            "creditEarnedMiles" : 0,
+            "debtPaidMiles" : 1.2,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000118",
+            "ignored" : false,
+            "streakDay" : true
+          }
+        ],
+        "streak" : {
+          "currentStreakDays" : 2,
+          "days" : [
+            {
+              "day" : "2026-09-13T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1.2,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-14T00:00:00Z",
+              "interestProtected" : true,
+              "miles" : 1.2,
+              "qualifies" : true,
+              "streakNumber" : 2
+            }
+          ],
+          "interestProtectionActive" : true,
+          "longestStreakDays" : 2,
+          "todayMiles" : 1.2,
+          "todayProtected" : true,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 2
+        }
+      },
+      "ledger" : {
+        "beers" : [
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000111"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000112"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000113"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000114"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000115"
+          }
+        ],
+        "booksOpenedAt" : "2026-09-12T20:00:00Z",
+        "excludedWorkoutIDs" : [
+
+        ],
+        "rulesHistory" : [
+          {
+            "effectiveAt" : "2026-09-12T20:00:00Z",
+            "rules" : {
+              "creditDecayRatePerWeek" : 0.1,
+              "gracePeriod" : 86400,
+              "interestPeriod" : "daily",
+              "interestRate" : 0.1,
+              "maximumCreditBeers" : 3,
+              "milesPerBeer" : 1,
+              "streakProtection" : false
+            }
+          }
+        ],
+        "runs" : [
+          {
+            "distanceMeters" : 1931.2128,
+            "endedAt" : "2026-09-13T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000117",
+            "id" : "00000000-0000-4000-8000-000000000116",
+            "importedAt" : "2026-09-13T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-13T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 1931.2128,
+            "endedAt" : "2026-09-14T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000119",
+            "id" : "00000000-0000-4000-8000-000000000118",
+            "importedAt" : "2026-09-14T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-14T06:30:00Z"
+          }
+        ],
+        "version" : 1
+      },
+      "name" : "streak: protection off keeps posting",
+      "now" : "2026-09-14T21:00:00Z"
+    },
+    {
+      "expected" : {
+        "balance" : {
+          "creditBeers" : 0,
+          "creditMiles" : 0,
+          "debtMiles" : 2.9800000000000004,
+          "interestMiles" : 0.2,
+          "principalMiles" : 2.7800000000000002,
+          "state" : "debt"
+        },
+        "beers" : [
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000111",
+            "interestAccruedMiles" : 0,
+            "interestRemainingMiles" : 0,
+            "number" : 1,
+            "paidAt" : "2026-09-13T07:00:00Z",
+            "paidMiles" : 1,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 0,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000112",
+            "interestAccruedMiles" : 0.08000000000000002,
+            "interestRemainingMiles" : 0,
+            "number" : 2,
+            "paidAt" : "2026-09-14T07:00:00Z",
+            "paidMiles" : 1.08,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 0,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000113",
+            "interestAccruedMiles" : 0.1,
+            "interestRemainingMiles" : 0,
+            "nextInterestAt" : "2026-09-15T20:00:00Z",
+            "number" : 3,
+            "paidMiles" : 0.31999999999999984,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 0.7800000000000001,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000114",
+            "interestAccruedMiles" : 0.1,
+            "interestRemainingMiles" : 0.1,
+            "nextInterestAt" : "2026-09-15T20:00:00Z",
+            "number" : 4,
+            "paidMiles" : 0,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 1,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000115",
+            "interestAccruedMiles" : 0.1,
+            "interestRemainingMiles" : 0.1,
+            "nextInterestAt" : "2026-09-15T20:00:00Z",
+            "number" : 5,
+            "paidMiles" : 0,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 1,
+            "writtenOffMiles" : 0
+          }
+        ],
+        "creditExpiringThisWeekMiles" : 0,
+        "nextInterestAt" : "2026-09-15T20:00:00Z",
+        "runs" : [
+          {
+            "creditEarnedMiles" : 0,
+            "debtPaidMiles" : 1.2,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000116",
+            "ignored" : false,
+            "streakDay" : true
+          },
+          {
+            "creditEarnedMiles" : 0,
+            "debtPaidMiles" : 1.2,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000118",
+            "ignored" : false,
+            "streakDay" : true
+          }
+        ],
+        "streak" : {
+          "currentStreakDays" : 2,
+          "days" : [
+            {
+              "day" : "2026-09-13T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1.2,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-14T00:00:00Z",
+              "interestProtected" : true,
+              "miles" : 1.2,
+              "qualifies" : true,
+              "streakNumber" : 2
+            }
+          ],
+          "interestProtectionActive" : true,
+          "longestStreakDays" : 2,
+          "todayMiles" : 1.2,
+          "todayProtected" : true,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 2
+        }
+      },
+      "ledger" : {
+        "beers" : [
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000111"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000112"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000113"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000114"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000115"
+          }
+        ],
+        "booksOpenedAt" : "2026-09-12T20:00:00Z",
+        "excludedWorkoutIDs" : [
+
+        ],
+        "rulesHistory" : [
+          {
+            "effectiveAt" : "2026-09-12T20:00:00Z",
+            "rules" : {
+              "creditDecayRatePerWeek" : 0.1,
+              "gracePeriod" : 86400,
+              "interestPeriod" : "daily",
+              "interestRate" : 0.1,
+              "maximumCreditBeers" : 3,
+              "milesPerBeer" : 1,
+              "streakProtection" : false
+            }
+          },
+          {
+            "effectiveAt" : "2026-09-14T12:00:00Z",
+            "rules" : {
+              "creditDecayRatePerWeek" : 0.1,
+              "gracePeriod" : 86400,
+              "interestPeriod" : "daily",
+              "interestRate" : 0.1,
+              "maximumCreditBeers" : 3,
+              "milesPerBeer" : 1,
+              "streakProtection" : true
+            }
+          }
+        ],
+        "runs" : [
+          {
+            "distanceMeters" : 1931.2128,
+            "endedAt" : "2026-09-13T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000117",
+            "id" : "00000000-0000-4000-8000-000000000116",
+            "importedAt" : "2026-09-13T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-13T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 1931.2128,
+            "endedAt" : "2026-09-14T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000119",
+            "id" : "00000000-0000-4000-8000-000000000118",
+            "importedAt" : "2026-09-14T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-14T06:30:00Z"
+          }
+        ],
+        "version" : 1
+      },
+      "name" : "streak: protection switched on mid-day skips that day's posting",
+      "now" : "2026-09-14T21:00:00Z"
+    },
+    {
+      "expected" : {
+        "balance" : {
+          "creditBeers" : 0,
+          "creditMiles" : 0,
+          "debtMiles" : 1,
+          "interestMiles" : 0,
+          "principalMiles" : 1,
+          "state" : "debt"
+        },
+        "beers" : [
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000120",
+            "interestAccruedMiles" : 0,
+            "interestRemainingMiles" : 0,
+            "number" : 1,
+            "paidAt" : "2026-09-18T07:00:00Z",
+            "paidMiles" : 1,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 0,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000121",
+            "interestAccruedMiles" : 0,
+            "interestRemainingMiles" : 0,
+            "number" : 2,
+            "paidAt" : "2026-09-19T07:00:00Z",
+            "paidMiles" : 1,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 0,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000122",
+            "interestAccruedMiles" : 0,
+            "interestRemainingMiles" : 0,
+            "nextInterestAt" : "2026-09-26T20:00:00Z",
+            "number" : 3,
+            "paidMiles" : 0,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 1,
+            "writtenOffMiles" : 0
+          }
+        ],
+        "creditExpiringThisWeekMiles" : 0,
+        "nextInterestAt" : "2026-09-26T20:00:00Z",
+        "runs" : [
+          {
+            "creditEarnedMiles" : 0,
+            "debtPaidMiles" : 1,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000123",
+            "ignored" : false,
+            "streakDay" : true
+          },
+          {
+            "creditEarnedMiles" : 0,
+            "debtPaidMiles" : 1,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000125",
+            "ignored" : false,
+            "streakDay" : true
+          }
+        ],
+        "streak" : {
+          "currentStreakDays" : 2,
+          "days" : [
+            {
+              "day" : "2026-09-18T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-19T00:00:00Z",
+              "interestProtected" : true,
+              "miles" : 1,
+              "qualifies" : true,
+              "streakNumber" : 2
+            }
+          ],
+          "interestProtectionActive" : true,
+          "longestStreakDays" : 2,
+          "todayMiles" : 1,
+          "todayProtected" : true,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 2
+        }
+      },
+      "ledger" : {
+        "beers" : [
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000120"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000121"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000122"
+          }
+        ],
+        "booksOpenedAt" : "2026-09-12T20:00:00Z",
+        "excludedWorkoutIDs" : [
+
+        ],
+        "rulesHistory" : [
+          {
+            "effectiveAt" : "2026-09-12T20:00:00Z",
+            "rules" : {
+              "creditDecayRatePerWeek" : 0.1,
+              "gracePeriod" : 0,
+              "interestPeriod" : "weekly",
+              "interestRate" : 0.1,
+              "maximumCreditBeers" : 3,
+              "milesPerBeer" : 1,
+              "streakProtection" : true
+            }
+          }
+        ],
+        "runs" : [
+          {
+            "distanceMeters" : 1609.344,
+            "endedAt" : "2026-09-18T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000124",
+            "id" : "00000000-0000-4000-8000-000000000123",
+            "importedAt" : "2026-09-18T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-18T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 1609.344,
+            "endedAt" : "2026-09-19T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000126",
+            "id" : "00000000-0000-4000-8000-000000000125",
+            "importedAt" : "2026-09-19T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-19T06:30:00Z"
+          }
+        ],
+        "version" : 1
+      },
+      "name" : "streak: a weekly posting on a protected day is skipped whole",
+      "now" : "2026-09-19T21:00:00Z"
+    },
+    {
+      "expected" : {
+        "balance" : {
+          "creditBeers" : 2.97377516713591,
+          "creditMiles" : 2.97377516713591,
+          "debtMiles" : 0,
+          "interestMiles" : 0,
+          "principalMiles" : 0,
+          "state" : "credit"
+        },
+        "beers" : [
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 1,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000127",
+            "interestAccruedMiles" : 0,
+            "interestRemainingMiles" : 0,
+            "number" : 1,
+            "paidAt" : "2026-09-12T20:00:00Z",
+            "paidMiles" : 0,
+            "principalMiles" : 0,
+            "principalRemainingMiles" : 0,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0.28944432198895376,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000128",
+            "interestAccruedMiles" : 0,
+            "interestRemainingMiles" : 0,
+            "number" : 2,
+            "paidAt" : "2026-09-13T07:00:00Z",
+            "paidMiles" : 0.7105556780110462,
+            "principalMiles" : 0.7105556780110462,
+            "principalRemainingMiles" : 0,
+            "writtenOffMiles" : 0
+          },
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 0,
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000129",
+            "interestAccruedMiles" : 0,
+            "interestRemainingMiles" : 0,
+            "number" : 3,
+            "paidAt" : "2026-09-13T07:00:00Z",
+            "paidMiles" : 1,
+            "principalMiles" : 1,
+            "principalRemainingMiles" : 0,
+            "writtenOffMiles" : 0
+          }
+        ],
+        "creditExpiringThisWeekMiles" : 0.297377516713591,
+        "runs" : [
+          {
+            "creditEarnedMiles" : 1.3000000000000003,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000130",
+            "ignored" : false,
+            "streakDay" : true
+          },
+          {
+            "creditEarnedMiles" : 0.28944432198895376,
+            "debtPaidMiles" : 1.7105556780110462,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000132",
+            "ignored" : false,
+            "streakDay" : true
+          },
+          {
+            "creditEarnedMiles" : 1.1,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000134",
+            "ignored" : false,
+            "streakDay" : true
+          },
+          {
+            "creditEarnedMiles" : 0.4,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000136",
+            "ignored" : false,
+            "streakDay" : false
+          },
+          {
+            "creditEarnedMiles" : 1.2619300885064337,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 0.9380699114935664,
+            "id" : "00000000-0000-4000-8000-000000000138",
+            "ignored" : false,
+            "streakDay" : true
+          }
+        ],
+        "streak" : {
+          "currentStreakDays" : 1,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1.3000000000000003,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-13T00:00:00Z",
+              "interestProtected" : true,
+              "miles" : 2,
+              "qualifies" : true,
+              "streakNumber" : 2
+            },
+            {
+              "day" : "2026-09-14T00:00:00Z",
+              "interestProtected" : true,
+              "miles" : 1.1,
+              "qualifies" : true,
+              "streakNumber" : 3
+            },
+            {
+              "day" : "2026-09-15T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0.4,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-16T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 2.2,
+              "qualifies" : true,
+              "streakNumber" : 1
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 3,
+          "todayMiles" : 2.2,
+          "todayProtected" : false,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 4
+        }
+      },
+      "ledger" : {
+        "beers" : [
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000127"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000128"
+          },
+          {
+            "createdAt" : "2026-09-12T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000129"
+          }
+        ],
+        "booksOpenedAt" : "2026-09-11T20:00:00Z",
+        "excludedWorkoutIDs" : [
+
+        ],
+        "rulesHistory" : [
+          {
+            "effectiveAt" : "2026-09-11T20:00:00Z",
+            "rules" : {
+              "creditDecayRatePerWeek" : 0.1,
+              "gracePeriod" : 86400,
+              "interestPeriod" : "daily",
+              "interestRate" : 0.1,
+              "maximumCreditBeers" : 3,
+              "milesPerBeer" : 1,
+              "streakProtection" : true
+            }
+          }
+        ],
+        "runs" : [
+          {
+            "distanceMeters" : 2092.1472000000003,
+            "endedAt" : "2026-09-12T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000131",
+            "id" : "00000000-0000-4000-8000-000000000130",
+            "importedAt" : "2026-09-12T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-12T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 3218.688,
+            "endedAt" : "2026-09-13T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000133",
+            "id" : "00000000-0000-4000-8000-000000000132",
+            "importedAt" : "2026-09-13T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-13T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 1770.2784000000001,
+            "endedAt" : "2026-09-14T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000135",
+            "id" : "00000000-0000-4000-8000-000000000134",
+            "importedAt" : "2026-09-14T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-14T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 643.7376,
+            "endedAt" : "2026-09-15T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000137",
+            "id" : "00000000-0000-4000-8000-000000000136",
+            "importedAt" : "2026-09-15T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-15T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 3540.5568000000003,
+            "endedAt" : "2026-09-16T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000139",
+            "id" : "00000000-0000-4000-8000-000000000138",
+            "importedAt" : "2026-09-16T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-16T06:30:00Z"
+          }
+        ],
+        "version" : 1
+      },
+      "name" : "streak: a short day breaks it and the next mile is day one",
+      "now" : "2026-09-16T21:00:00Z"
+    },
+    {
+      "expected" : {
+        "balance" : {
+          "creditBeers" : 2.8876178868533473,
+          "creditMiles" : 2.8876178868533473,
+          "debtMiles" : 0,
+          "interestMiles" : 0,
+          "principalMiles" : 0,
+          "state" : "credit"
+        },
+        "beers" : [
+
+        ],
+        "creditExpiringThisWeekMiles" : 0.28876178868533475,
+        "runs" : [
+          {
+            "creditEarnedMiles" : 1,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000140",
+            "ignored" : false,
+            "streakDay" : true
+          },
+          {
+            "creditEarnedMiles" : 1,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000142",
+            "ignored" : false,
+            "streakDay" : true
+          },
+          {
+            "creditEarnedMiles" : 1,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000144",
+            "ignored" : false,
+            "streakDay" : true
+          }
+        ],
+        "streak" : {
+          "currentStreakDays" : 3,
+          "days" : [
+            {
+              "day" : "2026-09-09T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-10T00:00:00Z",
+              "interestProtected" : true,
+              "miles" : 1,
+              "qualifies" : true,
+              "streakNumber" : 2
+            },
+            {
+              "day" : "2026-09-11T00:00:00Z",
+              "interestProtected" : true,
+              "miles" : 1,
+              "qualifies" : true,
+              "streakNumber" : 3
+            },
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : true,
+          "longestStreakDays" : 3,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 3
+        }
+      },
+      "ledger" : {
+        "beers" : [
+
+        ],
+        "booksOpenedAt" : "2026-09-08T20:00:00Z",
+        "excludedWorkoutIDs" : [
+
+        ],
+        "rulesHistory" : [
+          {
+            "effectiveAt" : "2026-09-08T20:00:00Z",
+            "rules" : {
+              "creditDecayRatePerWeek" : 0.1,
+              "gracePeriod" : 86400,
+              "interestPeriod" : "daily",
+              "interestRate" : 0.1,
+              "maximumCreditBeers" : 3,
+              "milesPerBeer" : 1,
+              "streakProtection" : true
+            }
+          }
+        ],
+        "runs" : [
+          {
+            "distanceMeters" : 1609.344,
+            "endedAt" : "2026-09-09T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000141",
+            "id" : "00000000-0000-4000-8000-000000000140",
+            "importedAt" : "2026-09-09T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-09T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 1609.344,
+            "endedAt" : "2026-09-10T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000143",
+            "id" : "00000000-0000-4000-8000-000000000142",
+            "importedAt" : "2026-09-10T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-10T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 1609.344,
+            "endedAt" : "2026-09-11T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000145",
+            "id" : "00000000-0000-4000-8000-000000000144",
+            "importedAt" : "2026-09-11T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-11T06:30:00Z"
+          }
+        ],
+        "version" : 1
+      },
+      "name" : "streak: alive until today is over @ today",
+      "now" : "2026-09-12T20:00:00Z"
+    },
+    {
+      "expected" : {
+        "balance" : {
+          "creditBeers" : 2.844480356477085,
+          "creditMiles" : 2.844480356477085,
+          "debtMiles" : 0,
+          "interestMiles" : 0,
+          "principalMiles" : 0,
+          "state" : "credit"
+        },
+        "beers" : [
+
+        ],
+        "creditExpiringThisWeekMiles" : 0.28444803564770854,
+        "runs" : [
+          {
+            "creditEarnedMiles" : 1,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000140",
+            "ignored" : false,
+            "streakDay" : true
+          },
+          {
+            "creditEarnedMiles" : 1,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000142",
+            "ignored" : false,
+            "streakDay" : true
+          },
+          {
+            "creditEarnedMiles" : 1,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000144",
+            "ignored" : false,
+            "streakDay" : true
+          }
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+            {
+              "day" : "2026-09-09T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-10T00:00:00Z",
+              "interestProtected" : true,
+              "miles" : 1,
+              "qualifies" : true,
+              "streakNumber" : 2
+            },
+            {
+              "day" : "2026-09-11T00:00:00Z",
+              "interestProtected" : true,
+              "miles" : 1,
+              "qualifies" : true,
+              "streakNumber" : 3
+            },
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            },
+            {
+              "day" : "2026-09-13T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 3,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 3
+        }
+      },
+      "ledger" : {
+        "beers" : [
+
+        ],
+        "booksOpenedAt" : "2026-09-08T20:00:00Z",
+        "excludedWorkoutIDs" : [
+
+        ],
+        "rulesHistory" : [
+          {
+            "effectiveAt" : "2026-09-08T20:00:00Z",
+            "rules" : {
+              "creditDecayRatePerWeek" : 0.1,
+              "gracePeriod" : 86400,
+              "interestPeriod" : "daily",
+              "interestRate" : 0.1,
+              "maximumCreditBeers" : 3,
+              "milesPerBeer" : 1,
+              "streakProtection" : true
+            }
+          }
+        ],
+        "runs" : [
+          {
+            "distanceMeters" : 1609.344,
+            "endedAt" : "2026-09-09T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000141",
+            "id" : "00000000-0000-4000-8000-000000000140",
+            "importedAt" : "2026-09-09T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-09T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 1609.344,
+            "endedAt" : "2026-09-10T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000143",
+            "id" : "00000000-0000-4000-8000-000000000142",
+            "importedAt" : "2026-09-10T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-10T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 1609.344,
+            "endedAt" : "2026-09-11T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000145",
+            "id" : "00000000-0000-4000-8000-000000000144",
+            "importedAt" : "2026-09-11T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-11T06:30:00Z"
+          }
+        ],
+        "version" : 1
+      },
+      "name" : "streak: alive until today is over @ tomorrow",
+      "now" : "2026-09-13T20:00:00Z"
+    },
+    {
+      "expected" : {
+        "balance" : {
+          "creditBeers" : 1.0958746451830466,
+          "creditMiles" : 1.0958746451830466,
+          "debtMiles" : 0,
+          "interestMiles" : 0,
+          "principalMiles" : 0,
+          "state" : "credit"
+        },
+        "beers" : [
+
+        ],
+        "creditExpiringThisWeekMiles" : 0.10958746451830466,
+        "runs" : [
+          {
+            "creditEarnedMiles" : 0.4,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000146",
+            "ignored" : false,
+            "streakDay" : true
+          },
+          {
+            "creditEarnedMiles" : 0.7,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000148",
+            "ignored" : false,
+            "streakDay" : true
+          }
+        ],
+        "streak" : {
+          "currentStreakDays" : 1,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1.1,
+              "qualifies" : true,
+              "streakNumber" : 1
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 1,
+          "todayMiles" : 1.1,
+          "todayProtected" : false,
+          "todayQualifies" : true,
+          "totalQualifyingDays" : 1
+        }
+      },
+      "ledger" : {
+        "beers" : [
+
+        ],
+        "booksOpenedAt" : "2026-09-11T20:00:00Z",
+        "excludedWorkoutIDs" : [
+
+        ],
+        "rulesHistory" : [
+          {
+            "effectiveAt" : "2026-09-11T20:00:00Z",
+            "rules" : {
+              "creditDecayRatePerWeek" : 0.1,
+              "gracePeriod" : 86400,
+              "interestPeriod" : "daily",
+              "interestRate" : 0.1,
+              "maximumCreditBeers" : 3,
+              "milesPerBeer" : 1,
+              "streakProtection" : true
+            }
+          }
+        ],
+        "runs" : [
+          {
+            "distanceMeters" : 643.7376,
+            "endedAt" : "2026-09-12T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000147",
+            "id" : "00000000-0000-4000-8000-000000000146",
+            "importedAt" : "2026-09-12T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-12T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 1126.5408,
+            "endedAt" : "2026-09-12T18:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000149",
+            "id" : "00000000-0000-4000-8000-000000000148",
+            "importedAt" : "2026-09-12T18:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-12T17:30:00Z"
+          }
+        ],
+        "version" : 1
+      },
+      "name" : "streak: two runs in one day add up",
+      "now" : "2026-09-12T20:00:00Z"
+    },
+    {
+      "expected" : {
+        "balance" : {
+          "creditBeers" : 0.9908883674361265,
+          "creditMiles" : 0.9908883674361265,
+          "debtMiles" : 0,
+          "interestMiles" : 0,
+          "principalMiles" : 0,
+          "state" : "credit"
+        },
+        "beers" : [
+
+        ],
+        "creditExpiringThisWeekMiles" : 0.09908883674361266,
+        "runs" : [
+          {
+            "creditEarnedMiles" : 0.999,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000150",
+            "ignored" : false,
+            "streakDay" : false
+          }
+        ],
+        "streak" : {
+          "currentStreakDays" : 0,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0.999,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : false,
+          "longestStreakDays" : 0,
+          "todayMiles" : 0.999,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 0
+        }
+      },
+      "ledger" : {
+        "beers" : [
+
+        ],
+        "booksOpenedAt" : "2026-09-11T20:00:00Z",
+        "excludedWorkoutIDs" : [
+
+        ],
+        "rulesHistory" : [
+          {
+            "effectiveAt" : "2026-09-11T20:00:00Z",
+            "rules" : {
+              "creditDecayRatePerWeek" : 0.1,
+              "gracePeriod" : 86400,
+              "interestPeriod" : "daily",
+              "interestRate" : 0.1,
+              "maximumCreditBeers" : 3,
+              "milesPerBeer" : 1,
+              "streakProtection" : true
+            }
+          }
+        ],
+        "runs" : [
+          {
+            "distanceMeters" : 1607.734656,
+            "endedAt" : "2026-09-12T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000151",
+            "id" : "00000000-0000-4000-8000-000000000150",
+            "importedAt" : "2026-09-12T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-12T06:30:00Z"
+          }
+        ],
+        "version" : 1
+      },
+      "name" : "streak: just under a mile does not count",
+      "now" : "2026-09-12T20:00:00Z"
+    },
+    {
+      "expected" : {
+        "balance" : {
+          "creditBeers" : 1.9449069288533056,
+          "creditMiles" : 1.9449069288533056,
+          "debtMiles" : 0,
+          "interestMiles" : 0,
+          "principalMiles" : 0,
+          "state" : "credit"
+        },
+        "beers" : [
+          {
+            "costMiles" : 1,
+            "coveredByCreditMiles" : 1,
+            "createdAt" : "2026-09-17T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000152",
+            "interestAccruedMiles" : 0,
+            "interestRemainingMiles" : 0,
+            "number" : 1,
+            "paidAt" : "2026-09-17T20:00:00Z",
+            "paidMiles" : 0,
+            "principalMiles" : 0,
+            "principalRemainingMiles" : 0,
+            "writtenOffMiles" : 0
+          }
+        ],
+        "creditExpiringThisWeekMiles" : 0.19449069288533058,
+        "runs" : [
+          {
+            "creditEarnedMiles" : 1.5,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000153",
+            "ignored" : false,
+            "streakDay" : true
+          },
+          {
+            "creditEarnedMiles" : 1.5,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 0,
+            "id" : "00000000-0000-4000-8000-000000000155",
+            "ignored" : false,
+            "streakDay" : true
+          },
+          {
+            "creditEarnedMiles" : 0.06688982414067146,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 1.4331101758593285,
+            "id" : "00000000-0000-4000-8000-000000000157",
+            "ignored" : false,
+            "streakDay" : true
+          },
+          {
+            "creditEarnedMiles" : 0.044816383676653526,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 1.4551836163233465,
+            "id" : "00000000-0000-4000-8000-000000000159",
+            "ignored" : false,
+            "streakDay" : true
+          },
+          {
+            "creditEarnedMiles" : 0.044816383676653526,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 1.4551836163233465,
+            "id" : "00000000-0000-4000-8000-000000000161",
+            "ignored" : false,
+            "streakDay" : true
+          },
+          {
+            "creditEarnedMiles" : 0.044816383676653526,
+            "debtPaidMiles" : 0,
+            "discardedMiles" : 1.4551836163233465,
+            "id" : "00000000-0000-4000-8000-000000000163",
+            "ignored" : false,
+            "streakDay" : true
+          }
+        ],
+        "streak" : {
+          "currentStreakDays" : 6,
+          "days" : [
+            {
+              "day" : "2026-09-12T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 1.5,
+              "qualifies" : true,
+              "streakNumber" : 1
+            },
+            {
+              "day" : "2026-09-13T00:00:00Z",
+              "interestProtected" : true,
+              "miles" : 1.5,
+              "qualifies" : true,
+              "streakNumber" : 2
+            },
+            {
+              "day" : "2026-09-14T00:00:00Z",
+              "interestProtected" : true,
+              "miles" : 1.5,
+              "qualifies" : true,
+              "streakNumber" : 3
+            },
+            {
+              "day" : "2026-09-15T00:00:00Z",
+              "interestProtected" : true,
+              "miles" : 1.5,
+              "qualifies" : true,
+              "streakNumber" : 4
+            },
+            {
+              "day" : "2026-09-16T00:00:00Z",
+              "interestProtected" : true,
+              "miles" : 1.5,
+              "qualifies" : true,
+              "streakNumber" : 5
+            },
+            {
+              "day" : "2026-09-17T00:00:00Z",
+              "interestProtected" : true,
+              "miles" : 1.5,
+              "qualifies" : true,
+              "streakNumber" : 6
+            },
+            {
+              "day" : "2026-09-18T00:00:00Z",
+              "interestProtected" : false,
+              "miles" : 0,
+              "qualifies" : false,
+              "streakNumber" : 0
+            }
+          ],
+          "interestProtectionActive" : true,
+          "longestStreakDays" : 6,
+          "todayMiles" : 0,
+          "todayProtected" : false,
+          "todayQualifies" : false,
+          "totalQualifyingDays" : 6
+        }
+      },
+      "ledger" : {
+        "beers" : [
+          {
+            "createdAt" : "2026-09-17T20:00:00Z",
+            "id" : "00000000-0000-4000-8000-000000000152"
+          }
+        ],
+        "booksOpenedAt" : "2026-09-11T20:00:00Z",
+        "excludedWorkoutIDs" : [
+
+        ],
+        "rulesHistory" : [
+          {
+            "effectiveAt" : "2026-09-11T20:00:00Z",
+            "rules" : {
+              "creditDecayRatePerWeek" : 0.1,
+              "gracePeriod" : 86400,
+              "interestPeriod" : "daily",
+              "interestRate" : 0.1,
+              "maximumCreditBeers" : 3,
+              "milesPerBeer" : 1,
+              "streakProtection" : true
+            }
+          }
+        ],
+        "runs" : [
+          {
+            "distanceMeters" : 2414.016,
+            "endedAt" : "2026-09-12T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000154",
+            "id" : "00000000-0000-4000-8000-000000000153",
+            "importedAt" : "2026-09-12T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-12T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 2414.016,
+            "endedAt" : "2026-09-13T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000156",
+            "id" : "00000000-0000-4000-8000-000000000155",
+            "importedAt" : "2026-09-13T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-13T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 2414.016,
+            "endedAt" : "2026-09-14T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000158",
+            "id" : "00000000-0000-4000-8000-000000000157",
+            "importedAt" : "2026-09-14T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-14T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 2414.016,
+            "endedAt" : "2026-09-15T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000160",
+            "id" : "00000000-0000-4000-8000-000000000159",
+            "importedAt" : "2026-09-15T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-15T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 2414.016,
+            "endedAt" : "2026-09-16T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000162",
+            "id" : "00000000-0000-4000-8000-000000000161",
+            "importedAt" : "2026-09-16T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-16T06:30:00Z"
+          },
+          {
+            "distanceMeters" : 2414.016,
+            "endedAt" : "2026-09-17T07:00:00Z",
+            "healthKitWorkoutID" : "00000000-0000-4000-8000-000000000164",
+            "id" : "00000000-0000-4000-8000-000000000163",
+            "importedAt" : "2026-09-17T07:00:00Z",
+            "sourceName" : "Fixture",
+            "startedAt" : "2026-09-17T06:30:00Z"
+          }
+        ],
+        "version" : 1
+      },
+      "name" : "streak: survives a new beer during credit",
+      "now" : "2026-09-18T21:00:00Z"
     }
   ],
-  "note" : "Generated by beer-debt-ios\/scripts\/fixtures.sh from the Swift BalanceEngine. Ledger JSON is the app's on-disk format. Compare doubles with |a-b| <= tolerance; dates are ISO 8601 UTC whole seconds.",
+  "note" : "Generated by beer-debt-ios\/scripts\/fixtures.sh from the Swift BalanceEngine. Ledger JSON is the app's on-disk format. Compare doubles with |a-b| <= tolerance; dates are ISO 8601 UTC whole seconds. Streak days are calendar days in timeZone.",
+  "timeZone" : "UTC",
   "tolerance" : 1e-06,
-  "version" : 1
+  "version" : 2
 }

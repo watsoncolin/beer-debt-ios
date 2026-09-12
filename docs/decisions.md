@@ -132,6 +132,28 @@ imported.
 - **State.** `debt` if anything is outstanding; otherwise `credit` if the pool
   is ≥ 0.05 beers; otherwise `even`.
 
+### 5. Running streaks — DECIDED (2026-09-12)
+
+Colin approved the recommendations in the streak review:
+
+- **Forward-only start.** `Rules.streakProtection` decodes as off for
+  ledgers written before the feature and the store appends a rules change
+  turning it on at upgrade. New ledgers start with it on. Protection is
+  therefore never applied to postings from before the upgrade.
+- **Weekly compounding.** A weekly posting that lands on a protected day is
+  skipped whole. No prorating.
+- **Same-day retroactivity.** The streak is recomputed from the runs at
+  every replay, so an evening run removes the interest that posted that
+  morning. The owed number can go down during the day without a repayment;
+  that is the intended "run today to cancel today's interest" feel.
+- **Feedback.** No "run logged" sheet on every run. One celebration sheet
+  when day two activates protection; every other streak day gets a line in
+  the existing run notification.
+- **Threshold.** One mile less one metre, so 1.00 mi on a watch qualifies.
+- **Calendar days.** `BalanceEngine.report(for:at:calendar:)` takes the
+  calendar; the app passes the device's, tests and fixtures pin UTC. A user
+  who changes time zones can see a day regroup; accepted for MVP.
+
 ## C. HealthKit
 
 - Read types: workouts + `distanceWalkingRunning` (needed to read a workout's

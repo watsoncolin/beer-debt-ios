@@ -65,6 +65,11 @@ struct HomeView: View {
 
                 Spacer(minLength: 0)
 
+                NavigationLink(value: Route.streak) {
+                    StreakCard(streak: report.streak, balance: balance.state)
+                }
+                .buttonStyle(.plain)
+
                 Button {
                     addedBeer = store.addBeer()
                 } label: {

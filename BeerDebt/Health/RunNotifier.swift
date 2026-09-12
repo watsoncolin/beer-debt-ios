@@ -40,6 +40,11 @@ final class RunNotifier {
         var before: Balance
         var after: Balance
         var beersPaidOff: Int
+        /// The streak after the sync, and whether the new runs landed on a streak day.
+        var streakDays: Int = 0
+        var streakDay: Bool = false
+        /// This sync made it two days in a row: interest just paused.
+        var streakActivated: Bool = false
     }
 
     /// Pure, so the copy can be tested. Plain and fun, no ledger-speak.
@@ -82,6 +87,18 @@ final class RunNotifier {
         }
         if change.removedRuns > 0 {
             return Message(title: "Runs updated", body: "You're at \(standing(after)).")
+        }
+        if change.streakActivated {
+            return Message(
+                title: "\(change.streakDays) day streak: 0% APR, earned",
+                body: "\(title). \(body) Your debt interest is now paused."
+            )
+        }
+        if change.streakDay, change.streakDays >= 2 {
+            return Message(title: title, body: "\(body) 🔥 \(change.streakDays) day streak, interest paused.")
+        }
+        if change.streakDay, change.streakDays == 1 {
+            return Message(title: title, body: "\(body) 🔥 Day one of a streak. Run 1+ mile tomorrow to pause interest.")
         }
         return Message(title: title, body: body)
     }

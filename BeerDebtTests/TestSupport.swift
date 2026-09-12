@@ -30,7 +30,22 @@ func run(_ miles: Double, endedAt: Date, workoutID: UUID = UUID(), importedAt: D
     )
 }
 
-func report(_ ledger: Ledger, at date: Date) -> Report { BalanceEngine.report(for: ledger, at: date) }
+/// Every test replays in UTC so streak days don't depend on the machine's zone.
+var utc: Calendar {
+    var c = Calendar(identifier: .gregorian)
+    c.timeZone = TimeZone(identifier: "UTC")!
+    return c
+}
+
+func report(_ ledger: Ledger, at date: Date, calendar: Calendar = utc) -> Report {
+    BalanceEngine.report(for: ledger, at: date, calendar: calendar)
+}
+
+var noStreak: Rules {
+    var rules = Rules.default
+    rules.streakProtection = false
+    return rules
+}
 
 func close(_ a: Double, _ b: Double, tolerance: Double = 1e-6) -> Bool { abs(a - b) <= tolerance }
 

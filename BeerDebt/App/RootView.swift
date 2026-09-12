@@ -21,6 +21,7 @@ struct RootView: View {
                             case .debt: DebtView()
                             case .runs: RunsView()
                             case .settings: SettingsView()
+                            case .streak: StreakView()
                             case .widgetPreview: WidgetPreviewScreen()
                             }
                         }
@@ -48,13 +49,16 @@ struct RootView: View {
         .sheet(item: $sync.celebration) { celebration in
             DebtFreeSheet(celebration: celebration)
         }
+        .sheet(item: $sync.streakCelebration) { celebration in
+            StreakActivatedSheet(celebration: celebration)
+        }
         .onChange(of: store.ledger) { _, _ in
             Task { await sync.rescheduleWeeklySummary() }
         }
         .onAppear(perform: applyDebugLaunch)
     }
 
-    /// Screenshot / manual-test helper: `-debugScreen ledger|runs|settings|debtFree|beerDetail|beerAdded`
+    /// Screenshot / manual-test helper: `-debugScreen ledger|runs|settings|streak|debtFree|streakActivated|beerDetail|beerAdded`
     /// as a launch argument opens that screen directly. No-op in release.
     private func applyDebugLaunch() {
         #if DEBUG
@@ -62,6 +66,9 @@ struct RootView: View {
         case "ledger", "beerDetail": path.append(Route.debt)
         case "runs": path.append(Route.runs)
         case "settings": path.append(Route.settings)
+        case "streak": path.append(Route.streak)
+        case "streakActivated":
+            sync.streakCelebration = StreakCelebration(days: max(2, store.report().streak.currentStreakDays))
         case "widgets": path.append(Route.widgetPreview)
         case "debtFree":
             let report = store.report()
@@ -82,6 +89,7 @@ enum Route: Hashable {
     case debt
     case runs
     case settings
+    case streak
     case widgetPreview
 }
 
