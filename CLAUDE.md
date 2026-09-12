@@ -64,7 +64,9 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
 - Event timestamps are floored to whole seconds (`Date.flooredToSecond`) so
   the JSON round-trips exactly.
 - HealthKit is read-only and running-workouts-only. Don't add read types
-  without updating `NSHealthShareUsageDescription`.
+  without updating `NSHealthShareUsageDescription`. Notifications are local
+  only (`UserNotifications`), posted only when the app is not in the
+  foreground and the user turned them on.
 - Product copy lives in spec §18–§19; keep the finance-vocabulary tone
   (principal, interest, credit, "books are clean", "your tab").
 
@@ -119,13 +121,17 @@ are in that config. Upload to App Store Connect goes through the API into the
 
 ## Map
 
-- `App/` — `BeerDebtApp` + `RootView` (single `NavigationStack`, no tab bar).
+- `App/` — `BeerDebtApp` owns `LedgerStore` and `HealthSync` (created in
+  `init` so HealthKit background launches register the observer) and hands
+  them to `RootView` (single `NavigationStack`, no tab bar) via the environment.
 - `Engine/` — `BalanceEngine` (replay), `Balance` (output).
 - `Models/` — `BeerEntry`, `RunEntry`, `Rules` (+ `CompoundingPeriod`), `Ledger` (+ `RulesChange`).
 - `Persistence/` — `LedgerStore` (observable owner of the JSON ledger file).
-- `Health/` — `HealthKitService` (authorization, anchored workout query) and
-  `HealthSync` (connect, sync-on-active, drops pre-books runs, debt-free
-  celebration trigger).
+- `Health/` — `HealthKitService` (authorization, anchored workout query with
+  deletions, background delivery + observer query), `HealthSync` (connect,
+  sync on active and on background wake, drops pre-books runs, removes deleted
+  workouts, debt-free celebration, notification trigger), `RunNotifier`
+  (local notification permission + the pure copy builder).
 - `Features/` — `Home`, `Ledger`, `Settings`, `Onboarding`. Beer feedback and
   transaction detail are sheets.
 - `Theme/` — palette, `Backdrop`, `GoldButtonStyle`, `Pill`, and `Format`

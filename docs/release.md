@@ -74,6 +74,13 @@ App Store Connect rejects the upload (ITMS-90683) unless **both**
 `Info.plist`, even though the app only reads. Both are set; the update string
 says plainly that nothing is written. Builds 2 and 3 failed on this.
 
+### Entitlements
+
+`BeerDebt.entitlements` carries HealthKit plus
+`com.apple.developer.healthkit.background-delivery` (added 2026-09-12 for
+run notifications). Xcode Cloud's managed signing picks both up from the App
+ID's HealthKit capability.
+
 ### Export compliance
 
 `ITSAppUsesNonExemptEncryption` is `false` in `Info.plist`, so TestFlight

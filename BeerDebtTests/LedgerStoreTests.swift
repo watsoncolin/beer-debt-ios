@@ -33,11 +33,30 @@ struct LedgerStoreTests {
         let store = LedgerStore(directory: tempDir(), now: t0)
         let workout = UUID()
         let entry = run(3, endedAt: at(hour), workoutID: workout)
-        #expect(store.importRuns([entry]) == 1)
-        #expect(store.importRuns([entry]) == 0)
-        #expect(store.importRuns([run(3, endedAt: at(hour), workoutID: workout)]) == 0)
+        #expect(store.importRuns([entry]).count == 1)
+        #expect(store.importRuns([entry]).isEmpty)
+        #expect(store.importRuns([run(3, endedAt: at(hour), workoutID: workout)]).isEmpty)
         #expect(store.ledger.runs.count == 1)
         #expect(close(store.report(at: at(hour)).balance.creditMiles, 3.0))
+    }
+
+    @Test func aWorkoutDeletedFromHealthComesOffTheBooks() {
+        let dir = tempDir()
+        let store = LedgerStore(directory: dir, now: t0)
+        store.addBeer(at: t0)
+        let workout = UUID()
+        store.importRuns([run(1, endedAt: at(hour), workoutID: workout)])
+        #expect(store.report(at: at(2 * hour)).balance.state == .even)
+
+        #expect(store.removeRuns(healthKitWorkoutIDs: [workout]) == 1)
+        #expect(store.removeRuns(healthKitWorkoutIDs: [workout]) == 0)
+        #expect(store.removeRuns(healthKitWorkoutIDs: []) == 0)
+        // The beer it paid is back on the tab, as if the run never happened.
+        let r = store.report(at: at(2 * hour))
+        #expect(r.balance.state == .debt)
+        #expect(close(r.balance.debtMiles, 1.0))
+        #expect(!r.beers[0].isPaid)
+        #expect(LedgerStore(directory: dir, now: at(day)).ledger.runs.isEmpty)
     }
 
     @Test func rulesChangesAppendForwardOnly() {

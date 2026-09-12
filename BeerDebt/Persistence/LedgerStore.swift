@@ -94,17 +94,30 @@ final class LedgerStore {
         return ledger.beers[index]
     }
 
-    /// Idempotent. Returns how many runs were new; a HealthKit workout already
+    /// Idempotent. Returns the runs that were new; a HealthKit workout already
     /// on the books is skipped (spec §14).
     @discardableResult
-    func importRuns(_ runs: [RunEntry]) -> Int {
-        var added = 0
+    func importRuns(_ runs: [RunEntry]) -> [RunEntry] {
+        var added: [RunEntry] = []
         for run in runs where !ledger.containsRun(healthKitWorkoutID: run.healthKitWorkoutID) {
             ledger.runs.append(run)
-            added += 1
+            added.append(run)
         }
-        if added > 0 { save() }
+        if !added.isEmpty { save() }
         return added
+    }
+
+    /// Takes runs off the books when their workouts were deleted from Health.
+    /// The next replay puts any beers they paid back on the tab. Returns how
+    /// many were removed.
+    @discardableResult
+    func removeRuns(healthKitWorkoutIDs ids: Set<UUID>) -> Int {
+        guard !ids.isEmpty else { return 0 }
+        let before = ledger.runs.count
+        ledger.runs.removeAll { ids.contains($0.healthKitWorkoutID) }
+        let removed = before - ledger.runs.count
+        if removed > 0 { save() }
+        return removed
     }
 
     /// Takes a beer off the books entirely, for an accidental tap. The next

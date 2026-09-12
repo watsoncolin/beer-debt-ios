@@ -7,6 +7,7 @@ struct SettingsView: View {
     @Environment(HealthSync.self) private var sync
     @State private var draft = Rules.default
     @State private var loaded = false
+    @State private var notificationsDenied = false
 
     private static let milesPresets: [Double] = [0.5, 1, 1.5, 2, 3, 5]
     private static let ratePresets: [Double] = [0, 0.05, 0.10, 0.15, 0.20, 0.25]
@@ -69,6 +70,24 @@ struct SettingsView: View {
                     if let last = sync.lastSyncAt {
                         LabeledContent("Last sync", value: Format.dateTime(last))
                     }
+                    Toggle("Notify me when a run lands", isOn: Binding(
+                        get: { sync.runNotificationsEnabled },
+                        set: { on in
+                            Task {
+                                if on {
+                                    let granted = await sync.enableRunNotifications()
+                                    notificationsDenied = !granted
+                                } else {
+                                    sync.setRunNotifications(false)
+                                }
+                            }
+                        }
+                    ))
+                    if notificationsDenied {
+                        Text("Notifications are off for Beer Debt. Turn them on in Settings › Notifications › Beer Debt.")
+                            .font(.footnote)
+                            .foregroundStyle(Theme.debt)
+                    }
                 } else {
                     LabeledContent("Apple Health", value: "Not connected")
                     Button("Connect Apple Health") {
@@ -83,7 +102,7 @@ struct SettingsView: View {
             } header: {
                 Text("Health & Data")
             } footer: {
-                Text("Only running workouts count toward your balance. If runs aren't showing up, check Settings › Health › Data Access & Devices › Beer Debt.")
+                Text("Only running workouts count toward your balance. Runs sync when you open the app and, once connected, in the background when a workout is saved. If runs aren't showing up, check Settings › Health › Data Access & Devices › Beer Debt.")
             }
 
             Section("About") {
@@ -96,6 +115,11 @@ struct SettingsView: View {
             if !loaded {
                 draft = store.currentRules
                 loaded = true
+            }
+        }
+        .task {
+            if !sync.runNotificationsEnabled {
+                notificationsDenied = await sync.notificationPermissionDenied()
             }
         }
         .onChange(of: draft) { _, rules in

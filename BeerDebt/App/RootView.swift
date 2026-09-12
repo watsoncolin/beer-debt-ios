@@ -4,17 +4,11 @@ import SwiftUI
 /// beer feedback, beer detail, and the debt-free celebration are sheets
 /// (spec §20: no tab bar).
 struct RootView: View {
-    @State private var store: LedgerStore
-    @State private var sync: HealthSync
+    @Environment(LedgerStore.self) private var store
+    @Environment(HealthSync.self) private var sync
     @State private var path = NavigationPath()
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage("onboardingComplete") private var onboardingComplete = false
-
-    init() {
-        let store = LedgerStore()
-        _store = State(initialValue: store)
-        _sync = State(initialValue: HealthSync(store: store, health: HealthKitService()))
-    }
 
     var body: some View {
         @Bindable var sync = sync
@@ -33,13 +27,19 @@ struct RootView: View {
                 HealthOnboardingView { onboardingComplete = true }
             }
         }
-        .environment(store)
-        .environment(sync)
         .tint(Theme.gold)
-        .task { await sync.syncIfConnected() }
+        .task {
+            sync.isAppActive = true
+            await sync.syncIfConnected()
+            sync.showPendingCelebration()
+        }
         .onChange(of: scenePhase) { _, phase in
+            sync.isAppActive = (phase == .active)
             if phase == .active {
-                Task { await sync.syncIfConnected() }
+                Task {
+                    await sync.syncIfConnected()
+                    sync.showPendingCelebration()
+                }
             }
         }
         .sheet(item: $sync.celebration) { celebration in

@@ -10,6 +10,7 @@
 		000B8D2605E382A3BF4F6D16 /* HealthOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559D02FEB5F142E1778EE4BF /* HealthOnboardingView.swift */; };
 		01E384CCA31E273A3511B0A7 /* BeerAddedSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13822F7CA03A532EE9930030 /* BeerAddedSheet.swift */; };
 		047A53E9BC6CB421FFCE95FB /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F76A399B75E29E0677448A0 /* RootView.swift */; };
+		117F16C6ED7A8AD8B2BA8292 /* RunNotifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8D829DDEF1ADD2D48822DE /* RunNotifierTests.swift */; };
 		16522A24A8FB5A8099D16A9D /* BeerDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB32A1C213AE1063F2876C /* BeerDetailSheet.swift */; };
 		1A4001C96DC02D1017DAFEF2 /* LedgerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A789CED27E85B054CBB4DE96 /* LedgerStore.swift */; };
 		331547B2A9FB4F840DDD18A1 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62761E16519E17138101127 /* Format.swift */; };
@@ -29,6 +30,7 @@
 		BABF04C67EAD5FBA8D4A32A5 /* LedgerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE9278FB4C759A48719A198 /* LedgerView.swift */; };
 		C1A555394BC694B6E8E18838 /* BalanceEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA24F799AD90E047DAF88CA /* BalanceEngineTests.swift */; };
 		C1E0B85E8BDD2EFCE8ECCAE2 /* Ledger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568BC38579E75979D912ED09 /* Ledger.swift */; };
+		CA5906FAB0234ED4A516B460 /* RunNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F281F27E5E4F30CAE118040E /* RunNotifier.swift */; };
 		CE87D601999023DB5D5101C8 /* TestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375F3E2B6E42648F707FD2BD /* TestSupport.swift */; };
 		D0180E5367CD854460B67D13 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4E75F6C65601E3E849D39C /* HomeView.swift */; };
 		D0DA12AEB23E3FF139BD50F1 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7EA25B56EB364CFF949547 /* Balance.swift */; };
@@ -70,8 +72,10 @@
 		A789CED27E85B054CBB4DE96 /* LedgerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerStore.swift; sourceTree = "<group>"; };
 		AD4E75F6C65601E3E849D39C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		BAA8780B796E04F305A4D1BD /* BeerDebt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BeerDebt.entitlements; sourceTree = "<group>"; };
+		CF8D829DDEF1ADD2D48822DE /* RunNotifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunNotifierTests.swift; sourceTree = "<group>"; };
 		E1F29F2C4116B049DAAC197D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E31AFC2644E14EA452E9060D /* BalanceEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceEngine.swift; sourceTree = "<group>"; };
+		F281F27E5E4F30CAE118040E /* RunNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunNotifier.swift; sourceTree = "<group>"; };
 		F62761E16519E17138101127 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		FDA24F799AD90E047DAF88CA /* BalanceEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceEngineTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -190,6 +194,7 @@
 			children = (
 				9F139958A6FB29822FC7DC24 /* HealthKitService.swift */,
 				5FB8823445610589169295E2 /* HealthSync.swift */,
+				F281F27E5E4F30CAE118040E /* RunNotifier.swift */,
 			);
 			path = Health;
 			sourceTree = "<group>";
@@ -227,6 +232,7 @@
 			children = (
 				FDA24F799AD90E047DAF88CA /* BalanceEngineTests.swift */,
 				179D84998FA1EF9C49416D25 /* LedgerStoreTests.swift */,
+				CF8D829DDEF1ADD2D48822DE /* RunNotifierTests.swift */,
 				375F3E2B6E42648F707FD2BD /* TestSupport.swift */,
 			);
 			path = BeerDebtTests;
@@ -344,6 +350,7 @@
 				047A53E9BC6CB421FFCE95FB /* RootView.swift in Sources */,
 				7AB26ECC206F95097C30F7DF /* Rules.swift in Sources */,
 				B535F925FEC45472E773E522 /* RunEntry.swift in Sources */,
+				CA5906FAB0234ED4A516B460 /* RunNotifier.swift in Sources */,
 				64EF73099228E0893DC4279B /* SettingsView.swift in Sources */,
 				B57CB8E81B835936A2796CFF /* Theme.swift in Sources */,
 			);
@@ -355,6 +362,7 @@
 			files = (
 				C1A555394BC694B6E8E18838 /* BalanceEngineTests.swift in Sources */,
 				8F801376D365AADF18CE77A0 /* LedgerStoreTests.swift in Sources */,
+				117F16C6ED7A8AD8B2BA8292 /* RunNotifierTests.swift in Sources */,
 				CE87D601999023DB5D5101C8 /* TestSupport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

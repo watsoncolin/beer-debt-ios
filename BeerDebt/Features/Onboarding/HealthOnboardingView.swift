@@ -18,7 +18,7 @@ struct HealthOnboardingView: View {
                 Image("BrandMark")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 150, height: 150)
+                    .frame(width: 120, height: 120)
                     .shadow(color: .black.opacity(0.45), radius: 18, y: 10)
                 Text("Beer Debt")
                     .font(.system(size: 44, weight: .heavy, design: .rounded))
@@ -31,7 +31,7 @@ struct HealthOnboardingView: View {
 
                 VStack(alignment: .leading, spacing: 16) {
                     rule("mug.fill", "Every beer costs a mile.", "Tap + Beer and it goes on your tab.")
-                    rule("figure.run", "Runs pay the tab.", "Apple Health hands over your running workouts. Only running counts.")
+                    rule("figure.run", "Runs pay the tab.", "Apple Health hands over your runs. Only running counts. We'll ping you when one lands.")
                     rule("percent", "Ignore it and it grows.", "Interest starts after 24 hours. The rules are yours to tune.")
                 }
                 .padding(20)
@@ -43,6 +43,9 @@ struct HealthOnboardingView: View {
                     connecting = true
                     Task {
                         await sync.connect()
+                        if sync.isConnected {
+                            await sync.enableRunNotifications()
+                        }
                         connecting = false
                         onDone()
                     }
@@ -74,6 +77,7 @@ struct HealthOnboardingView: View {
                 Text(detail)
                     .font(.subheadline)
                     .foregroundStyle(Theme.cream.opacity(0.7))
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
     }

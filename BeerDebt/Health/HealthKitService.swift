@@ -8,17 +8,25 @@ import HealthKit
 final class HealthKitService {
     struct FetchResult: Sendable {
         let runs: [RunEntry]
+        /// Workouts deleted from Health since the last anchor. Their runs must
+        /// come off the books too.
+        let deletedWorkoutIDs: [UUID]
         /// Opaque `HKQueryAnchor`, archived. Persist and pass back next time.
         let anchor: Data
     }
 
     private let store = HKHealthStore()
     private let distanceType = HKQuantityType(.distanceWalkingRunning)
+    private var observer: HKObserverQuery?
 
     var isAvailable: Bool { HKHealthStore.isHealthDataAvailable() }
 
     private var readTypes: Set<HKObjectType> {
         [HKObjectType.workoutType(), distanceType]
+    }
+
+    private var runningPredicate: NSPredicate {
+        HKQuery.predicateForWorkouts(with: .running)
     }
 
     /// HealthKit never reveals whether *read* access was granted, only whether
@@ -33,14 +41,15 @@ final class HealthKitService {
         try await store.requestAuthorization(toShare: [], read: readTypes)
     }
 
-    /// Running workouts added since `anchor` (all of them when nil). Incremental
-    /// and idempotent: the returned anchor picks up where this call left off.
+    /// Running workouts added or deleted since `anchor` (everything when nil).
+    /// Incremental and idempotent: the returned anchor picks up where this
+    /// call left off.
     func fetchRunningWorkouts(anchor anchorData: Data?) async throws -> FetchResult {
         let anchor = anchorData.flatMap {
             try? NSKeyedUnarchiver.unarchivedObject(ofClass: HKQueryAnchor.self, from: $0)
         }
         let descriptor = HKAnchoredObjectQueryDescriptor(
-            predicates: [.workout(HKQuery.predicateForWorkouts(with: .running))],
+            predicates: [.workout(runningPredicate)],
             anchor: anchor
         )
         let result = try await descriptor.result(for: store)
@@ -63,6 +72,47 @@ final class HealthKitService {
         let newAnchor = try NSKeyedArchiver.archivedData(
             withRootObject: result.newAnchor, requiringSecureCoding: true
         )
-        return FetchResult(runs: runs, anchor: newAnchor)
+        return FetchResult(
+            runs: runs,
+            deletedWorkoutIDs: result.deletedObjects.map(\.uuid),
+            anchor: newAnchor
+        )
     }
+
+    // MARK: Background delivery
+
+    /// Ask iOS to wake the app when a workout is saved, so a run can pay the
+    /// tab (and notify) without the app being opened. Needs the
+    /// `healthkit.background-delivery` entitlement.
+    func enableBackgroundDelivery() async throws {
+        try await store.enableBackgroundDelivery(for: .workoutType(), frequency: .immediate)
+    }
+
+    /// Runs `onChange` whenever running workouts change, in the foreground or
+    /// on a background wake. Must be called at every launch, including
+    /// background launches, for delivery to keep working.
+    func startObservingWorkouts(_ onChange: @escaping @Sendable () async -> Void) {
+        stopObservingWorkouts()
+        let query = HKObserverQuery(sampleType: .workoutType(), predicate: runningPredicate) { _, completion, _ in
+            // HealthKit's completion handler isn't marked Sendable; it is safe
+            // to call once from any context, which is all we do.
+            let done = CompletionBox(completion)
+            Task {
+                await onChange()
+                done.call()
+            }
+        }
+        store.execute(query)
+        observer = query
+    }
+
+    func stopObservingWorkouts() {
+        if let observer { store.stop(observer) }
+        observer = nil
+    }
+}
+
+private struct CompletionBox: @unchecked Sendable {
+    let call: () -> Void
+    init(_ call: @escaping () -> Void) { self.call = call }
 }

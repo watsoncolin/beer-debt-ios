@@ -138,8 +138,20 @@ imported.
   earlier ones before they reach the ledger, and the engine ignores any that
   slip through. Otherwise a new user's last week of runs would instantly bank
   the maximum credit.
-- **Deleting a workout in Health does not claw anything back.** Anchored
-  queries report deletions, but MVP ignores them; the run stays on the books.
+- **Deleting a workout in Health takes the run off the books** (fixed
+  2026-09-12 after Colin hit it: a manually added workout stayed counted after
+  he deleted it). The anchored query reports deletions; `HealthSync` removes
+  the matching runs and the next replay puts whatever they paid back on the
+  tab. If the app is closed, a notification says where the tab stands now.
+- **Background delivery and notifications** (added 2026-09-12, spec §22).
+  With the `healthkit.background-delivery` entitlement and an observer query
+  registered at every launch (`BeerDebtApp.init`, so background launches
+  count), iOS wakes the app when a running workout is saved; the sync applies
+  it and, if the app isn't in the foreground and the user opted in, posts a
+  local notification: what the run paid and where the tab stands. Foreground
+  syncs update the UI instead. A debt-free celebration earned in the
+  background is stashed in UserDefaults and shown on the next open. No push
+  server: everything is local.
 - Two sources logging the same run (Watch + Strava) is not handled in MVP.
 
 ## D. Platform

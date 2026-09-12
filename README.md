@@ -38,7 +38,8 @@ exactly the same balance.
 ## Stack
 
 - SwiftUI, iOS 17+, Swift 6 language mode, **no third-party dependencies**
-- HealthKit, read-only: running workouts only
+- HealthKit, read-only: running workouts only, with background delivery so a run pays the tab while the app is closed
+- Local notifications when a run lands (opt-in); no push server
 - Local-first: one JSON ledger file in Application Support. No accounts, no backend.
 - `BalanceEngine` is a pure function of `(beers, runs, rules, now)` and is the
   cross-platform contract — the Android port reuses the spec and the engine's test
