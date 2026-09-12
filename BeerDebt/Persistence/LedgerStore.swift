@@ -97,6 +97,16 @@ final class LedgerStore {
         return added
     }
 
+    /// Takes a beer off the books entirely, for an accidental tap. The next
+    /// replay re-routes any run that paid for it. Returns false if no such beer.
+    @discardableResult
+    func removeBeer(id: UUID) -> Bool {
+        guard let index = ledger.beers.firstIndex(where: { $0.id == id }) else { return false }
+        ledger.beers.remove(at: index)
+        save()
+        return true
+    }
+
     /// Records a rules change effective from `date` forward. No-op if nothing
     /// changed. History is append-only so replay stays deterministic.
     func updateRules(_ rules: Rules, at date: Date = .now) {

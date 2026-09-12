@@ -8,6 +8,7 @@ struct BeerDetailSheet: View {
     let beerID: UUID
     @State private var date = Date.now
     @State private var loaded = false
+    @State private var confirmingDelete = false
 
     var body: some View {
         let now = Date.now
@@ -51,6 +52,10 @@ struct BeerDetailSheet: View {
                     }
 
                     Section {
+                        Button("Delete Beer", role: .destructive) { confirmingDelete = true }
+                    }
+
+                    Section {
                         LabeledContent("Status", value: statement.isPaid ? "Paid" : "Unpaid")
                         if let paidAt = statement.paidAt {
                             LabeledContent("Paid", value: Format.dateTime(paidAt))
@@ -74,6 +79,18 @@ struct BeerDetailSheet: View {
                     Button("Done") { dismiss() }
                 }
             }
+        }
+        .confirmationDialog(
+            "Take this beer off the books?",
+            isPresented: $confirmingDelete,
+            titleVisibility: .visible
+        ) {
+            Button("Delete Beer", role: .destructive) {
+                store.removeBeer(id: beerID)
+                dismiss()
+            }
+        } message: {
+            Text("Any run that paid for it goes to your other beers or to credit instead.")
         }
         .onAppear {
             if !loaded, let entry {

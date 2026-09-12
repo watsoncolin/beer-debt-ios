@@ -13,6 +13,7 @@ struct LedgerView: View {
     @Environment(LedgerStore.self) private var store
     @State private var segment: Segment
     @State private var selectedBeer: BeerStatement?
+    @State private var beerToDelete: BeerStatement?
 
     init(segment: Segment = .beers) {
         _segment = State(initialValue: segment)
@@ -32,7 +33,7 @@ struct LedgerView: View {
 
             switch segment {
             case .beers:
-                BeerSections(report: report) { selectedBeer = $0 }
+                BeerSections(report: report, select: { selectedBeer = $0 }, delete: { beerToDelete = $0 })
             case .runs:
                 RunSections(report: report)
             }
@@ -42,6 +43,18 @@ struct LedgerView: View {
         .sheet(item: $selectedBeer) { statement in
             BeerDetailSheet(beerID: statement.id)
                 .presentationDetents([.medium, .large])
+        }
+        .confirmationDialog(
+            "Take this beer off the books?",
+            isPresented: Binding(get: { beerToDelete != nil }, set: { if !$0 { beerToDelete = nil } }),
+            titleVisibility: .visible,
+            presenting: beerToDelete
+        ) { statement in
+            Button("Delete Beer #\(statement.number)", role: .destructive) {
+                store.removeBeer(id: statement.id)
+            }
+        } message: { _ in
+            Text("Any run that paid for it goes to your other beers or to credit instead.")
         }
         .onAppear {
             #if DEBUG
@@ -56,6 +69,7 @@ struct LedgerView: View {
 private struct BeerSections: View {
     let report: Report
     let select: (BeerStatement) -> Void
+    let delete: (BeerStatement) -> Void
 
     var body: some View {
         let active = Array(report.beers.filter { !$0.isPaid }.reversed())
@@ -73,10 +87,7 @@ private struct BeerSections: View {
         if !active.isEmpty {
             Section {
                 ForEach(active) { statement in
-                    Button { select(statement) } label: {
-                        BeerRow(statement: statement, now: report.at)
-                    }
-                    .buttonStyle(.plain)
+                    row(statement)
                 }
             } header: {
                 Text("Active (\(active.count))")
@@ -87,11 +98,20 @@ private struct BeerSections: View {
         if !paid.isEmpty {
             Section("Paid (\(paid.count))") {
                 ForEach(paid) { statement in
-                    Button { select(statement) } label: {
-                        BeerRow(statement: statement, now: report.at)
-                    }
-                    .buttonStyle(.plain)
+                    row(statement)
                 }
+            }
+        }
+    }
+
+    private func row(_ statement: BeerStatement) -> some View {
+        Button { select(statement) } label: {
+            BeerRow(statement: statement, now: report.at)
+        }
+        .buttonStyle(.plain)
+        .swipeActions(edge: .trailing) {
+            Button(role: .destructive) { delete(statement) } label: {
+                Label("Delete", systemImage: "trash")
             }
         }
     }

@@ -108,6 +108,11 @@ imported.
   as having happened then, which can re-route an earlier run from credit to
   paying it. That is the one deliberate exception to "history never changes":
   it is correcting the record, not changing the rules.
+- **Deleting a beer** (added 2026-09-12). An accidental tap can be removed
+  from the Beer Added sheet (no confirmation; it was seconds ago), or from
+  The Ledger by swipe or the detail's Delete button (confirmed). The entry is
+  removed outright, not tombstoned. On the next replay any run that paid for
+  it flows to the other beers or to credit.
 - **Precision.** Event timestamps are whole seconds so the JSON round-trips
   exactly and a relaunch replays to the identical balance. "Daily" and
   "weekly" are fixed lengths (86,400 s / 604,800 s), not calendar units, so

@@ -78,7 +78,7 @@ xcodebuild -project BeerDebt.xcodeproj -scheme BeerDebt \
 MVP loop implemented: + Beer → debt → daily interest → HealthKit run →
 FIFO repayment → credit (capped, decaying) → debt-free celebration. Home,
 The Ledger (beers and runs), Settings (forward-only rules changes), and Health
-onboarding are in. A forgotten beer can be dated back from either sheet.
-48 engine and store tests pass.
+onboarding are in. A forgotten beer can be dated back, and an accidental one
+deleted, from either sheet. 49 engine and store tests pass.
 
 Not yet: app icon and Home backdrop art, on-device HealthKit test, TestFlight.

@@ -68,6 +68,18 @@ struct LedgerStoreTests {
         #expect(reloaded.ledger.beers == store.ledger.beers)
     }
 
+    @Test func aBeerCanBeTakenOffTheBooks() {
+        let dir = tempDir()
+        let store = LedgerStore(directory: dir, now: t0)
+        let keep = store.addBeer(at: at(hour))
+        let mistake = store.addBeer(at: at(2 * hour))
+        #expect(store.removeBeer(id: mistake.id))
+        #expect(!store.removeBeer(id: mistake.id))
+        #expect(store.ledger.beers == [keep])
+        #expect(close(store.report(at: at(3 * hour)).balance.debtMiles, 1.0))
+        #expect(LedgerStore(directory: dir, now: at(day)).ledger.beers == [keep])
+    }
+
     @Test func beerDatesAreClampedToTheBooks() {
         let store = LedgerStore(directory: tempDir(), now: t0)
         let beer = store.addBeer(at: at(hour))

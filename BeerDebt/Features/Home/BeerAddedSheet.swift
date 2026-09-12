@@ -169,13 +169,21 @@ struct BeerAddedSheet: View {
             .padding(18)
             .background(Theme.forestDeep.opacity(0.85), in: RoundedRectangle(cornerRadius: 18))
         } else {
-            Button {
-                withAnimation { editingDate = true }
-            } label: {
-                Label("Forgot one earlier? Change the date", systemImage: "calendar")
-                    .font(.footnote.weight(.medium))
-                    .foregroundStyle(Theme.cream.opacity(0.75))
+            VStack(spacing: 14) {
+                Button {
+                    withAnimation { editingDate = true }
+                } label: {
+                    Label("Forgot one earlier? Change the date", systemImage: "calendar")
+                }
+                Button {
+                    store.removeBeer(id: beerID)
+                    dismiss()
+                } label: {
+                    Label("Didn't mean that? Remove it", systemImage: "arrow.uturn.backward")
+                }
             }
+            .font(.footnote.weight(.medium))
+            .foregroundStyle(Theme.cream.opacity(0.75))
         }
     }
 
