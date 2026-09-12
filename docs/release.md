@@ -25,10 +25,14 @@ Copied from Pawfect Edit's `Default` workflow:
 - **Start condition:** push to `main` (exact match), auto-cancel superseded
   builds.
 - **Environment:** Xcode "Latest Release", macOS "Latest Release", clean build.
-- **Actions:** `Test - iOS` (scheme `BeerDebt`, one iPhone simulator, required
-  to pass) then `Archive - iOS` (scheme `BeerDebt`, TestFlight and App Store
-  eligible, required to pass). Pawfect Edit has only the archive; the test
-  action is the one addition, because the engine tests are the product.
+- **Actions:** `Archive - iOS` (scheme `BeerDebt`, TestFlight and App Store
+  eligible, required to pass). Same as Pawfect Edit. Xcode's own default left
+  the distribution audience unset (archive only, nothing to TestFlight); it was
+  patched via the API on 2026-09-12.
+- **Not yet:** a `Test - iOS` action. The API's test-destination lookup isn't
+  available to our key, so add it from Xcode if wanted: Product → Xcode Cloud →
+  Manage Workflows… → Default → Actions → + Test → Recommended iPhones,
+  required to pass. Until then, run the tests locally before pushing to `main`.
 - **Post-action:** the archive lands in TestFlight automatically. Add
   internal testers under TestFlight in App Store Connect.
 
@@ -68,6 +72,7 @@ endpoint for products). In Xcode with `BeerDebt.xcodeproj` open:
    so this step just confirms `watsoncolin/beer-debt-ios`.
 5. **Complete**. Skip the "start build now" prompt or let it run.
 
-After that, the workflow can be edited from Xcode, App Store Connect, or
-the API (App Store Connect API key `S66786J7HF`, issuer in App Store Connect
-→ Users and Access → Integrations).
+Done 2026-09-12. Product `0B85EC3A-FCC0-4087-9177-ED5D4DA84425`, workflow
+`Default` (`BD7D47C2-1E73-4C9E-83AC-74361E8D713C`). The workflow can be edited
+from Xcode, App Store Connect, or the API (App Store Connect API key
+`S66786J7HF`, issuer in App Store Connect → Users and Access → Integrations).
