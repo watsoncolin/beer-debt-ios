@@ -30,6 +30,7 @@ struct WidgetPreviewScreen: View {
             }
             .padding(24)
         }
+        .forestScreen()
         .navigationTitle("Widgets")
     }
 

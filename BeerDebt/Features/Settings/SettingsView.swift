@@ -52,6 +52,7 @@ struct SettingsView: View {
             } footer: {
                 Text("Changes apply from now on. Past interest and paid beers are never recalculated, so the economy doesn't shift under you.")
             }
+            .listRowBackground(Theme.card)
 
             Section {
                 if !sync.isAvailable {
@@ -105,6 +106,7 @@ struct SettingsView: View {
             } footer: {
                 Text("Only running workouts count toward your balance. Runs sync when you open the app and, once connected, in the background when a workout is saved. If runs aren't showing up, check Settings › Health › Data Access & Devices › Beer Debt.")
             }
+            .listRowBackground(Theme.card)
 
             Section {
                 Toggle("Weekly summary", isOn: Binding(
@@ -143,12 +145,16 @@ struct SettingsView: View {
             } footer: {
                 Text("A once-a-week recap: beers, miles, and where your tab stands.")
             }
+            .listRowBackground(Theme.card)
 
             Section("About") {
                 LabeledContent("Books opened", value: Format.dateTime(store.ledger.booksOpenedAt))
                 LabeledContent("Version", value: Self.version)
             }
+            .listRowBackground(Theme.card)
         }
+        .listRowBackground(Theme.card)
+        .forestScreen()
         .navigationTitle("Settings")
         .onAppear {
             if !loaded {

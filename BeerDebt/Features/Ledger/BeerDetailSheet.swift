@@ -72,6 +72,8 @@ struct BeerDetailSheet: View {
                     ContentUnavailableView("That beer isn't on the books", systemImage: "mug")
                 }
             }
+            .listRowBackground(Theme.card)
+            .forestScreen()
             .navigationTitle(statement.map { "Beer #\($0.number)" } ?? "Beer")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

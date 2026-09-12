@@ -13,6 +13,55 @@ enum Theme {
     static let debt = Color(red: 0.937, green: 0.424, blue: 0.318)
     /// "banked" / "paid": the running green.
     static let credit = Color(red: 0.361, green: 0.722, blue: 0.471)
+    /// Pale green for chart bars, like the concept art.
+    static let creditSoft = Color(red: 0.612, green: 0.847, blue: 0.663)
+    /// Raised card on the forest background.
+    static let card = Color(red: 0.165, green: 0.235, blue: 0.216)
+    static let cardStroke = Color(red: 0.235, green: 0.318, blue: 0.290)
+
+    /// One-time UIKit appearance so segmented controls match the art:
+    /// dark track, cream selected pill.
+    @MainActor
+    static func applyAppearance() {
+        let segmented = UISegmentedControl.appearance()
+        segmented.selectedSegmentTintColor = UIColor(cream)
+        segmented.backgroundColor = UIColor(forestDeep)
+        segmented.setTitleTextAttributes([.foregroundColor: UIColor(ink)], for: .selected)
+        segmented.setTitleTextAttributes([.foregroundColor: UIColor(cream.opacity(0.85))], for: .normal)
+    }
+}
+
+/// Every secondary screen: forest background under a List/Form, dark bars.
+struct ForestScreen: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .scrollContentBackground(.hidden)
+            .background(
+                LinearGradient(colors: [Theme.forest, Theme.forestDeep], startPoint: .top, endPoint: .bottom)
+                    .ignoresSafeArea()
+            )
+            .toolbarColorScheme(.dark, for: .navigationBar)
+    }
+}
+
+/// A List row drawn as a floating card.
+struct CardRow: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .listRowSeparator(.hidden)
+            .listRowInsets(EdgeInsets(top: 16, leading: 36, bottom: 16, trailing: 36))
+            .listRowBackground(
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(Theme.card)
+                    .padding(.vertical, 6)
+                    .padding(.horizontal, 20)
+            )
+    }
+}
+
+extension View {
+    func forestScreen() -> some View { modifier(ForestScreen()) }
+    func cardRow() -> some View { modifier(CardRow()) }
 }
 
 /// Dark forest background for Home and the sheets: the painted trail-and-

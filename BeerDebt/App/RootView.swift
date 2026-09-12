@@ -18,7 +18,8 @@ struct RootView: View {
                     HomeView()
                         .navigationDestination(for: Route.self) { route in
                             switch route {
-                            case .ledger(let segment): LedgerView(segment: segment)
+                            case .debt: DebtView()
+                            case .runs: RunsView()
                             case .settings: SettingsView()
                             case .widgetPreview: WidgetPreviewScreen()
                             }
@@ -29,6 +30,7 @@ struct RootView: View {
             }
         }
         .tint(Theme.gold)
+        .preferredColorScheme(.dark)
         .task {
             sync.isAppActive = true
             await sync.syncIfConnected()
@@ -57,8 +59,8 @@ struct RootView: View {
     private func applyDebugLaunch() {
         #if DEBUG
         switch DebugLaunch.screen {
-        case "ledger", "beerDetail": path.append(Route.ledger(.beers))
-        case "runs": path.append(Route.ledger(.runs))
+        case "ledger", "beerDetail": path.append(Route.debt)
+        case "runs": path.append(Route.runs)
         case "settings": path.append(Route.settings)
         case "widgets": path.append(Route.widgetPreview)
         case "debtFree":
@@ -77,7 +79,8 @@ struct RootView: View {
 /// Pushed destinations. Sheets (beer added, beer detail, debt free) are local
 /// state on the presenting view.
 enum Route: Hashable {
-    case ledger(LedgerView.Segment)
+    case debt
+    case runs
     case settings
     case widgetPreview
 }

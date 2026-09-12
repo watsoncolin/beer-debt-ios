@@ -13,6 +13,7 @@ struct BeerDebtApp: App {
         // Runs on background launches too (HealthKit background delivery),
         // which is what keeps a closed app able to pay the tab and notify.
         sync.startBackgroundObserving()
+        Theme.applyAppearance()
     }
 
     var body: some Scene {

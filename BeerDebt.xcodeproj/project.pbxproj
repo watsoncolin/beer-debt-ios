@@ -23,6 +23,7 @@
 		5161C6AC19D82C09C8374802 /* BeerEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F5273874DC97DC59FE5C9 /* BeerEntry.swift */; };
 		5DDE798717F5540A8DE4013A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FDB3E39011B92CA7C3933A1 /* LaunchScreen.storyboard */; };
 		6301F50BAABB1BDB3C73B6CC /* WidgetPreviewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F63A3A9ED48465E0F0A2785 /* WidgetPreviewScreen.swift */; };
+		6458A7F00D4E0162B85DE37D /* DebtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66E6C0A5B95A19A9E53626 /* DebtView.swift */; };
 		64EF73099228E0893DC4279B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAF29C39DB7A99E66F329C1 /* SettingsView.swift */; };
 		69C38BD7B92F0BC3DD54E515 /* DebtFreeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5C88CBF61288D3D21372F5 /* DebtFreeSheet.swift */; };
 		6D9FFE7AA78A16CC14012D2A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8895D27A0E8BFF2CD3C05ED3 /* Theme.swift */; };
@@ -36,7 +37,6 @@
 		B4957AAC32F0B292659F2155 /* BeerDebtWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2D219D08653B32A6A2641784 /* BeerDebtWidget.appex */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B535F925FEC45472E773E522 /* RunEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1315BF358F1278C12707F74A /* RunEntry.swift */; };
 		B57CB8E81B835936A2796CFF /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8895D27A0E8BFF2CD3C05ED3 /* Theme.swift */; };
-		BABF04C67EAD5FBA8D4A32A5 /* LedgerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE9278FB4C759A48719A198 /* LedgerView.swift */; };
 		C0311E03B43FDD7536B4B136 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7EA25B56EB364CFF949547 /* Balance.swift */; };
 		C1A555394BC694B6E8E18838 /* BalanceEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA24F799AD90E047DAF88CA /* BalanceEngineTests.swift */; };
 		C1E0B85E8BDD2EFCE8ECCAE2 /* Ledger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568BC38579E75979D912ED09 /* Ledger.swift */; };
@@ -48,6 +48,7 @@
 		D0DA12AEB23E3FF139BD50F1 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7EA25B56EB364CFF949547 /* Balance.swift */; };
 		D31CF8486D540EE2EBF0DE8C /* BeerEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F5273874DC97DC59FE5C9 /* BeerEntry.swift */; };
 		DB34FDF083DEFE7CA198B685 /* WeeklySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB32B9C55DBFD66486A7F76 /* WeeklySummary.swift */; };
+		F1C3DFC0EDD86F23500CE852 /* RunsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DA6E495250E745AFDB9CE /* RunsView.swift */; };
 		F8ED1D14BDF5D31A6215ACF2 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62761E16519E17138101127 /* Format.swift */; };
 		FDAF46A039E3229A8B489CA3 /* WeeklySummaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6A5CC0A60D3E10A9ACDBD9 /* WeeklySummaryTests.swift */; };
 		FE3B478DEA6ECBCC67E3DD4A /* LedgerFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB29A3932321621173E1571 /* LedgerFile.swift */; };
@@ -92,10 +93,10 @@
 		179D84998FA1EF9C49416D25 /* LedgerStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerStoreTests.swift; sourceTree = "<group>"; };
 		1E7EA25B56EB364CFF949547 /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
 		1FDB3E39011B92CA7C3933A1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		257DA6E495250E745AFDB9CE /* RunsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunsView.swift; sourceTree = "<group>"; };
 		2D219D08653B32A6A2641784 /* BeerDebtWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = BeerDebtWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		375F3E2B6E42648F707FD2BD /* TestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSupport.swift; sourceTree = "<group>"; };
 		3B4E82E94CE0A6EEECDAF514 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		4BE9278FB4C759A48719A198 /* LedgerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerView.swift; sourceTree = "<group>"; };
 		504A13FB3927748DD7E47D52 /* BeerDebtWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDebtWidget.swift; sourceTree = "<group>"; };
 		559D02FEB5F142E1778EE4BF /* HealthOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthOnboardingView.swift; sourceTree = "<group>"; };
 		568BC38579E75979D912ED09 /* Ledger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ledger.swift; sourceTree = "<group>"; };
@@ -105,6 +106,7 @@
 		6E6A5CC0A60D3E10A9ACDBD9 /* WeeklySummaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklySummaryTests.swift; sourceTree = "<group>"; };
 		77BB32A1C213AE1063F2876C /* BeerDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDetailSheet.swift; sourceTree = "<group>"; };
 		7B9AD5532B905BCD220FE521 /* BeerDebt.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BeerDebt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C66E6C0A5B95A19A9E53626 /* DebtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtView.swift; sourceTree = "<group>"; };
 		8895D27A0E8BFF2CD3C05ED3 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		8F63A3A9ED48465E0F0A2785 /* WidgetPreviewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetPreviewScreen.swift; sourceTree = "<group>"; };
 		96F1AA9FB16F972D0F53082C /* BeerDebtApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDebtApp.swift; sourceTree = "<group>"; };
@@ -132,7 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				77BB32A1C213AE1063F2876C /* BeerDetailSheet.swift */,
-				4BE9278FB4C759A48719A198 /* LedgerView.swift */,
+				7C66E6C0A5B95A19A9E53626 /* DebtView.swift */,
 			);
 			path = Ledger;
 			sourceTree = "<group>";
@@ -224,6 +226,7 @@
 				5C7CEC7EF360E72F3987CFF3 /* Home */,
 				0102446B56266D8326F01C03 /* Ledger */,
 				044BB2E834C459488789E781 /* Onboarding */,
+				DBB91D2F39582E3C4E1BA99A /* Runs */,
 				23ABDDFBE6B1562FF673685F /* Settings */,
 				EAE783A32F532CA4488B6DF8 /* Shared */,
 			);
@@ -276,6 +279,14 @@
 				A789CED27E85B054CBB4DE96 /* LedgerStore.swift */,
 			);
 			path = Persistence;
+			sourceTree = "<group>";
+		};
+		DBB91D2F39582E3C4E1BA99A /* Runs */ = {
+			isa = PBXGroup;
+			children = (
+				257DA6E495250E745AFDB9CE /* RunsView.swift */,
+			);
+			path = Runs;
 			sourceTree = "<group>";
 		};
 		EAE783A32F532CA4488B6DF8 /* Shared */ = {
@@ -436,6 +447,7 @@
 				16522A24A8FB5A8099D16A9D /* BeerDetailSheet.swift in Sources */,
 				5161C6AC19D82C09C8374802 /* BeerEntry.swift in Sources */,
 				69C38BD7B92F0BC3DD54E515 /* DebtFreeSheet.swift in Sources */,
+				6458A7F00D4E0162B85DE37D /* DebtView.swift in Sources */,
 				331547B2A9FB4F840DDD18A1 /* Format.swift in Sources */,
 				336C352840EE6B0E6ED4A681 /* HealthKitService.swift in Sources */,
 				000B8D2605E382A3BF4F6D16 /* HealthOnboardingView.swift in Sources */,
@@ -444,11 +456,11 @@
 				C1E0B85E8BDD2EFCE8ECCAE2 /* Ledger.swift in Sources */,
 				C63825C3CC8F36FB5C87A90D /* LedgerFile.swift in Sources */,
 				1A4001C96DC02D1017DAFEF2 /* LedgerStore.swift in Sources */,
-				BABF04C67EAD5FBA8D4A32A5 /* LedgerView.swift in Sources */,
 				047A53E9BC6CB421FFCE95FB /* RootView.swift in Sources */,
 				7AB26ECC206F95097C30F7DF /* Rules.swift in Sources */,
 				B535F925FEC45472E773E522 /* RunEntry.swift in Sources */,
 				CA5906FAB0234ED4A516B460 /* RunNotifier.swift in Sources */,
+				F1C3DFC0EDD86F23500CE852 /* RunsView.swift in Sources */,
 				64EF73099228E0893DC4279B /* SettingsView.swift in Sources */,
 				B57CB8E81B835936A2796CFF /* Theme.swift in Sources */,
 				DB34FDF083DEFE7CA198B685 /* WeeklySummary.swift in Sources */,

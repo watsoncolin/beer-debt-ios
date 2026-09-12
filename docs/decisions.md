@@ -47,6 +47,14 @@ state ("BOOKS ARE CLEAN"), and its Settings screen lacks **Maximum Credit** and
 follows the art's debt layout and swaps the big number + caption per state
 using the copy in spec §10 / §19.
 
+### 3b. Theme, revisited (2026-09-12)
+
+Colin's call after seeing the art's Runs screen: one dark forest palette on
+every screen, Settings included, instead of the art's light Ledger/Settings.
+The Ledger became two screens to match the art: "Your Debt" (active/paid
+beers) off the Home balance and "Runs" (range picker + bar chart + run cards)
+off the Home runs card.
+
 ### 4. "Interest Frequency" row
 
 Only in the art, not the spec. Kept — it is the compounding period from #1.

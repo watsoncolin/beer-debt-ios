@@ -147,7 +147,15 @@ are in that config. Upload to App Store Connect goes through the API into the
   `WeeklySummary` (schedule + pure copy for the weekly recap).
 - `Models/LedgerFile.swift` — the shared on-disk location and codecs, used by
   both the store and the widget.
-- `Features/` — `Home`, `Ledger`, `Settings`, `Onboarding`. Beer feedback and
-  transaction detail are sheets.
-- `Theme/` — palette, `Backdrop`, `GoldButtonStyle`, `Pill`, and `Format`
-  (all number/date formatting; keep it out of views).
+- `Features/` — `Home`, `Ledger/DebtView` ("Your Debt": active/paid beers,
+  reached by tapping the Home balance), `Runs/RunsView` (range picker, Swift
+  Charts bar chart, run cards; reached from the Home runs card), `Settings`,
+  `Onboarding`, `Shared/WidgetPreviewScreen` (DEBUG). Beer feedback and beer
+  detail are sheets.
+- `Theme/` — palette, `Backdrop`, `GoldButtonStyle`, `Pill`, `Format`
+  (all number/date formatting; keep it out of views), and the app-wide dark
+  treatment: `RootView` forces `.preferredColorScheme(.dark)`, every
+  secondary screen uses `.forestScreen()` (forest gradient under a
+  plain-style List) with `.cardRow()` / `.listRowBackground(Theme.card)`
+  rows, and `Theme.applyAppearance()` styles segmented controls as a cream
+  pill on a dark track. Don't introduce light backgrounds.

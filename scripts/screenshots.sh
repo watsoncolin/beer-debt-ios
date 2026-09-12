@@ -24,8 +24,9 @@ APP=$(find ~/Library/Developer/Xcode/DerivedData -maxdepth 6 -path "*BeerDebt-*/
 [ -z "$APP" ] && { echo "No simulator build found. Build BeerDebt for the simulator first."; exit 1; }
 xcrun simctl install "$UDID" "$APP"
 
-CONTAINER=$(xcrun simctl get_app_container "$UDID" "$BUNDLE" data)
-LEDGER="$CONTAINER/Library/Application Support/BeerDebt/ledger.json"
+# The ledger lives in the App Group container (shared with the widget).
+CONTAINER=$(xcrun simctl get_app_container "$UDID" "$BUNDLE" group.me.colinwatson.beerdebt)
+LEDGER="$CONTAINER/BeerDebt/ledger.json"
 mkdir -p "$(dirname "$LEDGER")"
 
 seed() { # seed <debt|credit|fresh>

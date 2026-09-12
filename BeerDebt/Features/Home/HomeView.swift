@@ -49,7 +49,15 @@ struct HomeView: View {
 
                 Spacer(minLength: 0)
 
-                BalanceHero(balance: balance)
+                NavigationLink(value: Route.debt) {
+                    VStack(spacing: 14) {
+                        BalanceHero(balance: balance)
+                        Text("Your tab ›")
+                            .font(.footnote.weight(.semibold))
+                            .foregroundStyle(Theme.gold.opacity(0.9))
+                    }
+                }
+                .buttonStyle(.plain)
 
                 Spacer(minLength: 0)
 
@@ -60,7 +68,7 @@ struct HomeView: View {
                 }
                 .buttonStyle(GoldButtonStyle())
 
-                NavigationLink(value: Route.ledger(.runs)) {
+                NavigationLink(value: Route.runs) {
                     HStack(spacing: 12) {
                         Image(systemName: "figure.run")
                             .font(.title3)
