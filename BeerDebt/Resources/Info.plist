@@ -26,6 +26,8 @@
     <true/>
     <key>NSHealthShareUsageDescription</key>
     <string>Beer Debt reads your running workouts from Apple Health so your runs can pay down your beer debt. Only running workouts are used, and nothing is written to Health.</string>
+    <key>NSHealthUpdateUsageDescription</key>
+    <string>Beer Debt never writes to Apple Health. It only reads your running workouts.</string>
     <key>UIApplicationSceneManifest</key>
     <dict>
         <key>UIApplicationSupportsMultipleScenes</key>

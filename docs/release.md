@@ -54,6 +54,13 @@ Automatic, with Xcode Cloud's managed signing. The HealthKit entitlement is
 in `BeerDebt/Resources/BeerDebt.entitlements`; the App ID already carries the
 capability.
 
+### HealthKit purpose strings
+
+App Store Connect rejects the upload (ITMS-90683) unless **both**
+`NSHealthShareUsageDescription` and `NSHealthUpdateUsageDescription` are in
+`Info.plist`, even though the app only reads. Both are set; the update string
+says plainly that nothing is written. Builds 2 and 3 failed on this.
+
 ### Export compliance
 
 `ITSAppUsesNonExemptEncryption` is `false` in `Info.plist`, so TestFlight
