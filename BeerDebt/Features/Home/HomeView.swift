@@ -8,8 +8,12 @@ struct HomeView: View {
 
     var body: some View {
         // Re-render each minute so an interest posting shows up while the app is open.
+        // The schedule only ticks; the report is dated from the clock, not from the
+        // tick. A beer added between ticks is timestamped after the last tick and the
+        // replay would leave it out until the next one.
         TimelineView(.periodic(from: .now, by: 60)) { context in
-            content(report: store.report(at: context.date), now: context.date)
+            let now = max(context.date, .now)
+            content(report: store.report(at: now), now: now)
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
