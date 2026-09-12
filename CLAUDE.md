@@ -79,9 +79,8 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
 `ledger.json` from the App Group container via `LedgerFile`. Keep the widget
 free of app-only types. `BalanceWidgetViews.swift` is also compiled into the
 app so `-debugScreen widgets` can render the faces for screenshots. Both
-targets carry the `group.me.colinwatson.beerdebt` entitlement; the group
-itself must be registered once from Xcode with automatic signing (the API
-can't create app groups).
+targets carry the `group.me.colinwatson.beerdebt` entitlement; Xcode Cloud's
+managed signing registered the group itself (the API can't).
 
 ## Release
 

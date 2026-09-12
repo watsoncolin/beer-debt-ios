@@ -168,8 +168,9 @@ imported.
 - **Widget** (added 2026-09-12, spec §22): Home Screen small/medium and Lock
   Screen rectangular/inline/circular, in a WidgetKit extension that compiles
   the engine, models, and `Format` in and replays `ledger.json` from the App
-  Group container (`group.me.colinwatson.beerdebt`; the store migrated the
-  file there from Application Support). Timeline entries hourly for a day
+  Group container (`group.me.colinwatson.beerdebt`, registered by Xcode
+  Cloud's managed signing; the store migrated the file there from
+  Application Support). Timeline entries hourly for a day
   plus the exact next interest posting, and `LedgerStore.save()` reloads the
   widget. No interactive + Beer button yet: writes from the widget process
   would need file coordination with the app.

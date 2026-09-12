@@ -81,10 +81,9 @@ says plainly that nothing is written. Builds 2 and 3 failed on this.
 run notifications; build 13 confirmed managed signing handles it), and the
 App Group `group.me.colinwatson.beerdebt` shared with the widget extension
 (`me.colinwatson.beerdebt.widget`, App ID `F9X9Z3V5MJ`, App Groups capability
-enabled on both App IDs via the API). The group identifier itself has to be
-registered once from Xcode: open the project with automatic signing and
-build to a device; Xcode creates the group and adds it to both App IDs, after
-which Xcode Cloud's managed profiles include it.
+enabled on both App IDs via the API). Xcode Cloud's managed signing
+registered the group and produced profiles for both targets on its own
+(build 14); no local Xcode step was needed.
 
 ### Export compliance
 
