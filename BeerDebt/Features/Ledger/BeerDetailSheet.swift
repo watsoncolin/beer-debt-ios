@@ -23,7 +23,7 @@ struct BeerDetailSheet: View {
                         DatePicker(
                             "Added",
                             selection: $date,
-                            in: store.ledger.booksOpenedAt...now,
+                            in: store.earliestBeerDate(now: now)...now,
                             displayedComponents: [.date, .hourAndMinute]
                         )
                         if entry.isBackdated, let recordedAt = entry.recordedAt {

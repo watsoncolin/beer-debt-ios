@@ -8,7 +8,8 @@ import Foundation
 ///
 /// - Events (rules changes, beers, runs) are folded in time order. Beers sit at
 ///   `createdAt`, runs at `endedAt`, so a late HealthKit import lands at the
-///   time the run actually happened.
+///   time the run actually happened. A backdated beer may precede
+///   `booksOpenedAt`; a run may not (it is ignored).
 /// - Before each event, every open debt posts the interest steps that fell due
 ///   and the credit pool decays, using the rules in force during that interval.
 /// - A beer spends credit first; the remainder opens a debt.

@@ -157,7 +157,7 @@ struct BeerAddedSheet: View {
                 DatePicker(
                     "Logged for",
                     selection: $date,
-                    in: store.ledger.booksOpenedAt...now,
+                    in: store.earliestBeerDate(now: now)...now,
                     displayedComponents: [.date, .hourAndMinute]
                 )
                 .foregroundStyle(Theme.cream)

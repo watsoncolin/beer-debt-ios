@@ -80,10 +80,12 @@ struct LedgerStoreTests {
         #expect(LedgerStore(directory: dir, now: at(day)).ledger.beers == [keep])
     }
 
-    @Test func beerDatesAreClampedToTheBooks() {
+    @Test func beerDatesAreClampedToTheLastThirtyDaysAndNow() {
         let store = LedgerStore(directory: tempDir(), now: t0)
         let beer = store.addBeer(at: at(hour))
-        #expect(store.updateBeerDate(id: beer.id, to: at(-day), now: at(hour))?.createdAt == t0)
+        // Before the books opened is fine: day-one users own up to last night's beers.
+        #expect(store.updateBeerDate(id: beer.id, to: at(-day), now: at(hour))?.createdAt == at(-day))
+        #expect(store.updateBeerDate(id: beer.id, to: at(-40 * day), now: at(hour))?.createdAt == at(hour - 30 * day))
         #expect(store.updateBeerDate(id: beer.id, to: at(5 * day), now: at(hour))?.createdAt == at(hour))
         #expect(store.updateBeerDate(id: UUID(), to: t0, now: at(hour)) == nil)
     }

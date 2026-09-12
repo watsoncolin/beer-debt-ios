@@ -1,7 +1,8 @@
 import Foundation
 
 /// One beer. Immutable except for its place on the timeline: a beer you forgot
-/// to log can be dated back later, bounded by `Ledger.booksOpenedAt` and now.
+/// to log can be dated back later (up to 30 days, and it may predate the
+/// books, unlike a run).
 ///
 /// Deliberately minimal: what the beer cost, whether credit covered it, and how
 /// much interest it has accrued are all derived during replay from the rules in

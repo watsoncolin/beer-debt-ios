@@ -313,6 +313,17 @@ struct BalanceEngineTests {
         #expect(r.runs[0].ignored)
     }
 
+    @Test func aBeerFromBeforeTheBooksOpenedStillCounts() {
+        // Installed Saturday, owned up to Thursday's beer. It has been accruing
+        // since Thursday; Sunday's run pays it and banks the rest.
+        let l = ledger(rules: noDecay, beers: [beer(at(-2 * day))], runs: [run(3, endedAt: at(hour))])
+        #expect(close(report(l, at: t0).balance.debtMiles, 1.21))
+        let r = report(l, at: at(2 * hour))
+        #expect(r.beers[0].isPaid)
+        #expect(close(r.beers[0].interestAccruedMiles, 0.21))
+        #expect(close(r.balance.creditMiles, 3 - 1.21))
+    }
+
     @Test func lateImportedRunLandsAtItsOwnTime() {
         let prompt = ledger(beers: [beer(t0)], runs: [run(1, endedAt: at(hour), importedAt: at(hour))])
         let late = ledger(beers: [beer(t0)], runs: [run(1, endedAt: at(hour), importedAt: at(5 * day))])

@@ -49,7 +49,8 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
   `Date(timeIntervalSince1970:)` instants, never `.now`.
 - Events are append-only and immutable, with one exception: a beer's
   `createdAt` may be corrected through `LedgerStore.updateBeerDate`, which
-  clamps it to `booksOpenedAt...now`, and an accidental beer may be removed
+  clamps it to the last 30 days (it may predate `booksOpenedAt`; runs may
+  not), and an accidental beer may be removed
   with `LedgerStore.removeBeer`. `BeerEntry` is id + `createdAt` (+
   `recordedAt`, when it was logged),
   `RunEntry` (HealthKit workout UUID for dedup, meters), and `RulesChange`

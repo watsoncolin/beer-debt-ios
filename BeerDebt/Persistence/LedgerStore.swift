@@ -69,14 +69,24 @@ final class LedgerStore {
         ledger.beers.first { $0.id == id }
     }
 
-    /// Moves a beer on the timeline, for one logged late. Clamped to the books:
-    /// no earlier than `booksOpenedAt`, no later than `now`. The next replay
-    /// redoes the books as if the beer had been logged then. Returns the stored
-    /// entry, or nil if there is no such beer.
+    /// How far back a forgotten beer can be dated.
+    static let backdatingWindow: TimeInterval = 30 * 24 * 60 * 60
+
+    /// Earliest date a beer may carry. A beer may predate the books (you can
+    /// own up to last week's beers on day one); runs from before the books
+    /// opened still never count.
+    func earliestBeerDate(now: Date = .now) -> Date {
+        now.addingTimeInterval(-Self.backdatingWindow).flooredToSecond
+    }
+
+    /// Moves a beer on the timeline, for one logged late. Clamped to the last
+    /// 30 days and no later than `now`. The next replay redoes the books as if
+    /// the beer had been logged then. Returns the stored entry, or nil if there
+    /// is no such beer.
     @discardableResult
     func updateBeerDate(id: UUID, to date: Date, now: Date = .now) -> BeerEntry? {
         guard let index = ledger.beers.firstIndex(where: { $0.id == id }) else { return nil }
-        let clamped = min(max(date.flooredToSecond, ledger.booksOpenedAt), now.flooredToSecond)
+        let clamped = min(max(date.flooredToSecond, earliestBeerDate(now: now)), now.flooredToSecond)
         if clamped != ledger.beers[index].createdAt {
             ledger.beers[index].createdAt = clamped
             save()

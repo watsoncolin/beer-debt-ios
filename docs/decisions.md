@@ -101,8 +101,12 @@ imported.
   - Credit cap and decay: policy on the pool; the new values apply from the
     change forward.
 - **Correcting a beer's date** (added 2026-09-12). A beer you forgot to log
-  can be dated back from the Beer Added sheet or the beer's detail. The date
-  is clamped to the books: no earlier than `booksOpenedAt`, no later than now.
+  can be dated back from the Beer Added sheet or the beer's detail, up to 30
+  days and no later than now. It *may* predate `booksOpenedAt`: on day one
+  you can own up to last night's beers. (The first version clamped to the
+  books, which on a fresh install disabled every day but today.) Runs from
+  before the books opened still never count, so an old beer can only be paid
+  by running done since install.
   `BeerEntry.recordedAt` keeps when it was actually logged, so the ledger can
   show "Logged …" on backdated beers. The next replay simply treats the beer
   as having happened then, which can re-route an earlier run from credit to
