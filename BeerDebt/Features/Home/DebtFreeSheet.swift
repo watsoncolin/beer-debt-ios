@@ -10,8 +10,10 @@ struct DebtFreeSheet: View {
             Backdrop()
 
             VStack(spacing: 16) {
-                Text("🏆")
-                    .font(.system(size: 96))
+                Image("DebtFreeTrophy")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 170)
                     .padding(.top, 32)
 
                 Text("Debt Free!")

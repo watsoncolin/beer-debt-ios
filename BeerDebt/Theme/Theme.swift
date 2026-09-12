@@ -15,8 +15,9 @@ enum Theme {
     static let credit = Color(red: 0.361, green: 0.722, blue: 0.471)
 }
 
-/// Dark forest background for Home and the sheets. Shows `HomeBackdrop` from
-/// the asset catalog if it exists; otherwise a gradient.
+/// Dark forest background for Home and the sheets: the painted trail-and-
+/// mountains scene (`HomeBackdrop`, docs/art) under a scrim that keeps cream
+/// text legible over the sunset band and darkens the bottom for the controls.
 struct Backdrop: View {
     var body: some View {
         ZStack {
@@ -25,17 +26,24 @@ struct Backdrop: View {
                 startPoint: .top,
                 endPoint: .bottom
             )
-            if let image = UIImage(named: "HomeBackdrop") {
-                Rectangle()
-                    .fill(.clear)
-                    .overlay {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFill()
-                    }
-                    .clipped()
-                    .opacity(0.6)
-            }
+            Rectangle()
+                .fill(.clear)
+                .overlay {
+                    Image("HomeBackdrop")
+                        .resizable()
+                        .scaledToFill()
+                }
+                .clipped()
+            LinearGradient(
+                stops: [
+                    .init(color: Theme.forestDeep.opacity(0.55), location: 0),
+                    .init(color: Theme.forestDeep.opacity(0.30), location: 0.30),
+                    .init(color: Theme.forestDeep.opacity(0.45), location: 0.55),
+                    .init(color: Theme.forestDeep.opacity(0.88), location: 1),
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
         }
         .ignoresSafeArea()
     }

@@ -25,8 +25,12 @@ struct BeerAddedSheet: View {
 
             ScrollView {
                 VStack(spacing: 18) {
-                    Text("🍺")
-                        .font(.system(size: 96))
+                    Image("MugArt")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+                        .clipShape(Circle())
+                        .shadow(color: .black.opacity(0.35), radius: 16, y: 8)
                         .padding(.top, 24)
 
                     Text("Beer added!")

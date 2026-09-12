@@ -83,11 +83,17 @@ A sister repo (`beer-debt-android`) is planned. The cross-platform contract is
 as data (events, rules, `now`, expected balance) so they can be exported as
 JSON fixtures and run against the Kotlin engine.
 
-## Release assets
+## Art
 
-App icon and store screenshots are generated from the shared `~/app-utils` repo
-(github.com/watsoncolin/app-utils), per-app config under `apps/beerdebt/` (not
-created yet). Don't commit generated icons here until that exists.
+Originals live in `docs/art/` (generated with Codex, 2026-09-12): the app icon
+(mug with a trail, Colin's pick), the plain mug, the transparent trophy mug,
+and the portrait trail-and-mountains scene. The asset catalog holds resized
+copies: `AppIcon` (1024, no alpha), `BrandMark` and `MugArt` (512),
+`DebtFreeTrophy` (600), `HomeBackdrop` (original size, single scale). `Backdrop`
+in `Theme.swift` draws the scene under a scrim tuned so cream text stays
+legible over the sunset band; if the art changes, re-check `home-debt` in
+`scripts/screenshots.sh`. Store screenshots can still go through `~/app-utils`
+later.
 
 ## Map
 

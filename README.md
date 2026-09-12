@@ -13,6 +13,7 @@ app, not a health dashboard.
 - [`docs/spec.md`](docs/spec.md) — the product spec and MVP acceptance criteria (source of truth for *what*)
 - [`docs/decisions.md`](docs/decisions.md) — review notes on the spec vs. concept art, and the accounting/platform decisions (source of truth for *how*)
 - [`docs/concept.png`](docs/concept.png) — concept art for the eight screens
+- [`docs/art/`](docs/art/) — the shipped art: app icon, backdrop, trophy
 
 <p>
 <img src="docs/screenshots/home-debt.png" width="180" alt="Home, in debt">
@@ -86,4 +87,5 @@ The Ledger (beers and runs), Settings (forward-only rules changes), and Health
 onboarding are in. A forgotten beer can be dated back, and an accidental one
 deleted, from either sheet. 49 engine and store tests pass.
 
-Not yet: app icon and Home backdrop art, on-device HealthKit test, TestFlight.
+Ships to TestFlight via Xcode Cloud. Not yet: on-device HealthKit test,
+JSON engine fixtures for the Android port.

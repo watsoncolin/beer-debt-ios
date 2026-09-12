@@ -15,8 +15,12 @@ struct HealthOnboardingView: View {
             VStack(spacing: 20) {
                 Spacer()
 
-                Text("🍺")
-                    .font(.system(size: 88))
+                Image("BrandMark")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 132, height: 132)
+                    .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                    .shadow(color: .black.opacity(0.35), radius: 18, y: 10)
                 Text("Beer Debt")
                     .font(.system(size: 44, weight: .heavy, design: .rounded))
                     .foregroundStyle(Theme.cream)
