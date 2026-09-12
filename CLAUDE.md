@@ -70,6 +70,18 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
 - Product copy lives in spec §18–§19; keep the finance-vocabulary tone
   (principal, interest, credit, "books are clean", "your tab").
 
+## Widget
+
+`BeerDebtWidget/` is a WidgetKit extension (bundle
+`me.colinwatson.beerdebt.widget`) that shares `Engine/`, `Models/`,
+`Theme/Format.swift`, and `Theme/Theme.swift` as sources and reads
+`ledger.json` from the App Group container via `LedgerFile`. Keep the widget
+free of app-only types. `BalanceWidgetViews.swift` is also compiled into the
+app so `-debugScreen widgets` can render the faces for screenshots. Both
+targets carry the `group.me.colinwatson.beerdebt` entitlement; the group
+itself must be registered once from Xcode with automatic signing (the API
+can't create app groups).
+
 ## Release
 
 App Store Connect app ID `6811380824`, bundle `me.colinwatson.beerdebt`.
@@ -130,8 +142,11 @@ are in that config. Upload to App Store Connect goes through the API into the
 - `Health/` — `HealthKitService` (authorization, anchored workout query with
   deletions, background delivery + observer query), `HealthSync` (connect,
   sync on active and on background wake, drops pre-books runs, removes deleted
-  workouts, debt-free celebration, notification trigger), `RunNotifier`
-  (local notification permission + the pure copy builder).
+  workouts, debt-free celebration, notification trigger, owns `WeeklySummary`),
+  `RunNotifier` (local notification permission + the pure copy builder),
+  `WeeklySummary` (schedule + pure copy for the weekly recap).
+- `Models/LedgerFile.swift` — the shared on-disk location and codecs, used by
+  both the store and the widget.
 - `Features/` — `Home`, `Ledger`, `Settings`, `Onboarding`. Beer feedback and
   transaction detail are sheets.
 - `Theme/` — palette, `Backdrop`, `GoldButtonStyle`, `Pill`, and `Format`

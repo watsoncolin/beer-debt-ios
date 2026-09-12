@@ -152,6 +152,20 @@ imported.
   syncs update the UI instead. A debt-free celebration earned in the
   background is stashed in UserDefaults and shown on the next open. No push
   server: everything is local.
+- **Weekly summary** (added 2026-09-12): an opt-in local notification on a
+  chosen weekday and time with the week's beers, miles run, and where the tab
+  stands. The standing quoted is `BalanceEngine.report(for:at: fireDate)`,
+  i.e. the exact balance at the moment it fires assuming nothing new happens;
+  the next four occurrences are scheduled and rescheduled on every ledger
+  change, so the copy stays right even if the app isn't opened for a while.
+- **Widget** (added 2026-09-12, spec §22): Home Screen small/medium and Lock
+  Screen rectangular/inline/circular, in a WidgetKit extension that compiles
+  the engine, models, and `Format` in and replays `ledger.json` from the App
+  Group container (`group.me.colinwatson.beerdebt`; the store migrated the
+  file there from Application Support). Timeline entries hourly for a day
+  plus the exact next interest posting, and `LedgerStore.save()` reloads the
+  widget. No interactive + Beer button yet: writes from the widget process
+  would need file coordination with the app.
 - Two sources logging the same run (Watch + Strava) is not handled in MVP.
 
 ## D. Platform

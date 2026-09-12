@@ -1,5 +1,6 @@
 import Foundation
 import Observation
+import WidgetKit
 
 /// Owns the persisted event ledger and exposes derived reports to the UI.
 /// Local-first: one JSON file in Application Support, written atomically
@@ -19,15 +20,16 @@ final class LedgerStore {
     ///     Application Support/BeerDebt. Tests pass a temporary directory.
     ///   - now: the instant the books open if there is no ledger yet.
     init(directory: URL? = nil, now: Date = .now) {
-        let dir = directory ?? Self.defaultDirectory
+        let dir = directory ?? LedgerFile.sharedDirectory
         try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         self.directory = dir
-        fileURL = dir.appendingPathComponent("ledger.json")
+        fileURL = dir.appendingPathComponent(LedgerFile.fileName)
         let opened = now.flooredToSecond
+        if directory == nil { Self.migrateLegacyFile(to: fileURL) }
 
         if let data = try? Data(contentsOf: fileURL) {
             do {
-                ledger = try Self.decoder.decode(Ledger.self, from: data)
+                ledger = try LedgerFile.decoder.decode(Ledger.self, from: data)
             } catch {
                 // Never silently discard the books: set the unreadable file
                 // aside and start fresh.
@@ -142,29 +144,21 @@ final class LedgerStore {
 
     // MARK: Persistence
 
-    private static var defaultDirectory: URL {
-        FileManager.default
-            .urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("BeerDebt", isDirectory: true)
+    /// One-time move from Application Support into the App Group container
+    /// (added with the widget). Nothing to do once the shared file exists.
+    private static func migrateLegacyFile(to shared: URL) {
+        let legacy = LedgerFile.legacyDirectory.appendingPathComponent(LedgerFile.fileName)
+        guard legacy != shared,
+              FileManager.default.fileExists(atPath: legacy.path),
+              !FileManager.default.fileExists(atPath: shared.path) else { return }
+        try? FileManager.default.moveItem(at: legacy, to: shared)
     }
-
-    private static let encoder: JSONEncoder = {
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
-        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-        return encoder
-    }()
-
-    private static let decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
-        return decoder
-    }()
 
     private func save() {
         do {
-            let data = try Self.encoder.encode(ledger)
+            let data = try LedgerFile.encoder.encode(ledger)
             try data.write(to: fileURL, options: .atomic)
+            WidgetCenter.shared.reloadAllTimelines()
         } catch {
             assertionFailure("Failed to save ledger: \(error)")
         }

@@ -20,6 +20,7 @@ struct RootView: View {
                             switch route {
                             case .ledger(let segment): LedgerView(segment: segment)
                             case .settings: SettingsView()
+                            case .widgetPreview: WidgetPreviewScreen()
                             }
                         }
                 }
@@ -45,6 +46,9 @@ struct RootView: View {
         .sheet(item: $sync.celebration) { celebration in
             DebtFreeSheet(celebration: celebration)
         }
+        .onChange(of: store.ledger) { _, _ in
+            Task { await sync.rescheduleWeeklySummary() }
+        }
         .onAppear(perform: applyDebugLaunch)
     }
 
@@ -56,6 +60,7 @@ struct RootView: View {
         case "ledger", "beerDetail": path.append(Route.ledger(.beers))
         case "runs": path.append(Route.ledger(.runs))
         case "settings": path.append(Route.settings)
+        case "widgets": path.append(Route.widgetPreview)
         case "debtFree":
             let report = store.report()
             sync.celebration = DebtFreeCelebration(
@@ -74,6 +79,7 @@ struct RootView: View {
 enum Route: Hashable {
     case ledger(LedgerView.Segment)
     case settings
+    case widgetPreview
 }
 
 #if DEBUG

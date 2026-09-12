@@ -76,10 +76,15 @@ says plainly that nothing is written. Builds 2 and 3 failed on this.
 
 ### Entitlements
 
-`BeerDebt.entitlements` carries HealthKit plus
+`BeerDebt.entitlements` carries HealthKit,
 `com.apple.developer.healthkit.background-delivery` (added 2026-09-12 for
-run notifications). Xcode Cloud's managed signing picks both up from the App
-ID's HealthKit capability.
+run notifications; build 13 confirmed managed signing handles it), and the
+App Group `group.me.colinwatson.beerdebt` shared with the widget extension
+(`me.colinwatson.beerdebt.widget`, App ID `F9X9Z3V5MJ`, App Groups capability
+enabled on both App IDs via the API). The group identifier itself has to be
+registered once from Xcode: open the project with automatic signing and
+build to a device; Xcode creates the group and adds it to both App IDs, after
+which Xcode Cloud's managed profiles include it.
 
 ### Export compliance
 

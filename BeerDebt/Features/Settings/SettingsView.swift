@@ -8,6 +8,7 @@ struct SettingsView: View {
     @State private var draft = Rules.default
     @State private var loaded = false
     @State private var notificationsDenied = false
+    @State private var weeklyDenied = false
 
     private static let milesPresets: [Double] = [0.5, 1, 1.5, 2, 3, 5]
     private static let ratePresets: [Double] = [0, 0.05, 0.10, 0.15, 0.20, 0.25]
@@ -103,6 +104,44 @@ struct SettingsView: View {
                 Text("Health & Data")
             } footer: {
                 Text("Only running workouts count toward your balance. Runs sync when you open the app and, once connected, in the background when a workout is saved. If runs aren't showing up, check Settings › Health › Data Access & Devices › Beer Debt.")
+            }
+
+            Section {
+                Toggle("Weekly summary", isOn: Binding(
+                    get: { sync.weekly.enabled },
+                    set: { on in
+                        Task {
+                            if on {
+                                weeklyDenied = !(await sync.enableWeeklySummary())
+                            } else {
+                                await sync.disableWeeklySummary()
+                            }
+                        }
+                    }
+                ))
+                if sync.weekly.enabled {
+                    Picker("Day", selection: Binding(
+                        get: { sync.weekly.weekday },
+                        set: { sync.weekly.weekday = $0; Task { await sync.rescheduleWeeklySummary() } }
+                    )) {
+                        ForEach(Array(zip(1...7, Calendar.current.weekdaySymbols)), id: \.0) { number, name in
+                            Text(name).tag(number)
+                        }
+                    }
+                    DatePicker("Time", selection: Binding(
+                        get: { sync.weekly.timeOfDay },
+                        set: { sync.weekly.timeOfDay = $0; Task { await sync.rescheduleWeeklySummary() } }
+                    ), displayedComponents: .hourAndMinute)
+                }
+                if weeklyDenied {
+                    Text("Notifications are off for Beer Debt. Turn them on in Settings › Notifications › Beer Debt.")
+                        .font(.footnote)
+                        .foregroundStyle(Theme.debt)
+                }
+            } header: {
+                Text("Weekly Summary")
+            } footer: {
+                Text("A once-a-week recap: beers, miles, and where your tab stands.")
             }
 
             Section("About") {

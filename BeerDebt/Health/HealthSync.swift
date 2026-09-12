@@ -33,6 +33,8 @@ final class HealthSync {
     private(set) var lastError: String?
     /// Whether to post a notification when a run lands while the app is closed.
     private(set) var runNotificationsEnabled: Bool
+    /// Once-a-week recap, configured in Settings.
+    let weekly = WeeklySummary()
     /// True while the app is in the foreground; syncs then update the UI
     /// directly instead of notifying.
     var isAppActive = false
@@ -100,6 +102,26 @@ final class HealthSync {
         await notifier.authorizationStatus() == .denied
     }
 
+    /// Turns the weekly summary on (asking for permission if needed) and
+    /// schedules it. Returns false if permission was refused.
+    @discardableResult
+    func enableWeeklySummary() async -> Bool {
+        let granted = await notifier.requestAuthorization()
+        weekly.setEnabled(granted)
+        await weekly.reschedule(ledger: store.ledger)
+        return granted
+    }
+
+    func disableWeeklySummary() async {
+        weekly.setEnabled(false)
+        await weekly.reschedule(ledger: store.ledger)
+    }
+
+    /// Call whenever the ledger changes so the weekly copy stays exact.
+    func rescheduleWeeklySummary() async {
+        await weekly.reschedule(ledger: store.ledger)
+    }
+
     // MARK: Syncing
 
     func syncIfConnected() async {
@@ -125,6 +147,7 @@ final class HealthSync {
 
             guard !added.isEmpty || removed > 0 else { return }
             let after = store.report()
+            await weekly.reschedule(ledger: store.ledger)
 
             if !added.isEmpty, before.balance.state == .debt, after.balance.state != .debt {
                 let party = DebtFreeCelebration(
