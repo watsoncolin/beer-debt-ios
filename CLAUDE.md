@@ -76,6 +76,15 @@ for the workflow definition, versioning, and the one-time Xcode setup. Bump
 `MARKETING_VERSION` in `project.yml` for a new release; Xcode Cloud sets the
 build number.
 
+## Website
+
+`index.html`, `support.html`, `privacy.html`, and `.nojekyll` at the repo root
+are the GitHub Pages site (source: `main`, `/`), same layout as strumbuddy-ios.
+They reference the icon and `docs/screenshots/home-debt.png` by repo path.
+App Store Connect's privacy-policy and support URLs point at the privacy and
+support pages; the privacy page is what App Review reads for HealthKit use,
+so keep the Apple Health section accurate when Health usage changes.
+
 ## Android
 
 A sister repo (`beer-debt-android`) is planned. The cross-platform contract is

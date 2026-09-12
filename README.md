@@ -14,6 +14,7 @@ app, not a health dashboard.
 - [`docs/decisions.md`](docs/decisions.md) — review notes on the spec vs. concept art, and the accounting/platform decisions (source of truth for *how*)
 - [`docs/concept.png`](docs/concept.png) — concept art for the eight screens
 - [`docs/art/`](docs/art/) — the shipped art: app icon, backdrop, trophy
+- [`index.html`](index.html), [`support.html`](support.html), [`privacy.html`](privacy.html) — the GitHub Pages site (watsoncolin.github.io/beer-debt-ios)
 
 <p>
 <img src="docs/screenshots/home-debt.png" width="180" alt="Home, in debt">
