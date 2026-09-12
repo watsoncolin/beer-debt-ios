@@ -108,8 +108,14 @@ in `Theme.swift` draws the scene under a scrim tuned so cream text stays
 legible over the sunset band; if the art changes, re-check `home-debt` in
 `scripts/screenshots.sh`. The launch screen is `LaunchScreen.storyboard`
 (same image, aspect-filled, flat 45% scrim) because the plist launch screen
-can't scale an image. Store screenshots can still go through `~/app-utils`
-later.
+can't scale an image.
+
+Store screenshots: capture raws with `scripts/screenshots.sh <iPhone 16 Pro Max
+udid> <dir>` (native 6.9", 1320×2868), copy them to
+`~/app-utils/apps/beerdebt/raw/01..07.png`, then in `~/app-utils` run
+`npm run shots:compose apps/beerdebt/config.mjs`. Captions and the gold theme
+are in that config. Upload to App Store Connect goes through the API into the
+`APP_IPHONE_67` screenshot set (that is the 6.9" slot; there is no `_69`).
 
 ## Map
 

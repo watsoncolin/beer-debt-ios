@@ -14,9 +14,10 @@ Pawfect Edit and StrumBuddy.
 | Primary language | English (U.S.) |
 | First version | 1.0 (matches `MARKETING_VERSION` in `project.yml`) |
 
-Created 2026-09-12. Nothing in the listing (screenshots, description,
-privacy) is filled in yet; those are needed for external TestFlight and
-App Review, not for internal TestFlight.
+Created 2026-09-12. Listing progress: privacy, support, and marketing URLs
+set; seven 6.9" screenshots uploaded (composed in `~/app-utils`, see
+CLAUDE.md). Still to fill: description, subtitle, keywords, category, age
+rating, App Privacy, review contact, and a build on the version.
 
 ## Xcode Cloud workflow
 
