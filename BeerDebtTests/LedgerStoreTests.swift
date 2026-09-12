@@ -59,6 +59,25 @@ struct LedgerStoreTests {
         #expect(LedgerStore(directory: dir, now: at(day)).ledger.runs.isEmpty)
     }
 
+    @Test func aRunDeletedInTheAppStaysOffTheBooks() {
+        let dir = tempDir()
+        let store = LedgerStore(directory: dir, now: t0)
+        store.addBeer(at: t0)
+        let workout = UUID()
+        let entry = run(1, endedAt: at(hour), workoutID: workout)
+        store.importRuns([entry])
+        #expect(store.report(at: at(2 * hour)).balance.state == .even)
+
+        #expect(store.deleteRun(id: entry.id))
+        #expect(!store.deleteRun(id: entry.id))
+        #expect(store.report(at: at(2 * hour)).balance.state == .debt)
+        // A fresh sync offering the same workout again is refused.
+        #expect(store.importRuns([run(1, endedAt: at(hour), workoutID: workout)]).isEmpty)
+        let reloaded = LedgerStore(directory: dir, now: at(day))
+        #expect(reloaded.ledger.runs.isEmpty)
+        #expect(reloaded.ledger.excludedWorkoutIDs == [workout])
+    }
+
     @Test func rulesChangesAppendForwardOnly() {
         let store = LedgerStore(directory: tempDir(), now: t0)
         var rules = store.currentRules

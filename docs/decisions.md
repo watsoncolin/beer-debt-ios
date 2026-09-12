@@ -152,6 +152,13 @@ imported.
   syncs update the UI instead. A debt-free celebration earned in the
   background is stashed in UserDefaults and shown on the next open. No push
   server: everything is local.
+- **Deleting a run in the app** (added 2026-09-12). Swipe a run in The
+  Ledger. It comes off the books (whatever it paid goes back on the tab) and
+  its HealthKit workout ID goes into `Ledger.excludedWorkoutIDs`, so a
+  re-sync from scratch (reinstall, anchor reset) can't bring it back. Two
+  reasons: cleaning up runs deleted from Health before deletion handling
+  existed, and choosing not to count a real run. Older ledger files without
+  the field decode with an empty set.
 - **Weekly summary** (added 2026-09-12): an opt-in local notification on a
   chosen weekday and time with the week's beers, miles run, and where the tab
   stands. The standing quoted is `BalanceEngine.report(for:at: fireDate)`,

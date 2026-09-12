@@ -101,12 +101,25 @@ final class LedgerStore {
     @discardableResult
     func importRuns(_ runs: [RunEntry]) -> [RunEntry] {
         var added: [RunEntry] = []
-        for run in runs where !ledger.containsRun(healthKitWorkoutID: run.healthKitWorkoutID) {
+        for run in runs where !ledger.containsRun(healthKitWorkoutID: run.healthKitWorkoutID)
+            && !ledger.excludedWorkoutIDs.contains(run.healthKitWorkoutID) {
             ledger.runs.append(run)
             added.append(run)
         }
         if !added.isEmpty { save() }
         return added
+    }
+
+    /// Takes a run off the books by the user's choice, and keeps it off: the
+    /// workout stays in Health but is never imported again. The next replay
+    /// puts whatever it paid back on the tab.
+    @discardableResult
+    func deleteRun(id: UUID) -> Bool {
+        guard let index = ledger.runs.firstIndex(where: { $0.id == id }) else { return false }
+        let run = ledger.runs.remove(at: index)
+        ledger.excludedWorkoutIDs.insert(run.healthKitWorkoutID)
+        save()
+        return true
     }
 
     /// Takes runs off the books when their workouts were deleted from Health.

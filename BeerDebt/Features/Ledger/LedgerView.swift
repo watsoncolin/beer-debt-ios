@@ -14,6 +14,7 @@ struct LedgerView: View {
     @State private var segment: Segment
     @State private var selectedBeer: BeerStatement?
     @State private var beerToDelete: BeerStatement?
+    @State private var runToDelete: RunStatement?
 
     init(segment: Segment = .beers) {
         _segment = State(initialValue: segment)
@@ -35,7 +36,7 @@ struct LedgerView: View {
             case .beers:
                 BeerSections(report: report, select: { selectedBeer = $0 }, delete: { beerToDelete = $0 })
             case .runs:
-                RunSections(report: report)
+                RunSections(report: report) { runToDelete = $0 }
             }
         }
         .navigationTitle("The Ledger")
@@ -55,6 +56,18 @@ struct LedgerView: View {
             }
         } message: { _ in
             Text("Any run that paid for it goes to your other beers or to credit instead.")
+        }
+        .confirmationDialog(
+            "Take this run off the books?",
+            isPresented: Binding(get: { runToDelete != nil }, set: { if !$0 { runToDelete = nil } }),
+            titleVisibility: .visible,
+            presenting: runToDelete
+        ) { statement in
+            Button("Delete \(Format.miles(statement.run.distanceMiles)) run", role: .destructive) {
+                store.deleteRun(id: statement.id)
+            }
+        } message: { _ in
+            Text("Whatever it paid goes back on your tab. It stays in Apple Health but won't count here again.")
         }
         .onAppear {
             #if DEBUG
@@ -170,6 +183,7 @@ private struct BeerRow: View {
 
 private struct RunSections: View {
     let report: Report
+    let delete: (RunStatement) -> Void
 
     private struct DayGroup: Identifiable {
         let day: Date
@@ -200,6 +214,11 @@ private struct RunSections: View {
                 Section(Format.dayHeader(group.day, now: report.at)) {
                     ForEach(group.runs) { statement in
                         RunRow(statement: statement)
+                            .swipeActions(edge: .trailing) {
+                                Button(role: .destructive) { delete(statement) } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            }
                     }
                 }
             }

@@ -19,6 +19,9 @@ struct Ledger: Codable, Hashable, Sendable {
     var rulesHistory: [RulesChange]
     var beers: [BeerEntry]
     var runs: [RunEntry]
+    /// HealthKit workouts the user took off the books in the app. Kept so a
+    /// re-sync from scratch (reinstall, anchor reset) doesn't bring them back.
+    var excludedWorkoutIDs: Set<UUID>
 
     init(openedAt: Date, rules: Rules = .default) {
         version = Self.currentVersion
@@ -26,6 +29,21 @@ struct Ledger: Codable, Hashable, Sendable {
         rulesHistory = [RulesChange(effectiveAt: openedAt, rules: rules)]
         beers = []
         runs = []
+        excludedWorkoutIDs = []
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case version, booksOpenedAt, rulesHistory, beers, runs, excludedWorkoutIDs
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        version = try c.decode(Int.self, forKey: .version)
+        booksOpenedAt = try c.decode(Date.self, forKey: .booksOpenedAt)
+        rulesHistory = try c.decode([RulesChange].self, forKey: .rulesHistory)
+        beers = try c.decode([BeerEntry].self, forKey: .beers)
+        runs = try c.decode([RunEntry].self, forKey: .runs)
+        excludedWorkoutIDs = try c.decodeIfPresent(Set<UUID>.self, forKey: .excludedWorkoutIDs) ?? []
     }
 
     var currentRules: Rules { rulesHistory.last?.rules ?? .default }
