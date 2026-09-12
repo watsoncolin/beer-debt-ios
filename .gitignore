@@ -1,0 +1,21 @@
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+*.xcscmblueprint
+xcuserdata/
+*.moved-aside
+
+# NOTE: project.yml is the source of truth; regenerate with `xcodegen generate`.
+# The .xcodeproj is committed (matching pourcraft-ios / strumbuddy-ios) so clone-and-open works.
+
+# Swift Package Manager
+.swiftpm/
+.build/
+Package.resolved
+
+# macOS
+.DS_Store
+
+# App data / secrets
+*.xcconfig.local
