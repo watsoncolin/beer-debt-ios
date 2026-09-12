@@ -61,6 +61,11 @@ xcodebuild -project BeerDebt.xcodeproj -scheme BeerDebt \
   -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test
 ```
 
+## Release
+
+Xcode Cloud archives every push to `main` and delivers it to TestFlight.
+See [`docs/release.md`](docs/release.md).
+
 ## Layout
 
 | Folder | What lives there |

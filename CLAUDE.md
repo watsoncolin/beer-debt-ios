@@ -68,6 +68,14 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
 - Product copy lives in spec §18–§19; keep the finance-vocabulary tone
   (principal, interest, credit, "books are clean", "your tab").
 
+## Release
+
+App Store Connect app ID `6811380824`, bundle `me.colinwatson.beerdebt`.
+Ships via Xcode Cloud → TestFlight on push to `main`; see `docs/release.md`
+for the workflow definition, versioning, and the one-time Xcode setup. Bump
+`MARKETING_VERSION` in `project.yml` for a new release; Xcode Cloud sets the
+build number.
+
 ## Android
 
 A sister repo (`beer-debt-android`) is planned. The cross-platform contract is
