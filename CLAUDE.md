@@ -101,10 +101,15 @@ so keep the Apple Health section accurate when Health usage changes.
 
 ## Android
 
-A sister repo (`beer-debt-android`) is planned. The cross-platform contract is
-`docs/spec.md` + the engine's test cases. When adding engine tests, write them
-as data (events, rules, `now`, expected balance) so they can be exported as
-JSON fixtures and run against the Kotlin engine.
+The sister repo is `~/beer-debt-android` (github.com/watsoncolin/beer-debt-android).
+This repo leads; features are built and validated here first, then ported.
+The cross-platform contract is `docs/spec.md` + `docs/engine-fixtures/cases.json`,
+generated from the Swift engine by `scripts/fixtures.sh` (64 scenarios mirroring
+`BalanceEngineTests`; pure `swiftc`, no simulator). **After any engine or model
+change: run `scripts/fixtures.sh`, commit the JSON, and copy it to
+`~/beer-debt-android/engine/src/test/resources/cases.json`.** The Kotlin
+engine's test fails loudly if the numbers drift. Add new scenarios to
+`scripts/fixtures.swift` alongside new Swift tests.
 
 ## Art
 
