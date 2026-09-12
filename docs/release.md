@@ -21,10 +21,9 @@ description / subtitle / keywords / promo text, copyright, categories
 rights, App Privacy "Data Not Collected" (published), price Free, all 175
 territories, build attached, review notes with HealthKit test steps.
 
-Left before "Add for Review": the review contact's phone number (the API
-refuses to save the contact without it), and an on-device pass with a real
-run. Submission itself can go through the API (`reviewSubmissions`) or the
-button.
+Submitted for App Review on 2026-09-12 (build 10, automatic release after
+approval). The review contact needed a phone number the API wouldn't accept
+a blank for, so Colin filled it in the web UI before pressing Add for Review.
 
 ## Xcode Cloud workflow
 
