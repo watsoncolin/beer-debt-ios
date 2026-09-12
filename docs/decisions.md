@@ -100,6 +100,14 @@ imported.
     already past a newly shortened grace posts once at the change instant.
   - Credit cap and decay: policy on the pool; the new values apply from the
     change forward.
+- **Correcting a beer's date** (added 2026-09-12). A beer you forgot to log
+  can be dated back from the Beer Added sheet or the beer's detail. The date
+  is clamped to the books: no earlier than `booksOpenedAt`, no later than now.
+  `BeerEntry.recordedAt` keeps when it was actually logged, so the ledger can
+  show "Logged …" on backdated beers. The next replay simply treats the beer
+  as having happened then, which can re-route an earlier run from credit to
+  paying it. That is the one deliberate exception to "history never changes":
+  it is correcting the record, not changing the rules.
 - **Precision.** Event timestamps are whole seconds so the JSON round-trips
   exactly and a relaunch replays to the identical balance. "Daily" and
   "weekly" are fixed lengths (86,400 s / 604,800 s), not calendar units, so

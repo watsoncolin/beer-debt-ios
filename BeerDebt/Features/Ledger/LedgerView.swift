@@ -40,8 +40,13 @@ struct LedgerView: View {
         .navigationTitle("The Ledger")
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $selectedBeer) { statement in
-            BeerDetailSheet(statement: statement, now: report.at)
+            BeerDetailSheet(beerID: statement.id)
                 .presentationDetents([.medium, .large])
+        }
+        .onAppear {
+            #if DEBUG
+            if DebugLaunch.screen == "beerDetail" { selectedBeer = report.beers.last }
+            #endif
         }
     }
 }

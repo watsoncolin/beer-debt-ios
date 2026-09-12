@@ -51,6 +51,31 @@ struct LedgerStoreTests {
         #expect(store.currentRules.interestRate == 0.2)
     }
 
+    @Test func aForgottenBeerCanBeDatedBack() {
+        let store = LedgerStore(directory: tempDir(), now: t0)
+        let beer = store.addBeer(at: at(2 * day))
+        #expect(beer.recordedAt == at(2 * day))
+        #expect(!beer.isBackdated)
+
+        let moved = store.updateBeerDate(id: beer.id, to: at(day + 0.4), now: at(2 * day))
+        #expect(moved?.createdAt == at(day))
+        #expect(moved?.recordedAt == at(2 * day))
+        #expect(moved?.isBackdated == true)
+        // The books are redone: it is a day old now, so interest has posted.
+        #expect(close(store.report(at: at(2 * day)).balance.debtMiles, 1.10))
+
+        let reloaded = LedgerStore(directory: store.directory, now: at(3 * day))
+        #expect(reloaded.ledger.beers == store.ledger.beers)
+    }
+
+    @Test func beerDatesAreClampedToTheBooks() {
+        let store = LedgerStore(directory: tempDir(), now: t0)
+        let beer = store.addBeer(at: at(hour))
+        #expect(store.updateBeerDate(id: beer.id, to: at(-day), now: at(hour))?.createdAt == t0)
+        #expect(store.updateBeerDate(id: beer.id, to: at(5 * day), now: at(hour))?.createdAt == at(hour))
+        #expect(store.updateBeerDate(id: UUID(), to: t0, now: at(hour)) == nil)
+    }
+
     @Test func unreadableLedgerIsSetAsideNotDeleted() throws {
         let dir = tempDir()
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)

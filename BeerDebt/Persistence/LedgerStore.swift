@@ -10,6 +10,8 @@ final class LedgerStore {
     private(set) var ledger: Ledger
     /// Set when an existing ledger file couldn't be read (it is kept, renamed).
     private(set) var loadError: String?
+    /// Folder holding `ledger.json`.
+    let directory: URL
     private let fileURL: URL
 
     /// - Parameters:
@@ -19,6 +21,7 @@ final class LedgerStore {
     init(directory: URL? = nil, now: Date = .now) {
         let dir = directory ?? Self.defaultDirectory
         try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        self.directory = dir
         fileURL = dir.appendingPathComponent("ledger.json")
         let opened = now.flooredToSecond
 
@@ -55,10 +58,30 @@ final class LedgerStore {
     /// Records one beer immediately, no confirmation (spec §3).
     @discardableResult
     func addBeer(at date: Date = .now) -> BeerEntry {
-        let beer = BeerEntry(createdAt: date.flooredToSecond)
+        let at = date.flooredToSecond
+        let beer = BeerEntry(createdAt: at, recordedAt: at)
         ledger.beers.append(beer)
         save()
         return beer
+    }
+
+    func beer(id: UUID) -> BeerEntry? {
+        ledger.beers.first { $0.id == id }
+    }
+
+    /// Moves a beer on the timeline, for one logged late. Clamped to the books:
+    /// no earlier than `booksOpenedAt`, no later than `now`. The next replay
+    /// redoes the books as if the beer had been logged then. Returns the stored
+    /// entry, or nil if there is no such beer.
+    @discardableResult
+    func updateBeerDate(id: UUID, to date: Date, now: Date = .now) -> BeerEntry? {
+        guard let index = ledger.beers.firstIndex(where: { $0.id == id }) else { return nil }
+        let clamped = min(max(date.flooredToSecond, ledger.booksOpenedAt), now.flooredToSecond)
+        if clamped != ledger.beers[index].createdAt {
+            ledger.beers[index].createdAt = clamped
+            save()
+        }
+        return ledger.beers[index]
     }
 
     /// Idempotent. Returns how many runs were new; a HealthKit workout already

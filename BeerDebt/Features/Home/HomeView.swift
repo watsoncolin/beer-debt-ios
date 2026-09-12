@@ -22,7 +22,7 @@ struct HomeView: View {
         .toolbarColorScheme(.dark, for: .navigationBar)
         .toolbarBackground(.hidden, for: .navigationBar)
         .sheet(item: $addedBeer) { beer in
-            BeerAddedSheet(beer: beer)
+            BeerAddedSheet(beerID: beer.id)
         }
         .sensoryFeedback(.success, trigger: addedBeer)
         .onAppear {

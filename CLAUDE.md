@@ -29,8 +29,8 @@ Tests use Swift Testing (`import Testing`, `@Test`, `#expect`).
 `scripts/screenshots.sh [udid|booted]` installs the current simulator build,
 seeds demo ledgers (debt and credit states), and screenshots every screen into
 `docs/screenshots/`. It relies on the DEBUG-only launch argument
-`-debugScreen ledger|runs|settings|beerAdded|debtFree` handled in `RootView` /
-`HomeView`, and on writing `ledger.json` straight into the app container.
+`-debugScreen ledger|runs|settings|beerAdded|beerDetail|debtFree` handled in
+`RootView` / `HomeView` / `LedgerView`, and on writing `ledger.json` straight into the app container.
 Keep the seed shapes in that script in sync with `Ledger`'s JSON.
 
 ## Conventions
@@ -47,7 +47,10 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
 - The engine is pure. `BalanceEngine.calculateBalance(beers:runs:rules:at:)`
   takes no clocks and does no I/O. `now` is always injected. Tests use fixed
   `Date(timeIntervalSince1970:)` instants, never `.now`.
-- Events are immutable and append-only: `BeerEntry` (just id + time),
+- Events are append-only and immutable, with one exception: a beer's
+  `createdAt` may be corrected through `LedgerStore.updateBeerDate`, which
+  clamps it to `booksOpenedAt...now`. `BeerEntry` is id + `createdAt` (+
+  `recordedAt`, when it was logged),
   `RunEntry` (HealthKit workout UUID for dedup, meters), and `RulesChange`
   (rules effective from an instant). The `Ledger` holds all three plus
   `booksOpenedAt`. Never store a derived balance; always replay via

@@ -322,6 +322,18 @@ struct BalanceEngineTests {
         #expect(a.balance == .even)
     }
 
+    @Test func aBackdatedBeerIsPaidByTheRunThatFollowedIt() {
+        // Ran 2 mi on day 1 (banked it), then on day 2 remembered Saturday's beer.
+        let forgotten = BeerEntry(createdAt: t0, recordedAt: at(2 * day))
+        let l = ledger(rules: noDecay, beers: [forgotten], runs: [run(2, endedAt: at(day))])
+        let r = report(l, at: at(2 * day))
+        #expect(r.beers[0].isPaid)
+        #expect(r.beers[0].paidAt == at(day))
+        #expect(close(r.beers[0].interestAccruedMiles, 0.1))
+        #expect(r.balance.state == .credit)
+        #expect(close(r.balance.creditBeers, 0.9))
+    }
+
     @Test func replayIsDeterministicRegardlessOfArrayOrder() {
         let beers = [beer(t0), beer(at(hour)), beer(at(2 * hour))]
         let runs = [run(1.5, endedAt: at(3 * hour)), run(2, endedAt: at(2 * day))]
