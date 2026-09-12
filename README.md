@@ -14,6 +14,13 @@ app, not a health dashboard.
 - [`docs/decisions.md`](docs/decisions.md) — review notes on the spec vs. concept art, and the accounting/platform decisions (source of truth for *how*)
 - [`docs/concept.png`](docs/concept.png) — concept art for the eight screens
 
+<p>
+<img src="docs/screenshots/home-debt.png" width="180" alt="Home, in debt">
+<img src="docs/screenshots/beer-added.png" width="180" alt="Beer added">
+<img src="docs/screenshots/ledger.png" width="180" alt="The Ledger">
+<img src="docs/screenshots/home-credit.png" width="180" alt="Home, credit banked">
+</p>
+
 ## The loop
 
 1. Tap **+ Beer**. Balance becomes 1 mi of debt.
@@ -68,6 +75,9 @@ xcodebuild -project BeerDebt.xcodeproj -scheme BeerDebt \
 
 ## Status
 
-Scaffold. Structure, models, and screens are in place; the engine, store, and
-HealthKit sync are stubs marked `TODO`. Next: implement `BalanceEngine` against
-the test list in `BalanceEngineTests.swift`, then wire the store and HealthKit.
+MVP loop implemented: + Beer → debt → daily interest → HealthKit run →
+FIFO repayment → credit (capped, decaying) → debt-free celebration. Home,
+The Ledger (beers and runs), Settings (forward-only rules changes), and Health
+onboarding are in. 44 engine and store tests pass.
+
+Not yet: app icon and Home backdrop art, on-device HealthKit test, TestFlight.

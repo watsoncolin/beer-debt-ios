@@ -7,7 +7,7 @@ is decided and the code should match it.
 
 ## A. Spec vs. concept art
 
-### 1. Interest rate and period — OPEN
+### 1. Interest rate and period — DECIDED (2026-09-12)
 
 The spec's default table says **10% / week**. But every worked example in the
 spec and every number in the concept art implies **10% / day, compounded
@@ -20,15 +20,9 @@ daily, after a 24 h grace period**:
 | art screen 2 "Add Beer" | +1.10 in 1 day · +1.21 in 2 · +1.61 in 5 | 1.1ⁿ steps |
 | art screen 5 Settings | "Interest Rate 10%" + "Interest Frequency: Daily" | daily compounding |
 
-Recommendation: keep the art's model. Interest is a **rate + compounding period**
-(`InterestTerms`), both exposed in Settings, and the default is **10% daily**.
-Weekly interest is invisible inside the product's core loop (drink Saturday, run
-Sunday); daily makes the "this beer is getting expensive" joke land within days.
-It is harsh over a month (a 1 mi beer left 30 days ≈ 15 mi), so a later cap on
-the interest multiplier (e.g. 3×) is worth considering, but not for MVP.
-
-Code currently defaults to the spec table (weekly). Flip `Rules.interest.period`
-to `.daily` once decided.
+**Decision:** default is **10%, compounded daily**. Both the rate and the
+frequency (daily / weekly) are exposed in Settings. Changes are forward-only
+(see §B). A cap on the interest multiplier is a possible later addition, not MVP.
 
 ### 2. Screen count
 
@@ -59,39 +53,59 @@ Only in the art, not the spec. Kept — it is the compounding period from #1.
 
 ## B. Accounting rules (the engine)
 
-These are the rules `BalanceEngine` implements. They are chosen so a full replay
-of the ledger is deterministic and order-independent of *when* events were
+These are the rules `BalanceEngine` implements and the tests in
+`BeerDebtTests/BalanceEngineTests.swift` pin down. They are chosen so a full
+replay of the ledger is deterministic and independent of *when* events were
 imported.
 
 - **Units.** Runs are stored in meters (HealthKit and Health Connect native).
   The engine works in miles. Display is miles.
-- **Timeline.** Beers sit on the timeline at `createdAt`; runs at `endedAt`
-  (a run pays debt when it finishes). A run that HealthKit delivers late is
-  applied at its own time, so a delayed sync produces the same balance as a
-  prompt one.
+- **The ledger is three event streams:** rules changes, beers, runs. Beers sit
+  on the timeline at `createdAt`; runs at `endedAt` (a run pays debt when it
+  finishes); rules changes at `effectiveAt`. Same-instant order is rules, then
+  beers, then runs. A run that HealthKit delivers late is applied at its own
+  time, so a delayed sync produces the same balance as a prompt one.
 - **Replay.** Fold the merged timeline in order. Before applying each event,
   bring every open debt and the credit pool forward to that event's time
-  (interest steps, decay). After the last event, bring everything forward to
-  `now`.
-- **Debt interest** is discrete: outstanding amount steps up by `rate` at
-  `createdAt + grace + k·period` for k = 1, 2, …. Interest compounds on the
-  full outstanding amount (principal + earlier interest), matching 1.1ⁿ.
-  Principal and interest are tracked separately for display.
-- **Repayment** is FIFO by `createdAt`. Within one debt, a payment clears
-  accrued **interest first, then principal** (standard loan accounting; it only
-  affects the principal/interest split, not the total).
+  (interest postings, decay). After the last event, bring everything forward
+  to `now`. Events after `now` don't exist yet.
+- **Debt interest** posts in discrete steps on the full outstanding amount
+  (principal + earlier interest), which is what 1.1ⁿ means. The first posting
+  is at `createdAt + max(grace, period)`: interest can post neither before the
+  grace period ends nor before a full period has elapsed. With the defaults
+  (24 h grace, daily) that is exactly 24 h. Later postings are one period
+  apart. Principal and interest are tracked separately for display.
+- **Repayment** is FIFO by `createdAt`. Within one debt a payment clears
+  accrued **interest first, then principal** (standard loan accounting; it
+  only affects the principal/interest split, not the total).
 - **Credit** is one pool in miles. Leftover run miles after all debt is paid go
-  into it, capped at `maximumCreditBeers × rules.milesPerBeer`; anything over
-  the cap is discarded, never hidden. Decay is continuous:
+  into it, capped at `maximumCreditBeers × milesPerBeer`; anything over the cap
+  is discarded, never hidden. Decay is continuous:
   `credit(t) = credit(t₀) · (1 − decayPerWeek)^((t − t₀) / 1 week)`.
-- **A beer spends credit first.** Cost = the beer's snapshotted `milesPerBeer`.
-  Whatever credit doesn't cover opens a debt for the remainder.
-- **Settings snapshots.** `milesPerBeer` and the interest terms are copied onto
-  each `BeerEntry` at creation, so changing them never rewrites existing debt
-  (spec §16). The credit cap and decay rate are policy on the pool and use the
-  current rules.
-- **State.** `debt` if any debt is outstanding; otherwise `credit` if the pool
-  ≥ 0.05 beers; otherwise `even`.
+- **A beer spends credit first.** Cost = miles-per-beer in force at
+  `createdAt`. Whatever credit doesn't cover opens a debt for the remainder.
+- **Rules changes are forward-only.** Colin's call (2026-09-12): "changes
+  don't affect historical values, forward only so the economy doesn't
+  change." Concretely:
+  - Miles per beer: applies to beers added after the change. Old beers keep
+    their principal. Credit is stored in miles, so its *beer* value shifts
+    with the new rate (2 mi is 2 beers at 1.0, 1 beer at 2.0).
+  - Interest rate: applies to every posting after the change, on existing
+    debts too. Posted interest is never recalculated. Turning interest off
+    freezes existing debts at their current amount; turning it back on resumes
+    from the change.
+  - Frequency and grace: each open debt's *next* posting is rescheduled as
+    `lastPosting + newPeriod` (or `createdAt + max(newGrace, newPeriod)` if it
+    has never posted), but never earlier than the change itself. A debt that is
+    already past a newly shortened grace posts once at the change instant.
+  - Credit cap and decay: policy on the pool; the new values apply from the
+    change forward.
+- **Precision.** Event timestamps are whole seconds so the JSON round-trips
+  exactly and a relaunch replays to the identical balance. "Daily" and
+  "weekly" are fixed lengths (86,400 s / 604,800 s), not calendar units, so
+  postings drift an hour across a DST change rather than jumping.
+- **State.** `debt` if anything is outstanding; otherwise `credit` if the pool
+  is ≥ 0.05 beers; otherwise `even`.
 
 ## C. HealthKit
 
@@ -102,10 +116,13 @@ imported.
   to `totalDistance`.
 - Dedup key is `HKWorkout.uuid`; import is idempotent. Sync via
   `HKAnchoredObjectQuery` with a persisted anchor whenever the app becomes active.
-- **Books open at zero — OPEN.** Only workouts that *end after first launch*
-  count. Otherwise a new user's last week of runs would instantly bank the
-  maximum credit. The alternative (import the last N days so you start with a
-  few beers banked) is friendlier but muddles the accountability story.
+- **Books open at zero — DECIDED (2026-09-12).** Only workouts that *end
+  after first launch* (`Ledger.booksOpenedAt`) count. `HealthSync` drops
+  earlier ones before they reach the ledger, and the engine ignores any that
+  slip through. Otherwise a new user's last week of runs would instantly bank
+  the maximum credit.
+- **Deleting a workout in Health does not claw anything back.** Anchored
+  queries report deletions, but MVP ignores them; the run stays on the books.
 - Two sources logging the same run (Watch + Strava) is not handled in MVP.
 
 ## D. Platform
@@ -115,7 +132,9 @@ imported.
 - **Swift 6 language mode** with approachable concurrency. The engine is value
   types; services are `@MainActor`.
 - **Persistence:** a single Codable JSON file (`ledger.json`) in Application
-  Support, written atomically. The data set is tiny, replay is the source of
+  Support/BeerDebt, ISO 8601 dates, written atomically. An unreadable file is
+  renamed `ledger-unreadable-<epoch>.json` and the books reopen, never
+  silently deleted. The data set is tiny, replay is the source of
   truth, there are no migrations to manage, and the same shape ports straight
   to Android. SwiftData is deliberately not used.
 - **No dependencies.**

@@ -24,6 +24,15 @@ xcodebuild -project BeerDebt.xcodeproj -scheme BeerDebt \
 
 Tests use Swift Testing (`import Testing`, `@Test`, `#expect`).
 
+## Screenshots / manual testing on the simulator
+
+`scripts/screenshots.sh [udid|booted]` installs the current simulator build,
+seeds demo ledgers (debt and credit states), and screenshots every screen into
+`docs/screenshots/`. It relies on the DEBUG-only launch argument
+`-debugScreen ledger|runs|settings|beerAdded|debtFree` handled in `RootView` /
+`HomeView`, and on writing `ledger.json` straight into the app container.
+Keep the seed shapes in that script in sync with `Ledger`'s JSON.
+
 ## Conventions
 
 - SwiftUI, iOS 17+, Swift 6 language mode with approachable concurrency.
@@ -38,9 +47,17 @@ Tests use Swift Testing (`import Testing`, `@Test`, `#expect`).
 - The engine is pure. `BalanceEngine.calculateBalance(beers:runs:rules:at:)`
   takes no clocks and does no I/O. `now` is always injected. Tests use fixed
   `Date(timeIntervalSince1970:)` instants, never `.now`.
-- Events are immutable and append-only. A `BeerEntry` snapshots `milesPerBeer`
-  and the interest terms; a `RunEntry` keeps the HealthKit workout UUID for
-  dedup. Never store a derived balance; always replay.
+- Events are immutable and append-only: `BeerEntry` (just id + time),
+  `RunEntry` (HealthKit workout UUID for dedup, meters), and `RulesChange`
+  (rules effective from an instant). The `Ledger` holds all three plus
+  `booksOpenedAt`. Never store a derived balance; always replay via
+  `BalanceEngine.report(for:at:)`, which returns the `Balance` plus per-beer
+  and per-run statements the Ledger screen renders.
+- Rules changes are forward-only (decisions.md §B). Don't snapshot rules onto
+  events and don't recompute history when rules change; append a
+  `RulesChange` through `LedgerStore.updateRules`.
+- Event timestamps are floored to whole seconds (`Date.flooredToSecond`) so
+  the JSON round-trips exactly.
 - HealthKit is read-only and running-workouts-only. Don't add read types
   without updating `NSHealthShareUsageDescription`.
 - Product copy lives in spec §18–§19; keep the finance-vocabulary tone
@@ -65,7 +82,10 @@ created yet). Don't commit generated icons here until that exists.
 - `Engine/` — `BalanceEngine` (replay), `Balance` (output).
 - `Models/` — `BeerEntry`, `RunEntry`, `Rules` (+ `InterestTerms`, `CompoundingPeriod`).
 - `Persistence/` — `LedgerStore` (observable owner of the JSON ledger file).
-- `Health/` — `HealthKitService` (authorization, anchored workout query).
+- `Health/` — `HealthKitService` (authorization, anchored workout query) and
+  `HealthSync` (connect, sync-on-active, drops pre-books runs, debt-free
+  celebration trigger).
 - `Features/` — `Home`, `Ledger`, `Settings`, `Onboarding`. Beer feedback and
   transaction detail are sheets.
-- `Theme/` — palette.
+- `Theme/` — palette, `Backdrop`, `GoldButtonStyle`, `Pill`, and `Format`
+  (all number/date formatting; keep it out of views).

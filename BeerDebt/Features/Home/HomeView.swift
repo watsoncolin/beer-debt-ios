@@ -3,11 +3,41 @@ import SwiftUI
 /// The product (spec §10). The balance dominates; one big + Beer button; one
 /// line of running context; one line of copy. Nothing else.
 struct HomeView: View {
-    var body: some View {
-        ZStack {
-            Theme.forest.ignoresSafeArea()
+    @Environment(LedgerStore.self) private var store
+    @State private var addedBeer: BeerEntry?
 
-            VStack(spacing: 24) {
+    var body: some View {
+        // Re-render each minute so an interest posting shows up while the app is open.
+        TimelineView(.periodic(from: .now, by: 60)) { context in
+            content(report: store.report(at: context.date), now: context.date)
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink(value: Route.settings) {
+                    Image(systemName: "gearshape.fill")
+                        .foregroundStyle(Theme.cream)
+                }
+            }
+        }
+        .toolbarColorScheme(.dark, for: .navigationBar)
+        .toolbarBackground(.hidden, for: .navigationBar)
+        .sheet(item: $addedBeer) { beer in
+            BeerAddedSheet(beer: beer)
+        }
+        .sensoryFeedback(.success, trigger: addedBeer)
+        .onAppear {
+            #if DEBUG
+            if DebugLaunch.screen == "beerAdded" { addedBeer = store.ledger.beers.last }
+            #endif
+        }
+    }
+
+    private func content(report: Report, now: Date) -> some View {
+        let balance = report.balance
+        return ZStack {
+            Backdrop()
+
+            VStack(spacing: 20) {
                 VStack(spacing: 4) {
                     Text("Beer Debt")
                         .font(.system(size: 40, weight: .heavy, design: .rounded))
@@ -17,65 +47,135 @@ struct HomeView: View {
                         .foregroundStyle(Theme.cream.opacity(0.7))
                 }
 
-                Spacer()
+                Spacer(minLength: 0)
 
-                // Placeholder: the "even" state. The real view switches on
-                // Balance.state (credit / even / debt).
-                VStack(spacing: 8) {
-                    Text("0")
-                        .font(.system(size: 104, weight: .black, design: .rounded))
-                        .foregroundStyle(Theme.cream)
-                    Text("BOOKS ARE CLEAN")
-                        .font(.headline.weight(.bold))
-                        .tracking(2)
-                        .foregroundStyle(Theme.gold)
-                }
+                BalanceHero(balance: balance)
 
-                Spacer()
+                Spacer(minLength: 0)
 
                 Button {
-                    // TODO: LedgerStore.addBeer() + feedback sheet (spec §11)
+                    addedBeer = store.addBeer()
                 } label: {
                     Label("+ Beer", systemImage: "mug.fill")
-                        .font(.title2.weight(.bold))
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 18)
                 }
-                .buttonStyle(.borderedProminent)
-                .buttonBorderShape(.capsule)
-                .tint(Theme.gold)
-                .foregroundStyle(Theme.ink)
+                .buttonStyle(GoldButtonStyle())
 
-                NavigationLink {
-                    LedgerView()
-                } label: {
-                    HStack {
+                NavigationLink(value: Route.ledger(.runs)) {
+                    HStack(spacing: 12) {
                         Image(systemName: "figure.run")
-                        Text("0.0 mi run this week")
+                            .font(.title3)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(Format.miles(report.milesRun(inWeekOf: now)))
+                                .font(.headline)
+                            Text(balance.state == .debt ? "paid this week" : "run this week")
+                                .font(.caption)
+                                .opacity(0.7)
+                        }
                         Spacer()
                         Image(systemName: "chevron.right")
+                            .font(.footnote.weight(.semibold))
+                            .opacity(0.6)
                     }
-                    .font(.body.weight(.semibold))
                     .foregroundStyle(Theme.cream)
-                    .padding()
-                    .background(Theme.forestDeep, in: RoundedRectangle(cornerRadius: 16))
+                    .padding(16)
+                    .background(Theme.forestDeep.opacity(0.85), in: RoundedRectangle(cornerRadius: 18))
                 }
+
+                Text(quip(for: balance))
+                    .font(.footnote)
+                    .italic()
+                    .foregroundStyle(Theme.cream.opacity(0.7))
+                    .multilineTextAlignment(.center)
             }
-            .padding(24)
+            .padding(.horizontal, 24)
+            .padding(.bottom, 12)
         }
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink {
-                    SettingsView()
-                } label: {
-                    Image(systemName: "gearshape")
+    }
+
+    private func quip(for balance: Balance) -> String {
+        switch balance.state {
+        case .debt:
+            balance.interestMiles > 0.05
+                ? "Your tab is getting expensive."
+                : "Your drinking is currently outpacing your running."
+        case .credit:
+            balance.creditBeers >= 2 ? "You've earned a couple." : "You've earned one."
+        case .even:
+            "Every beer has a price. Yours is measured in miles."
+        }
+    }
+}
+
+/// The number that dominates the screen, per state (spec §10, §19).
+private struct BalanceHero: View {
+    let balance: Balance
+
+    var body: some View {
+        switch balance.state {
+        case .debt:
+            VStack(spacing: 0) {
+                bigNumber(Format.number(balance.debtMiles))
+                Text("mi owed")
+                    .font(.title2.weight(.semibold))
+                    .foregroundStyle(Theme.cream.opacity(0.85))
+                HStack(spacing: 0) {
+                    stat(Format.number(balance.principalMiles), "principal")
+                    Rectangle()
+                        .fill(Theme.cream.opacity(0.25))
+                        .frame(width: 1, height: 36)
+                    stat(Format.number(balance.interestMiles), "interest")
                 }
+                .padding(.top, 20)
+            }
+        case .credit:
+            VStack(spacing: 0) {
+                HStack(alignment: .center, spacing: 8) {
+                    Text("🍺").font(.system(size: 64))
+                    bigNumber(Format.beers(balance.creditBeers))
+                }
+                Text(balance.creditBeers < 1.05 ? "beer banked" : "beers banked")
+                    .font(.title2.weight(.semibold))
+                    .foregroundStyle(Theme.cream.opacity(0.85))
+                Text("Credit slowly expires.")
+                    .font(.footnote)
+                    .foregroundStyle(Theme.cream.opacity(0.55))
+                    .padding(.top, 12)
+            }
+        case .even:
+            VStack(spacing: 8) {
+                bigNumber("0")
+                Text("BOOKS ARE CLEAN")
+                    .font(.headline.weight(.bold))
+                    .tracking(2)
+                    .foregroundStyle(Theme.gold)
             }
         }
-        .toolbarColorScheme(.dark, for: .navigationBar)
+    }
+
+    private func bigNumber(_ text: String) -> some View {
+        Text(text)
+            .font(.system(size: 108, weight: .black, design: .rounded))
+            .foregroundStyle(Theme.cream)
+            .lineLimit(1)
+            .minimumScaleFactor(0.5)
+    }
+
+    private func stat(_ value: String, _ label: String) -> some View {
+        VStack(spacing: 2) {
+            Text(value)
+                .font(.title3.weight(.bold))
+                .foregroundStyle(Theme.cream)
+            Text(label)
+                .font(.caption)
+                .foregroundStyle(Theme.cream.opacity(0.6))
+        }
+        .frame(maxWidth: .infinity)
     }
 }
 
 #Preview {
-    NavigationStack { HomeView() }
+    NavigationStack {
+        HomeView()
+    }
+    .environment(LedgerStore(directory: FileManager.default.temporaryDirectory.appendingPathComponent("preview-\(UUID())")))
 }

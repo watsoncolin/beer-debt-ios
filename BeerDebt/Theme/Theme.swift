@@ -9,8 +9,63 @@ enum Theme {
     static let forestDeep = Color(red: 0.078, green: 0.125, blue: 0.114)
     static let cream = Color(red: 0.965, green: 0.941, blue: 0.894)
     static let ink = Color(red: 0.110, green: 0.110, blue: 0.100)
-    /// "mi owed" — warm red, never alarming.
-    static let debt = Color(red: 0.871, green: 0.333, blue: 0.239)
-    /// "banked" / "paid" — the running green.
+    /// "mi owed": warm red, never alarming.
+    static let debt = Color(red: 0.937, green: 0.424, blue: 0.318)
+    /// "banked" / "paid": the running green.
     static let credit = Color(red: 0.361, green: 0.722, blue: 0.471)
+}
+
+/// Dark forest background for Home and the sheets. Shows `HomeBackdrop` from
+/// the asset catalog if it exists; otherwise a gradient.
+struct Backdrop: View {
+    var body: some View {
+        ZStack {
+            LinearGradient(
+                colors: [Theme.forest, Theme.forestDeep],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            if let image = UIImage(named: "HomeBackdrop") {
+                Rectangle()
+                    .fill(.clear)
+                    .overlay {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFill()
+                    }
+                    .clipped()
+                    .opacity(0.6)
+            }
+        }
+        .ignoresSafeArea()
+    }
+}
+
+/// The big gold capsule: + Beer, Cheers!, Connect.
+struct GoldButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.title2.weight(.bold))
+            .foregroundStyle(Theme.ink)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 18)
+            .background(Theme.gold, in: Capsule())
+            .opacity(configuration.isPressed ? 0.85 : 1)
+            .scaleEffect(configuration.isPressed ? 0.98 : 1)
+    }
+}
+
+/// Small rounded status tag: PAID, Applied, Ignored.
+struct Pill: View {
+    let text: String
+    var color: Color = Theme.credit
+
+    var body: some View {
+        Text(text)
+            .font(.caption.weight(.bold))
+            .padding(.horizontal, 9)
+            .padding(.vertical, 4)
+            .background(color.opacity(0.18), in: Capsule())
+            .foregroundStyle(color)
+    }
 }

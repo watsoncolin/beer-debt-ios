@@ -18,5 +18,23 @@ struct RunEntry: Identifiable, Codable, Hashable, Sendable {
 
     static let metersPerMile = 1609.344
 
+    init(
+        id: UUID = UUID(),
+        healthKitWorkoutID: UUID,
+        startedAt: Date,
+        endedAt: Date,
+        distanceMeters: Double,
+        importedAt: Date,
+        sourceName: String? = nil
+    ) {
+        self.id = id
+        self.healthKitWorkoutID = healthKitWorkoutID
+        self.startedAt = startedAt
+        self.endedAt = endedAt
+        self.distanceMeters = distanceMeters
+        self.importedAt = importedAt
+        self.sourceName = sourceName
+    }
+
     var distanceMiles: Double { distanceMeters / Self.metersPerMile }
 }

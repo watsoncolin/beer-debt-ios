@@ -8,19 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		000B8D2605E382A3BF4F6D16 /* HealthOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559D02FEB5F142E1778EE4BF /* HealthOnboardingView.swift */; };
+		01E384CCA31E273A3511B0A7 /* BeerAddedSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13822F7CA03A532EE9930030 /* BeerAddedSheet.swift */; };
 		047A53E9BC6CB421FFCE95FB /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F76A399B75E29E0677448A0 /* RootView.swift */; };
+		16522A24A8FB5A8099D16A9D /* BeerDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB32A1C213AE1063F2876C /* BeerDetailSheet.swift */; };
 		1A4001C96DC02D1017DAFEF2 /* LedgerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A789CED27E85B054CBB4DE96 /* LedgerStore.swift */; };
+		331547B2A9FB4F840DDD18A1 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62761E16519E17138101127 /* Format.swift */; };
 		336C352840EE6B0E6ED4A681 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F139958A6FB29822FC7DC24 /* HealthKitService.swift */; };
+		438F1CAAB9D5C95992A2CCE4 /* HealthSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB8823445610589169295E2 /* HealthSync.swift */; };
 		5161C6AC19D82C09C8374802 /* BeerEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F5273874DC97DC59FE5C9 /* BeerEntry.swift */; };
 		64EF73099228E0893DC4279B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAF29C39DB7A99E66F329C1 /* SettingsView.swift */; };
+		69C38BD7B92F0BC3DD54E515 /* DebtFreeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5C88CBF61288D3D21372F5 /* DebtFreeSheet.swift */; };
 		711B864C99E5392E019D7BEC /* BalanceEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31AFC2644E14EA452E9060D /* BalanceEngine.swift */; };
 		7811A645719CC0DD6EC62609 /* BeerDebtApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1AA9FB16F972D0F53082C /* BeerDebtApp.swift */; };
 		7AB26ECC206F95097C30F7DF /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972AAB1E8B73A9B3B9492E92 /* Rules.swift */; };
 		8CE75843B63E71A9A84347CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1F29F2C4116B049DAAC197D /* Assets.xcassets */; };
+		8F801376D365AADF18CE77A0 /* LedgerStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179D84998FA1EF9C49416D25 /* LedgerStoreTests.swift */; };
 		B535F925FEC45472E773E522 /* RunEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1315BF358F1278C12707F74A /* RunEntry.swift */; };
 		B57CB8E81B835936A2796CFF /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8895D27A0E8BFF2CD3C05ED3 /* Theme.swift */; };
 		BABF04C67EAD5FBA8D4A32A5 /* LedgerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE9278FB4C759A48719A198 /* LedgerView.swift */; };
 		C1A555394BC694B6E8E18838 /* BalanceEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA24F799AD90E047DAF88CA /* BalanceEngineTests.swift */; };
+		C1E0B85E8BDD2EFCE8ECCAE2 /* Ledger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568BC38579E75979D912ED09 /* Ledger.swift */; };
+		CE87D601999023DB5D5101C8 /* TestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375F3E2B6E42648F707FD2BD /* TestSupport.swift */; };
 		D0180E5367CD854460B67D13 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4E75F6C65601E3E849D39C /* HomeView.swift */; };
 		D0DA12AEB23E3FF139BD50F1 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7EA25B56EB364CFF949547 /* Balance.swift */; };
 /* End PBXBuildFile section */
@@ -38,14 +46,21 @@
 /* Begin PBXFileReference section */
 		107585B5C1153C3351C0983E /* BeerDebtTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BeerDebtTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1315BF358F1278C12707F74A /* RunEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunEntry.swift; sourceTree = "<group>"; };
+		13822F7CA03A532EE9930030 /* BeerAddedSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerAddedSheet.swift; sourceTree = "<group>"; };
+		179D84998FA1EF9C49416D25 /* LedgerStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerStoreTests.swift; sourceTree = "<group>"; };
 		1E7EA25B56EB364CFF949547 /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
+		375F3E2B6E42648F707FD2BD /* TestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSupport.swift; sourceTree = "<group>"; };
 		4BE9278FB4C759A48719A198 /* LedgerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerView.swift; sourceTree = "<group>"; };
 		559D02FEB5F142E1778EE4BF /* HealthOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthOnboardingView.swift; sourceTree = "<group>"; };
+		568BC38579E75979D912ED09 /* Ledger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ledger.swift; sourceTree = "<group>"; };
 		5B90EA698BA52D7359DEE5B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5FB8823445610589169295E2 /* HealthSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthSync.swift; sourceTree = "<group>"; };
+		77BB32A1C213AE1063F2876C /* BeerDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDetailSheet.swift; sourceTree = "<group>"; };
 		7B9AD5532B905BCD220FE521 /* BeerDebt.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BeerDebt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8895D27A0E8BFF2CD3C05ED3 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		96F1AA9FB16F972D0F53082C /* BeerDebtApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDebtApp.swift; sourceTree = "<group>"; };
 		972AAB1E8B73A9B3B9492E92 /* Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
+		9C5C88CBF61288D3D21372F5 /* DebtFreeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtFreeSheet.swift; sourceTree = "<group>"; };
 		9EAF29C39DB7A99E66F329C1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9F139958A6FB29822FC7DC24 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 		9F76A399B75E29E0677448A0 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -55,6 +70,7 @@
 		BAA8780B796E04F305A4D1BD /* BeerDebt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BeerDebt.entitlements; sourceTree = "<group>"; };
 		E1F29F2C4116B049DAAC197D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E31AFC2644E14EA452E9060D /* BalanceEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceEngine.swift; sourceTree = "<group>"; };
+		F62761E16519E17138101127 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		FDA24F799AD90E047DAF88CA /* BalanceEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceEngineTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,6 +78,7 @@
 		0102446B56266D8326F01C03 /* Ledger */ = {
 			isa = PBXGroup;
 			children = (
+				77BB32A1C213AE1063F2876C /* BeerDetailSheet.swift */,
 				4BE9278FB4C759A48719A198 /* LedgerView.swift */,
 			);
 			path = Ledger;
@@ -105,6 +122,8 @@
 		5C7CEC7EF360E72F3987CFF3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				13822F7CA03A532EE9930030 /* BeerAddedSheet.swift */,
+				9C5C88CBF61288D3D21372F5 /* DebtFreeSheet.swift */,
 				AD4E75F6C65601E3E849D39C /* HomeView.swift */,
 			);
 			path = Home;
@@ -157,6 +176,7 @@
 		ABC6571843E40CB1D08152AE /* Theme */ = {
 			isa = PBXGroup;
 			children = (
+				F62761E16519E17138101127 /* Format.swift */,
 				8895D27A0E8BFF2CD3C05ED3 /* Theme.swift */,
 			);
 			path = Theme;
@@ -166,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				9F139958A6FB29822FC7DC24 /* HealthKitService.swift */,
+				5FB8823445610589169295E2 /* HealthSync.swift */,
 			);
 			path = Health;
 			sourceTree = "<group>";
@@ -191,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				A18F5273874DC97DC59FE5C9 /* BeerEntry.swift */,
+				568BC38579E75979D912ED09 /* Ledger.swift */,
 				972AAB1E8B73A9B3B9492E92 /* Rules.swift */,
 				1315BF358F1278C12707F74A /* RunEntry.swift */,
 			);
@@ -201,6 +223,8 @@
 			isa = PBXGroup;
 			children = (
 				FDA24F799AD90E047DAF88CA /* BalanceEngineTests.swift */,
+				179D84998FA1EF9C49416D25 /* LedgerStoreTests.swift */,
+				375F3E2B6E42648F707FD2BD /* TestSupport.swift */,
 			);
 			path = BeerDebtTests;
 			sourceTree = "<group>";
@@ -300,11 +324,17 @@
 			files = (
 				D0DA12AEB23E3FF139BD50F1 /* Balance.swift in Sources */,
 				711B864C99E5392E019D7BEC /* BalanceEngine.swift in Sources */,
+				01E384CCA31E273A3511B0A7 /* BeerAddedSheet.swift in Sources */,
 				7811A645719CC0DD6EC62609 /* BeerDebtApp.swift in Sources */,
+				16522A24A8FB5A8099D16A9D /* BeerDetailSheet.swift in Sources */,
 				5161C6AC19D82C09C8374802 /* BeerEntry.swift in Sources */,
+				69C38BD7B92F0BC3DD54E515 /* DebtFreeSheet.swift in Sources */,
+				331547B2A9FB4F840DDD18A1 /* Format.swift in Sources */,
 				336C352840EE6B0E6ED4A681 /* HealthKitService.swift in Sources */,
 				000B8D2605E382A3BF4F6D16 /* HealthOnboardingView.swift in Sources */,
+				438F1CAAB9D5C95992A2CCE4 /* HealthSync.swift in Sources */,
 				D0180E5367CD854460B67D13 /* HomeView.swift in Sources */,
+				C1E0B85E8BDD2EFCE8ECCAE2 /* Ledger.swift in Sources */,
 				1A4001C96DC02D1017DAFEF2 /* LedgerStore.swift in Sources */,
 				BABF04C67EAD5FBA8D4A32A5 /* LedgerView.swift in Sources */,
 				047A53E9BC6CB421FFCE95FB /* RootView.swift in Sources */,
@@ -320,6 +350,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1A555394BC694B6E8E18838 /* BalanceEngineTests.swift in Sources */,
+				8F801376D365AADF18CE77A0 /* LedgerStoreTests.swift in Sources */,
+				CE87D601999023DB5D5101C8 /* TestSupport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
