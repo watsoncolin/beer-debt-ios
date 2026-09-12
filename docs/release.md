@@ -20,7 +20,10 @@ App Review, not for internal TestFlight.
 
 ## Xcode Cloud workflow
 
-Copied from Pawfect Edit's `Default` workflow:
+Copied from Pawfect Edit's `Default` workflow (compared setting by setting on
+2026-09-12; the only Pawfect-specific parts not copied are its Sentry
+environment variables and post-xcodebuild dSYM upload, which Beer Debt has no
+use for):
 
 - **Start condition:** push to `main` (exact match), auto-cancel superseded
   builds.
@@ -33,8 +36,11 @@ Copied from Pawfect Edit's `Default` workflow:
   available to our key, so add it from Xcode if wanted: Product → Xcode Cloud →
   Manage Workflows… → Default → Actions → + Test → Recommended iPhones,
   required to pass. Until then, run the tests locally before pushing to `main`.
-- **Post-action:** the archive lands in TestFlight automatically. Add
-  internal testers under TestFlight in App Store Connect.
+- **Post-action:** `TestFlight Internal Testing - iOS`, artifact
+  `Archive - iOS`, group **Internal** (same as Pawfect Edit). The Internal
+  group (`6463027e-d811-4508-9041-c1b10ed71b4d`) is an internal group with
+  access to all builds and feedback on; Colin is its tester. Add more team
+  members from TestFlight → Internal → Invite Testers.
 
 `ci_scripts/ci_post_clone.sh` installs XcodeGen and regenerates
 `BeerDebt.xcodeproj` from `project.yml` before the build, so a stale
