@@ -30,6 +30,11 @@ final class HealthSync {
 
     private static let connectedKey = "health.connected"
     private static let anchorKey = "health.anchor"
+    /// Bump when the way workouts are read changes; the next sync starts
+    /// from scratch so workouts an older build skipped are picked up. The
+    /// store dedups on workout id, so a full re-read is harmless.
+    private static let importVersionKey = "health.importVersion"
+    private static let importVersion = 2
     private static let notificationsKey = "notifications.runs"
     private static let pendingCelebrationKey = "celebration.pending"
     private static let pendingStreakKey = "celebration.streak.pending"
@@ -144,6 +149,10 @@ final class HealthSync {
         defer { isSyncing = false }
 
         do {
+            if defaults.integer(forKey: Self.importVersionKey) < Self.importVersion {
+                defaults.removeObject(forKey: Self.anchorKey)
+                defaults.set(Self.importVersion, forKey: Self.importVersionKey)
+            }
             let result = try await health.fetchRunningWorkouts(anchor: defaults.data(forKey: Self.anchorKey))
             let before = store.report()
             let eligible = result.runs.filter { $0.endedAt >= store.ledger.booksOpenedAt }

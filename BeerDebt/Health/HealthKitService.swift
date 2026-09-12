@@ -56,9 +56,15 @@ final class HealthKitService {
         let importedAt = Date.now.flooredToSecond
 
         let runs = result.addedSamples.compactMap { workout -> RunEntry? in
-            let meters = workout.statistics(for: distanceType)?
+            // Apps that record a run attach distance samples, which land in the
+            // workout's statistics. A workout typed into the Health app by hand
+            // carries its distance only as `totalDistance`, so fall back to it.
+            var meters = workout.statistics(for: distanceType)?
                 .sumQuantity()?
                 .doubleValue(for: .meter()) ?? 0
+            if meters <= 0, let total = workout.totalDistance?.doubleValue(for: .meter()) {
+                meters = total
+            }
             guard meters > 0 else { return nil }
             return RunEntry(
                 healthKitWorkoutID: workout.uuid,
