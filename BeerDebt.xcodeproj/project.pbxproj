@@ -20,6 +20,7 @@
 		23C09D7EAD440F3B087AC0AB /* BalanceEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31AFC2644E14EA452E9060D /* BalanceEngine.swift */; };
 		276CE44F867C7B185F141989 /* BalanceTimelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4A1D26C957BBC123CFBBE9 /* BalanceTimelineTests.swift */; };
 		2852AC941C1119C5F993FB95 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972AAB1E8B73A9B3B9492E92 /* Rules.swift */; };
+		2DE06E3F67B32C8C3A2212A9 /* HealthFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACD519F55E6A7A60175DB48 /* HealthFailure.swift */; };
 		331547B2A9FB4F840DDD18A1 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62761E16519E17138101127 /* Format.swift */; };
 		336C352840EE6B0E6ED4A681 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F139958A6FB29822FC7DC24 /* HealthKitService.swift */; };
 		350DBC2DAB574DE9C5989B69 /* Telemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D2F5DBD4E356921A30A49A /* Telemetry.swift */; };
@@ -57,6 +58,7 @@
 		D0180E5367CD854460B67D13 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4E75F6C65601E3E849D39C /* HomeView.swift */; };
 		D0DA12AEB23E3FF139BD50F1 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7EA25B56EB364CFF949547 /* Balance.swift */; };
 		D31CF8486D540EE2EBF0DE8C /* BeerEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F5273874DC97DC59FE5C9 /* BeerEntry.swift */; };
+		D50979FC710D9A8C73A106C6 /* HealthFailureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AEB00D0551225924ADA400 /* HealthFailureTests.swift */; };
 		DB34FDF083DEFE7CA198B685 /* WeeklySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB32B9C55DBFD66486A7F76 /* WeeklySummary.swift */; };
 		DB9FA7E845B963845BC5B1E8 /* StreakEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD3F75DFA2D8877CA4DE59 /* StreakEngine.swift */; };
 		DE7DE0ECAFC199A70706DFA3 /* TelemetryPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A537953110BBE13A58C839F0 /* TelemetryPolicyTests.swift */; };
@@ -145,8 +147,10 @@
 		CF8D829DDEF1ADD2D48822DE /* RunNotifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunNotifierTests.swift; sourceTree = "<group>"; };
 		E1F29F2C4116B049DAAC197D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E31AFC2644E14EA452E9060D /* BalanceEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceEngine.swift; sourceTree = "<group>"; };
+		E9AEB00D0551225924ADA400 /* HealthFailureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthFailureTests.swift; sourceTree = "<group>"; };
 		F281F27E5E4F30CAE118040E /* RunNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunNotifier.swift; sourceTree = "<group>"; };
 		F62761E16519E17138101127 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
+		FACD519F55E6A7A60175DB48 /* HealthFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthFailure.swift; sourceTree = "<group>"; };
 		FDA24F799AD90E047DAF88CA /* BalanceEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceEngineTests.swift; sourceTree = "<group>"; };
 		FF94F78474A0A765E2BEA7C4 /* BalanceWidgetViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceWidgetViews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -302,6 +306,7 @@
 		B31DDA0808AA763827025CDC /* Health */ = {
 			isa = PBXGroup;
 			children = (
+				FACD519F55E6A7A60175DB48 /* HealthFailure.swift */,
 				9F139958A6FB29822FC7DC24 /* HealthKitService.swift */,
 				5FB8823445610589169295E2 /* HealthSync.swift */,
 				F281F27E5E4F30CAE118040E /* RunNotifier.swift */,
@@ -370,6 +375,7 @@
 			children = (
 				FDA24F799AD90E047DAF88CA /* BalanceEngineTests.swift */,
 				CF4A1D26C957BBC123CFBBE9 /* BalanceTimelineTests.swift */,
+				E9AEB00D0551225924ADA400 /* HealthFailureTests.swift */,
 				179D84998FA1EF9C49416D25 /* LedgerStoreTests.swift */,
 				CF8D829DDEF1ADD2D48822DE /* RunNotifierTests.swift */,
 				C7AB983CBC5031A20F27EB8D /* StreakEngineTests.swift */,
@@ -513,6 +519,7 @@
 				69C38BD7B92F0BC3DD54E515 /* DebtFreeSheet.swift in Sources */,
 				6458A7F00D4E0162B85DE37D /* DebtView.swift in Sources */,
 				331547B2A9FB4F840DDD18A1 /* Format.swift in Sources */,
+				2DE06E3F67B32C8C3A2212A9 /* HealthFailure.swift in Sources */,
 				336C352840EE6B0E6ED4A681 /* HealthKitService.swift in Sources */,
 				000B8D2605E382A3BF4F6D16 /* HealthOnboardingView.swift in Sources */,
 				438F1CAAB9D5C95992A2CCE4 /* HealthSync.swift in Sources */,
@@ -545,6 +552,7 @@
 			files = (
 				C1A555394BC694B6E8E18838 /* BalanceEngineTests.swift in Sources */,
 				276CE44F867C7B185F141989 /* BalanceTimelineTests.swift in Sources */,
+				D50979FC710D9A8C73A106C6 /* HealthFailureTests.swift in Sources */,
 				8F801376D365AADF18CE77A0 /* LedgerStoreTests.swift in Sources */,
 				117F16C6ED7A8AD8B2BA8292 /* RunNotifierTests.swift in Sources */,
 				1A1C9E83D3C3B5ED77B4B7A9 /* StreakEngineTests.swift in Sources */,

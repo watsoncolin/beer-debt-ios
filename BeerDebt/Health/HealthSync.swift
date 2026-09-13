@@ -79,8 +79,11 @@ final class HealthSync {
             startBackgroundObserving()
             await sync()
         } catch {
-            lastError = error.localizedDescription
-            Telemetry.report(error, context: "health", ["op": "connect"])
+            let failure = HealthFailure(error)
+            lastError = failure.message(or: error.localizedDescription)
+            if failure.isReportable {
+                Telemetry.report(error, context: "health", ["op": "connect"])
+            }
         }
     }
 
@@ -91,8 +94,10 @@ final class HealthSync {
         Task { [health] in
             do {
                 try await health.enableBackgroundDelivery()
-            } catch {
+            } catch where HealthFailure(error).isReportable {
                 Telemetry.report(error, context: "health", ["op": "backgroundDelivery"])
+            } catch {
+                // A locked phone or missing permission: nothing to fix here.
             }
         }
         health.startObservingWorkouts { [weak self] in
@@ -239,10 +244,13 @@ final class HealthSync {
                 }
             }
         } catch {
-            lastError = error.localizedDescription
-            Telemetry.report(error, context: "health", [
-                "op": "sync", "hadAnchor": defaults.data(forKey: Self.anchorKey) != nil,
-            ])
+            let failure = HealthFailure(error)
+            lastError = failure.message(or: error.localizedDescription)
+            if failure.isReportable {
+                Telemetry.report(error, context: "health", [
+                    "op": "sync", "hadAnchor": defaults.data(forKey: Self.anchorKey) != nil,
+                ])
+            }
         }
     }
 

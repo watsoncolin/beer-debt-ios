@@ -45,8 +45,13 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
   is the one door (Pourcraft convention): no user identification, no replay,
   no tracing; hand-reported errors carry a context block keyed by domain
   (`health`, `store`), reported once at the source. `TelemetryPolicy` keeps
-  it out of test runs and tags debug builds `development`. Don't add other
-  packages without a reason; the widget links nothing third-party.
+  it out of test runs and tags debug builds `development`. **Report only what
+  we can't explain:** `HealthFailure` classifies a thrown HealthKit error, and
+  a named condition (locked phone, permission not granted, a permission sheet
+  iOS refused to open) gets real copy for the user and no Sentry event. Only
+  `.unknown` is reported. A locked phone alone would otherwise page on most
+  background wakes. Add a case rather than widening what gets reported. Don't
+  add other packages without a reason; the widget links nothing third-party.
 - The `.xcodeproj` is committed but generated — never hand-edit it; change
   `project.yml` and regenerate. `Package.resolved` (under
   `project.xcworkspace/xcshareddata/swiftpm/`) is committed too: Xcode Cloud
