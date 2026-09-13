@@ -80,6 +80,7 @@ final class HealthSync {
             await sync()
         } catch {
             lastError = error.localizedDescription
+            Telemetry.report(error, context: "health", ["op": "connect"])
         }
     }
 
@@ -88,7 +89,11 @@ final class HealthSync {
     func startBackgroundObserving() {
         guard isConnected, isAvailable else { return }
         Task { [health] in
-            try? await health.enableBackgroundDelivery()
+            do {
+                try await health.enableBackgroundDelivery()
+            } catch {
+                Telemetry.report(error, context: "health", ["op": "backgroundDelivery"])
+            }
         }
         health.startObservingWorkouts { [weak self] in
             await self?.sync()
@@ -217,6 +222,9 @@ final class HealthSync {
             }
         } catch {
             lastError = error.localizedDescription
+            Telemetry.report(error, context: "health", [
+                "op": "sync", "hadAnchor": defaults.data(forKey: Self.anchorKey) != nil,
+            ])
         }
     }
 

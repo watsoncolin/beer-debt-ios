@@ -21,6 +21,7 @@
 		2852AC941C1119C5F993FB95 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972AAB1E8B73A9B3B9492E92 /* Rules.swift */; };
 		331547B2A9FB4F840DDD18A1 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62761E16519E17138101127 /* Format.swift */; };
 		336C352840EE6B0E6ED4A681 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F139958A6FB29822FC7DC24 /* HealthKitService.swift */; };
+		350DBC2DAB574DE9C5989B69 /* Telemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D2F5DBD4E356921A30A49A /* Telemetry.swift */; };
 		3E5964B3338D7581E9F4CF00 /* StreakFlame.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78458F7180B16624A1A33B6 /* StreakFlame.swift */; };
 		40716E77B184E68F5DB3C4E2 /* StreakCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A52444443A8F4EB7BCDCF01 /* StreakCard.swift */; };
 		42E51A0D76824F6FDDD93B40 /* BalanceWidgetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF94F78474A0A765E2BEA7C4 /* BalanceWidgetViews.swift */; };
@@ -38,11 +39,13 @@
 		8CE75843B63E71A9A84347CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1F29F2C4116B049DAAC197D /* Assets.xcassets */; };
 		8F801376D365AADF18CE77A0 /* LedgerStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179D84998FA1EF9C49416D25 /* LedgerStoreTests.swift */; };
 		97E8AD69D82C7543FBD42F17 /* StreakView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351EA55FCDA69111953BFADC /* StreakView.swift */; };
+		A2ED3A4AE439752A45B76691 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 7D7B9055F2D94D9F23332843 /* Sentry */; };
 		AD8D85C5FECD60FA56CFD8A5 /* Ledger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568BC38579E75979D912ED09 /* Ledger.swift */; };
 		AF59A50D358315B3C6CC0D3E /* BalanceWidgetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF94F78474A0A765E2BEA7C4 /* BalanceWidgetViews.swift */; };
 		B4957AAC32F0B292659F2155 /* BeerDebtWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2D219D08653B32A6A2641784 /* BeerDebtWidget.appex */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B535F925FEC45472E773E522 /* RunEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1315BF358F1278C12707F74A /* RunEntry.swift */; };
 		B57CB8E81B835936A2796CFF /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8895D27A0E8BFF2CD3C05ED3 /* Theme.swift */; };
+		BC98266DEBFC1FD655FA621F /* TelemetryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C617334E978B6B8AF690345 /* TelemetryPolicy.swift */; };
 		C0311E03B43FDD7536B4B136 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7EA25B56EB364CFF949547 /* Balance.swift */; };
 		C1A555394BC694B6E8E18838 /* BalanceEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA24F799AD90E047DAF88CA /* BalanceEngineTests.swift */; };
 		C1E0B85E8BDD2EFCE8ECCAE2 /* Ledger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568BC38579E75979D912ED09 /* Ledger.swift */; };
@@ -55,6 +58,7 @@
 		D31CF8486D540EE2EBF0DE8C /* BeerEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F5273874DC97DC59FE5C9 /* BeerEntry.swift */; };
 		DB34FDF083DEFE7CA198B685 /* WeeklySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB32B9C55DBFD66486A7F76 /* WeeklySummary.swift */; };
 		DB9FA7E845B963845BC5B1E8 /* StreakEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD3F75DFA2D8877CA4DE59 /* StreakEngine.swift */; };
+		DE7DE0ECAFC199A70706DFA3 /* TelemetryPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A537953110BBE13A58C839F0 /* TelemetryPolicyTests.swift */; };
 		F1C3DFC0EDD86F23500CE852 /* RunsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DA6E495250E745AFDB9CE /* RunsView.swift */; };
 		F8ED1D14BDF5D31A6215ACF2 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62761E16519E17138101127 /* Format.swift */; };
 		FDAF46A039E3229A8B489CA3 /* WeeklySummaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6A5CC0A60D3E10A9ACDBD9 /* WeeklySummaryTests.swift */; };
@@ -111,6 +115,7 @@
 		568BC38579E75979D912ED09 /* Ledger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ledger.swift; sourceTree = "<group>"; };
 		5B90EA698BA52D7359DEE5B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5B919F20FB679F89602D79CC /* BeerDebtWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BeerDebtWidget.entitlements; sourceTree = "<group>"; };
+		5C617334E978B6B8AF690345 /* TelemetryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryPolicy.swift; sourceTree = "<group>"; };
 		5FB8823445610589169295E2 /* HealthSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthSync.swift; sourceTree = "<group>"; };
 		6A52444443A8F4EB7BCDCF01 /* StreakCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakCard.swift; sourceTree = "<group>"; };
 		6E6A5CC0A60D3E10A9ACDBD9 /* WeeklySummaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklySummaryTests.swift; sourceTree = "<group>"; };
@@ -126,11 +131,13 @@
 		9F139958A6FB29822FC7DC24 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 		9F76A399B75E29E0677448A0 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		A18F5273874DC97DC59FE5C9 /* BeerEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerEntry.swift; sourceTree = "<group>"; };
+		A537953110BBE13A58C839F0 /* TelemetryPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryPolicyTests.swift; sourceTree = "<group>"; };
 		A789CED27E85B054CBB4DE96 /* LedgerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerStore.swift; sourceTree = "<group>"; };
 		AD4E75F6C65601E3E849D39C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		AFCD3F75DFA2D8877CA4DE59 /* StreakEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakEngine.swift; sourceTree = "<group>"; };
 		BAA8780B796E04F305A4D1BD /* BeerDebt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BeerDebt.entitlements; sourceTree = "<group>"; };
 		BCB32B9C55DBFD66486A7F76 /* WeeklySummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklySummary.swift; sourceTree = "<group>"; };
+		C5D2F5DBD4E356921A30A49A /* Telemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Telemetry.swift; sourceTree = "<group>"; };
 		C78458F7180B16624A1A33B6 /* StreakFlame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakFlame.swift; sourceTree = "<group>"; };
 		C7AB983CBC5031A20F27EB8D /* StreakEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakEngineTests.swift; sourceTree = "<group>"; };
 		CF8D829DDEF1ADD2D48822DE /* RunNotifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunNotifierTests.swift; sourceTree = "<group>"; };
@@ -141,6 +148,17 @@
 		FDA24F799AD90E047DAF88CA /* BalanceEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceEngineTests.swift; sourceTree = "<group>"; };
 		FF94F78474A0A765E2BEA7C4 /* BalanceWidgetViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceWidgetViews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9F48E21A0FA4472689C26A89 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2ED3A4AE439752A45B76691 /* Sentry in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		0102446B56266D8326F01C03 /* Ledger */ = {
@@ -229,6 +247,7 @@
 				EF4449013F962863E0ABD9EB /* Models */,
 				D7368FF86EF0D4D03EE3EC6C /* Persistence */,
 				145EBD50E0E04008C18E9149 /* Resources */,
+				BC90C112F4EBC630139B0849 /* Telemetry */,
 				ABC6571843E40CB1D08152AE /* Theme */,
 			);
 			path = BeerDebt;
@@ -299,6 +318,15 @@
 			path = Engine;
 			sourceTree = "<group>";
 		};
+		BC90C112F4EBC630139B0849 /* Telemetry */ = {
+			isa = PBXGroup;
+			children = (
+				C5D2F5DBD4E356921A30A49A /* Telemetry.swift */,
+				5C617334E978B6B8AF690345 /* TelemetryPolicy.swift */,
+			);
+			path = Telemetry;
+			sourceTree = "<group>";
+		};
 		D7368FF86EF0D4D03EE3EC6C /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
@@ -342,6 +370,7 @@
 				179D84998FA1EF9C49416D25 /* LedgerStoreTests.swift */,
 				CF8D829DDEF1ADD2D48822DE /* RunNotifierTests.swift */,
 				C7AB983CBC5031A20F27EB8D /* StreakEngineTests.swift */,
+				A537953110BBE13A58C839F0 /* TelemetryPolicyTests.swift */,
 				375F3E2B6E42648F707FD2BD /* TestSupport.swift */,
 				6E6A5CC0A60D3E10A9ACDBD9 /* WeeklySummaryTests.swift */,
 			);
@@ -392,6 +421,7 @@
 			buildPhases = (
 				93475EED12C60C7CB430376D /* Sources */,
 				09D8F90641EFDB97B9446F0F /* Resources */,
+				9F48E21A0FA4472689C26A89 /* Frameworks */,
 				978EA2234E97DBF91360E9CD /* Embed Foundation Extensions */,
 			);
 			buildRules = (
@@ -401,6 +431,7 @@
 			);
 			name = BeerDebt;
 			packageProductDependencies = (
+				7D7B9055F2D94D9F23332843 /* Sentry */,
 			);
 			productName = BeerDebt;
 			productReference = 7B9AD5532B905BCD220FE521 /* BeerDebt.app */;
@@ -437,6 +468,9 @@
 			);
 			mainGroup = 948443BE453AB16596E5E1AE;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				69C9D4F382451AE918E4C588 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 74CF4985FF86DA036577E83B /* Products */;
 			projectDirPath = "";
@@ -494,6 +528,8 @@
 				DB9FA7E845B963845BC5B1E8 /* StreakEngine.swift in Sources */,
 				3E5964B3338D7581E9F4CF00 /* StreakFlame.swift in Sources */,
 				97E8AD69D82C7543FBD42F17 /* StreakView.swift in Sources */,
+				350DBC2DAB574DE9C5989B69 /* Telemetry.swift in Sources */,
+				BC98266DEBFC1FD655FA621F /* TelemetryPolicy.swift in Sources */,
 				B57CB8E81B835936A2796CFF /* Theme.swift in Sources */,
 				DB34FDF083DEFE7CA198B685 /* WeeklySummary.swift in Sources */,
 				6301F50BAABB1BDB3C73B6CC /* WidgetPreviewScreen.swift in Sources */,
@@ -508,6 +544,7 @@
 				8F801376D365AADF18CE77A0 /* LedgerStoreTests.swift in Sources */,
 				117F16C6ED7A8AD8B2BA8292 /* RunNotifierTests.swift in Sources */,
 				1A1C9E83D3C3B5ED77B4B7A9 /* StreakEngineTests.swift in Sources */,
+				DE7DE0ECAFC199A70706DFA3 /* TelemetryPolicyTests.swift in Sources */,
 				CE87D601999023DB5D5101C8 /* TestSupport.swift in Sources */,
 				FDAF46A039E3229A8B489CA3 /* WeeklySummaryTests.swift in Sources */,
 			);
@@ -758,6 +795,7 @@
 				CODE_SIGN_ENTITLEMENTS = BeerDebt/Resources/BeerDebt.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = M7PCWQ7WYN;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				INFOPLIST_FILE = BeerDebt/Resources/Info.plist;
@@ -829,6 +867,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		69C9D4F382451AE918E4C588 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.57.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7D7B9055F2D94D9F23332843 /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 69C9D4F382451AE918E4C588 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B5D2AACF49D860B1BB2637C8 /* Project object */;
 }
