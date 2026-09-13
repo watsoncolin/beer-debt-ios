@@ -28,9 +28,8 @@ a blank for, so Colin filled it in the web UI before pressing Add for Review.
 ## Xcode Cloud workflow
 
 Copied from Pawfect Edit's `Default` workflow (compared setting by setting on
-2026-09-12; the only Pawfect-specific parts not copied are its Sentry
-environment variables and post-xcodebuild dSYM upload, which Beer Debt has no
-use for):
+2026-09-12). Its Sentry environment variables are the one part not carried
+over yet; see "Sentry" below:
 
 - **Start condition:** push to `main` (exact match), auto-cancel superseded
   builds.
@@ -51,8 +50,29 @@ use for):
 
 `ci_scripts/ci_post_clone.sh` installs XcodeGen and regenerates
 `BeerDebt.xcodeproj` from `project.yml` before the build, so a stale
-committed project can never ship. There is no post-xcodebuild script: unlike
-Pawfect Edit there is no Sentry, and nothing to upload.
+committed project can never ship. `ci_scripts/ci_post_xcodebuild.sh` uploads
+the archive's dSYMs to Sentry (see below); it skips, loudly, when the
+variables aren't set, and never fails the build.
+
+## Sentry
+
+Project `beer-debt-ios` in the `pawfect-edit` org (created 2026-09-13), the
+sister of `beer-debt-android`. The app sends crashes, fully blocking app
+hangs, and hand-reported Health/store errors; nothing that identifies the
+user (`BeerDebt/Telemetry/`). The DSN lives in `Telemetry.swift` (a public
+ingest address, not a secret). For symbolicated traces the Xcode Cloud
+workflow needs three environment variables, added in App Store Connect →
+Xcode Cloud → Default → Edit → Environment (the web UI; Xcode's own editor
+rejects the long token): `SENTRY_AUTH_TOKEN` (secret; an org token with
+`project:write` and `org:read`), `SENTRY_ORG=pawfect-edit`,
+`SENTRY_PROJECT=beer-debt-ios`.
+
+App Privacy in App Store Connect has to change before the first Sentry build
+is submitted: **Crash Data**, **Other Diagnostic Data**, and **Device ID**
+(the SDK's random installation id, used for release health), each collected
+for App Functionality, not linked to the user, not used for tracking. Build
+23 (1.0, in review since 2026-09-13) predates Sentry and is covered by "Data
+Not Collected".
 
 ### Versioning
 

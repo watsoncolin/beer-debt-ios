@@ -17,19 +17,27 @@ targets:
       - path: BeerDebt
       - path: BeerDebtWidget/BalanceWidgetViews.swift   # shared with the widget for the DEBUG widget preview screen
     settings:
-      INFOPLIST_FILE: BeerDebt/Resources/Info.plist
-      PRODUCT_BUNDLE_IDENTIFIER: me.colinwatson.beerdebt
-      DEVELOPMENT_TEAM: M7PCWQ7WYN
-      CODE_SIGN_STYLE: Automatic
-      CODE_SIGN_ENTITLEMENTS: BeerDebt/Resources/BeerDebt.entitlements
-      ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
-      ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
-      ENABLE_USER_SCRIPT_SANDBOXING: YES
-      TARGETED_DEVICE_FAMILY: "1"
+      base:
+        INFOPLIST_FILE: BeerDebt/Resources/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: me.colinwatson.beerdebt
+        DEVELOPMENT_TEAM: M7PCWQ7WYN
+        CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_ENTITLEMENTS: BeerDebt/Resources/BeerDebt.entitlements
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ENABLE_USER_SCRIPT_SANDBOXING: YES
+        TARGETED_DEVICE_FAMILY: "1"
+      configs:
+        # Sentry symbolicates crashes from the dSYMs ci_scripts/ci_post_xcodebuild.sh
+        # uploads; Release must emit them.
+        Release:
+          DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
     dependencies:
       - target: BeerDebtWidget
         embed: true
         codeSign: true
+      - package: sentry-cocoa
+        product: Sentry
     scheme:
       testTargets:
         - BeerDebtTests
@@ -62,5 +70,13 @@ targets:
       DEVELOPMENT_TEAM: M7PCWQ7WYN
       GENERATE_INFOPLIST_FILE: YES
 
-# No third-party dependencies. The app is SwiftUI + HealthKit + Foundation only;
-# the balance engine is pure Swift so it can be unit-tested and ported to Android.
+packages:
+  # The one third-party dependency: crash reporting, through Telemetry/ (the
+  # Pourcraft / Pawfect Edit convention). Same major as those apps so the
+  # option set ports verbatim. The widget links nothing third-party.
+  sentry-cocoa:
+    url: https://github.com/getsentry/sentry-cocoa.git
+    from: "8.57.3"
+
+# Otherwise SwiftUI + HealthKit + Foundation only; the balance engine is pure
+# Swift so it can be unit-tested and ported to Android.

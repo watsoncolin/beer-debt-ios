@@ -6,6 +6,8 @@ struct BeerDebtApp: App {
     @State private var sync: HealthSync
 
     init() {
+        // First, so a ledger that fails to load is reported.
+        Telemetry.configure()
         let store = LedgerStore()
         let sync = HealthSync(store: store, health: HealthKitService())
         _store = State(initialValue: store)
