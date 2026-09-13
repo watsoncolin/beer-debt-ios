@@ -198,11 +198,23 @@ final class LedgerStore {
         try? FileManager.default.moveItem(at: legacy, to: shared)
     }
 
+    /// Asks WidgetKit to re-read the ledger and rebuild its timeline.
+    ///
+    /// Called on every save, and again whenever the app becomes active or a
+    /// sync finishes. The repeat is the point: a widget timeline is built from
+    /// the ledger as it stood at the time, so a run imported afterwards is
+    /// invisible until something asks for a reload, and a reload requested
+    /// from a background wake can be dropped. Without a retry a dropped one
+    /// sticks, because a sync that imports nothing never saves.
+    func refreshWidgets() {
+        WidgetCenter.shared.reloadAllTimelines()
+    }
+
     private func save() {
         do {
             let data = try LedgerFile.encoder.encode(ledger)
             try data.write(to: fileURL, options: .atomic)
-            WidgetCenter.shared.reloadAllTimelines()
+            refreshWidgets()
         } catch {
             Telemetry.report(error, context: "store", [
                 "op": "save", "beers": ledger.beers.count, "runs": ledger.runs.count,

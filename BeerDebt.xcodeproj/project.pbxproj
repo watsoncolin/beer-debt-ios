@@ -18,6 +18,7 @@
 		1A4001C96DC02D1017DAFEF2 /* LedgerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A789CED27E85B054CBB4DE96 /* LedgerStore.swift */; };
 		1D0EB33DE2421F5DCA58DAFC /* BeerDebtWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504A13FB3927748DD7E47D52 /* BeerDebtWidget.swift */; };
 		23C09D7EAD440F3B087AC0AB /* BalanceEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31AFC2644E14EA452E9060D /* BalanceEngine.swift */; };
+		276CE44F867C7B185F141989 /* BalanceTimelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4A1D26C957BBC123CFBBE9 /* BalanceTimelineTests.swift */; };
 		2852AC941C1119C5F993FB95 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972AAB1E8B73A9B3B9492E92 /* Rules.swift */; };
 		331547B2A9FB4F840DDD18A1 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62761E16519E17138101127 /* Format.swift */; };
 		336C352840EE6B0E6ED4A681 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F139958A6FB29822FC7DC24 /* HealthKitService.swift */; };
@@ -140,6 +141,7 @@
 		C5D2F5DBD4E356921A30A49A /* Telemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Telemetry.swift; sourceTree = "<group>"; };
 		C78458F7180B16624A1A33B6 /* StreakFlame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakFlame.swift; sourceTree = "<group>"; };
 		C7AB983CBC5031A20F27EB8D /* StreakEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakEngineTests.swift; sourceTree = "<group>"; };
+		CF4A1D26C957BBC123CFBBE9 /* BalanceTimelineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceTimelineTests.swift; sourceTree = "<group>"; };
 		CF8D829DDEF1ADD2D48822DE /* RunNotifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunNotifierTests.swift; sourceTree = "<group>"; };
 		E1F29F2C4116B049DAAC197D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E31AFC2644E14EA452E9060D /* BalanceEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceEngine.swift; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 			isa = PBXGroup;
 			children = (
 				FDA24F799AD90E047DAF88CA /* BalanceEngineTests.swift */,
+				CF4A1D26C957BBC123CFBBE9 /* BalanceTimelineTests.swift */,
 				179D84998FA1EF9C49416D25 /* LedgerStoreTests.swift */,
 				CF8D829DDEF1ADD2D48822DE /* RunNotifierTests.swift */,
 				C7AB983CBC5031A20F27EB8D /* StreakEngineTests.swift */,
@@ -541,6 +544,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1A555394BC694B6E8E18838 /* BalanceEngineTests.swift in Sources */,
+				276CE44F867C7B185F141989 /* BalanceTimelineTests.swift in Sources */,
 				8F801376D365AADF18CE77A0 /* LedgerStoreTests.swift in Sources */,
 				117F16C6ED7A8AD8B2BA8292 /* RunNotifierTests.swift in Sources */,
 				1A1C9E83D3C3B5ED77B4B7A9 /* StreakEngineTests.swift in Sources */,

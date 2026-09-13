@@ -175,6 +175,11 @@ final class HealthSync {
             defaults.set(result.anchor, forKey: Self.anchorKey)
             lastSyncAt = .now
             lastError = nil
+            // Even when nothing changed. A reload asked for on a background
+            // wake can be dropped, and the sync that would ask again imports
+            // nothing the second time, so it never saves; this is what
+            // repairs a face left showing yesterday's number.
+            store.refreshWidgets()
 
             guard !added.isEmpty || removed > 0 else { return }
             let after = store.report()

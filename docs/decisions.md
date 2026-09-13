@@ -200,10 +200,23 @@ Colin approved the recommendations in the streak review:
   the engine, models, and `Format` in and replays `ledger.json` from the App
   Group container (`group.me.colinwatson.beerdebt`, registered by Xcode
   Cloud's managed signing; the store migrated the file there from
-  Application Support). Timeline entries hourly for a day
-  plus the exact next interest posting, and `LedgerStore.save()` reloads the
-  widget. No interactive + Beer button yet: writes from the widget process
-  would need file coordination with the app.
+  Application Support). No interactive + Beer button yet: writes from the
+  widget process would need file coordination with the app.
+- **Widget freshness** (revised 2026-09-13): every timeline entry is a
+  projection of the ledger as it stood when the timeline was built, so
+  interest steps up on schedule but a run imported afterwards is invisible
+  until WidgetKit is asked for a reload. Two halves keep that honest.
+  `LedgerStore.refreshWidgets()` is called on every save *and* whenever the
+  app becomes active *and* after every successful sync, including a sync that
+  imports nothing: a reload asked for on a background wake can be declined,
+  and the sync that would ask again finds the run already on the books, so
+  it never saves and never asks. Without the unconditional retry a declined
+  reload was permanent until the books changed again. `BalanceTimeline`
+  (pure, tested, compiled into the app target) then bounds the fallback:
+  hourly entries across a six-hour horizon, the next interest posting added
+  only when it falls inside, and `.after(horizon)` rather than `.atEnd` so a
+  posting days out can never become the last entry and push the rebuild out
+  with it. Six hours is the worst-case staleness; it was a day.
 - Two sources logging the same run (Watch + Strava) is not handled in MVP.
 
 ## D. Platform
