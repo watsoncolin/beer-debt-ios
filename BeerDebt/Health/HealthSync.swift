@@ -172,9 +172,27 @@ final class HealthSync {
             let eligible = result.runs.filter { $0.endedAt >= store.ledger.booksOpenedAt }
             let added = store.importRuns(eligible)
             let removed = store.removeRuns(healthKitWorkoutIDs: Set(result.deletedWorkoutIDs))
+            // The anchor is the only record of which workouts have been read,
+            // so move it only once the runs it covers are on disk. If the
+            // write failed, the in-memory books are ahead of the file: the
+            // next launch would read a ledger without the run, and HealthKit,
+            // asked from the advanced anchor, would never offer it again.
+            // Leaving the anchor where it is costs a re-read and nothing else,
+            // since the store dedups on workout id. This also makes every sync
+            // a retry point for any earlier write that failed.
+            guard store.persist() else {
+                lastSyncAt = .now
+                lastError = "Couldn't write the books to this phone. Your runs are safe in Health and will be read again next sync."
+                return
+            }
             defaults.set(result.anchor, forKey: Self.anchorKey)
             lastSyncAt = .now
             lastError = nil
+            // Even when nothing changed. A reload asked for on a background
+            // wake can be dropped, and the sync that would ask again imports
+            // nothing the second time, so it never saves; this is what
+            // repairs a face left showing yesterday's number.
+            store.refreshWidgets()
 
             guard !added.isEmpty || removed > 0 else { return }
             let after = store.report()

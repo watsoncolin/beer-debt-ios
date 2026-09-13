@@ -28,23 +28,30 @@ struct BalanceProvider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping (BalanceEntry) -> Void) {
-        let ledger = LedgerFile.load() ?? SampleLedger.make()
-        completion(BalanceEntry(date: .now, report: BalanceEngine.report(for: ledger, at: .now)))
+        let now = Date.now
+        // The sample ledger is for the gallery only. Anywhere else, a missing
+        // shared file means something is wrong, and inventing a balance would
+        // read as a real one.
+        guard let ledger = context.isPreview ? SampleLedger.make(now: now) : LedgerFile.load() else {
+            completion(BalanceEntry(date: now, report: nil))
+            return
+        }
+        completion(BalanceEntry(date: now, report: BalanceEngine.report(for: ledger, at: now)))
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<BalanceEntry>) -> Void) {
         let now = Date.now
+        let refresh = BalanceTimeline.refresh(after: now)
         guard let ledger = LedgerFile.load() else {
-            completion(Timeline(entries: [BalanceEntry(date: now, report: nil)], policy: .after(now.addingTimeInterval(3600))))
+            completion(Timeline(entries: [BalanceEntry(date: now, report: nil)], policy: .after(refresh)))
             return
         }
-        // Hourly for the next day, plus the exact instant interest next posts.
-        var dates = (0..<24).map { now.addingTimeInterval(Double($0) * 3600) }
-        if let next = BalanceEngine.report(for: ledger, at: now).nextInterestAt, next > now {
-            dates.append(next)
-        }
-        let entries = dates.sorted().map { BalanceEntry(date: $0, report: BalanceEngine.report(for: ledger, at: $0)) }
-        completion(Timeline(entries: entries, policy: .atEnd))
+        let dates = BalanceTimeline.entryDates(
+            now: now,
+            nextInterestAt: BalanceEngine.report(for: ledger, at: now).nextInterestAt
+        )
+        let entries = dates.map { BalanceEntry(date: $0, report: BalanceEngine.report(for: ledger, at: $0)) }
+        completion(Timeline(entries: entries, policy: .after(refresh)))
     }
 }
 

@@ -57,6 +57,11 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
 - The engine is pure. `BalanceEngine.report(for:at:)` takes a `Ledger` and an
   instant, no clocks, no I/O. `now` is always injected. Tests use fixed
   `Date(timeIntervalSince1970:)` instants, never `.now`.
+- A failed ledger write is remembered, not swallowed: `LedgerStore.isPersisted`
+  goes false and `persist()` retries it. Before discarding the only means of
+  rebuilding what was written, call `persist()` first. `HealthSync.sync()` is
+  the live case: it advances the HealthKit anchor only once the runs it covers
+  are on disk, or the run is lost for good.
 - Events are append-only and immutable, with one exception: a beer's
   `createdAt` may be corrected through `LedgerStore.updateBeerDate`, which
   clamps it to the last 30 days (it may predate `booksOpenedAt`; runs may
@@ -94,7 +99,13 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
 `Theme/Format.swift`, and `Theme/Theme.swift` as sources and reads
 `ledger.json` from the App Group container via `LedgerFile`. Keep the widget
 free of app-only types. `BalanceWidgetViews.swift` is also compiled into the
-app so `-debugScreen widgets` can render the faces for screenshots. Both
+app so `-debugScreen widgets` can render the faces for screenshots, and so
+`BalanceTimeline` (the pure entry/refresh schedule) can be unit-tested.
+Widget faces go stale unless something asks WidgetKit to reload:
+`LedgerStore.refreshWidgets()` is called on every save, on app active, and
+after **every** successful sync, including one that imports nothing. Don't
+make that last call conditional on the ledger changing; a declined reload is
+otherwise permanent. Keep the timeline horizon in hours, not a day. Both
 targets carry the `group.me.colinwatson.beerdebt` entitlement; Xcode Cloud's
 managed signing registered the group itself (the API can't).
 

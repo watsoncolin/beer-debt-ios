@@ -34,12 +34,16 @@ struct RootView: View {
         .preferredColorScheme(.dark)
         .task {
             sync.isAppActive = true
+            // Before the sync, and whether or not Health is connected: the
+            // widget may be showing a timeline built before the last change.
+            store.refreshWidgets()
             await sync.syncIfConnected()
             sync.showPendingCelebration()
         }
         .onChange(of: scenePhase) { _, phase in
             sync.isAppActive = (phase == .active)
             if phase == .active {
+                store.refreshWidgets()
                 Task {
                     await sync.syncIfConnected()
                     sync.showPendingCelebration()

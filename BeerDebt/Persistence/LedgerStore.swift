@@ -11,6 +11,12 @@ final class LedgerStore {
     private(set) var ledger: Ledger
     /// Set when an existing ledger file couldn't be read (it is kept, renamed).
     private(set) var loadError: String?
+    /// False when the last write to `ledger.json` failed, leaving the
+    /// in-memory books ahead of the file. The ledger is written whole, so the
+    /// next successful save carries the missing events too. Anything holding
+    /// the only means of rebuilding those events must check this before
+    /// discarding it; see `persist()`.
+    private(set) var isPersisted = true
     /// Folder holding `ledger.json`.
     let directory: URL
     private let fileURL: URL
@@ -198,16 +204,46 @@ final class LedgerStore {
         try? FileManager.default.moveItem(at: legacy, to: shared)
     }
 
+    /// Asks WidgetKit to re-read the ledger and rebuild its timeline.
+    ///
+    /// Called on every save, and again whenever the app becomes active or a
+    /// sync finishes. The repeat is the point: a widget timeline is built from
+    /// the ledger as it stood at the time, so a run imported afterwards is
+    /// invisible until something asks for a reload, and a reload requested
+    /// from a background wake can be dropped. Without a retry a dropped one
+    /// sticks, because a sync that imports nothing never saves.
+    func refreshWidgets() {
+        WidgetCenter.shared.reloadAllTimelines()
+    }
+
+    /// Retries a failed write and reports whether the file now matches memory.
+    /// A no-op when nothing is outstanding, so it is cheap to call often.
+    ///
+    /// Call it before throwing away the only record of how to rebuild what was
+    /// written, the way the HealthKit anchor is the only record of which
+    /// workouts have been read. A disk write can fail for reasons the app
+    /// doesn't control, and the failure is silent: the books look right until
+    /// the next launch reads the file back.
+    @discardableResult
+    func persist() -> Bool {
+        if !isPersisted { save() }
+        return isPersisted
+    }
+
     private func save() {
         do {
             let data = try LedgerFile.encoder.encode(ledger)
             try data.write(to: fileURL, options: .atomic)
-            WidgetCenter.shared.reloadAllTimelines()
+            isPersisted = true
+            refreshWidgets()
         } catch {
+            // Not an assertion: a full or locked disk is the environment
+            // misbehaving, not a bug here. It is recorded, retried by
+            // `persist()`, and surfaced by callers that would lose data.
+            isPersisted = false
             Telemetry.report(error, context: "store", [
                 "op": "save", "beers": ledger.beers.count, "runs": ledger.runs.count,
             ])
-            assertionFailure("Failed to save ledger: \(error)")
         }
     }
 }

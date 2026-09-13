@@ -6,6 +6,40 @@ struct BalanceEntry: TimelineEntry {
     let report: Report?
 }
 
+/// When the widget's timeline entries land and when WidgetKit should come back
+/// for a fresh one. Pure, and compiled into the app target, so it is testable;
+/// `BalanceProvider` is its only caller in the widget process.
+///
+/// Every entry is a projection of the ledger as it stood when the timeline was
+/// built, so interest steps up on schedule but a run imported afterwards is
+/// invisible. The app asks for a reload whenever the books change, whenever it
+/// becomes active, and after every sync; the horizon here bounds how long a
+/// reload the system declined can leave a stale face on screen.
+enum BalanceTimeline {
+    /// How far ahead entries project, and so the worst-case staleness.
+    static let horizon: TimeInterval = 6 * 60 * 60
+    static let step: TimeInterval = 60 * 60
+
+    /// When to rebuild from a freshly read ledger.
+    static func refresh(after now: Date) -> Date {
+        now.addingTimeInterval(horizon)
+    }
+
+    /// Hourly across the horizon, plus the exact instant interest next posts
+    /// when that falls inside it, so the number steps up on time. Never
+    /// stretches past the horizon: an interest posting days out must not
+    /// become the last entry and push the next rebuild out with it.
+    static func entryDates(now: Date, nextInterestAt: Date?) -> [Date] {
+        let end = refresh(after: now)
+        var dates = stride(from: TimeInterval.zero, through: horizon, by: step)
+            .map { now.addingTimeInterval($0) }
+        if let next = nextInterestAt, next > now, next < end {
+            dates.append(next)
+        }
+        return dates.sorted()
+    }
+}
+
 /// The widget faces, shared with the app target so the DEBUG `-debugScreen
 /// widgets` screen can render them for screenshots.
 struct BalanceWidgetView: View {

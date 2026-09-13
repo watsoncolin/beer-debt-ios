@@ -200,10 +200,23 @@ Colin approved the recommendations in the streak review:
   the engine, models, and `Format` in and replays `ledger.json` from the App
   Group container (`group.me.colinwatson.beerdebt`, registered by Xcode
   Cloud's managed signing; the store migrated the file there from
-  Application Support). Timeline entries hourly for a day
-  plus the exact next interest posting, and `LedgerStore.save()` reloads the
-  widget. No interactive + Beer button yet: writes from the widget process
-  would need file coordination with the app.
+  Application Support). No interactive + Beer button yet: writes from the
+  widget process would need file coordination with the app.
+- **Widget freshness** (revised 2026-09-13): every timeline entry is a
+  projection of the ledger as it stood when the timeline was built, so
+  interest steps up on schedule but a run imported afterwards is invisible
+  until WidgetKit is asked for a reload. Two halves keep that honest.
+  `LedgerStore.refreshWidgets()` is called on every save *and* whenever the
+  app becomes active *and* after every successful sync, including a sync that
+  imports nothing: a reload asked for on a background wake can be declined,
+  and the sync that would ask again finds the run already on the books, so
+  it never saves and never asks. Without the unconditional retry a declined
+  reload was permanent until the books changed again. `BalanceTimeline`
+  (pure, tested, compiled into the app target) then bounds the fallback:
+  hourly entries across a six-hour horizon, the next interest posting added
+  only when it falls inside, and `.after(horizon)` rather than `.atEnd` so a
+  posting days out can never become the last entry and push the rebuild out
+  with it. Six hours is the worst-case staleness; it was a day.
 - Two sources logging the same run (Watch + Strava) is not handled in MVP.
 
 ## D. Platform
@@ -218,6 +231,22 @@ Colin approved the recommendations in the streak review:
   silently deleted. The data set is tiny, replay is the source of
   truth, there are no migrations to manage, and the same shape ports straight
   to Android. SwiftData is deliberately not used.
+- **A failed write is remembered** (added 2026-09-13): a disk write can fail
+  for reasons the app doesn't control, and the failure is silent, because the
+  in-memory books still look right until the next launch reads the file back.
+  `LedgerStore.isPersisted` goes false when a save fails and `persist()`
+  retries it, reporting whether the file now matches memory. The ledger is
+  written whole, so one later save carries every event that was lost along
+  the way. This is not an assertion: the environment misbehaving is not a bug
+  in the app, and trapping would only turn lost data into a crash.
+  Anything holding the sole means of rebuilding those events must call
+  `persist()` before discarding it. The HealthKit anchor is the case that
+  matters: it is the only record of which workouts have been read, so `sync()`
+  advances it only once the runs it covers are on disk. Advancing it over a
+  ledger that never reached the file lost the run for good, because HealthKit,
+  asked from the newer anchor, never offers that workout again. Holding the
+  anchor costs a re-read and nothing else, since the store dedups on workout
+  id, and it makes every sync a retry point for any earlier failed write.
 - **One dependency: Sentry** (added 2026-09-13, crash reporting only, the
   same policy as the Android app: no user identification, replay, or
   tracing). Everything else is Apple frameworks.
