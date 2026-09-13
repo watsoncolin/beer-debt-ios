@@ -29,7 +29,8 @@
         <p>Beer Debt ("the App") is an iPhone and Android app developed by Colin Watson that turns beers into running miles you owe. Beer Debt is built to be private by design: it does not require an account, and it does not collect, store, or transmit your personal information. Everything it knows lives on your phone.</p>
 
         <h2>Data We Collect</h2>
-        <p><strong>None.</strong> Beer Debt does not collect personal data. There is no sign-up, no analytics, and no advertising. The App works fully offline and does not send any data to us or to third parties.</p>
+        <p><strong>Almost none.</strong> Beer Debt does not collect personal data. There is no sign-up, no analytics, and no advertising. The App works fully offline and does not send your ledger or your Health data to us or to anyone else.</p>
+        <p>The Android app sends <strong>crash reports</strong> so we can fix bugs: if the App crashes or fails to read Health Connect, it sends a technical report (the stack trace, app version, device model, Android version) to Sentry, our crash-reporting provider. These reports contain no name, email, account, location, or Health data, and are not used for advertising. See <a href="https://sentry.io/privacy/">Sentry's privacy policy</a>. The iPhone app sends no crash reports beyond what iOS itself shares with Apple according to your device settings.</p>
 
         <h2>Apple Health</h2>
         <p>With your permission, Beer Debt reads <strong>running workouts</strong> from Apple Health (HealthKit): when a run started and ended, and how far you ran. That is the only Health data it reads, and it is used for one purpose: paying down your beer debt and banking credit inside the App.</p>
@@ -59,12 +60,12 @@
             <li>Contacts or address book information</li>
             <li>Photos or camera access</li>
             <li>Any Apple Health or Health Connect data other than running workouts</li>
-            <li>Usage analytics or advertising identifiers</li>
+            <li>Usage analytics or advertising identifiers (crash reports on Android carry a random installation id, not an advertising id)</li>
             <li>Payment or financial information</li>
         </ul>
 
         <h2>Third-Party Services</h2>
-        <p>Beer Debt does not use any third-party analytics, advertising, or data-collection services.</p>
+        <p>Beer Debt does not use any analytics or advertising services. The Android app uses Sentry for crash reporting only, as described above.</p>
 
         <h2>Age</h2>
         <p>Beer Debt references alcohol and is intended for adults of legal drinking age. It does not collect data from anyone, including children.</p>
