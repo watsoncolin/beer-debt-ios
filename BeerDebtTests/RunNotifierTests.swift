@@ -5,7 +5,8 @@ import Testing
 /// The notification copy is a pure function of what a sync changed.
 struct RunNotifierTests {
     private func balance(_ state: BalanceState, debt: Double = 0, credit: Double = 0) -> Balance {
-        Balance(state: state, debtMiles: debt, principalMiles: debt, interestMiles: 0, creditMiles: credit, creditBeers: credit)
+        Balance(state: state, debtMiles: debt, principalMiles: debt, interestMiles: 0,
+                interestPerPeriodMiles: debt * Rules.default.interestRate, creditMiles: credit, creditBeers: credit)
     }
 
     @Test func runThatPaysSomeBeersButNotAll() {

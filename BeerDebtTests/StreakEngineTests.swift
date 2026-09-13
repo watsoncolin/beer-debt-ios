@@ -6,7 +6,6 @@ import Testing
 /// pauses interest, and the whole thing is derived from the runs on the books.
 /// t0 is Saturday 2026-09-12 20:00 UTC; `day(n)` is 07:00 UTC on t0 + n days.
 struct StreakEngineTests {
-    private func morning(_ n: Int) -> Date { at(Double(n) * day - 13 * hour) }   // 07:00 UTC that day
     private func streak(_ runs: [RunEntry], at now: Date) -> StreakStatus {
         StreakEngine.calculate(runs: runs, at: now, calendar: utc)
     }

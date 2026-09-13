@@ -72,10 +72,12 @@ struct ExpectedStreak: Codable {
     }
 }
 struct ExpectedBalance: Codable {
-    let state: String, debtMiles: Double, principalMiles: Double, interestMiles: Double, creditMiles: Double, creditBeers: Double
+    let state: String, debtMiles: Double, principalMiles: Double, interestMiles: Double
+    let interestPerPeriodMiles: Double, creditMiles: Double, creditBeers: Double
     init(_ b: Balance) {
         state = { switch b.state { case .debt: "debt"; case .credit: "credit"; case .even: "even" } }()
-        debtMiles = b.debtMiles; principalMiles = b.principalMiles; interestMiles = b.interestMiles; creditMiles = b.creditMiles; creditBeers = b.creditBeers
+        debtMiles = b.debtMiles; principalMiles = b.principalMiles; interestMiles = b.interestMiles
+        interestPerPeriodMiles = b.interestPerPeriodMiles; creditMiles = b.creditMiles; creditBeers = b.creditBeers
     }
 }
 struct Expected: Codable {

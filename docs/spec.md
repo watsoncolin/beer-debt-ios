@@ -333,7 +333,7 @@ BEER DEBT
 OWED
 
 6.5 principal
-0.8 interest
+0.73 a day
 
 [ 🍺 + BEER ]
 
@@ -341,6 +341,23 @@ OWED
 
 Your tab is getting expensive.
 ```
+
+The second figure is the **rate**, not the running total: what one compounding
+period adds to the open tab at the rate in force, which is the outstanding
+amount times the interest rate. It carries the period's own words, so a weekly
+setting reads "a week". Interest-to-date is a number that barely moves once it
+is there; what standing still costs is the thing the product is about, and it
+is what a run prevents.
+
+While today is interest-protected by a running streak (§25) the figure is
+struck through and lit with the flame, so it reads as what the streak just
+saved. The condition is *today* being protected, not merely having a streak
+alive: a streak carried from yesterday pauses nothing until today has its
+mile, and showing the charge live is exactly the nudge the streak card
+underneath then spells out.
+
+The standing totals (principal, interest to date) move to **Your Debt**, in a
+panel above the list, next to the beers they came from.
 
 ### Credit state
 
@@ -432,6 +449,10 @@ YESTERDAY
 PAID
 9:42 PM
 ```
+
+A totals panel sits above the list: total owed, then principal, interest to
+date, and the per-period rate. In credit it reads banked beers, the miles
+behind them, and what expires this week; on clean books, just that.
 
 Individual beer debts can optionally expose:
 

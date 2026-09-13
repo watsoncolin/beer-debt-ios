@@ -10,6 +10,10 @@ let t0 = Date(timeIntervalSince1970: 1_789_243_200)
 
 func at(_ offset: TimeInterval) -> Date { t0.addingTimeInterval(offset) }
 
+/// 07:00 UTC on t0 + n days, so a run lands mid-day in the pinned calendar
+/// rather than on a day boundary.
+func morning(_ n: Int) -> Date { at(Double(n) * day - 13 * hour) }
+
 func ledger(rules: Rules = .default, openedAt: Date = t0, beers: [BeerEntry] = [], runs: [RunEntry] = []) -> Ledger {
     var ledger = Ledger(openedAt: openedAt, rules: rules)
     ledger.beers = beers

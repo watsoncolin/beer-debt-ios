@@ -22,6 +22,13 @@ struct DebtView: View {
 
         List {
             Section {
+                TotalsPanel(report: report)
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(top: 4, leading: 20, bottom: 16, trailing: 20))
+            }
+
+            Section {
                 Picker("Filter", selection: $filter) {
                     Text("Active (\(active.count))").tag(Filter.active)
                     Text("Paid (\(paid.count))").tag(Filter.paid)
@@ -87,6 +94,93 @@ struct DebtView: View {
             if DebugLaunch.screen == "beerDetail" { selectedBeer = report.beers.last }
             #endif
         }
+    }
+}
+
+/// The totals, in a panel over the list. They used to be the second line of
+/// the Home hero; Home now leads with what a period of the tab costs, and the
+/// standing figures belong here, next to the beers they came from.
+private struct TotalsPanel: View {
+    let report: Report
+
+    private var balance: Balance { report.balance }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            header
+            if balance.state != .even {
+                Rectangle()
+                    .fill(Theme.cream.opacity(0.15))
+                    .frame(height: 1)
+                stats
+            }
+        }
+        .padding(18)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Theme.card, in: RoundedRectangle(cornerRadius: 18))
+        .overlay {
+            RoundedRectangle(cornerRadius: 18).strokeBorder(Theme.cardStroke, lineWidth: 1)
+        }
+    }
+
+    @ViewBuilder
+    private var header: some View {
+        switch balance.state {
+        case .debt:
+            caption("TOTAL OWED")
+            bigNumber(Format.miles(balance.debtMiles, decimals: 2), color: Theme.debt)
+        case .credit:
+            caption("BANKED")
+            bigNumber(Format.beersLabel(balance.creditBeers), color: Theme.creditSoft)
+        case .even:
+            caption("BOOKS ARE CLEAN")
+            Text("Nothing owed, nothing banked.")
+                .font(.subheadline)
+                .foregroundStyle(Theme.cream.opacity(0.7))
+        }
+    }
+
+    @ViewBuilder
+    private var stats: some View {
+        HStack(alignment: .top, spacing: 0) {
+            switch balance.state {
+            case .debt:
+                stat(Format.number(balance.principalMiles, decimals: 2), "principal")
+                stat(Format.number(balance.interestMiles, decimals: 2), "interest so far")
+                InterestRateStat(report: report, alignment: .leading)
+            case .credit, .even:
+                stat(Format.number(balance.creditMiles, decimals: 2), "miles banked")
+                stat(Format.number(report.creditExpiringThisWeekMiles, decimals: 2), "expires this week")
+                Spacer(minLength: 0).frame(maxWidth: .infinity)
+            }
+        }
+    }
+
+    private func caption(_ text: String) -> some View {
+        Text(text)
+            .font(.caption.weight(.bold))
+            .tracking(1.5)
+            .foregroundStyle(Theme.cream.opacity(0.6))
+    }
+
+    private func bigNumber(_ text: String, color: Color) -> some View {
+        Text(text)
+            .font(.system(size: 40, weight: .black, design: .rounded))
+            .foregroundStyle(color)
+            .lineLimit(1)
+            .minimumScaleFactor(0.5)
+    }
+
+    private func stat(_ value: String, _ label: String) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(value)
+                .font(.title3.weight(.bold))
+                .foregroundStyle(Theme.cream)
+            Text(label)
+                .font(.caption)
+                .foregroundStyle(Theme.cream.opacity(0.6))
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 

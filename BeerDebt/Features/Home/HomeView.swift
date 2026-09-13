@@ -55,7 +55,7 @@ struct HomeView: View {
 
                 NavigationLink(value: Route.debt) {
                     VStack(spacing: 14) {
-                        BalanceHero(balance: balance)
+                        BalanceHero(report: report)
                         Text("Your tab ›")
                             .font(.footnote.weight(.semibold))
                             .foregroundStyle(Theme.gold.opacity(0.9))
@@ -125,7 +125,9 @@ struct HomeView: View {
 
 /// The number that dominates the screen, per state (spec §10, §19).
 private struct BalanceHero: View {
-    let balance: Balance
+    let report: Report
+
+    private var balance: Balance { report.balance }
 
     var body: some View {
         switch balance.state {
@@ -140,7 +142,7 @@ private struct BalanceHero: View {
                     Rectangle()
                         .fill(Theme.cream.opacity(0.25))
                         .frame(width: 1, height: 36)
-                    stat(Format.number(balance.interestMiles), "interest")
+                    InterestRateStat(report: report)
                 }
                 .padding(.top, 20)
             }
