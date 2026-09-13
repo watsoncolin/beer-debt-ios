@@ -48,7 +48,12 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
   it out of test runs and tags debug builds `development`. Don't add other
   packages without a reason; the widget links nothing third-party.
 - The `.xcodeproj` is committed but generated — never hand-edit it; change
-  `project.yml` and regenerate.
+  `project.yml` and regenerate. `Package.resolved` (under
+  `project.xcworkspace/xcshareddata/swiftpm/`) is committed too: Xcode Cloud
+  disables automatic resolution and fails without it. While Xcode has the
+  project open, an `xcodebuild -resolvePackageDependencies` from the shell
+  writes a file Xcode deletes moments later; resolve in a `git worktree` (or
+  with the project closed) when it needs regenerating.
 - The engine is pure. `BalanceEngine.report(for:at:)` takes a `Ledger` and an
   instant, no clocks, no I/O. `now` is always injected. Tests use fixed
   `Date(timeIntervalSince1970:)` instants, never `.now`.
