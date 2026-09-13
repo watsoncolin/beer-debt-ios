@@ -39,6 +39,7 @@ final class LedgerStore {
                 try? FileManager.default.moveItem(at: fileURL, to: aside)
                 ledger = Ledger(openedAt: opened)
                 loadError = "Couldn't read the ledger, so the books were reopened. The old file was kept as \(aside.lastPathComponent)."
+                Telemetry.report(error, context: "store", ["op": "load", "bytes": data.count])
                 save()
             }
         } else {
@@ -203,6 +204,9 @@ final class LedgerStore {
             try data.write(to: fileURL, options: .atomic)
             WidgetCenter.shared.reloadAllTimelines()
         } catch {
+            Telemetry.report(error, context: "store", [
+                "op": "save", "beers": ledger.beers.count, "runs": ledger.runs.count,
+            ])
             assertionFailure("Failed to save ledger: \(error)")
         }
     }

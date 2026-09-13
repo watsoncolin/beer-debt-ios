@@ -218,7 +218,9 @@ Colin approved the recommendations in the streak review:
   silently deleted. The data set is tiny, replay is the source of
   truth, there are no migrations to manage, and the same shape ports straight
   to Android. SwiftData is deliberately not used.
-- **No dependencies.**
+- **One dependency: Sentry** (added 2026-09-13, crash reporting only, the
+  same policy as the Android app: no user identification, replay, or
+  tracing). Everything else is Apple frameworks.
 - **Android:** sister repo `beer-debt-android` (Kotlin + Compose + Health
   Connect), mirroring `pourcraft-ios` / `pourcraft-android`. The shared contract
   is `spec.md` plus the engine's test cases exported as JSON fixtures

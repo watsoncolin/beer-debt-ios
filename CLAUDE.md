@@ -41,7 +41,12 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
   `Sendable` value type.
 - Bundle ID `me.colinwatson.beerdebt`, team `M7PCWQ7WYN` (matches pourcraft-ios
   and strumbuddy-ios).
-- **No third-party dependencies.** Don't add packages without a reason.
+- **One third-party dependency: Sentry**, crash reporting only. `Telemetry/`
+  is the one door (Pourcraft convention): no user identification, no replay,
+  no tracing; hand-reported errors carry a context block keyed by domain
+  (`health`, `store`), reported once at the source. `TelemetryPolicy` keeps
+  it out of test runs and tags debug builds `development`. Don't add other
+  packages without a reason; the widget links nothing third-party.
 - The `.xcodeproj` is committed but generated — never hand-edit it; change
   `project.yml` and regenerate.
 - The engine is pure. `BalanceEngine.report(for:at:)` takes a `Ledger` and an
@@ -156,6 +161,7 @@ are in that config. Upload to App Store Connect goes through the API into the
   `StreakStatus`; spec §25, decisions §B.5).
 - `Models/` — `BeerEntry`, `RunEntry`, `Rules` (+ `CompoundingPeriod`), `Ledger` (+ `RulesChange`).
 - `Persistence/` — `LedgerStore` (observable owner of the JSON ledger file).
+- `Telemetry/` — `Telemetry` (Sentry start + `report`), `TelemetryPolicy`.
 - `Health/` — `HealthKitService` (authorization, anchored workout query with
   deletions, background delivery + observer query), `HealthSync` (connect,
   sync on active and on background wake, drops pre-books runs, removes deleted
