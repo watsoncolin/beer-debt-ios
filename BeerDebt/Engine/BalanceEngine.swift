@@ -288,6 +288,10 @@ private struct Replay {
                 debtMiles: debt,
                 principalMiles: principal,
                 interestMiles: interest,
+                // Each open debt posts once a period, so the whole tab's
+                // per-period charge is just the rate on what's outstanding.
+                // Gross: a protected day skips the posting, and the UI says so.
+                interestPerPeriodMiles: debt * rules.interestRate,
                 creditMiles: credit,
                 creditBeers: creditBeers
             ),

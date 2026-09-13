@@ -32,6 +32,7 @@
 		6301F50BAABB1BDB3C73B6CC /* WidgetPreviewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F63A3A9ED48465E0F0A2785 /* WidgetPreviewScreen.swift */; };
 		6458A7F00D4E0162B85DE37D /* DebtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66E6C0A5B95A19A9E53626 /* DebtView.swift */; };
 		64EF73099228E0893DC4279B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAF29C39DB7A99E66F329C1 /* SettingsView.swift */; };
+		67B233016F4F38E59ACF400A /* InterestRateStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAEDCD34B96F52AC27A5C5B /* InterestRateStat.swift */; };
 		69C38BD7B92F0BC3DD54E515 /* DebtFreeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5C88CBF61288D3D21372F5 /* DebtFreeSheet.swift */; };
 		6D9FFE7AA78A16CC14012D2A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8895D27A0E8BFF2CD3C05ED3 /* Theme.swift */; };
 		711B864C99E5392E019D7BEC /* BalanceEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31AFC2644E14EA452E9060D /* BalanceEngine.swift */; };
@@ -128,6 +129,7 @@
 		96F1AA9FB16F972D0F53082C /* BeerDebtApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDebtApp.swift; sourceTree = "<group>"; };
 		972AAB1E8B73A9B3B9492E92 /* Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
 		9C5C88CBF61288D3D21372F5 /* DebtFreeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtFreeSheet.swift; sourceTree = "<group>"; };
+		9EAEDCD34B96F52AC27A5C5B /* InterestRateStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestRateStat.swift; sourceTree = "<group>"; };
 		9EAF29C39DB7A99E66F329C1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9F139958A6FB29822FC7DC24 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 		9F76A399B75E29E0677448A0 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 		EAE783A32F532CA4488B6DF8 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				9EAEDCD34B96F52AC27A5C5B /* InterestRateStat.swift */,
 				8F63A3A9ED48465E0F0A2785 /* WidgetPreviewScreen.swift */,
 			);
 			path = Shared;
@@ -517,6 +520,7 @@
 				000B8D2605E382A3BF4F6D16 /* HealthOnboardingView.swift in Sources */,
 				438F1CAAB9D5C95992A2CCE4 /* HealthSync.swift in Sources */,
 				D0180E5367CD854460B67D13 /* HomeView.swift in Sources */,
+				67B233016F4F38E59ACF400A /* InterestRateStat.swift in Sources */,
 				C1E0B85E8BDD2EFCE8ECCAE2 /* Ledger.swift in Sources */,
 				C63825C3CC8F36FB5C87A90D /* LedgerFile.swift in Sources */,
 				1A4001C96DC02D1017DAFEF2 /* LedgerStore.swift in Sources */,
