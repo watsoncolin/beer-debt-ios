@@ -78,6 +78,9 @@ Not Collected".
 
 - `MARKETING_VERSION` in `project.yml` is the App Store version. Bump it by
   hand when starting a new release.
+- Builds 24–27 never reached TestFlight: 24 and 25 were superseded, 26 was
+  cancelled by 27, and 27 failed for want of a committed `Package.resolved`
+  (the first build with a package). Build 28 is the first with Sentry.
 - The build number is set by Xcode Cloud (`CI_BUILD_NUMBER`) at archive time;
   `CURRENT_PROJECT_VERSION` in `project.yml` only matters for local builds.
 
