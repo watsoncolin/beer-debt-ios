@@ -172,4 +172,52 @@ struct LedgerStoreTests {
         #expect(store.reopenBooks(at: at(-800 * day), now: t0))
         #expect(store.ledger.booksOpenedAt == at(-365 * day))
     }
+
+    /// A directory where `ledger.json` goes, so every write to it fails.
+    private func blockedDir() throws -> URL {
+        let dir = tempDir()
+        try FileManager.default.createDirectory(
+            at: dir.appendingPathComponent("ledger.json"), withIntermediateDirectories: true
+        )
+        return dir
+    }
+
+    @Test func aFailedWriteIsRememberedNotSwallowed() throws {
+        let store = LedgerStore(directory: try blockedDir(), now: t0)
+        #expect(!store.isPersisted)
+        // Still usable: the books are right in memory, just not on disk.
+        store.addBeer(at: at(hour))
+        #expect(!store.isPersisted)
+        #expect(close(store.report(at: at(2 * hour)).balance.debtMiles, 1.0))
+        // Retrying while the disk is still blocked keeps saying no.
+        #expect(!store.persist())
+    }
+
+    @Test func retryingAFailedWriteCarriesEverythingWritten() throws {
+        let dir = try blockedDir()
+        let store = LedgerStore(directory: dir, now: t0)
+        store.addBeer(at: at(hour))
+        let run1 = run(2, endedAt: at(2 * hour))
+        store.importRuns([run1])
+        #expect(!store.isPersisted)
+
+        // The disk comes back. The ledger is written whole, so one save
+        // carries the beer and the run that were lost along the way.
+        try FileManager.default.removeItem(at: dir.appendingPathComponent("ledger.json"))
+        #expect(store.persist())
+        #expect(store.isPersisted)
+
+        let reloaded = LedgerStore(directory: dir, now: at(day))
+        #expect(reloaded.ledger.beers.count == 1)
+        #expect(reloaded.ledger.runs == [run1])
+        #expect(reloaded.ledger.booksOpenedAt == t0)
+    }
+
+    @Test func persistingIsACheapNoOpWhenTheBooksAreAlreadyOnDisk() {
+        let store = LedgerStore(directory: tempDir(), now: t0)
+        #expect(store.isPersisted)
+        #expect(store.persist())
+        store.addBeer(at: at(hour))
+        #expect(store.persist())
+    }
 }

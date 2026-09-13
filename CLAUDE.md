@@ -57,6 +57,11 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
 - The engine is pure. `BalanceEngine.report(for:at:)` takes a `Ledger` and an
   instant, no clocks, no I/O. `now` is always injected. Tests use fixed
   `Date(timeIntervalSince1970:)` instants, never `.now`.
+- A failed ledger write is remembered, not swallowed: `LedgerStore.isPersisted`
+  goes false and `persist()` retries it. Before discarding the only means of
+  rebuilding what was written, call `persist()` first. `HealthSync.sync()` is
+  the live case: it advances the HealthKit anchor only once the runs it covers
+  are on disk, or the run is lost for good.
 - Events are append-only and immutable, with one exception: a beer's
   `createdAt` may be corrected through `LedgerStore.updateBeerDate`, which
   clamps it to the last 30 days (it may predate `booksOpenedAt`; runs may

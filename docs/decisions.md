@@ -231,6 +231,22 @@ Colin approved the recommendations in the streak review:
   silently deleted. The data set is tiny, replay is the source of
   truth, there are no migrations to manage, and the same shape ports straight
   to Android. SwiftData is deliberately not used.
+- **A failed write is remembered** (added 2026-09-13): a disk write can fail
+  for reasons the app doesn't control, and the failure is silent, because the
+  in-memory books still look right until the next launch reads the file back.
+  `LedgerStore.isPersisted` goes false when a save fails and `persist()`
+  retries it, reporting whether the file now matches memory. The ledger is
+  written whole, so one later save carries every event that was lost along
+  the way. This is not an assertion: the environment misbehaving is not a bug
+  in the app, and trapping would only turn lost data into a crash.
+  Anything holding the sole means of rebuilding those events must call
+  `persist()` before discarding it. The HealthKit anchor is the case that
+  matters: it is the only record of which workouts have been read, so `sync()`
+  advances it only once the runs it covers are on disk. Advancing it over a
+  ledger that never reached the file lost the run for good, because HealthKit,
+  asked from the newer anchor, never offers that workout again. Holding the
+  anchor costs a re-read and nothing else, since the store dedups on workout
+  id, and it makes every sync a retry point for any earlier failed write.
 - **One dependency: Sentry** (added 2026-09-13, crash reporting only, the
   same policy as the Android app: no user identification, replay, or
   tracing). Everything else is Apple frameworks.
