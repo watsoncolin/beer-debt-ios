@@ -62,7 +62,7 @@ Health app), but the real test is a run on your wrist.
 
 ```sh
 xcodebuild -project BeerDebt.xcodeproj -scheme BeerDebt \
-  -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test
+  -destination 'platform=iOS Simulator,name=iPhone 17' test
 ```
 
 ## Release
