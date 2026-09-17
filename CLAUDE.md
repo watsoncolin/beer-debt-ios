@@ -136,11 +136,16 @@ so keep the Apple Health section accurate when Health usage changes.
 The sister repo is `~/beer-debt-android` (github.com/watsoncolin/beer-debt-android).
 This repo leads; features are built and validated here first, then ported.
 The cross-platform contract is `docs/spec.md` + `docs/engine-fixtures/cases.json`,
-generated from the Swift engine by `scripts/fixtures.sh` (64 scenarios mirroring
+generated from the Swift engine by `scripts/fixtures.sh` (76 scenarios mirroring
 `BalanceEngineTests`; pure `swiftc`, no simulator). **After any engine or model
 change: run `scripts/fixtures.sh`, commit the JSON, and copy it to
 `~/beer-debt-android/engine/src/test/resources/cases.json`.** The Kotlin
-engine's test fails loudly if the numbers drift. Add new scenarios to
+engine's test fails loudly if the numbers *drift*, but a **new field** is a
+blind spot: that test decodes with `ignoreUnknownKeys`, so a field added here
+is silently dropped and all cases still pass with the Kotlin port missing
+entirely. Adding one to `Balance` or a statement means naming and asserting it
+in that repo's `FixtureTest` too — a green `:engine:test` over a fresh
+`cases.json` is not by itself proof the port landed. Add new scenarios to
 `scripts/fixtures.swift` alongside new Swift tests.
 
 ## Art
