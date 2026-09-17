@@ -217,6 +217,22 @@ Colin approved the recommendations in the streak review:
   only when it falls inside, and `.after(horizon)` rather than `.atEnd` so a
   posting days out can never become the last entry and push the rebuild out
   with it. Six hours is the worst-case staleness; it was a day.
+- **Home leads with the rate, not the total** (added 2026-09-13, spec §10):
+  the second figure under the balance is `Balance.interestPerPeriodMiles`,
+  what one compounding period adds to the open tab at the rate in force. Every
+  open debt posts exactly once a period, so it is `debtMiles × interestRate`,
+  exact rather than a projection, and it carries the period's own words ("a
+  day" / "a week"). Interest-to-date barely moves once it is there; the cost of
+  standing still is what a run prevents. It is reported **gross**, ignoring
+  streak protection, because the UI strikes it through when
+  `streak.todayProtected` and the struck figure is the point: it is what the
+  streak saved. Reporting zero would leave nothing to show and nothing to lose
+  by stopping. The strike condition is `todayProtected`, not
+  `interestProtectionActive`: a streak alive from yesterday pauses nothing
+  until today has its mile, so the charge shows live and the streak card says
+  why. Principal keeps one decimal on Home so it matches the rounded hero; the
+  rate takes two, being small. The standing totals moved to Your Debt, in a
+  panel above the list.
 - Two sources logging the same run (Watch + Strava) is not handled in MVP.
 
 ## D. Platform

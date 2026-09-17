@@ -353,6 +353,69 @@ struct BalanceEngineTests {
         #expect(a == b)
     }
 
+    // MARK: What a period of the tab costs (the Home headline)
+
+    @Test func perPeriodInterestIsTheRateOnWhatIsOutstanding() {
+        let l = ledger(beers: [beer(t0), beer(at(hour))])
+        let r = report(l, at: at(day - 1))
+        #expect(close(r.balance.debtMiles, 2.0))
+        #expect(close(r.balance.interestPerPeriodMiles, 0.20))
+    }
+
+    @Test func perPeriodInterestGrowsWithTheCompoundedTab() {
+        let l = ledger(beers: [beer(t0)])
+        // It is always the rate on what is owed right now, interest included.
+        #expect(close(report(l, at: at(day)).balance.interestPerPeriodMiles, 0.110))
+        #expect(close(report(l, at: at(2 * day)).balance.interestPerPeriodMiles, 0.121))
+    }
+
+    @Test func perPeriodInterestIsExactlyWhatPostsNext() {
+        // The promise the number makes: leave the tab alone for one period and
+        // this is what lands. Nothing else moves debt, so the diff is exact.
+        let l = ledger(beers: [beer(t0)])
+        let before = report(l, at: at(3 * day))
+        let after = report(l, at: at(4 * day))
+        #expect(close(after.balance.debtMiles - before.balance.debtMiles, before.balance.interestPerPeriodMiles))
+    }
+
+    @Test func perPeriodInterestFollowsTheWeeklyPeriod() {
+        var r = Rules.default
+        r.interestPeriod = .weekly
+        let l = ledger(rules: r, beers: [beer(t0)])
+        let before = report(l, at: at(6 * day))
+        #expect(close(before.balance.interestPerPeriodMiles, 0.10))
+        // One week on, that is exactly what posted.
+        #expect(close(report(l, at: at(week)).balance.debtMiles - before.balance.debtMiles, 0.10))
+    }
+
+    @Test func perPeriodInterestIsZeroWithNothingOwed() {
+        #expect(close(report(ledger(), at: t0).balance.interestPerPeriodMiles, 0))
+        // Credit is not charged interest.
+        let banked = ledger(beers: [beer(t0)], runs: [run(3, endedAt: at(hour))])
+        #expect(report(banked, at: at(2 * day)).balance.state == .credit)
+        #expect(close(report(banked, at: at(2 * day)).balance.interestPerPeriodMiles, 0))
+    }
+
+    @Test func perPeriodInterestIsZeroWhenInterestIsOff() {
+        var r = Rules.default
+        r.interestRate = 0
+        let l = ledger(rules: r, beers: [beer(t0)])
+        #expect(close(report(l, at: at(5 * day)).balance.debtMiles, 1.0))
+        #expect(close(report(l, at: at(5 * day)).balance.interestPerPeriodMiles, 0))
+    }
+
+    @Test func perPeriodInterestIsGrossWhileAStreakPausesIt() {
+        // The figure the Home screen strikes through: what the tab would cost
+        // today if the streak weren't holding. Reporting 0 would leave nothing
+        // to show, and nothing to lose by stopping.
+        let l = ledger(beers: (0..<5).map { beer(at(Double($0) * 60)) },
+                       runs: [run(1, endedAt: morning(1)), run(1, endedAt: morning(2))])
+        let r = report(l, at: at(2 * day))
+        #expect(r.streak.todayProtected)
+        #expect(r.balance.interestPerPeriodMiles > 0)
+        #expect(close(r.balance.interestPerPeriodMiles, r.balance.debtMiles * 0.10))
+    }
+
     @Test func aDayIsAlwaysEightySixThousandFourHundredSeconds() {
         // Oct 31 → Nov 1 2026 spans the US DST change. Periods are fixed
         // lengths, so the posting lands exactly 86,400 s later, not at "the

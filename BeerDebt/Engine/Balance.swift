@@ -13,13 +13,22 @@ struct Balance: Equatable, Sendable {
     var debtMiles: Double
     var principalMiles: Double
     var interestMiles: Double
+    /// What the open tab adds in one compounding period at the rate in force,
+    /// before any streak protection. Every open debt posts exactly once a
+    /// period, so this is `debtMiles × interestRate` and is exact, not a
+    /// projection. The rate Home leads with: a total that barely moves says
+    /// less than what standing still costs. Strike it through when
+    /// `Report.streak.todayProtected` says today's postings are skipped, so
+    /// the number doubles as what the streak is saving.
+    var interestPerPeriodMiles: Double
     /// banked credit, after decay
     var creditMiles: Double
     /// creditMiles expressed in beers at the current miles-per-beer rule
     var creditBeers: Double
 
     static let even = Balance(
-        state: .even, debtMiles: 0, principalMiles: 0, interestMiles: 0, creditMiles: 0, creditBeers: 0
+        state: .even, debtMiles: 0, principalMiles: 0, interestMiles: 0,
+        interestPerPeriodMiles: 0, creditMiles: 0, creditBeers: 0
     )
 }
 
