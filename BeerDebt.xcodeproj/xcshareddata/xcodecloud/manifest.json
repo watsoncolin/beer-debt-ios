@@ -1,0 +1,9 @@
+{
+  "id" : "6d400df2-7a97-47e0-a788-c6fb47a44cc2",
+  "targets" : [
+    {
+      "id" : "0B85EC3A-FCC0-4087-9177-ED5D4DA84425",
+      "name" : "BeerDebt"
+    }
+  ]
+}

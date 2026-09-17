@@ -19,7 +19,7 @@ Build and test from the command line:
 ```sh
 xcodegen generate
 xcodebuild -project BeerDebt.xcodeproj -scheme BeerDebt \
-  -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test
+  -destination 'platform=iOS Simulator,name=iPhone 17' test
 ```
 
 Tests use Swift Testing (`import Testing`, `@Test`, `#expect`).
