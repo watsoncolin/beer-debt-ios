@@ -250,6 +250,22 @@ Colin approved the recommendations in the streak review:
 - **One dependency: Sentry** (added 2026-09-13, crash reporting only, the
   same policy as the Android app: no user identification, replay, or
   tracing). Everything else is Apple frameworks.
+- **Health errors are classified before they are reported** (added
+  2026-09-13): every catch in `HealthSync` used to send the error to Sentry
+  and put its `localizedDescription` in front of the user. The first day of
+  real reporting showed why both were wrong. Health data is sealed while the
+  phone is locked, and background delivery wakes the app exactly when the
+  phone is usually locked, so `HKErrorDatabaseInaccessible` would have paged
+  on most wakes; and a Guided Access session made iOS refuse to open the
+  permission screen, which reached the user as a nested Foundation dump naming
+  no remedy. `HealthFailure` now names the conditions that are the phone or
+  the user rather than the app: locked, not determined, denied, unavailable,
+  Guided Access, and a sheet iOS otherwise declined to present. Each carries
+  copy with a remedy in it and sends no event. Only `.unknown` is reported, so
+  a condition we haven't seen still reaches us, including a HealthKit code
+  added by a later OS. The walk through nested errors is capped, and a cause
+  buried deeper reads as unknown on purpose: a noisy report beats a swallowed
+  one.
 - **Android:** sister repo `beer-debt-android` (Kotlin + Compose + Health
   Connect), mirroring `pourcraft-ios` / `pourcraft-android`. The shared contract
   is `spec.md` plus the engine's test cases exported as JSON fixtures
