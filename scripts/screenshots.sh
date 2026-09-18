@@ -93,6 +93,7 @@ seed debt
 shoot home-debt
 shoot beer-added beerAdded
 shoot ledger ledger
+shoot paid paid
 shoot beer-detail beerDetail
 shoot runs runs
 shoot settings settings

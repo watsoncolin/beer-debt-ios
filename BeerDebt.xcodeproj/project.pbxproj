@@ -29,6 +29,7 @@
 		42E51A0D76824F6FDDD93B40 /* BalanceWidgetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF94F78474A0A765E2BEA7C4 /* BalanceWidgetViews.swift */; };
 		438F1CAAB9D5C95992A2CCE4 /* HealthSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB8823445610589169295E2 /* HealthSync.swift */; };
 		5161C6AC19D82C09C8374802 /* BeerEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F5273874DC97DC59FE5C9 /* BeerEntry.swift */; };
+		53445DBF913FF50BE1C9790D /* FormatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE97EF8404186E7696DB346F /* FormatTests.swift */; };
 		5DDE798717F5540A8DE4013A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FDB3E39011B92CA7C3933A1 /* LaunchScreen.storyboard */; };
 		6301F50BAABB1BDB3C73B6CC /* WidgetPreviewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F63A3A9ED48465E0F0A2785 /* WidgetPreviewScreen.swift */; };
 		6458A7F00D4E0162B85DE37D /* DebtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66E6C0A5B95A19A9E53626 /* DebtView.swift */; };
@@ -155,6 +156,7 @@
 		C7AB983CBC5031A20F27EB8D /* StreakEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakEngineTests.swift; sourceTree = "<group>"; };
 		CF4A1D26C957BBC123CFBBE9 /* BalanceTimelineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceTimelineTests.swift; sourceTree = "<group>"; };
 		CF8D829DDEF1ADD2D48822DE /* RunNotifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunNotifierTests.swift; sourceTree = "<group>"; };
+		DE97EF8404186E7696DB346F /* FormatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatTests.swift; sourceTree = "<group>"; };
 		E1F29F2C4116B049DAAC197D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E31AFC2644E14EA452E9060D /* BalanceEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceEngine.swift; sourceTree = "<group>"; };
 		E7C6AD8667348087D47C1A05 /* FreezeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreezeSection.swift; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 			children = (
 				FDA24F799AD90E047DAF88CA /* BalanceEngineTests.swift */,
 				CF4A1D26C957BBC123CFBBE9 /* BalanceTimelineTests.swift */,
+				DE97EF8404186E7696DB346F /* FormatTests.swift */,
 				E9AEB00D0551225924ADA400 /* HealthFailureTests.swift */,
 				179D84998FA1EF9C49416D25 /* LedgerStoreTests.swift */,
 				CF8D829DDEF1ADD2D48822DE /* RunNotifierTests.swift */,
@@ -572,6 +575,7 @@
 			files = (
 				C1A555394BC694B6E8E18838 /* BalanceEngineTests.swift in Sources */,
 				276CE44F867C7B185F141989 /* BalanceTimelineTests.swift in Sources */,
+				53445DBF913FF50BE1C9790D /* FormatTests.swift in Sources */,
 				D50979FC710D9A8C73A106C6 /* HealthFailureTests.swift in Sources */,
 				8F801376D365AADF18CE77A0 /* LedgerStoreTests.swift in Sources */,
 				117F16C6ED7A8AD8B2BA8292 /* RunNotifierTests.swift in Sources */,

@@ -359,6 +359,20 @@ underneath then spells out.
 The standing totals (principal, interest to date) move to **Your Debt**, in a
 panel above the list, next to the beers they came from.
 
+On **Your Debt**'s paid tab, each beer shows the **miles actually run to clear
+it**, not what it cost at the bar. A beer's price never changes, so the old
+figure read 1.00 for every row however long the beer had sat; the number worth
+seeing is what the run had to be once interest had its turn. A beer settled out
+of banked credit therefore reads 0.00, with "from credit" beside it, because no
+running went into it.
+
+The figure is coloured by how dear it turned out: under two miles is quiet,
+**two or more** takes a caution amber, **three or more** takes the debt red,
+and both of those carry a little extra weight. The bands are absolute miles
+rather than a multiple of the price, because what the reader is judging is the
+run they had to go on. Amber deliberately is not the brand gold, which in this
+app means earned.
+
 ### Credit state
 
 ```text
