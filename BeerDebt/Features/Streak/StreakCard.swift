@@ -23,6 +23,10 @@ struct StreakCard: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             Spacer()
+            // Inventory, where the streak is already being read (spec §25.1).
+            if let badge = StreakCopy.freezeBadge(streak) {
+                FreezeBadge(text: badge)
+            }
             Image(systemName: "chevron.right")
                 .font(.footnote.weight(.semibold))
                 .foregroundStyle(Theme.cream.opacity(0.6))
@@ -36,5 +40,28 @@ struct StreakCard: View {
             }
         }
         .multilineTextAlignment(.leading)
+    }
+}
+
+/// "🧊 1 Freeze". Cool against the flame's warmth, so inventory reads as a
+/// different kind of thing from the streak itself.
+struct FreezeBadge: View {
+    let text: String
+    var prominent = false
+
+    var body: some View {
+        HStack(spacing: 4) {
+            Text("🧊").font(prominent ? .body : .caption)
+            Text(text)
+                .font((prominent ? Font.subheadline : Font.caption).weight(.semibold))
+                .lineLimit(1)
+        }
+        .fixedSize()
+        .foregroundStyle(Theme.frost)
+        .padding(.horizontal, prominent ? 12 : 8)
+        .padding(.vertical, prominent ? 6 : 4)
+        .background(Theme.frost.opacity(0.15), in: Capsule())
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(text) available")
     }
 }

@@ -15,6 +15,13 @@ struct StreakCelebration: Identifiable, Equatable, Codable, Sendable {
     let days: Int
 }
 
+/// Shown when a synced run is the fifth running day, earning a streak freeze
+/// (spec §25.1). The freeze is never spent here; this only says it is in hand.
+struct FreezeEarnedCelebration: Identifiable, Equatable, Codable, Sendable {
+    var id = UUID()
+    let streakDays: Int
+}
+
 /// Drives HealthKit into the ledger: connect on onboarding, sync whenever the
 /// app becomes active, and, once connected, on HealthKit background delivery
 /// so a run pays the tab (and notifies) while the app is closed (spec §14,
@@ -38,6 +45,7 @@ final class HealthSync {
     private static let notificationsKey = "notifications.runs"
     private static let pendingCelebrationKey = "celebration.pending"
     private static let pendingStreakKey = "celebration.streak.pending"
+    private static let pendingFreezeKey = "celebration.freeze.pending"
 
     private(set) var isConnected: Bool
     private(set) var isSyncing = false
@@ -52,6 +60,7 @@ final class HealthSync {
     var isAppActive = false
     var celebration: DebtFreeCelebration?
     var streakCelebration: StreakCelebration?
+    var freezeEarned: FreezeEarnedCelebration?
 
     init(store: LedgerStore, health: HealthKitService, notifier: RunNotifier = RunNotifier(), defaults: UserDefaults = .standard) {
         self.store = store
@@ -228,6 +237,18 @@ final class HealthSync {
                 }
             }
 
+            // The fifth running day put a freeze in hand. Derived, so a run
+            // that imports late still earns it -- and a deleted run that
+            // un-earns it simply stops the sheet appearing next time.
+            if !added.isEmpty, before.streak.freezesHeld == 0, after.streak.freezesHeld > 0 {
+                let party = FreezeEarnedCelebration(streakDays: after.streak.currentStreakDays)
+                if isAppActive {
+                    freezeEarned = party
+                } else {
+                    defaults.set(try? JSONEncoder().encode(party), forKey: Self.pendingFreezeKey)
+                }
+            }
+
             if !isAppActive, runNotificationsEnabled {
                 let paidBefore = before.beers.filter(\.isPaid).count
                 let paidAfter = after.beers.filter(\.isPaid).count
@@ -269,6 +290,14 @@ final class HealthSync {
            let party = try? JSONDecoder().decode(StreakCelebration.self, from: data) {
             defaults.removeObject(forKey: Self.pendingStreakKey)
             streakCelebration = party
+            return
+        }
+        // Last in the queue: earning a freeze is the quietest of the three.
+        if celebration == nil, streakCelebration == nil, freezeEarned == nil,
+           let data = defaults.data(forKey: Self.pendingFreezeKey),
+           let party = try? JSONDecoder().decode(FreezeEarnedCelebration.self, from: data) {
+            defaults.removeObject(forKey: Self.pendingFreezeKey)
+            freezeEarned = party
         }
     }
 }

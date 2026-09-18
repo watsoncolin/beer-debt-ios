@@ -68,6 +68,21 @@ enum Format {
         return date.formatted(.dateTime.weekday(.wide).month(.abbreviated).day())
     }
 
+    /// "yesterday", "Tuesday", "Sep 9" — the day named mid-sentence, so it
+    /// stays lowercase where `dayHeader` is capitalised for a header.
+    static func dayPhrase(_ date: Date, now: Date = .now, calendar: Calendar = .current) -> String {
+        if calendar.isDate(date, inSameDayAs: now) { return "today" }
+        if let yesterday = calendar.date(byAdding: .day, value: -1, to: now),
+           calendar.isDate(date, inSameDayAs: yesterday) {
+            return "yesterday"
+        }
+        // Within the last week a weekday is clearer than a date.
+        if let weekAgo = calendar.date(byAdding: .day, value: -6, to: now), date >= weekAgo {
+            return date.formatted(.dateTime.weekday(.wide))
+        }
+        return day(date)
+    }
+
     /// "today at 8:13 PM", "tomorrow at 8:13 PM", "Sep 14 at 8:13 PM"
     static func relative(_ date: Date, now: Date = .now) -> String {
         let calendar = Calendar.current

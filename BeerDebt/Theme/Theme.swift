@@ -15,6 +15,10 @@ enum Theme {
     static let credit = Color(red: 0.361, green: 0.722, blue: 0.471)
     /// Pale green for chart bars, like the concept art.
     static let creditSoft = Color(red: 0.612, green: 0.847, blue: 0.663)
+    /// A streak freeze: cool against the flame's warmth, so a rest day reads as
+    /// a different kind of thing from a run (spec §25.1). Light enough to stay
+    /// legible on forest and on the Home backdrop.
+    static let frost = Color(red: 0.639, green: 0.831, blue: 0.909)
     /// Raised card on the forest background.
     static let card = Color(red: 0.165, green: 0.235, blue: 0.216)
     static let cardStroke = Color(red: 0.235, green: 0.318, blue: 0.290)

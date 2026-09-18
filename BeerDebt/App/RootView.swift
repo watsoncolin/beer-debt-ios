@@ -56,13 +56,16 @@ struct RootView: View {
         .sheet(item: $sync.streakCelebration) { celebration in
             StreakActivatedSheet(celebration: celebration)
         }
+        .sheet(item: $sync.freezeEarned) { celebration in
+            FreezeEarnedSheet(celebration: celebration)
+        }
         .onChange(of: store.ledger) { _, _ in
             Task { await sync.rescheduleWeeklySummary() }
         }
         .onAppear(perform: applyDebugLaunch)
     }
 
-    /// Screenshot / manual-test helper: `-debugScreen ledger|runs|settings|streak|debtFree|streakActivated|beerDetail|beerAdded`
+    /// Screenshot / manual-test helper: `-debugScreen ledger|runs|settings|streak|debtFree|streakActivated|freezeEarned|beerDetail|beerAdded`
     /// as a launch argument opens that screen directly. No-op in release.
     private func applyDebugLaunch() {
         #if DEBUG
@@ -73,6 +76,8 @@ struct RootView: View {
         case "streak": path.append(Route.streak)
         case "streakActivated":
             sync.streakCelebration = StreakCelebration(days: max(2, store.report().streak.currentStreakDays))
+        case "freezeEarned":
+            sync.freezeEarned = FreezeEarnedCelebration(streakDays: max(5, store.report().streak.currentStreakDays))
         case "widgets": path.append(Route.widgetPreview)
         case "debtFree":
             let report = store.report()

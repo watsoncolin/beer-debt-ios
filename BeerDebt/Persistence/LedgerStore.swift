@@ -159,6 +159,38 @@ final class LedgerStore {
         return true
     }
 
+    /// Spends a streak freeze on a day (spec §25.1). Never automatic: the user
+    /// taps, here or on the streak screen.
+    ///
+    /// Only two days can be chosen, which is the MVP guard against arbitrary
+    /// history editing: today, and the single missed day that broke the streak
+    /// (`StreakStatus.repairableDay`). Anything else is refused. Whether a
+    /// freeze was actually in hand is the engine's business -- an application
+    /// it cannot honour is ignored on replay rather than trusted here.
+    ///
+    /// Returns false when there is no freeze to spend, the day is not one of
+    /// the two, or that day is already frozen.
+    @discardableResult
+    func applyFreeze(on day: Date, now: Date = .now, calendar: Calendar = .current) -> Bool {
+        let streak = BalanceEngine.report(for: ledger, at: now, calendar: calendar).streak
+        guard streak.freezesHeld > 0 else { return false }
+        let target = calendar.startOfDay(for: day)
+        let allowed = [calendar.startOfDay(for: now), streak.repairableDay].compactMap { $0 }
+        guard allowed.contains(target) else { return false }
+        guard !streak.isFrozen(on: day) else { return false }
+        ledger.freezeApplications.append(
+            .forDay(containing: day, calendar: calendar, appliedAt: now)
+        )
+        save()
+        return true
+    }
+
+    /// Spends a freeze on today, the common case behind "Use Freeze Today".
+    @discardableResult
+    func freezeToday(now: Date = .now, calendar: Calendar = .current) -> Bool {
+        applyFreeze(on: now, now: now, calendar: calendar)
+    }
+
     /// Moves the opening of the books earlier, so runs that ended in the newly
     /// covered window can count. Earlier only (a later date would strand runs
     /// already on the books), no more than a year back. The opening rules
