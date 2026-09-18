@@ -23,10 +23,12 @@ func uuid() -> UUID {
     return UUID(uuidString: String(format: "00000000-0000-4000-8000-%012d", nextID))!
 }
 
-func ledger(rules: Rules = .default, openedAt: Date = t0, beers: [BeerEntry] = [], runs: [RunEntry] = []) -> Ledger {
+func ledger(rules: Rules = .default, openedAt: Date = t0, beers: [BeerEntry] = [], runs: [RunEntry] = [],
+            freezes: [Date] = []) -> Ledger {
     var l = Ledger(openedAt: openedAt, rules: rules)
     l.beers = beers
     l.runs = runs
+    l.freezeApplications = freezes.map { FreezeApplication.forDay(containing: $0, calendar: utc, appliedAt: $0) }
     return l
 }
 func beer(_ date: Date, recordedAt: Date? = nil) -> BeerEntry { BeerEntry(id: uuid(), createdAt: date, recordedAt: recordedAt) }
@@ -59,16 +61,19 @@ struct ExpectedRun: Codable {
     init(_ s: RunStatement) { id = s.id; debtPaidMiles = s.debtPaidMiles; creditEarnedMiles = s.creditEarnedMiles; discardedMiles = s.discardedMiles; ignored = s.ignored; streakDayNumber = s.streakDayNumber }
 }
 struct ExpectedStreakDay: Codable {
-    let day: Date, miles: Double, qualifies: Bool, streakNumber: Int, interestProtected: Bool
-    init(_ d: StreakDay) { day = d.day; miles = d.miles; qualifies = d.qualifies; streakNumber = d.streakNumber; interestProtected = d.interestProtected }
+    let day: Date, miles: Double, qualifies: Bool, streakNumber: Int, interestProtected: Bool, frozen: Bool
+    init(_ d: StreakDay) { day = d.day; miles = d.miles; qualifies = d.qualifies; streakNumber = d.streakNumber; interestProtected = d.interestProtected; frozen = d.frozen }
 }
 struct ExpectedStreak: Codable {
     let currentStreakDays: Int, longestStreakDays: Int, totalQualifyingDays: Int, todayMiles: Double, todayQualifies: Bool
     let interestProtectionActive: Bool, todayProtected: Bool, days: [ExpectedStreakDay]
+    let freezesHeld: Int, freezeProgressDays: Int, todayFrozen: Bool, canFreezeToday: Bool, repairableDay: Date?
     init(_ s: StreakStatus) {
         currentStreakDays = s.currentStreakDays; longestStreakDays = s.longestStreakDays; totalQualifyingDays = s.totalQualifyingDays
         todayMiles = s.todayMiles; todayQualifies = s.todayQualifies; interestProtectionActive = s.interestProtectionActive
         todayProtected = s.todayProtected; days = s.days.map(ExpectedStreakDay.init)
+        freezesHeld = s.freezesHeld; freezeProgressDays = s.freezeProgressDays
+        todayFrozen = s.todayFrozen; canFreezeToday = s.canFreezeToday; repairableDay = s.repairableDay
     }
 }
 struct ExpectedBalance: Codable {
@@ -157,6 +162,42 @@ do {
     add("streak: protection switched on mid-day skips that day's posting",
         withChange(off, at: at(2 * day - 8 * hour)) { $0.streakProtection = true }, at: at(2 * day + hour))
 }
+// MARK: - Streak freezes (spec §25.1; mirror StreakFreezeTests).
+
+do {
+    let five = (0..<5).map { _ in beer(t0) }
+    let runsToEarn = (0..<5).map { run(1.0, endedAt: morning($0)) }
+    add("freeze: five running days earn one, four do not",
+        ledger(openedAt: utc.startOfDay(for: morning(0)), beers: five, runs: Array(runsToEarn.prefix(4))),
+        at: at(3 * day + hour))
+    add("freeze: the fifth running day puts one in hand",
+        ledger(openedAt: utc.startOfDay(for: morning(0)), beers: five, runs: runsToEarn),
+        at: at(4 * day + hour))
+    add("freeze: spent on today keeps the streak and the paused interest",
+        ledger(openedAt: utc.startOfDay(for: morning(0)), beers: five, runs: runsToEarn, freezes: [morning(5)]),
+        at: at(5 * day + hour))
+    add("freeze: a frozen day does not count toward the next freeze",
+        ledger(openedAt: utc.startOfDay(for: morning(0)), beers: five,
+               runs: runsToEarn + [6, 7, 8, 9].map { run(1.0, endedAt: morning($0)) }, freezes: [morning(5)]),
+        at: at(9 * day + hour))
+    add("freeze: late Health data on a frozen day refunds it",
+        ledger(openedAt: utc.startOfDay(for: morning(0)), beers: five,
+               runs: runsToEarn + [run(1.0, endedAt: morning(5))], freezes: [morning(5)]),
+        at: at(6 * day + hour))
+    add("freeze: an application with none in hand is ignored",
+        ledger(openedAt: utc.startOfDay(for: morning(0)), beers: five,
+               runs: Array(runsToEarn.prefix(2)), freezes: [morning(2)]),
+        at: at(2 * day + hour))
+    add("freeze: one cannot repair two missed days",
+        ledger(openedAt: utc.startOfDay(for: morning(0)), beers: five,
+               runs: runsToEarn + [run(1.0, endedAt: morning(7))], freezes: [morning(5)]),
+        at: at(7 * day + hour))
+    add("freeze: the break that ended the streak is repairable",
+        ledger(openedAt: utc.startOfDay(for: morning(0)), beers: five,
+               runs: runsToEarn + [run(1.0, endedAt: morning(6))], freezes: [morning(5)]),
+        at: at(6 * day + hour))
+}
+
 do { var weekly = Rules.default; weekly.interestPeriod = .weekly; weekly.gracePeriod = 0
      add("streak: a weekly posting on a protected day is skipped whole",
          ledger(rules: weekly, beers: [beer(t0), beer(t0), beer(t0)], runs: [run(1, endedAt: morning(6)), run(1, endedAt: morning(7))]),

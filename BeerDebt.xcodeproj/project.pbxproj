@@ -35,12 +35,15 @@
 		64EF73099228E0893DC4279B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAF29C39DB7A99E66F329C1 /* SettingsView.swift */; };
 		67B233016F4F38E59ACF400A /* InterestRateStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAEDCD34B96F52AC27A5C5B /* InterestRateStat.swift */; };
 		69C38BD7B92F0BC3DD54E515 /* DebtFreeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5C88CBF61288D3D21372F5 /* DebtFreeSheet.swift */; };
+		6CBF03E2FB911661B3AC9DD8 /* FreezeApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477083370697EBAB88ABF2E /* FreezeApplication.swift */; };
 		6D9FFE7AA78A16CC14012D2A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8895D27A0E8BFF2CD3C05ED3 /* Theme.swift */; };
 		711B864C99E5392E019D7BEC /* BalanceEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31AFC2644E14EA452E9060D /* BalanceEngine.swift */; };
 		7811A645719CC0DD6EC62609 /* BeerDebtApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1AA9FB16F972D0F53082C /* BeerDebtApp.swift */; };
 		7AB26ECC206F95097C30F7DF /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972AAB1E8B73A9B3B9492E92 /* Rules.swift */; };
+		7F2EDF2DC95D5B38854CBB7D /* StreakFreezeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70826A2C97EFC4143D994317 /* StreakFreezeTests.swift */; };
 		8CE75843B63E71A9A84347CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1F29F2C4116B049DAAC197D /* Assets.xcassets */; };
 		8F801376D365AADF18CE77A0 /* LedgerStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179D84998FA1EF9C49416D25 /* LedgerStoreTests.swift */; };
+		95E85C83A1B3ED06299930C1 /* FreezeApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477083370697EBAB88ABF2E /* FreezeApplication.swift */; };
 		97E8AD69D82C7543FBD42F17 /* StreakView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351EA55FCDA69111953BFADC /* StreakView.swift */; };
 		A2ED3A4AE439752A45B76691 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 7D7B9055F2D94D9F23332843 /* Sentry */; };
 		AD8D85C5FECD60FA56CFD8A5 /* Ledger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568BC38579E75979D912ED09 /* Ledger.swift */; };
@@ -56,6 +59,7 @@
 		CA5906FAB0234ED4A516B460 /* RunNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F281F27E5E4F30CAE118040E /* RunNotifier.swift */; };
 		CE5388431291A3D4451DBDD5 /* RunEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1315BF358F1278C12707F74A /* RunEntry.swift */; };
 		CE87D601999023DB5D5101C8 /* TestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375F3E2B6E42648F707FD2BD /* TestSupport.swift */; };
+		CF505638BE98D1D3FBB6E173 /* FreezeEarnedSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CB4D644A0FF0E9C0C665E9 /* FreezeEarnedSheet.swift */; };
 		D0180E5367CD854460B67D13 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4E75F6C65601E3E849D39C /* HomeView.swift */; };
 		D0DA12AEB23E3FF139BD50F1 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7EA25B56EB364CFF949547 /* Balance.swift */; };
 		D31CF8486D540EE2EBF0DE8C /* BeerEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F5273874DC97DC59FE5C9 /* BeerEntry.swift */; };
@@ -65,6 +69,7 @@
 		DE7DE0ECAFC199A70706DFA3 /* TelemetryPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A537953110BBE13A58C839F0 /* TelemetryPolicyTests.swift */; };
 		F1C3DFC0EDD86F23500CE852 /* RunsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DA6E495250E745AFDB9CE /* RunsView.swift */; };
 		F8ED1D14BDF5D31A6215ACF2 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62761E16519E17138101127 /* Format.swift */; };
+		FA6A025E2850F42F90EC6462 /* FreezeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C6AD8667348087D47C1A05 /* FreezeSection.swift */; };
 		FDAF46A039E3229A8B489CA3 /* WeeklySummaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6A5CC0A60D3E10A9ACDBD9 /* WeeklySummaryTests.swift */; };
 		FE3B478DEA6ECBCC67E3DD4A /* LedgerFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB29A3932321621173E1571 /* LedgerFile.swift */; };
 /* End PBXBuildFile section */
@@ -101,6 +106,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		08CB4D644A0FF0E9C0C665E9 /* FreezeEarnedSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreezeEarnedSheet.swift; sourceTree = "<group>"; };
 		0AB29A3932321621173E1571 /* LedgerFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerFile.swift; sourceTree = "<group>"; };
 		107585B5C1153C3351C0983E /* BeerDebtTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BeerDebtTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1315BF358F1278C12707F74A /* RunEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunEntry.swift; sourceTree = "<group>"; };
@@ -123,6 +129,7 @@
 		5FB8823445610589169295E2 /* HealthSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthSync.swift; sourceTree = "<group>"; };
 		6A52444443A8F4EB7BCDCF01 /* StreakCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakCard.swift; sourceTree = "<group>"; };
 		6E6A5CC0A60D3E10A9ACDBD9 /* WeeklySummaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklySummaryTests.swift; sourceTree = "<group>"; };
+		70826A2C97EFC4143D994317 /* StreakFreezeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakFreezeTests.swift; sourceTree = "<group>"; };
 		77BB32A1C213AE1063F2876C /* BeerDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDetailSheet.swift; sourceTree = "<group>"; };
 		7B9AD5532B905BCD220FE521 /* BeerDebt.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BeerDebt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C66E6C0A5B95A19A9E53626 /* DebtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtView.swift; sourceTree = "<group>"; };
@@ -142,6 +149,7 @@
 		AFCD3F75DFA2D8877CA4DE59 /* StreakEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakEngine.swift; sourceTree = "<group>"; };
 		BAA8780B796E04F305A4D1BD /* BeerDebt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BeerDebt.entitlements; sourceTree = "<group>"; };
 		BCB32B9C55DBFD66486A7F76 /* WeeklySummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklySummary.swift; sourceTree = "<group>"; };
+		C477083370697EBAB88ABF2E /* FreezeApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreezeApplication.swift; sourceTree = "<group>"; };
 		C5D2F5DBD4E356921A30A49A /* Telemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Telemetry.swift; sourceTree = "<group>"; };
 		C78458F7180B16624A1A33B6 /* StreakFlame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakFlame.swift; sourceTree = "<group>"; };
 		C7AB983CBC5031A20F27EB8D /* StreakEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakEngineTests.swift; sourceTree = "<group>"; };
@@ -149,6 +157,7 @@
 		CF8D829DDEF1ADD2D48822DE /* RunNotifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunNotifierTests.swift; sourceTree = "<group>"; };
 		E1F29F2C4116B049DAAC197D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E31AFC2644E14EA452E9060D /* BalanceEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceEngine.swift; sourceTree = "<group>"; };
+		E7C6AD8667348087D47C1A05 /* FreezeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreezeSection.swift; sourceTree = "<group>"; };
 		E9AEB00D0551225924ADA400 /* HealthFailureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthFailureTests.swift; sourceTree = "<group>"; };
 		F281F27E5E4F30CAE118040E /* RunNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunNotifier.swift; sourceTree = "<group>"; };
 		F62761E16519E17138101127 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
@@ -189,6 +198,8 @@
 		0B08FA7F538044CF1ED60596 /* Streak */ = {
 			isa = PBXGroup;
 			children = (
+				08CB4D644A0FF0E9C0C665E9 /* FreezeEarnedSheet.swift */,
+				E7C6AD8667348087D47C1A05 /* FreezeSection.swift */,
 				211DFE9438E1F5C07C2548A0 /* StreakActivatedSheet.swift */,
 				6A52444443A8F4EB7BCDCF01 /* StreakCard.swift */,
 				C78458F7180B16624A1A33B6 /* StreakFlame.swift */,
@@ -365,6 +376,7 @@
 			isa = PBXGroup;
 			children = (
 				A18F5273874DC97DC59FE5C9 /* BeerEntry.swift */,
+				C477083370697EBAB88ABF2E /* FreezeApplication.swift */,
 				568BC38579E75979D912ED09 /* Ledger.swift */,
 				0AB29A3932321621173E1571 /* LedgerFile.swift */,
 				972AAB1E8B73A9B3B9492E92 /* Rules.swift */,
@@ -382,6 +394,7 @@
 				179D84998FA1EF9C49416D25 /* LedgerStoreTests.swift */,
 				CF8D829DDEF1ADD2D48822DE /* RunNotifierTests.swift */,
 				C7AB983CBC5031A20F27EB8D /* StreakEngineTests.swift */,
+				70826A2C97EFC4143D994317 /* StreakFreezeTests.swift */,
 				A537953110BBE13A58C839F0 /* TelemetryPolicyTests.swift */,
 				375F3E2B6E42648F707FD2BD /* TestSupport.swift */,
 				6E6A5CC0A60D3E10A9ACDBD9 /* WeeklySummaryTests.swift */,
@@ -522,6 +535,9 @@
 				69C38BD7B92F0BC3DD54E515 /* DebtFreeSheet.swift in Sources */,
 				6458A7F00D4E0162B85DE37D /* DebtView.swift in Sources */,
 				331547B2A9FB4F840DDD18A1 /* Format.swift in Sources */,
+				95E85C83A1B3ED06299930C1 /* FreezeApplication.swift in Sources */,
+				CF505638BE98D1D3FBB6E173 /* FreezeEarnedSheet.swift in Sources */,
+				FA6A025E2850F42F90EC6462 /* FreezeSection.swift in Sources */,
 				2DE06E3F67B32C8C3A2212A9 /* HealthFailure.swift in Sources */,
 				336C352840EE6B0E6ED4A681 /* HealthKitService.swift in Sources */,
 				000B8D2605E382A3BF4F6D16 /* HealthOnboardingView.swift in Sources */,
@@ -560,6 +576,7 @@
 				8F801376D365AADF18CE77A0 /* LedgerStoreTests.swift in Sources */,
 				117F16C6ED7A8AD8B2BA8292 /* RunNotifierTests.swift in Sources */,
 				1A1C9E83D3C3B5ED77B4B7A9 /* StreakEngineTests.swift in Sources */,
+				7F2EDF2DC95D5B38854CBB7D /* StreakFreezeTests.swift in Sources */,
 				DE7DE0ECAFC199A70706DFA3 /* TelemetryPolicyTests.swift in Sources */,
 				CE87D601999023DB5D5101C8 /* TestSupport.swift in Sources */,
 				FDAF46A039E3229A8B489CA3 /* WeeklySummaryTests.swift in Sources */,
@@ -576,6 +593,7 @@
 				1D0EB33DE2421F5DCA58DAFC /* BeerDebtWidget.swift in Sources */,
 				D31CF8486D540EE2EBF0DE8C /* BeerEntry.swift in Sources */,
 				F8ED1D14BDF5D31A6215ACF2 /* Format.swift in Sources */,
+				6CBF03E2FB911661B3AC9DD8 /* FreezeApplication.swift in Sources */,
 				AD8D85C5FECD60FA56CFD8A5 /* Ledger.swift in Sources */,
 				FE3B478DEA6ECBCC67E3DD4A /* LedgerFile.swift in Sources */,
 				2852AC941C1119C5F993FB95 /* Rules.swift in Sources */,

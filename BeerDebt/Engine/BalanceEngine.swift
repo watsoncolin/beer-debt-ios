@@ -114,6 +114,9 @@ private struct Replay {
         clock = min(ledger.booksOpenedAt, now)
         streak = StreakEngine.calculate(
             runs: ledger.runs.filter { $0.endedAt >= ledger.booksOpenedAt },
+            // Freezes before the books opened are meaningless, the same way
+            // pre-books runs are.
+            freezeApplications: ledger.freezeApplications.filter { $0.day >= calendar.startOfDay(for: ledger.booksOpenedAt) },
             at: now,
             calendar: calendar
         )

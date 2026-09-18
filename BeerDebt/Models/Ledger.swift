@@ -22,6 +22,9 @@ struct Ledger: Codable, Hashable, Sendable {
     /// HealthKit workouts the user took off the books in the app. Kept so a
     /// re-sync from scratch (reinstall, anchor reset) doesn't bring them back.
     var excludedWorkoutIDs: Set<UUID>
+    /// Days the user spent a streak freeze on (spec §25.1). The only freeze
+    /// state stored; everything else about freezes is derived from the runs.
+    var freezeApplications: [FreezeApplication]
 
     init(openedAt: Date, rules: Rules = .default) {
         version = Self.currentVersion
@@ -30,10 +33,11 @@ struct Ledger: Codable, Hashable, Sendable {
         beers = []
         runs = []
         excludedWorkoutIDs = []
+        freezeApplications = []
     }
 
     private enum CodingKeys: String, CodingKey {
-        case version, booksOpenedAt, rulesHistory, beers, runs, excludedWorkoutIDs
+        case version, booksOpenedAt, rulesHistory, beers, runs, excludedWorkoutIDs, freezeApplications
     }
 
     init(from decoder: Decoder) throws {
@@ -44,6 +48,8 @@ struct Ledger: Codable, Hashable, Sendable {
         beers = try c.decode([BeerEntry].self, forKey: .beers)
         runs = try c.decode([RunEntry].self, forKey: .runs)
         excludedWorkoutIDs = try c.decodeIfPresent(Set<UUID>.self, forKey: .excludedWorkoutIDs) ?? []
+        // Absent in every ledger written before freezes existed.
+        freezeApplications = try c.decodeIfPresent([FreezeApplication].self, forKey: .freezeApplications) ?? []
     }
 
     var currentRules: Rules { rulesHistory.last?.rules ?? .default }

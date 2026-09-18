@@ -18,9 +18,10 @@ struct StreakView: View {
                             Text(streak.currentStreakDays == 1 ? "1 day" : "\(streak.currentStreakDays) days")
                                 .font(.system(size: 40, weight: .heavy, design: .rounded))
                                 .foregroundStyle(Theme.cream)
-                            Text(StreakCopy.standing(streak))
+                            Text(streak.todayFrozen ? StreakCopy.restDayStanding(streak) : StreakCopy.standing(streak))
                                 .font(.subheadline.weight(.semibold))
-                                .foregroundStyle(streak.interestProtectionActive ? Theme.gold : Theme.cream.opacity(0.7))
+                                .foregroundStyle(streak.todayFrozen ? Theme.frost
+                                    : (streak.interestProtectionActive ? Theme.gold : Theme.cream.opacity(0.7)))
                         }
                         Spacer()
                     }
@@ -30,6 +31,12 @@ struct StreakView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .padding(.vertical, 6)
+            }
+            .cardRow()
+
+            Section("Streak freeze") {
+                FreezeSection(report: report, now: now)
+                    .padding(.vertical, 4)
             }
             .cardRow()
 
@@ -50,6 +57,7 @@ struct StreakView: View {
                     rule("Run at least 1.0 mile of verified running each day. Two short runs add up.")
                     rule("After two days in a row, interest on your beer debt pauses.")
                     rule("Keep running daily to keep your 0% rate. Miss a day and the streak ends.")
+                    rule("Every \(StreakEngine.daysPerFreeze) running days earn one streak freeze: a rest day that keeps your streak and your 0% rate. It adds no miles and pays nothing off.")
                     rule("Your streak never reduces what you already owe.")
                 }
                 .padding(.vertical, 4)
@@ -99,7 +107,16 @@ private struct WeekRow: View {
 
     @ViewBuilder
     private func circle(for day: Date, entry: StreakDay?, today: Date) -> some View {
-        if let entry, entry.qualifies {
+        if let entry, entry.frozen {
+            // Visibly not a run: frost, and the ice cube rather than a tick.
+            ZStack {
+                Circle().fill(Theme.frost.opacity(0.22))
+                Circle().strokeBorder(Theme.frost, lineWidth: 1.5)
+                Text("🧊").font(.system(size: 13))
+            }
+            .frame(width: 28, height: 28)
+            .accessibilityLabel("Rest day, streak protected")
+        } else if let entry, entry.qualifies {
             ZStack {
                 Circle().fill(Theme.credit)
                 Image(systemName: "checkmark").font(.caption.weight(.bold)).foregroundStyle(Theme.ink)

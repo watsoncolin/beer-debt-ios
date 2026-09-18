@@ -154,6 +154,36 @@ Colin approved the recommendations in the streak review:
   calendar; the app passes the device's, tests and fixtures pin UTC. A user
   who changes time zones can see a day regroup; accepted for MVP.
 
+### 6. Streak freezes — DECIDED (2026-09-17)
+
+APPS-6 reverses one line of §25 ("No freezes, rest days, or manual fixes").
+Spec §25.1 is the rule; the decisions here are the ones the ticket left open.
+
+- **Store the decision, derive the rest.** The ticket suggested three event
+  types (`StreakFreezeEarned`, `StreakFreezeApplied`, `StreakFreezeRefunded`).
+  Only the application is stored, as `Ledger.freezeApplications`. Earned
+  counts and refunds are derived from the runs at every replay, because both
+  change when the runs do — which the ticket's own late-import requirement
+  demonstrates. Storing them would create a second source of truth for facts
+  the runs already settle, and the reconciliation pass needed to keep the two
+  agreeing is where the bugs would live. The refund then needs no code at all:
+  a frozen day that reaches a mile qualifies on its own, so its application
+  stops being honoured.
+  - Accepted cost: deleting the runs that earned a freeze un-earns it. That is
+    the same contract the streak has always had ("a deleted run simply changes
+    the answer").
+- **"Five qualifying days" is cumulative, not consecutive.** The ticket does
+  not say consecutive, and the stated principle is about running actually
+  done, so a broken streak costs the streak and not the freeze progress.
+- **Holding one stops the next accruing.** "Do not create, queue, or secretly
+  bank another" is read to cover progress as well as inventory; the ticket
+  then asks for five *new* days after a consumption, which only makes sense
+  from zero.
+- **Midday keys.** Applications store midday of the chosen local day. Runs are
+  bucketed by `endedAt` and inherit whatever the calendar says, but an
+  application is a bare day with no instant of its own, and a midnight key
+  re-bucketed one zone west lands on the day before.
+
 ## C. HealthKit
 
 - Read types: workouts + `distanceWalkingRunning` (needed to read a workout's

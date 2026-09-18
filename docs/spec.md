@@ -895,7 +895,8 @@ without touching what is owed.
   skipped. Nothing already accrued is refunded, principal is untouched, credit
   decay continues, and runs still repay debt as before.
 - A day under a mile ends the streak; the next qualifying day is day one
-  again. No freezes, rest days, or manual fixes.
+  again, unless a **streak freeze** covers it (§25.1). No other rest days or
+  manual fixes.
 - Days follow the user's calendar, not 24-hour windows. The streak is
   derived from the runs on the books every time the ledger is replayed, so a
   late import or a deleted run simply changes the answer, including for
@@ -922,3 +923,57 @@ Debt Free.
 
 **Out of scope for now:** streak on the widget and in the weekly summary,
 reminders when a streak is at risk, any reward beyond the paused interest.
+
+## 25.1 Streak Freezes
+
+Added 2026-09-17 from APPS-6. An earned rest day: **five qualifying running
+days earn one freeze, which the user may spend on a single missed day.** The
+principle is that the user earns permission to rest, not credit for running
+they did not do.
+
+- **Earning.** One freeze per five qualifying running days. Inventory is
+  capped at **one** — while a freeze is held, further qualifying days bank
+  nothing toward the next, and after one is spent it takes five *new*
+  qualifying days to earn another. A frozen day is not a running day, so it
+  never counts toward the five.
+  - The five need not be consecutive. Earning tracks running done, not streak
+    continuity, so a broken streak costs the streak and not the progress.
+- **Spending.** Never automatic. Two days can be chosen, and no others:
+  **today**, while a streak is alive and today's mile is not yet run; or the
+  **single missed day that broke the streak**. Arbitrary history editing is
+  out for MVP. A freeze cannot be spent on a day before it was earned.
+- **One day each.** One freeze covers one calendar day. If two days were
+  missed, repairing the first buys nothing — the streak breaks at the second
+  — so the offer is withheld.
+- **Effect.** A frozen day preserves streak continuity and keeps interest
+  paused for that day. It does **not** increment streak length, add mileage,
+  repay debt, earn credit, pause credit decay, or count toward the next
+  freeze.
+- **Derived, like the streak itself.** The only thing stored is the user's
+  decision: which days they chose to freeze. How many are earned, which
+  applications were honoured, and which were refunded are all recomputed from
+  the runs at every replay.
+  - **Late Health data refunds automatically.** If an import brings a frozen
+    day to a mile, the day qualifies on its own, its application stops being
+    honoured, and the freeze is back in hand. No refund event and no
+    reconciliation pass, so stored state cannot disagree with the runs.
+  - An application the engine cannot honour — no freeze was in hand on that
+    day — is ignored rather than trusted.
+  - Applications are keyed to **midday** of the chosen local day, not
+    midnight, so a user who crosses a time zone between the tap and the replay
+    does not see the freeze slide onto the day before.
+
+**Copy.** Cool where the streak is warm: "Rest day", "12 day streak
+protected", "Streak freeze earned", "Taking today off?", "Use Freeze Today".
+Never "streak saver" or anything that sounds bought.
+
+**Screens.** A "🧊 1 Freeze" badge on the Home streak card and on Your
+Streak. A freeze section on Your Streak carrying whichever applies: the offer
+to spend it on today, the offer to repair the day that broke the streak,
+progress toward the next one, or the rest-day state. This week's seven
+circles show a frozen day in frost with an ice cube, never a tick. A sheet
+when the fifth running day earns one, quietest of the three celebrations.
+
+**Out of scope:** more than one freeze, purchased freezes, automatic
+consumption, configurable requirements, gifting, tiers, multi-day
+resurrection.
