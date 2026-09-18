@@ -68,6 +68,31 @@ enum Format {
         return date.formatted(.dateTime.weekday(.wide).month(.abbreviated).day())
     }
 
+    /// How dear a paid beer turned out to be, by the miles actually run to
+    /// clear it. Thresholds are absolute miles, not a multiple of the price,
+    /// because what the reader is judging is the run they had to go on.
+    ///
+    /// Pure and shared by both platforms, so the bands cannot drift apart.
+    enum PaidSeverity: Equatable, Sendable {
+        /// About what a beer should cost.
+        case ordinary
+        /// It sat long enough to matter.
+        case dear
+        /// It got away.
+        case steep
+
+        static let dearMiles = 2.0
+        static let steepMiles = 3.0
+
+        init(milesRun: Double) {
+            switch milesRun {
+            case Self.steepMiles...: self = .steep
+            case Self.dearMiles...: self = .dear
+            default: self = .ordinary
+            }
+        }
+    }
+
     /// "yesterday", "Tuesday", "Sep 9" — the day named mid-sentence, so it
     /// stays lowercase where `dayHeader` is capitalised for a header.
     static func dayPhrase(_ date: Date, now: Date = .now, calendar: Calendar = .current) -> String {

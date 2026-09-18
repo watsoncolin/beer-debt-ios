@@ -15,6 +15,10 @@ enum Theme {
     static let credit = Color(red: 0.361, green: 0.722, blue: 0.471)
     /// Pale green for chart bars, like the concept art.
     static let creditSoft = Color(red: 0.612, green: 0.847, blue: 0.663)
+    /// A beer that grew: amber for the ones that cost more running than they
+    /// should have, `debt` for the ones that really got away. Deliberately not
+    /// `gold`, which in this app means earned.
+    static let caution = Color(red: 0.949, green: 0.600, blue: 0.263)
     /// A streak freeze: cool against the flame's warmth, so a rest day reads as
     /// a different kind of thing from a run (spec §25.1). Light enough to stay
     /// legible on forest and on the Home backdrop.

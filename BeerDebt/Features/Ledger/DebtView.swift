@@ -10,7 +10,14 @@ struct DebtView: View {
     }
 
     @Environment(LedgerStore.self) private var store
-    @State private var filter: Filter = .active
+    @State private var filter: Filter = {
+        #if DEBUG
+        // `-debugScreen paid` opens straight onto the paid list, which is the
+        // only way to screenshot it.
+        if DebugLaunch.screen == "paid" { return .paid }
+        #endif
+        return .active
+    }()
     @State private var selectedBeer: BeerStatement?
     @State private var beerToDelete: BeerStatement?
 
@@ -206,9 +213,12 @@ private struct BeerCard: View {
             VStack(alignment: .trailing, spacing: 2) {
                 if statement.isPaid {
                     Pill(text: "PAID", color: Theme.creditSoft)
-                    Text(Format.miles(statement.costMiles, decimals: 2))
-                        .font(.subheadline)
-                        .foregroundStyle(Theme.cream.opacity(0.65))
+                    // What it actually took to run off, not what it cost at the
+                    // bar: a beer left alone accrues interest, so 1.00 is only
+                    // ever the opening price.
+                    Text(Format.miles(statement.paidMiles, decimals: 2))
+                        .font(ranAway ? .subheadline.weight(.semibold) : .subheadline)
+                        .foregroundStyle(paidColor)
                     Text(paidCaption)
                         .font(.caption)
                         .foregroundStyle(Theme.cream.opacity(0.5))
@@ -227,6 +237,19 @@ private struct BeerCard: View {
         }
         .contentShape(Rectangle())
     }
+
+    private var severity: Format.PaidSeverity { .init(milesRun: statement.paidMiles) }
+
+    private var paidColor: Color {
+        switch severity {
+        case .steep: Theme.debt
+        case .dear: Theme.caution
+        case .ordinary: Theme.cream.opacity(0.65)
+        }
+    }
+
+    /// An ordinary beer stays quiet; a dear one earns some weight.
+    private var ranAway: Bool { severity != .ordinary }
 
     private var paidCaption: String {
         if statement.settledByCredit { return "from credit" }

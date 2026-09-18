@@ -65,12 +65,12 @@ struct RootView: View {
         .onAppear(perform: applyDebugLaunch)
     }
 
-    /// Screenshot / manual-test helper: `-debugScreen ledger|runs|settings|streak|debtFree|streakActivated|freezeEarned|beerDetail|beerAdded`
+    /// Screenshot / manual-test helper: `-debugScreen ledger|paid|runs|settings|streak|debtFree|streakActivated|freezeEarned|beerDetail|beerAdded`
     /// as a launch argument opens that screen directly. No-op in release.
     private func applyDebugLaunch() {
         #if DEBUG
         switch DebugLaunch.screen {
-        case "ledger", "beerDetail": path.append(Route.debt)
+        case "ledger", "beerDetail", "paid": path.append(Route.debt)
         case "runs": path.append(Route.runs)
         case "settings": path.append(Route.settings)
         case "streak": path.append(Route.streak)
