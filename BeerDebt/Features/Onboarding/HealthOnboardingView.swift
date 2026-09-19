@@ -50,7 +50,9 @@ struct HealthOnboardingView: View {
                         onDone()
                     }
                 } label: {
-                    Text(connecting ? "Connecting…" : "Connect Apple Health")
+                    // Neutral label: guideline 5.1.1(iv) forbids a pre-permission
+                    // screen whose button steers the answer to the system prompt.
+                    Text(connecting ? "Connecting…" : "Continue")
                 }
                 .buttonStyle(GoldButtonStyle())
                 .disabled(connecting)
