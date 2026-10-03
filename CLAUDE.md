@@ -29,7 +29,7 @@ Tests use Swift Testing (`import Testing`, `@Test`, `#expect`).
 `scripts/screenshots.sh [udid|booted]` installs the current simulator build,
 seeds demo ledgers (debt and credit states), and screenshots every screen into
 `docs/screenshots/`. It relies on the DEBUG-only launch argument
-`-debugScreen ledger|runs|settings|streak|beerAdded|beerDetail|debtFree|streakActivated` handled in
+`-debugScreen ledger|runs|settings|bankruptcy|bankruptcyWrittenOff|streak|beerAdded|beerDetail|debtFree|streakActivated` handled in
 `RootView` / `HomeView` / `LedgerView`, and on writing `ledger.json` straight into the app container.
 Keep the seed shapes in that script in sync with `Ledger`'s JSON.
 
@@ -75,7 +75,12 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
   lands in `Ledger.excludedWorkoutIDs` so it is never re-imported), and the
   books can be opened earlier with `LedgerStore.reopenBooks` (Settings ›
   About; earlier only, a year at most; `HealthSync.reopenBooks` then drops
-  the anchor and re-reads Health so older runs come in). `BeerEntry` is id + `createdAt` (+
+  the anchor and re-reads Health so older runs come in). The one destructive
+  act is `LedgerStore.declareBankruptcy` (Settings › Fresh Start, spec §26):
+  it replaces the ledger rather than appending, keeping only the rules in
+  force, and parks the written-off runs' workout IDs in `excludedWorkoutIDs`
+  so a later `reopenBooks` can't pull them back as pure credit. It returns
+  `isPersisted` so the sheet can own up to a failed write. `BeerEntry` is id + `createdAt` (+
   `recordedAt`, when it was logged),
   `RunEntry` (HealthKit workout UUID for dedup, meters), and `RulesChange`
   (rules effective from an instant). The `Ledger` holds all three plus
@@ -136,7 +141,7 @@ so keep the Apple Health section accurate when Health usage changes.
 The sister repo is `~/beer-debt-android` (github.com/watsoncolin/beer-debt-android).
 This repo leads; features are built and validated here first, then ported.
 The cross-platform contract is `docs/spec.md` + `docs/engine-fixtures/cases.json`,
-generated from the Swift engine by `scripts/fixtures.sh` (76 scenarios mirroring
+generated from the Swift engine by `scripts/fixtures.sh` (84 scenarios mirroring
 `BalanceEngineTests`; pure `swiftc`, no simulator). **After any engine or model
 change: run `scripts/fixtures.sh`, commit the JSON, and copy it to
 `~/beer-debt-android/engine/src/test/resources/cases.json`.** The Kotlin
@@ -202,8 +207,9 @@ are in that config. Upload to App Store Connect goes through the API into the
   `Onboarding`, `Streak` (`StreakCard` on Home, `StreakView` "Your Streak",
   `StreakActivatedSheet`, `StreakFlame` + `StreakCopy` shared words),
   `Shared/WidgetPreviewScreen` (DEBUG). Beer feedback, beer detail, debt
-  free, and streak activated are sheets.
-- `Theme/` — palette, `Backdrop`, `GoldButtonStyle`, `Pill`, `Format`
+  free, streak activated, and `Settings/BankruptcySheet` (the filing, then
+  the WRITTEN OFF stamp) are sheets.
+- `Theme/` — palette, `Backdrop`, `GoldButtonStyle`, `DebtButtonStyle`, `Pill`, `Format`
   (all number/date formatting; keep it out of views), and the app-wide dark
   treatment: `RootView` forces `.preferredColorScheme(.dark)`, every
   secondary screen uses `.forestScreen()` (forest gradient under a

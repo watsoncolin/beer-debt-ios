@@ -213,6 +213,60 @@ struct LedgerStoreTests {
         #expect(reloaded.ledger.booksOpenedAt == t0)
     }
 
+    @Test func bankruptcyWritesOffEverythingAndKeepsTheRules() {
+        let dir = tempDir()
+        let store = LedgerStore(directory: dir, now: t0)
+        var rules = Rules.default
+        rules.milesPerBeer = 2
+        store.updateRules(rules, at: at(hour))
+        store.addBeer(at: at(2 * hour))
+        store.addBeer(at: at(3 * hour))
+        store.importRuns([run(1, endedAt: morning(1))])
+        #expect(store.report(at: at(day)).balance.state == .debt)
+
+        #expect(store.declareBankruptcy(now: at(2 * day)))
+        #expect(store.ledger.beers.isEmpty)
+        #expect(store.ledger.runs.isEmpty)
+        #expect(store.ledger.freezeApplications.isEmpty)
+        #expect(store.ledger.booksOpenedAt == at(2 * day))
+        #expect(store.report(at: at(2 * day)).balance == .even)
+        // The economy the user tuned is not a liability: it survives, as the
+        // single opening entry, so replay never reaches back past the wipe.
+        #expect(store.currentRules.milesPerBeer == 2)
+        #expect(store.ledger.rulesHistory.count == 1)
+        #expect(store.ledger.rulesHistory.first?.effectiveAt == at(2 * day))
+        // And it is on disk, not just in memory.
+        let reloaded = LedgerStore(directory: dir, now: at(3 * day))
+        #expect(reloaded.ledger.beers.isEmpty)
+        #expect(reloaded.ledger.booksOpenedAt == at(2 * day))
+        #expect(reloaded.currentRules.milesPerBeer == 2)
+    }
+
+    @Test func writtenOffRunsNeverComeBackFromHealth() {
+        let store = LedgerStore(directory: tempDir(), now: t0)
+        let workout = UUID()
+        store.importRuns([run(3, endedAt: at(hour), workoutID: workout)])
+        store.declareBankruptcy(now: at(2 * hour))
+
+        // Health still holds the workout, and a re-read offers it again.
+        #expect(store.importRuns([run(3, endedAt: at(hour), workoutID: workout)]).isEmpty)
+        // Including after the books are opened back over the day it ended,
+        // where the beers that paid for it are gone and it would be pure credit.
+        #expect(store.reopenBooks(at: at(-day), now: at(3 * hour)))
+        #expect(store.importRuns([run(3, endedAt: at(hour), workoutID: workout)]).isEmpty)
+        #expect(store.report(at: at(3 * hour)).balance == .even)
+    }
+
+    @Test func bankruptcyThatDoesntReachTheDiskSaysSo() throws {
+        let store = LedgerStore(directory: try blockedDir(), now: t0)
+        store.addBeer(at: at(hour))
+        #expect(!store.declareBankruptcy(now: at(2 * hour)))
+        // Wiped in memory all the same, so a retry is just another attempt at
+        // the same write rather than a second wipe.
+        #expect(store.ledger.beers.isEmpty)
+        #expect(!store.declareBankruptcy(now: at(3 * hour)))
+    }
+
     @Test func persistingIsACheapNoOpWhenTheBooksAreAlreadyOnDisk() {
         let store = LedgerStore(directory: tempDir(), now: t0)
         #expect(store.isPersisted)

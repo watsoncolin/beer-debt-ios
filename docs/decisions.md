@@ -184,6 +184,40 @@ Spec §25.1 is the rule; the decisions here are the ones the ticket left open.
   application is a bare day with no instant of its own, and a midnight key
   re-bucketed one zone west lands on the day before.
 
+### 7. Bankruptcy — DECIDED (2026-10-03)
+
+Spec §26 is the rule. The decisions behind it:
+
+- **The rules are not a liability.** A wipe takes the beers, runs, freezes
+  and streak; it keeps the rules in force, collapsed into a single opening
+  entry. A user who set 2 miles a beer meant it before and means it after,
+  and collapsing the history (rather than keeping it) means replay never
+  reaches back past the wipe to a rule effective before the new opening.
+- **Written-off runs are excluded, not merely dropped.** Their workout IDs
+  go into `excludedWorkoutIDs`, reusing the mechanism behind `deleteRun`.
+  Without it, opening the books earlier afterwards (§13) re-imports them from
+  Health as pure credit, because the beers that paid for them are gone. The
+  books-opened filter alone does not cover that, since the user can move it.
+- **The HealthKit anchor stays put.** Nothing needs re-reading: the fresh
+  books open at `now`, so every workout the anchor has already covered is out
+  of scope anyway, and dropping it would only buy a pointless full re-read.
+- **Not an append-only event.** Bankruptcy replaces the ledger rather than
+  appending a `BankruptcyDeclared` event the engine would then have to treat
+  as a barrier in every replay. The event log is a means of deriving the
+  balance, not an audit trail with outside readers; `booksOpenedAt` already
+  records the fresh start, and the engine stays ignorant of the feature. The
+  accepted cost is that the written-off history is genuinely gone, which is
+  what the sheet promises.
+- **Reports the failed write.** `declareBankruptcy` returns `isPersisted`, so
+  the sheet can say the books didn't reach the phone instead of stamping a
+  clean start over a file that still holds the old tab. The in-memory wipe
+  happens either way, which makes the retry another attempt at the same
+  write rather than a second wipe.
+- **Non-judgy is a constraint, not a flourish.** The warning is carried by
+  the line items and the "gone for good / untouched" pair. Nothing in the
+  copy says the user should have run more, which is also why the stamp is
+  `Theme.credit` green rather than the debt red of the button that earns it.
+
 ## C. HealthKit
 
 - Read types: workouts + `distanceWalkingRunning` (needed to read a workout's

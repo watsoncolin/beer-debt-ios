@@ -97,6 +97,8 @@ shoot paid paid
 shoot beer-detail beerDetail
 shoot runs runs
 shoot settings settings
+shoot bankruptcy bankruptcy
+shoot bankruptcy-written-off bankruptcyWrittenOff
 shoot streak streak
 shoot streak-activated streakActivated
 shoot debt-free debtFree

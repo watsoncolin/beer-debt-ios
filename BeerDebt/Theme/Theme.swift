@@ -120,6 +120,21 @@ struct GoldButtonStyle: ButtonStyle {
     }
 }
 
+/// The destructive twin of `GoldButtonStyle`: same capsule, debt red. Used
+/// where the app is about to throw something away for good.
+struct DebtButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.title3.weight(.bold))
+            .foregroundStyle(Theme.cream)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 16)
+            .background(Theme.debt, in: Capsule())
+            .opacity(configuration.isPressed ? 0.85 : 1)
+            .scaleEffect(configuration.isPressed ? 0.98 : 1)
+    }
+}
+
 /// Small rounded status tag: PAID, Applied, Ignored.
 struct Pill: View {
     let text: String
