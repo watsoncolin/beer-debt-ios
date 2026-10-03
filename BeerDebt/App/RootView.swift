@@ -22,6 +22,7 @@ struct RootView: View {
                             case .runs: RunsView()
                             case .settings: SettingsView()
                             case .streak: StreakView()
+                            case .mileMarkers: MileMarkersView()
                             case .widgetPreview: WidgetPreviewScreen()
                             }
                         }
@@ -65,7 +66,7 @@ struct RootView: View {
         .onAppear(perform: applyDebugLaunch)
     }
 
-    /// Screenshot / manual-test helper: `-debugScreen ledger|paid|runs|settings|bankruptcy|bankruptcyWrittenOff|streak|debtFree|streakActivated|freezeEarned|beerDetail|beerAdded`
+    /// Screenshot / manual-test helper: `-debugScreen ledger|paid|runs|settings|bankruptcy|bankruptcyWrittenOff|streak|mileMarkers|debtFree|streakActivated|freezeEarned|beerDetail|beerAdded`
     /// as a launch argument opens that screen directly. No-op in release.
     private func applyDebugLaunch() {
         #if DEBUG
@@ -74,6 +75,7 @@ struct RootView: View {
         case "runs": path.append(Route.runs)
         case "settings", "bankruptcy", "bankruptcyWrittenOff": path.append(Route.settings)
         case "streak": path.append(Route.streak)
+        case "mileMarkers": path.append(Route.mileMarkers)
         case "streakActivated":
             sync.streakCelebration = StreakCelebration(days: max(2, store.report().streak.currentStreakDays))
         case "freezeEarned":
@@ -99,6 +101,7 @@ enum Route: Hashable {
     case runs
     case settings
     case streak
+    case mileMarkers
     case widgetPreview
 }
 

@@ -11,6 +11,26 @@ enum Format {
         number(value, decimals: decimals) + " mi"
     }
 
+    /// Short enough for a stat tile. The tab compounds at 10% a day by default
+    /// (decisions §A.1), so a few unpaid months reach five and six figures and
+    /// the full number stops being readable long before it stops being true.
+    static func compact(_ value: Double) -> String {
+        let magnitude = abs(value)
+        switch magnitude {
+        case 1_000_000...:
+            return number(value / 1_000_000, decimals: magnitude < 10_000_000 ? 1 : 0) + "M"
+        case 10_000...:
+            return number(value / 1_000, decimals: 0) + "k"
+        case 1_000...:
+            return number(value / 1_000, decimals: 1) + "k"
+        default:
+            return number(value, decimals: magnitude < 100 ? 1 : 0)
+        }
+    }
+
+    /// `compact`, with the unit.
+    static func compactMiles(_ value: Double) -> String { compact(value) + " mi" }
+
     static func beers(_ value: Double) -> String {
         value.formatted(.number.precision(.fractionLength(0...1)))
     }

@@ -218,6 +218,48 @@ Spec §26 is the rule. The decisions behind it:
   copy says the user should have run more, which is also why the stamp is
   `Theme.credit` green rather than the debt red of the button that earns it.
 
+### 8. Mile Markers — DECIDED (2026-10-03)
+
+Spec §27 is the screen. The decisions behind it:
+
+- **Sampled, not a new engine API.** The balance curve needs the tab at many
+  instants and `BalanceEngine.report` answers one. The honest fix is a one-pass
+  `series` API in the engine, but that is the cross-platform contract: it would
+  mean regenerating `cases.json` and porting in the same breath, for a reading
+  rather than a rule. So the screen samples instead — 30–52 points by range,
+  bounded — and pays the redundancy. Revisit if it ever shows.
+- **Off the main actor, cached.** Replay cost is driven by *unpaid* beers,
+  because each posts interest every period. Measured: ~1 ms a report for a user
+  keeping up, ~45 ms at a year behind, ~650 ms at three years behind. The build
+  is handed to a background task keyed on range and ledger, never run in
+  `body`. (The rest of the app does call `report()` in `body`; that is a
+  pre-existing cost this screen deliberately does not add to.)
+- **Not in `Engine/`.** `MileMarkersStats` is pure and `Sendable` like the
+  engine, but it is a reading of the books rather than part of them, so it sits
+  under `Features/` and stays out of the fixture contract. Android can mirror
+  it without a fixtures regeneration.
+- **Interest waived is a counterfactual, not a stored number.** Replay the same
+  ledger with `streakProtection` off and subtract. Pure, costs one extra
+  replay, and cannot drift from the real books because it *is* the real books
+  read twice.
+- **The curve is two lines, not a stack.** A stacked principal/interest area
+  buries the gold band against the axis within weeks at 10% a day. Drawing
+  total and principal as separate lines makes the gap between them the
+  interest, and survives the log scale, which a stack does not.
+- **The log scale announces itself.** Switching axes under the reader without
+  saying so would misrepresent the shape; the key carries a "log scale" note
+  whenever it engages.
+- **The streak shows as a wash, not a marker.** Protected stretches and frozen
+  days are `RectangleMark`s bounded on x alone, drawn first so they sit behind
+  the curve and are clipped to the plot by the chart. A hand-drawn
+  `chartBackground` overlay was tried first and bled past the plot over the
+  strips below. The chart itself also needs `.clipped()`: on the log scale the
+  domain floor is not zero and the area fill is drawn past it.
+- **"Keeping Up?" compares principal and says so.** The cumulative chart is
+  beers-drunk against miles-run, which can read green while the tab reads
+  four figures. That gap is the product's whole thesis, so the section names
+  it rather than hiding it by folding interest into one of the series.
+
 ## C. HealthKit
 
 - Read types: workouts + `distanceWalkingRunning` (needed to read a workout's
