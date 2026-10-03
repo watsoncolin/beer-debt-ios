@@ -13,6 +13,7 @@
 		047A53E9BC6CB421FFCE95FB /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F76A399B75E29E0677448A0 /* RootView.swift */; };
 		04D0483C6D6EECC12C763417 /* StreakActivatedSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211DFE9438E1F5C07C2548A0 /* StreakActivatedSheet.swift */; };
 		117F16C6ED7A8AD8B2BA8292 /* RunNotifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8D829DDEF1ADD2D48822DE /* RunNotifierTests.swift */; };
+		13CB1FD44EF45F1E8B22CFF1 /* BankruptcySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A69939C0A9CBFAFD379323 /* BankruptcySheet.swift */; };
 		16522A24A8FB5A8099D16A9D /* BeerDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB32A1C213AE1063F2876C /* BeerDetailSheet.swift */; };
 		1A1C9E83D3C3B5ED77B4B7A9 /* StreakEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB983CBC5031A20F27EB8D /* StreakEngineTests.swift */; };
 		1A4001C96DC02D1017DAFEF2 /* LedgerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A789CED27E85B054CBB4DE96 /* LedgerStore.swift */; };
@@ -143,6 +144,7 @@
 		9EAF29C39DB7A99E66F329C1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9F139958A6FB29822FC7DC24 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 		9F76A399B75E29E0677448A0 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		A0A69939C0A9CBFAFD379323 /* BankruptcySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankruptcySheet.swift; sourceTree = "<group>"; };
 		A18F5273874DC97DC59FE5C9 /* BeerEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerEntry.swift; sourceTree = "<group>"; };
 		A537953110BBE13A58C839F0 /* TelemetryPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryPolicyTests.swift; sourceTree = "<group>"; };
 		A789CED27E85B054CBB4DE96 /* LedgerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerStore.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 		23ABDDFBE6B1562FF673685F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				A0A69939C0A9CBFAFD379323 /* BankruptcySheet.swift */,
 				9EAF29C39DB7A99E66F329C1 /* SettingsView.swift */,
 			);
 			path = Settings;
@@ -531,6 +534,7 @@
 				D0DA12AEB23E3FF139BD50F1 /* Balance.swift in Sources */,
 				711B864C99E5392E019D7BEC /* BalanceEngine.swift in Sources */,
 				AF59A50D358315B3C6CC0D3E /* BalanceWidgetViews.swift in Sources */,
+				13CB1FD44EF45F1E8B22CFF1 /* BankruptcySheet.swift in Sources */,
 				01E384CCA31E273A3511B0A7 /* BeerAddedSheet.swift in Sources */,
 				7811A645719CC0DD6EC62609 /* BeerDebtApp.swift in Sources */,
 				16522A24A8FB5A8099D16A9D /* BeerDetailSheet.swift in Sources */,

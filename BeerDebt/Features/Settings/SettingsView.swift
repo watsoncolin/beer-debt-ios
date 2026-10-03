@@ -10,6 +10,7 @@ struct SettingsView: View {
     @State private var notificationsDenied = false
     @State private var weeklyDenied = false
     @State private var reopeningBooks = false
+    @State private var filing: BankruptcySheet.Filing?
 
     private static let milesPresets: [Double] = [0.5, 1, 1.5, 2, 3, 5]
     private static let ratePresets: [Double] = [0, 0.05, 0.10, 0.15, 0.20, 0.25]
@@ -162,6 +163,25 @@ struct SettingsView: View {
                 Text("Runs that ended before the books opened don't count. Tap the date to open the books earlier and pull those runs in from Apple Health.")
             }
             .listRowBackground(Theme.card)
+
+            Section {
+                Button(role: .destructive) {
+                    filing = BankruptcySheet.Filing(report: store.report())
+                } label: {
+                    Text("Declare Bankruptcy")
+                        .foregroundStyle(Theme.debt)
+                }
+            } header: {
+                Text("Fresh Start")
+            } footer: {
+                Text("Tab got away from you? Write the whole thing off and open clean books. Your rules carry over; the beers, runs, and streak don't.")
+            }
+            .listRowBackground(Theme.card)
+        }
+        .sheet(item: $filing) { filing in
+            BankruptcySheet(filing: filing, startWrittenOff: Self.debugWrittenOff) {
+                store.declareBankruptcy()
+            }
         }
         .sheet(isPresented: $reopeningBooks) {
             ReopenBooksSheet(current: store.ledger.booksOpenedAt) { date in
@@ -177,6 +197,11 @@ struct SettingsView: View {
                 draft = store.currentRules
                 loaded = true
             }
+            #if DEBUG
+            if DebugLaunch.screen?.hasPrefix("bankruptcy") == true {
+                filing = BankruptcySheet.Filing(report: store.report())
+            }
+            #endif
         }
         .task {
             if !sync.runNotificationsEnabled {
@@ -190,6 +215,16 @@ struct SettingsView: View {
 
     private func options<T: Hashable & Comparable>(_ presets: [T], including current: T) -> [T] {
         Array(Set(presets + [current])).sorted()
+    }
+
+    /// `-debugScreen bankruptcyWrittenOff` opens the sheet already stamped,
+    /// the only way to screenshot that half. Always false in release.
+    private static var debugWrittenOff: Bool {
+        #if DEBUG
+        DebugLaunch.screen == "bankruptcyWrittenOff"
+        #else
+        false
+        #endif
     }
 
     private static var version: String {

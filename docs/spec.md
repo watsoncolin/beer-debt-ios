@@ -991,3 +991,38 @@ when the fifth running day earns one, quietest of the three celebrations.
 **Out of scope:** more than one freeze, purchased freezes, automatic
 consumption, configurable requirements, gifting, tiers, multi-day
 resurrection.
+
+---
+
+# 26. Bankruptcy
+
+Added 2026-10-03. A way out for a tab that got away from the user, in
+Settings › Fresh Start. The only destructive act in the app.
+
+- **What it does.** Writes off everything on the books and reopens them at
+  that instant: beers, runs, and freeze applications all go, and the streak
+  goes with the runs, since it is derived from them. No undo.
+- **The rules survive.** A tuned economy is not a liability. Rules history
+  collapses to a single opening entry carrying the rules in force, so replay
+  never reaches back past the wipe.
+- **Health is untouched.** Nothing is written to or deleted from Apple
+  Health; the runs simply stop counting here. Their workout IDs join
+  `Ledger.excludedWorkoutIDs`, as a run taken off the books by hand does, so
+  opening the books earlier afterwards (§13, Settings › About) cannot
+  re-import them as pure credit with the beers that paid for them gone.
+- **Two phases, one sheet.** The *filing* states the tab in line items —
+  beers, outstanding, banked credit, runs, streak — and names what goes and
+  what stays. Seeing the number is most of the warning. Confirming stamps the
+  books **WRITTEN OFF** and offers "Start fresh", so the reset gets a moment
+  of its own instead of dropping the user back into Settings with a changed
+  number.
+- **A failed write says so.** If the fresh books don't reach disk the sheet
+  stays on the filing with "Try again" rather than claiming a clean start
+  (§15, and the `isPersisted` contract in decisions §D).
+
+**Copy.** Deadpan paperwork, never a scolding; the warning lives in the line
+items, not in the tone. "Chapter 7 · Section Beer", "Declare Bankruptcy",
+"Wipe the tab and open fresh books. No judgment here — some tabs are better
+closed than run off.", "Gone for good", "Untouched", "Write it all off",
+"Never mind", "Written off", "Books are clean." Nothing that says the user
+should have run more.
