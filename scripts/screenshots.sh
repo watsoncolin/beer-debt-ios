@@ -20,7 +20,13 @@ if [ "$UDID" = "booted" ]; then
 fi
 [ -z "$UDID" ] && { echo "No booted simulator. Boot one (or pass a UDID)."; exit 1; }
 
-APP=$(find ~/Library/Developer/Xcode/DerivedData -maxdepth 6 -path "*BeerDebt-*/Build/Products/Debug-iphonesimulator/BeerDebt.app" | head -1)
+# -not -path Index.noindex: Xcode's indexer builds a parallel tree at
+# DerivedData/BeerDebt-*/Index.noindex/Build/Products/... whose .app has no
+# bundle id, and it sorts first often enough that `simctl install` fails with
+# "Missing bundle ID" on a perfectly good build.
+APP=$(find ~/Library/Developer/Xcode/DerivedData -maxdepth 6 \
+  -path "*BeerDebt-*/Build/Products/Debug-iphonesimulator/BeerDebt.app" \
+  -not -path "*Index.noindex*" | head -1)
 [ -z "$APP" ] && { echo "No simulator build found. Build BeerDebt for the simulator first."; exit 1; }
 xcrun simctl install "$UDID" "$APP"
 
