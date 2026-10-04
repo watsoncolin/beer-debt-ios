@@ -197,7 +197,10 @@ are in that config. Upload to App Store Connect goes through the API into the
   deletions, background delivery + observer query), `HealthSync` (connect,
   sync on active and on background wake, drops pre-books runs, removes deleted
   workouts, debt-free celebration, notification trigger, owns `WeeklySummary`),
-  `RunNotifier` (local notification permission + the pure copy builder),
+  `RunNotifier` (local notification permission + the pure copy builder; it is
+  told what the runs paid via `Change.debtPaidMiles` rather than diffing the
+  balances, because a run that earns streak protection also un-posts today's
+  interest — decisions §9),
   `WeeklySummary` (schedule + pure copy for the weekly recap).
 - `Models/LedgerFile.swift` — the shared on-disk location and codecs, used by
   both the store and the widget.

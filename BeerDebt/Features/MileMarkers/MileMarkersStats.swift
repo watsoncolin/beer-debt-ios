@@ -109,12 +109,9 @@ struct MileMarkersReport: Equatable, Sendable {
         /// Freezes are rare enough that every one is marked.
         var isMarked: Bool { kind == .frozen || days >= Self.markableStreakDays }
 
-        /// Where the icon sits. A freeze is one day wide, so anchoring it to
-        /// the day's start would put it on the band's left edge; a streak keeps
-        /// its start, because that is the day it began.
-        var markerDate: Date {
-            kind == .frozen ? start.addingTimeInterval(end.timeIntervalSince(start) / 2) : start
-        }
+        /// Where the icon sits: the middle of the span it belongs to, so the
+        /// icon reads as a label on its band rather than hanging off the edge.
+        var markerDate: Date { start.addingTimeInterval(end.timeIntervalSince(start) / 2) }
     }
 
     /// Something worth a line under the chart.

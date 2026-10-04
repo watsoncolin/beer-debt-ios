@@ -39,6 +39,17 @@ final class RunNotifier {
         var removedRuns: Int
         var before: Balance
         var after: Balance
+        /// What the new runs actually took off the tab, summed from their own
+        /// statements.
+        ///
+        /// Not the drop in the balance between the two reports. A run that
+        /// carries the streak to two days makes today interest-protected, and
+        /// the replay then skips today's postings that the earlier report had
+        /// already made — so the balance falls by the miles run *plus* the
+        /// interest that un-posted, and attributing all of it to the run
+        /// overstates it, often by more than the run itself. The streak's share
+        /// is already announced on its own line; counting it here said it twice.
+        var debtPaidMiles: Double
         var beersPaidOff: Int
         /// The streak after the sync, and whether the new runs landed on a streak day.
         var streakDays: Int = 0
@@ -65,7 +76,7 @@ final class RunNotifier {
         let body: String
         switch (change.before.state, after.state) {
         case (.debt, .debt):
-            let knocked = max(0, change.before.debtMiles - after.debtMiles)
+            let knocked = max(0, change.debtPaidMiles)
             if change.beersPaidOff > 0 {
                 body = "Paid off \(beers(change.beersPaidOff)). \(Format.miles(after.debtMiles)) still owed."
             } else {

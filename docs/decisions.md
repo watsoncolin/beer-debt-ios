@@ -273,6 +273,28 @@ Spec §27 is the screen. The decisions behind it:
   four figures. That gap is the product's whole thesis, so the section names
   it rather than hiding it by folding interest into one of the series.
 
+### 9. Run notifications report the run, not the balance drop — DECIDED (2026-10-03)
+
+Reported from a real notification: a 1.4 mi run said *"Knocked 3.8 mi off
+your tab"*. The figure was `before.debtMiles - after.debtMiles`, which is not
+what the run did.
+
+Streak protection is **derived at replay time**, not stored. A run that carries
+the streak to two days makes today interest-protected, so the `after` replay
+skips today's postings that the `before` replay had already made. The balance
+therefore falls by the miles run *plus* the interest that un-posted — in the
+pinned test case, 1.4 mi run against a 4.5 mi drop. Worse, the same
+notification already announces the streak on its own line, so the saving was
+being counted twice.
+
+`RunNotifier.Change` now carries `debtPaidMiles`, summed from the added runs'
+own `RunStatement`s, which is the engine's own answer to "what did this run
+pay". The balance delta is still used for nothing else.
+
+Two tests hold it: one on the copy, and one that drives the real engine to show
+the drop exceeding what the run paid, so a change in how protection is applied
+is noticed rather than silently re-breaking the copy.
+
 ## C. HealthKit
 
 - Read types: workouts + `distanceWalkingRunning` (needed to read a workout's

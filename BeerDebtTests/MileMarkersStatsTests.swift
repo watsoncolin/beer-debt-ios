@@ -169,13 +169,12 @@ struct MileMarkersStatsTests {
         #expect(span(1, .frozen).isMarked)
     }
 
-    @Test func aFreezeIconSitsInTheMiddleOfItsDay() {
+    @Test func anIconSitsInTheMiddleOfItsSpan() {
+        // Centred, or the icon hangs off the left edge of the band it labels.
         let freeze = MileMarkersReport.Span(start: t0, end: at(day), kind: .frozen)
-        // Centred, or it hangs off the left edge of the one-day band.
         #expect(freeze.markerDate == at(day / 2))
-        // A streak keeps its start: that is the day it began.
         let streak = MileMarkersReport.Span(start: t0, end: at(5 * day), kind: .protected)
-        #expect(streak.markerDate == t0)
+        #expect(streak.markerDate == at(2.5 * day))
     }
 
     @Test func noStreakDrawsNoSpans() {
