@@ -169,6 +169,16 @@ struct MileMarkersStatsTests {
         #expect(span(1, .frozen).isMarked)
     }
 
+    @Test func aFreezeIconSitsOnTheRowBelowTheFlame() {
+        // A frozen day is inside the stretch it protects, so a freeze near the
+        // middle of a streak would otherwise land on that streak's own flame.
+        let streak = MileMarkersReport.Span(start: t0, end: at(30 * day), kind: .protected)
+        let freeze = MileMarkersReport.Span(start: at(15 * day), end: at(16 * day), kind: .frozen)
+        #expect(close(freeze.markerDate.timeIntervalSince(streak.markerDate), 0.5 * day))
+        #expect(streak.markerRow == 0)
+        #expect(freeze.markerRow == 1)
+    }
+
     @Test func anIconSitsInTheMiddleOfItsSpan() {
         // Centred, or the icon hangs off the left edge of the band it labels.
         let freeze = MileMarkersReport.Span(start: t0, end: at(day), kind: .frozen)

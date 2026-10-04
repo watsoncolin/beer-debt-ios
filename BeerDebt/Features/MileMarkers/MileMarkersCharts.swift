@@ -27,8 +27,12 @@ struct PositionChart: View {
         return high / low > 100
     }
 
-    /// Fraction of the plot's height kept clear at the top for the marker lane.
-    private var headroom: Double { spans.isEmpty ? 0.04 : 0.16 }
+    /// Fraction of the plot's height kept clear at the top for the marker lane,
+    /// which is one row taller when there are freezes to put on their own.
+    private var headroom: Double {
+        if spans.isEmpty { return 0.04 }
+        return spans.contains { $0.kind == .frozen } ? 0.22 : 0.16
+    }
 
     /// Headroom has to be reserved in the scale's own space. On a log axis a
     /// plain multiplier buys almost nothing — ×1.5 on a range spanning three
@@ -130,7 +134,8 @@ struct PositionChart: View {
                             Image(systemName: marker.symbol)
                                 .font(.system(size: 9, weight: .bold))
                                 .foregroundStyle(marker.colour)
-                                .position(x: rect.minX + x, y: rect.minY + 9)
+                                .position(x: rect.minX + x,
+                                          y: rect.minY + 9 + CGFloat(marker.row) * 14)
                         }
                     }
                 }
@@ -138,13 +143,17 @@ struct PositionChart: View {
         }
     }
 
-    /// The lane says *when*; the wash behind the curve says *how long*.
-    /// Which spans earn an icon, and where it sits, are `Span`'s own rules.
+    /// The lane says *when*; the wash behind the curve says *how long*. Which
+    /// spans earn an icon, where it sits and which row it is on are `Span`'s
+    /// own rules.
     private var markers: [Marker] {
         spans.filter(\.isMarked).map { span in
-            span.kind == .frozen
-                ? Marker(date: span.markerDate, symbol: "snowflake", colour: Theme.frost)
-                : Marker(date: span.markerDate, symbol: "flame.fill", colour: Theme.gold)
+            Marker(
+                date: span.markerDate,
+                symbol: span.kind == .frozen ? "snowflake" : "flame.fill",
+                colour: span.kind == .frozen ? Theme.frost : Theme.gold,
+                row: span.markerRow
+            )
         }
     }
 
@@ -152,7 +161,10 @@ struct PositionChart: View {
         let date: Date
         let symbol: String
         let colour: Color
-        var id: Date { date }
+        let row: Int
+        /// A flame and a snowflake can share an instant, so the date alone
+        /// isn't an identity.
+        var id: String { "\(symbol)@\(date.timeIntervalSince1970)" }
     }
 }
 

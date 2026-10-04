@@ -261,8 +261,10 @@ Spec §27 is the screen. The decisions behind it:
   marked. The space the lane sits in cannot be bought with a plain multiplier
   on the ceiling: on a log axis ×1.5 over three decades is a couple of pixels,
   so the ceiling is raised by the span itself raised to the share of the height
-  being reserved. A freeze's icon is centred on its one-day band; a streak's
-  stays at its start, because that is the day it began.
+  being reserved. Every icon is centred on its own span, and freezes sit on a
+  second row: a frozen day is inside the stretch it protects, so a freeze near
+  the middle of a streak lands on that streak's flame. Two fixed rows beat
+  dodging collisions, which would make icons jump as the range changes.
 - **The lane's rules live on `Span`, not on the chart.** Which spans earn an
   icon and where it sits are data decisions, so they are properties of the
   model and tested there. Putting them on the `View` first made the test hang:

@@ -112,6 +112,15 @@ struct MileMarkersReport: Equatable, Sendable {
         /// Where the icon sits: the middle of the span it belongs to, so the
         /// icon reads as a label on its band rather than hanging off the edge.
         var markerDate: Date { start.addingTimeInterval(end.timeIntervalSince(start) / 2) }
+
+        /// Which row of the marker lane the icon belongs on.
+        ///
+        /// Freezes go below. A frozen day sits *inside* the stretch it
+        /// protects, so a freeze near the middle of a streak lands on the flame
+        /// centred on that same stretch. Two fixed rows beat collision-dodging:
+        /// nothing jitters as the range changes, and the lane reads as streaks
+        /// over the freezes that held them.
+        var markerRow: Int { kind == .frozen ? 1 : 0 }
     }
 
     /// Something worth a line under the chart.
