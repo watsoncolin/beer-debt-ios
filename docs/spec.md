@@ -1042,7 +1042,9 @@ only: it changes nothing and stores nothing.
   Stretches where the streak was pausing interest are washed in faint gold
   behind the curve, and a day bought with a freeze gets a frost band, so the
   places the curve flattens carry their own explanation. Both are named in the
-  key only when there are any. Under it, two flow strips sharing the x-axis:
+  key only when there are any. A marker lane along the top of the plot puts a
+  flame where a streak of three days or more began and a snowflake on every
+  freeze: the wash says how long, the lane says when. Under it, two flow strips sharing the x-axis:
   miles run, and beers. Then a few dated lines for the days that explain the
   shape — the big night, the streak that started, the rest day, the low point.
 - **Over the range** — miles run, beers added, and interest charged, plus the

@@ -255,6 +255,19 @@ Spec §27 is the screen. The decisions behind it:
   `chartBackground` overlay was tried first and bled past the plot over the
   strips below. The chart itself also needs `.clipped()`: on the log scale the
   domain floor is not zero and the area fill is drawn past it.
+- **The marker lane is thinned, and its headroom is reserved in scale space.**
+  A flame per protected stretch smears into a row over a long range, so only
+  streaks of three days or more get one; freezes are rare enough to all be
+  marked. The space the lane sits in cannot be bought with a plain multiplier
+  on the ceiling: on a log axis ×1.5 over three decades is a couple of pixels,
+  so the ceiling is raised by the span itself raised to the share of the height
+  being reserved. A freeze's icon is centred on its one-day band; a streak's
+  stays at its start, because that is the day it began.
+- **The lane's rules live on `Span`, not on the chart.** Which spans earn an
+  icon and where it sits are data decisions, so they are properties of the
+  model and tested there. Putting them on the `View` first made the test hang:
+  SwiftUI's `View` is `@MainActor`, and reaching into one from a test
+  deadlocked for the full ten-minute timeout.
 - **"Keeping Up?" compares principal and says so.** The cumulative chart is
   beers-drunk against miles-run, which can read green while the tab reads
   four figures. That gap is the product's whole thesis, so the section names

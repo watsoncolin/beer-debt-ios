@@ -27,7 +27,21 @@ struct PositionChart: View {
         return high / low > 100
     }
 
-    private var yMax: Double { max(1, (values.max() ?? 0) * 1.15) }
+    /// Fraction of the plot's height kept clear at the top for the marker lane.
+    private var headroom: Double { spans.isEmpty ? 0.04 : 0.16 }
+
+    /// Headroom has to be reserved in the scale's own space. On a log axis a
+    /// plain multiplier buys almost nothing — ×1.5 on a range spanning three
+    /// decades is a couple of pixels — so the ceiling is raised by the span
+    /// itself, raised to the share of the height being reserved.
+    private var yMax: Double {
+        guard let high = values.max(), high > 0 else { return 1 }
+        let f = headroom
+        guard isLogarithmic, let low = values.min(), low > 0 else {
+            return max(1, high * (1 + f))
+        }
+        return high * pow(high / low, f / (1 - f))
+    }
     private var yMin: Double { isLogarithmic ? max(0.1, (values.min() ?? 1) * 0.8) : 0 }
 
     /// A frozen day is one day wide, which is sub-pixel at this scale, so it is
@@ -50,8 +64,8 @@ struct PositionChart: View {
                     xEnd: .value("To", to)
                 )
                 .foregroundStyle(span.kind == .frozen
-                                 ? Theme.frost.opacity(0.26)
-                                 : Theme.gold.opacity(0.07))
+                                 ? Theme.frost.opacity(0.20)
+                                 : Theme.gold.opacity(0.055))
             }
             ForEach(points) { point in
                 AreaMark(
@@ -107,6 +121,38 @@ struct PositionChart: View {
         // On the log scale the domain floor is not zero, and the area fill is
         // drawn past it, out of the plot and over the strips below. Clip it.
         .clipped()
+        .chartOverlay { proxy in
+            GeometryReader { geo in
+                if let plot = proxy.plotFrame {
+                    let rect = geo[plot]
+                    ForEach(markers) { marker in
+                        if let x = proxy.position(forX: marker.date) {
+                            Image(systemName: marker.symbol)
+                                .font(.system(size: 9, weight: .bold))
+                                .foregroundStyle(marker.colour)
+                                .position(x: rect.minX + x, y: rect.minY + 9)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /// The lane says *when*; the wash behind the curve says *how long*.
+    /// Which spans earn an icon, and where it sits, are `Span`'s own rules.
+    private var markers: [Marker] {
+        spans.filter(\.isMarked).map { span in
+            span.kind == .frozen
+                ? Marker(date: span.markerDate, symbol: "snowflake", colour: Theme.frost)
+                : Marker(date: span.markerDate, symbol: "flame.fill", colour: Theme.gold)
+        }
+    }
+
+    struct Marker: Identifiable {
+        let date: Date
+        let symbol: String
+        let colour: Color
+        var id: Date { date }
     }
 }
 

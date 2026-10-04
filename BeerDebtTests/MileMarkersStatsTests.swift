@@ -157,6 +157,27 @@ struct MileMarkersStatsTests {
         #expect(report.days.first { $0.date == frozen[0].start }?.interestProtected == true)
     }
 
+    @Test func onlyStreaksWorthPointingAtAreMarked() {
+        func span(_ days: Double, _ kind: MileMarkersReport.Span.Kind) -> MileMarkersReport.Span {
+            .init(start: t0, end: at(days * day), kind: kind)
+        }
+        // A brief protected stretch keeps its wash but earns no icon, so a long
+        // range doesn't smear the lane into a row of flames.
+        #expect(!span(2, .protected).isMarked)
+        #expect(span(3, .protected).isMarked)
+        // Freezes are rare enough that every one is marked.
+        #expect(span(1, .frozen).isMarked)
+    }
+
+    @Test func aFreezeIconSitsInTheMiddleOfItsDay() {
+        let freeze = MileMarkersReport.Span(start: t0, end: at(day), kind: .frozen)
+        // Centred, or it hangs off the left edge of the one-day band.
+        #expect(freeze.markerDate == at(day / 2))
+        // A streak keeps its start: that is the day it began.
+        let streak = MileMarkersReport.Span(start: t0, end: at(5 * day), kind: .protected)
+        #expect(streak.markerDate == t0)
+    }
+
     @Test func noStreakDrawsNoSpans() {
         let books = ledger(beers: [beer(t0)])
         #expect(build(books, at: at(5 * day)).spans.isEmpty)

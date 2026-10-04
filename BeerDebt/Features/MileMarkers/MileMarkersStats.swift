@@ -97,6 +97,24 @@ struct MileMarkersReport: Equatable, Sendable {
         let end: Date
         let kind: Kind
         var id: Date { start }
+
+        var days: Double { end.timeIntervalSince(start) / 86_400 }
+
+        /// A streak has to have held this long to earn an icon in the chart's
+        /// marker lane. Over a long range an icon per stretch crowds the lane
+        /// into a smear, and the ones worth pointing at are the ones that
+        /// lasted; the wash behind the curve still shows every stretch.
+        static let markableStreakDays: Double = 3
+
+        /// Freezes are rare enough that every one is marked.
+        var isMarked: Bool { kind == .frozen || days >= Self.markableStreakDays }
+
+        /// Where the icon sits. A freeze is one day wide, so anchoring it to
+        /// the day's start would put it on the band's left edge; a streak keeps
+        /// its start, because that is the day it began.
+        var markerDate: Date {
+            kind == .frozen ? start.addingTimeInterval(end.timeIntervalSince(start) / 2) : start
+        }
     }
 
     /// Something worth a line under the chart.
