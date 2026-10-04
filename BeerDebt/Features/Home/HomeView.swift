@@ -98,6 +98,17 @@ struct HomeView: View {
                     .background(Theme.forestDeep.opacity(0.85), in: RoundedRectangle(cornerRadius: 18))
                 }
 
+                NavigationLink(value: Route.mileMarkers) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "chart.xyaxis.line")
+                            .font(.caption)
+                        Text("Mile Markers")
+                            .font(.footnote.weight(.semibold))
+                    }
+                    .foregroundStyle(Theme.gold.opacity(0.9))
+                }
+                .buttonStyle(.plain)
+
                 Text(quip(for: balance))
                     .font(.footnote)
                     .italic()

@@ -12,8 +12,10 @@
 		029B48E82FB2288B75AF0AD2 /* StreakEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD3F75DFA2D8877CA4DE59 /* StreakEngine.swift */; };
 		047A53E9BC6CB421FFCE95FB /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F76A399B75E29E0677448A0 /* RootView.swift */; };
 		04D0483C6D6EECC12C763417 /* StreakActivatedSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211DFE9438E1F5C07C2548A0 /* StreakActivatedSheet.swift */; };
+		05A464707BB7609CCBA676AC /* MileMarkersCharts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4EDFD4C05774060A7258E1 /* MileMarkersCharts.swift */; };
 		117F16C6ED7A8AD8B2BA8292 /* RunNotifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8D829DDEF1ADD2D48822DE /* RunNotifierTests.swift */; };
 		13CB1FD44EF45F1E8B22CFF1 /* BankruptcySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A69939C0A9CBFAFD379323 /* BankruptcySheet.swift */; };
+		1542C6B5612DF039223D30A2 /* MileMarkersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95456FFAF126866B569A25D3 /* MileMarkersView.swift */; };
 		16522A24A8FB5A8099D16A9D /* BeerDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB32A1C213AE1063F2876C /* BeerDetailSheet.swift */; };
 		1A1C9E83D3C3B5ED77B4B7A9 /* StreakEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB983CBC5031A20F27EB8D /* StreakEngineTests.swift */; };
 		1A4001C96DC02D1017DAFEF2 /* LedgerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A789CED27E85B054CBB4DE96 /* LedgerStore.swift */; };
@@ -29,6 +31,7 @@
 		40716E77B184E68F5DB3C4E2 /* StreakCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A52444443A8F4EB7BCDCF01 /* StreakCard.swift */; };
 		42E51A0D76824F6FDDD93B40 /* BalanceWidgetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF94F78474A0A765E2BEA7C4 /* BalanceWidgetViews.swift */; };
 		438F1CAAB9D5C95992A2CCE4 /* HealthSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB8823445610589169295E2 /* HealthSync.swift */; };
+		4C084F3D11A1C8C51A068FA4 /* MileMarkersStatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7718C5764907975EA8D299 /* MileMarkersStatsTests.swift */; };
 		5161C6AC19D82C09C8374802 /* BeerEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F5273874DC97DC59FE5C9 /* BeerEntry.swift */; };
 		53445DBF913FF50BE1C9790D /* FormatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE97EF8404186E7696DB346F /* FormatTests.swift */; };
 		5DDE798717F5540A8DE4013A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FDB3E39011B92CA7C3933A1 /* LaunchScreen.storyboard */; };
@@ -69,6 +72,7 @@
 		DB34FDF083DEFE7CA198B685 /* WeeklySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB32B9C55DBFD66486A7F76 /* WeeklySummary.swift */; };
 		DB9FA7E845B963845BC5B1E8 /* StreakEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD3F75DFA2D8877CA4DE59 /* StreakEngine.swift */; };
 		DE7DE0ECAFC199A70706DFA3 /* TelemetryPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A537953110BBE13A58C839F0 /* TelemetryPolicyTests.swift */; };
+		E34A363BE2D384F7C36206AD /* MileMarkersStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6800BB84C3416107C2FF1CCE /* MileMarkersStats.swift */; };
 		F1C3DFC0EDD86F23500CE852 /* RunsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DA6E495250E745AFDB9CE /* RunsView.swift */; };
 		F8ED1D14BDF5D31A6215ACF2 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62761E16519E17138101127 /* Format.swift */; };
 		FA6A025E2850F42F90EC6462 /* FreezeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C6AD8667348087D47C1A05 /* FreezeSection.swift */; };
@@ -121,7 +125,9 @@
 		2D219D08653B32A6A2641784 /* BeerDebtWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = BeerDebtWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		351EA55FCDA69111953BFADC /* StreakView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakView.swift; sourceTree = "<group>"; };
 		375F3E2B6E42648F707FD2BD /* TestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSupport.swift; sourceTree = "<group>"; };
+		3A4EDFD4C05774060A7258E1 /* MileMarkersCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MileMarkersCharts.swift; sourceTree = "<group>"; };
 		3B4E82E94CE0A6EEECDAF514 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3D7718C5764907975EA8D299 /* MileMarkersStatsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MileMarkersStatsTests.swift; sourceTree = "<group>"; };
 		504A13FB3927748DD7E47D52 /* BeerDebtWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDebtWidget.swift; sourceTree = "<group>"; };
 		559D02FEB5F142E1778EE4BF /* HealthOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthOnboardingView.swift; sourceTree = "<group>"; };
 		568BC38579E75979D912ED09 /* Ledger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ledger.swift; sourceTree = "<group>"; };
@@ -129,6 +135,7 @@
 		5B919F20FB679F89602D79CC /* BeerDebtWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BeerDebtWidget.entitlements; sourceTree = "<group>"; };
 		5C617334E978B6B8AF690345 /* TelemetryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryPolicy.swift; sourceTree = "<group>"; };
 		5FB8823445610589169295E2 /* HealthSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthSync.swift; sourceTree = "<group>"; };
+		6800BB84C3416107C2FF1CCE /* MileMarkersStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MileMarkersStats.swift; sourceTree = "<group>"; };
 		6A52444443A8F4EB7BCDCF01 /* StreakCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakCard.swift; sourceTree = "<group>"; };
 		6E6A5CC0A60D3E10A9ACDBD9 /* WeeklySummaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklySummaryTests.swift; sourceTree = "<group>"; };
 		70826A2C97EFC4143D994317 /* StreakFreezeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakFreezeTests.swift; sourceTree = "<group>"; };
@@ -137,6 +144,7 @@
 		7C66E6C0A5B95A19A9E53626 /* DebtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtView.swift; sourceTree = "<group>"; };
 		8895D27A0E8BFF2CD3C05ED3 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		8F63A3A9ED48465E0F0A2785 /* WidgetPreviewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetPreviewScreen.swift; sourceTree = "<group>"; };
+		95456FFAF126866B569A25D3 /* MileMarkersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MileMarkersView.swift; sourceTree = "<group>"; };
 		96F1AA9FB16F972D0F53082C /* BeerDebtApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDebtApp.swift; sourceTree = "<group>"; };
 		972AAB1E8B73A9B3B9492E92 /* Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
 		9C5C88CBF61288D3D21372F5 /* DebtFreeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtFreeSheet.swift; sourceTree = "<group>"; };
@@ -292,6 +300,7 @@
 			children = (
 				5C7CEC7EF360E72F3987CFF3 /* Home */,
 				0102446B56266D8326F01C03 /* Ledger */,
+				E6BCA6E247AC41A81135C524 /* MileMarkers */,
 				044BB2E834C459488789E781 /* Onboarding */,
 				DBB91D2F39582E3C4E1BA99A /* Runs */,
 				23ABDDFBE6B1562FF673685F /* Settings */,
@@ -368,6 +377,16 @@
 			path = Runs;
 			sourceTree = "<group>";
 		};
+		E6BCA6E247AC41A81135C524 /* MileMarkers */ = {
+			isa = PBXGroup;
+			children = (
+				3A4EDFD4C05774060A7258E1 /* MileMarkersCharts.swift */,
+				6800BB84C3416107C2FF1CCE /* MileMarkersStats.swift */,
+				95456FFAF126866B569A25D3 /* MileMarkersView.swift */,
+			);
+			path = MileMarkers;
+			sourceTree = "<group>";
+		};
 		EAE783A32F532CA4488B6DF8 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -398,6 +417,7 @@
 				DE97EF8404186E7696DB346F /* FormatTests.swift */,
 				E9AEB00D0551225924ADA400 /* HealthFailureTests.swift */,
 				179D84998FA1EF9C49416D25 /* LedgerStoreTests.swift */,
+				3D7718C5764907975EA8D299 /* MileMarkersStatsTests.swift */,
 				CF8D829DDEF1ADD2D48822DE /* RunNotifierTests.swift */,
 				C7AB983CBC5031A20F27EB8D /* StreakEngineTests.swift */,
 				70826A2C97EFC4143D994317 /* StreakFreezeTests.swift */,
@@ -554,6 +574,9 @@
 				C1E0B85E8BDD2EFCE8ECCAE2 /* Ledger.swift in Sources */,
 				C63825C3CC8F36FB5C87A90D /* LedgerFile.swift in Sources */,
 				1A4001C96DC02D1017DAFEF2 /* LedgerStore.swift in Sources */,
+				05A464707BB7609CCBA676AC /* MileMarkersCharts.swift in Sources */,
+				E34A363BE2D384F7C36206AD /* MileMarkersStats.swift in Sources */,
+				1542C6B5612DF039223D30A2 /* MileMarkersView.swift in Sources */,
 				047A53E9BC6CB421FFCE95FB /* RootView.swift in Sources */,
 				7AB26ECC206F95097C30F7DF /* Rules.swift in Sources */,
 				B535F925FEC45472E773E522 /* RunEntry.swift in Sources */,
@@ -582,6 +605,7 @@
 				53445DBF913FF50BE1C9790D /* FormatTests.swift in Sources */,
 				D50979FC710D9A8C73A106C6 /* HealthFailureTests.swift in Sources */,
 				8F801376D365AADF18CE77A0 /* LedgerStoreTests.swift in Sources */,
+				4C084F3D11A1C8C51A068FA4 /* MileMarkersStatsTests.swift in Sources */,
 				117F16C6ED7A8AD8B2BA8292 /* RunNotifierTests.swift in Sources */,
 				1A1C9E83D3C3B5ED77B4B7A9 /* StreakEngineTests.swift in Sources */,
 				7F2EDF2DC95D5B38854CBB7D /* StreakFreezeTests.swift in Sources */,

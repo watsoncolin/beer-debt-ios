@@ -1026,3 +1026,49 @@ items, not in the tone. "Chapter 7 · Section Beer", "Declare Bankruptcy",
 closed than run off.", "Gone for good", "Untouched", "Write it all off",
 "Never mind", "Written off", "Books are clean." Nothing that says the user
 should have run more.
+
+---
+
+# 27. Mile Markers
+
+Added 2026-10-03. One screen for the whole history, reached from Home. Read
+only: it changes nothing and stores nothing.
+
+- **Range picker** — 1M / 3M / 1Y / All, pinned above the list so it never
+  scrolls away. "All" opens at the first thing on the books, which may predate
+  `booksOpenedAt` because a beer can be backdated behind it.
+- **The Tab** — the balance over time: total owed as a filled line with
+  principal dashed underneath, so the space between the two *is* the interest.
+  Stretches where the streak was pausing interest are washed in faint gold
+  behind the curve, and a day bought with a freeze gets a frost band, so the
+  places the curve flattens carry their own explanation. Both are named in the
+  key only when there are any. A marker lane along the top of the plot carries
+  a flame for every streak of three days or more and a snowflake for every
+  freeze, each centred on its own span: the wash says how long, the lane says
+  when. Freezes sit on the row below, because a frozen day is inside the
+  stretch it protects and would otherwise land on that streak's own flame. Under it, two flow strips sharing the x-axis:
+  miles run, and beers. Then a few dated lines for the days that explain the
+  shape — the big night, the streak that started, the rest day, the low point.
+- **Over the range** — miles run, beers added, and interest charged, plus the
+  line only this app can write: **what the streak waived**, from replaying the
+  same ledger with `streakProtection` off and taking the difference.
+- **Keeping Up?** — cumulative beer miles against cumulative miles run. The
+  crossover is the story. It compares *principal*, so when interest is running
+  the section says so in its own line; without that it contradicts the tab
+  above, since you can out-run every beer you ever drank and still be buried.
+- **Running Days** — a contribution grid, a column per week: warm where you
+  ran, frost where a freeze covered the day, dark where nothing happened.
+  Current / longest / total streak days and freezes held and spent. Records
+  are all-time, not range-scoped.
+- **Notable** — priciest beer (the one that accrued the most interest),
+  longest run, biggest day, longest dry spell.
+
+**Scale.** The default rules compound at 10% a day (decisions §A.1), so a tab
+left alone reaches five and six figures within months. Numbers are formatted
+compactly (`Format.compact`: "4.8k mi") and the balance axis switches to a log
+scale, saying so, once the readings span more than two orders of magnitude. A
+linear axis on an exponential tab is a flat line followed by a wall.
+
+**Copy.** "The Tab", "on the tab", "books are clean", "Keeping Up?", "Run 4.2
+mi more than you drank", "Interest put 1.2k mi on top of that", "Your streak
+waived 340 mi of interest", "Priciest beer", "Longest dry spell".

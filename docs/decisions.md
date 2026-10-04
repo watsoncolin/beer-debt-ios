@@ -218,6 +218,85 @@ Spec §26 is the rule. The decisions behind it:
   copy says the user should have run more, which is also why the stamp is
   `Theme.credit` green rather than the debt red of the button that earns it.
 
+### 8. Mile Markers — DECIDED (2026-10-03)
+
+Spec §27 is the screen. The decisions behind it:
+
+- **Sampled, not a new engine API.** The balance curve needs the tab at many
+  instants and `BalanceEngine.report` answers one. The honest fix is a one-pass
+  `series` API in the engine, but that is the cross-platform contract: it would
+  mean regenerating `cases.json` and porting in the same breath, for a reading
+  rather than a rule. So the screen samples instead — 30–52 points by range,
+  bounded — and pays the redundancy. Revisit if it ever shows.
+- **Off the main actor, cached.** Replay cost is driven by *unpaid* beers,
+  because each posts interest every period. Measured: ~1 ms a report for a user
+  keeping up, ~45 ms at a year behind, ~650 ms at three years behind. The build
+  is handed to a background task keyed on range and ledger, never run in
+  `body`. (The rest of the app does call `report()` in `body`; that is a
+  pre-existing cost this screen deliberately does not add to.)
+- **Not in `Engine/`.** `MileMarkersStats` is pure and `Sendable` like the
+  engine, but it is a reading of the books rather than part of them, so it sits
+  under `Features/` and stays out of the fixture contract. Android can mirror
+  it without a fixtures regeneration.
+- **Interest waived is a counterfactual, not a stored number.** Replay the same
+  ledger with `streakProtection` off and subtract. Pure, costs one extra
+  replay, and cannot drift from the real books because it *is* the real books
+  read twice.
+- **The curve is two lines, not a stack.** A stacked principal/interest area
+  buries the gold band against the axis within weeks at 10% a day. Drawing
+  total and principal as separate lines makes the gap between them the
+  interest, and survives the log scale, which a stack does not.
+- **The log scale announces itself.** Switching axes under the reader without
+  saying so would misrepresent the shape; the key carries a "log scale" note
+  whenever it engages.
+- **The streak shows as a wash, not a marker.** Protected stretches and frozen
+  days are `RectangleMark`s bounded on x alone, drawn first so they sit behind
+  the curve and are clipped to the plot by the chart. A hand-drawn
+  `chartBackground` overlay was tried first and bled past the plot over the
+  strips below. The chart itself also needs `.clipped()`: on the log scale the
+  domain floor is not zero and the area fill is drawn past it.
+- **The marker lane is thinned, and its headroom is reserved in scale space.**
+  A flame per protected stretch smears into a row over a long range, so only
+  streaks of three days or more get one; freezes are rare enough to all be
+  marked. The space the lane sits in cannot be bought with a plain multiplier
+  on the ceiling: on a log axis ×1.5 over three decades is a couple of pixels,
+  so the ceiling is raised by the span itself raised to the share of the height
+  being reserved. Every icon is centred on its own span, and freezes sit on a
+  second row: a frozen day is inside the stretch it protects, so a freeze near
+  the middle of a streak lands on that streak's flame. Two fixed rows beat
+  dodging collisions, which would make icons jump as the range changes.
+- **The lane's rules live on `Span`, not on the chart.** Which spans earn an
+  icon and where it sits are data decisions, so they are properties of the
+  model and tested there. Putting them on the `View` first made the test hang:
+  SwiftUI's `View` is `@MainActor`, and reaching into one from a test
+  deadlocked for the full ten-minute timeout.
+- **"Keeping Up?" compares principal and says so.** The cumulative chart is
+  beers-drunk against miles-run, which can read green while the tab reads
+  four figures. That gap is the product's whole thesis, so the section names
+  it rather than hiding it by folding interest into one of the series.
+
+### 9. Run notifications report the run, not the balance drop — DECIDED (2026-10-03)
+
+Reported from a real notification: a 1.4 mi run said *"Knocked 3.8 mi off
+your tab"*. The figure was `before.debtMiles - after.debtMiles`, which is not
+what the run did.
+
+Streak protection is **derived at replay time**, not stored. A run that carries
+the streak to two days makes today interest-protected, so the `after` replay
+skips today's postings that the `before` replay had already made. The balance
+therefore falls by the miles run *plus* the interest that un-posted — in the
+pinned test case, 1.4 mi run against a 4.5 mi drop. Worse, the same
+notification already announces the streak on its own line, so the saving was
+being counted twice.
+
+`RunNotifier.Change` now carries `debtPaidMiles`, summed from the added runs'
+own `RunStatement`s, which is the engine's own answer to "what did this run
+pay". The balance delta is still used for nothing else.
+
+Two tests hold it: one on the copy, and one that drives the real engine to show
+the drop exceeding what the run paid, so a change in how protection is applied
+is noticed rather than silently re-breaking the copy.
+
 ## C. HealthKit
 
 - Read types: workouts + `distanceWalkingRunning` (needed to read a workout's

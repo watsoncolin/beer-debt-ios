@@ -100,6 +100,7 @@ shoot settings settings
 shoot bankruptcy bankruptcy
 shoot bankruptcy-written-off bankruptcyWrittenOff
 shoot streak streak
+shoot mile-markers mileMarkers
 shoot streak-activated streakActivated
 shoot debt-free debtFree
 seed freeze

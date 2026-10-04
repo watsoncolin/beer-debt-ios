@@ -252,9 +252,13 @@ final class HealthSync {
             if !isAppActive, runNotificationsEnabled {
                 let paidBefore = before.beers.filter(\.isPaid).count
                 let paidAfter = after.beers.filter(\.isPaid).count
+                let addedIDs = Set(added.map(\.id))
                 let change = RunNotifier.Change(
                     addedRuns: added, removedRuns: removed,
                     before: before.balance, after: after.balance,
+                    debtPaidMiles: after.runs
+                        .filter { addedIDs.contains($0.run.id) }
+                        .reduce(0) { $0 + $1.debtPaidMiles },
                     beersPaidOff: max(0, paidAfter - paidBefore),
                     streakDays: after.streak.currentStreakDays,
                     streakDay: added.contains { after.streak.qualifies(on: $0.endedAt) },
