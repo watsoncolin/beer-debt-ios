@@ -63,4 +63,41 @@ enum TelemetryPolicy {
     static func sentryEnvironment(_ host: Host = .current) -> String {
         host.isDebugBuild ? "development" : "production"
     }
+
+    /// `mechanism.type` on every app-hang event the SDK builds
+    /// (`SentryANRTrackingIntegration.m`: `initWithType:@"AppHang"`). The
+    /// exception `type` is one of five strings that vary with severity, so the
+    /// mechanism is the stable thing to match on.
+    static let appHangMechanism = "AppHang"
+
+    /// Whether an event is worth sending, given whether this process has ever
+    /// been foreground-active.
+    ///
+    /// App hangs are the one kind we second-guess, because HealthKit
+    /// background delivery launches this app with no UI and the SDK's own
+    /// guard against that does not hold. `SentryANRTrackerV2` skips hang
+    /// detection while `isApplicationInForeground` is false, but that flag
+    /// starts life as a lie: `SentryCrashMonitor_AppState.c` sets it `true` at
+    /// init under the comment "Simulate first transition to foreground", and
+    /// only a `UIApplication` lifecycle notification ever corrects it. A
+    /// background-launched process posts no such notification -- it was never
+    /// in the foreground, so it never leaves it -- and the flag stays `true`
+    /// for the life of that process. Hang detection therefore runs on exactly
+    /// the launches where an idle main thread is the correct and expected
+    /// state, and reports it as a fully-blocking hang with a stack that
+    /// contains no app frames at all: just `main` under the parked run loop.
+    ///
+    /// So: trust a hang only from a process the user has actually seen. A real
+    /// hang blocks something the user was looking at, which means the app was
+    /// active, which means `didBecomeActive` has fired.
+    ///
+    /// This is deliberately a filter on reporting rather than
+    /// `enableAppHangTracking = false`: a hang on screen is still worth
+    /// knowing about, and this keeps those. One gap stays open -- a *fatal*
+    /// hang is stored and sent on the next launch, so it is judged by that
+    /// launch's foreground state rather than by the one that hung.
+    static func shouldSend(mechanism: String?, everForegroundActive: Bool) -> Bool {
+        guard mechanism == appHangMechanism else { return true }
+        return everForegroundActive
+    }
 }
