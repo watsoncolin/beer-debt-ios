@@ -1,5 +1,7 @@
 import Foundation
 import Sentry
+import UIKit
+import os
 
 /// The app's one door to Sentry, the Pourcraft / Pawfect Edit convention and
 /// the same door the Android app has in `Telemetry.kt`: crash reporting only.
@@ -46,7 +48,19 @@ enum Telemetry {
             options.enableAppHangTrackingV2 = true
             options.enableReportNonFullyBlockingAppHangs = false
             options.appHangTimeoutInterval = 2.0
+
+            // ...and only from a process that has actually been on screen.
+            // HealthKit background launches otherwise report an idle main
+            // thread as an 11-second hang; see TelemetryPolicy.shouldSend.
+            options.beforeSend = { event in
+                TelemetryPolicy.shouldSend(
+                    mechanism: event.exceptions?.first?.mechanism?.type,
+                    everForegroundActive: ForegroundWitness.shared.hasBeenActive
+                ) ? event : nil
+            }
         }
+
+        ForegroundWitness.shared.start()
     }
 
     static func report(_ error: Error, context key: String, _ values: [String: Any] = [:]) {
@@ -59,6 +73,35 @@ enum Telemetry {
         SentrySDK.capture(message: message) { scope in
             scope.setLevel(level)
             scope.setContext(value: values, key: key)
+        }
+    }
+}
+
+
+/// Whether this process has ever been foreground-active, which is the fact
+/// `TelemetryPolicy.shouldSend` needs and the one Sentry's own
+/// `isApplicationInForeground` gets wrong on a background launch.
+///
+/// Read from `beforeSend`, which Sentry calls on whatever thread the event
+/// came from, so the flag is behind a lock. `token` is touched only by
+/// `start()`, once, from `App.init` on the main actor -- hence the unchecked
+/// conformance. Holding the token is what keeps the observation alive.
+private final class ForegroundWitness: @unchecked Sendable {
+    static let shared = ForegroundWitness()
+
+    private let active = OSAllocatedUnfairLock(initialState: false)
+    private var token: (any NSObjectProtocol)?
+
+    var hasBeenActive: Bool { active.withLock { $0 } }
+
+    func start() {
+        guard token == nil else { return }
+        token = NotificationCenter.default.addObserver(
+            forName: UIApplication.didBecomeActiveNotification,
+            object: nil,
+            queue: nil
+        ) { [active] _ in
+            active.withLock { $0 = true }
         }
     }
 }
