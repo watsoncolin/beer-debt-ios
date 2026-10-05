@@ -297,11 +297,72 @@ Two tests hold it: one on the copy, and one that drives the real engine to show
 the drop exceeding what the run paid, so a change in how protection is applied
 is noticed rather than silently re-breaking the copy.
 
+### 10. Calorie mode — DECIDED (2026-10-04)
+
+Spec §28 is the feature. Colin's calls and the reasoning behind them:
+
+- **Mode and rate are ledger settings, not rules, and they reinterpret
+  history.** This is a deliberate exception to forward-only rules (above).
+  `Ledger.paymentMode` and `Ledger.caloriesPerMile` sit beside the rules
+  history rather than inside it, and every replay reads the current values.
+  Making the toggle a `RulesChange` was weighed and turned down. It would
+  have kept the balance from jumping on a switch and made the switch
+  ungameable. Colin chose reinterpretation: the toggle means "this is how
+  my books work", not "from now on". (A user can already reshape the tab by
+  deleting runs, so this door is not entirely new.) Accepted costs: flipping modes moves the
+  balance, posted interest, streak days and freezes, and a user can flip to
+  whichever mode is cheaper. They live in `ledger.json` (not UserDefaults)
+  so the widget replays the same books.
+- **The engine stays in miles.** Calories are converted on the way in
+  (non-run workouts only) and on the way out (display). No second balance,
+  no unit tag on events, and every existing fixture holds unchanged with the
+  mode defaulting to runs.
+- **A run pays by distance in both modes.** A mile is worth the same in
+  either mode, and a run never depends on whether its source recorded
+  energy (phone-only and some third-party runs don't). It also makes
+  `caloriesPerMile` a pure display factor for runs-only books, so changing
+  the rate rescales only what non-run workouts paid.
+- **Default 100 kcal per mile.** That is roughly what a mile of running
+  burns, so a beer still costs about one mile of effort, and switching modes
+  changes the *display* of a runner's tab, not its size. 150 kcal (a
+  regular beer) was turned down: it would quietly make every run pay two
+  thirds of a beer.
+- **Active energy only.** `activeEnergyBurned`, summed per workout. Total
+  energy includes basal burn, so a two-hour workout would be paid for the
+  two hours of being alive as well as the effort. A non-run workout with no
+  active energy pays zero; the card says "No calories recorded" rather than
+  hiding it.
+- **Every workout type counts, walking included.** A walk logged as a
+  workout is a choice the user made; passive steps and all-day energy never
+  count, in either mode.
+- **Streak threshold is one mile-equivalent.** Calorie mode reuses §5's rule
+  unchanged, a day qualifies at ≥ 1 mile, because a non-run workout's
+  calories arrive as miles. With the default rate that is 100 kcal.
+- **Health scope widens only on request.** Runs mode keeps today's read
+  types and predicate. Choosing calories asks for every workout type plus
+  `activeEnergyBurned`, widens the predicate and drops the anchor so Health
+  is re-read from `booksOpenedAt` (the `reopenBooks` mechanism). Dedup by
+  workout UUID makes the re-read idempotent. Workouts imported in calorie
+  mode are kept after switching back, and the engine ignores non-runs in
+  runs mode, so a second switch needs no re-read.
+- **`RunEntry` grows; its JSON keys don't change.** New optional
+  `activityType` (an `HKWorkoutActivityType` raw value; absent means
+  running) and `activeEnergyKcal`. `distanceMeters` stays, and is 0 for
+  workouts without distance. Older ledgers decode as all-runs.
+- **A toggle is not an event.** No debt-free celebration and no
+  notification come from flipping a setting, even if it clears the tab. The
+  celebration and `RunNotifier` fire on imported workouts only, as now.
+- **Cross-platform.** The mode, the rate and the new workout fields are
+  engine inputs, so `cases.json` gains calorie scenarios and the Kotlin
+  `FixtureTest` must name and assert them explicitly (CLAUDE.md, Android).
+
 ## C. HealthKit
 
 - Read types: workouts + `distanceWalkingRunning` (needed to read a workout's
-  distance). Nothing else, nothing written.
-- Only `HKWorkoutActivityType.running`. Distance from
+  distance). Nothing else, nothing written. Calorie mode (§B.10) adds
+  `activeEnergyBurned`, requested only when the user picks it.
+- Only `HKWorkoutActivityType.running` in runs mode; every type in calorie
+  mode. Distance from
   `workout.statistics(for: distanceWalkingRunning)?.sumQuantity()`, falling back
   to `totalDistance`.
 - Dedup key is `HKWorkout.uuid`; import is idempotent. Sync via
