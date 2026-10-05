@@ -99,8 +99,13 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
   `RulesChange` through `LedgerStore.updateRules`.
 - Event timestamps are floored to whole seconds (`Date.flooredToSecond`) so
   the JSON round-trips exactly.
-- HealthKit is read-only and running-workouts-only. Don't add read types
-  without updating `NSHealthShareUsageDescription`. Notifications are local
+- HealthKit is read-only. Runs mode reads running workouts only; calorie
+  mode (spec §28) reads every workout type plus `activeEnergyBurned`, asked
+  for only when the user picks it, with its own anchor in `HealthSync`.
+  Don't add read types without updating `NSHealthShareUsageDescription` and
+  the Apple Health section of `privacy.html`. Views never multiply miles into
+  calories themselves: format every amount through `Units`
+  (`@Environment(\.units)`, set once in `RootView`). Notifications are local
   only (`UserNotifications`), posted only when the app is not in the
   foreground and the user turned them on.
 - Product copy lives in spec §18–§19; keep the finance-vocabulary tone
