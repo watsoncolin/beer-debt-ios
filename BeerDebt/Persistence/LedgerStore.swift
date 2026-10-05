@@ -237,7 +237,8 @@ final class LedgerStore {
         let opened = now.flooredToSecond
         let rules = ledger.currentRules
         let excluded = ledger.excludedWorkoutIDs.union(ledger.runs.map(\.healthKitWorkoutID))
-        ledger = Ledger(openedAt: opened, rules: rules)
+        // The payment basis survives like the rules: it is how the books work, not what is on them.
+        ledger = Ledger(openedAt: opened, rules: rules, payment: ledger.payment)
         ledger.excludedWorkoutIDs = excluded
         save()
         return isPersisted
@@ -250,6 +251,21 @@ final class LedgerStore {
         let lastEffective = ledger.rulesHistory.last?.effectiveAt ?? ledger.booksOpenedAt
         let effectiveAt = max(date.flooredToSecond, lastEffective)
         ledger.rulesHistory.append(RulesChange(effectiveAt: effectiveAt, rules: rules))
+        save()
+    }
+
+    /// The calorie rate the store accepts. Outside this a typo, not a choice.
+    static let caloriesPerMileRange: ClosedRange<Double> = 20...500
+
+    /// Switches what pays the tab (spec §28). Not an event: the whole ledger
+    /// replays under the new basis, history included (decisions §B.10). The
+    /// rate is clamped to `caloriesPerMileRange` and whole calories.
+    func updatePayment(_ payment: PaymentBasis) {
+        var payment = payment
+        payment.caloriesPerMile = min(max(payment.caloriesPerMile.rounded(), Self.caloriesPerMileRange.lowerBound),
+                                      Self.caloriesPerMileRange.upperBound)
+        guard payment != ledger.payment else { return }
+        ledger.payment = payment
         save()
     }
 

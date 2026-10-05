@@ -15,6 +15,10 @@ import Foundation
 /// - A beer spends credit first; the remainder opens a debt.
 /// - A run pays the oldest debt first (interest, then principal). Leftover
 ///   miles become credit up to the cap; anything past the cap is discarded.
+///   Which workouts pay, and how many miles each is worth, is the ledger's
+///   `payment` (spec §28): runs by distance always, other workouts by active
+///   energy in calorie mode only. It is read whole, not forward-only, so
+///   switching modes replays every workout under the new one.
 /// - Rules changes apply forward only. Past postings are never recalculated.
 /// - A posting that falls on an interest-protected streak day (spec §25: the
 ///   day and the day before each had a mile of running) is skipped while the
@@ -40,13 +44,14 @@ enum BalanceEngine {
 private enum Event {
     case rules(RulesChange)
     case beer(BeerEntry)
-    case run(RunEntry)
+    /// A workout that counts under the ledger's payment basis, with the miles it pays.
+    case run(RunEntry, miles: Double)
 
     var time: Date {
         switch self {
         case .rules(let change): change.effectiveAt
         case .beer(let beer): beer.createdAt
-        case .run(let run): run.endedAt
+        case .run(let run, _): run.endedAt
         }
     }
 
@@ -63,7 +68,7 @@ private enum Event {
         switch self {
         case .rules(let change): String(change.effectiveAt.timeIntervalSince1970)
         case .beer(let beer): beer.id.uuidString
-        case .run(let run): run.id.uuidString
+        case .run(let run, _): run.id.uuidString
         }
     }
 }
@@ -117,6 +122,7 @@ private struct Replay {
             // Freezes before the books opened are meaningless, the same way
             // pre-books runs are.
             freezeApplications: ledger.freezeApplications.filter { $0.day >= calendar.startOfDay(for: ledger.booksOpenedAt) },
+            payment: ledger.payment,
             at: now,
             calendar: calendar
         )
@@ -125,7 +131,9 @@ private struct Replay {
     mutating func run() -> Report {
         let events = (ledger.rulesHistory.map(Event.rules)
             + ledger.beers.map(Event.beer)
-            + ledger.runs.map(Event.run))
+            + ledger.runs.compactMap { run in
+                ledger.payment.miles(paidBy: run).map { Event.run(run, miles: $0) }
+            })
             .filter { $0.time <= now }
             .sorted { a, b in
                 if a.time != b.time { return a.time < b.time }
@@ -138,7 +146,7 @@ private struct Replay {
             switch event {
             case .rules(let change): apply(change)
             case .beer(let beer): apply(beer)
-            case .run(let run): apply(run)
+            case .run(let run, let miles): apply(run, miles: miles)
             }
         }
         advance(to: now)
@@ -207,7 +215,7 @@ private struct Replay {
         }
     }
 
-    private mutating func apply(_ run: RunEntry) {
+    private mutating func apply(_ run: RunEntry, miles paying: Double) {
         guard run.endedAt >= ledger.booksOpenedAt else {
             runStatements.append(RunStatement(
                 run: run, debtPaidMiles: 0, creditEarnedMiles: 0, discardedMiles: 0, ignored: true, streakDayNumber: nil
@@ -215,7 +223,7 @@ private struct Replay {
             return
         }
 
-        var miles = run.distanceMiles
+        var miles = paying
         var debtPaid = 0.0
         var i = 0
         while miles > BalanceEngine.epsilon, i < open.count {

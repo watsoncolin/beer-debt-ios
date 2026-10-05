@@ -25,8 +25,13 @@ struct Ledger: Codable, Hashable, Sendable {
     /// Days the user spent a streak freeze on (spec §25.1). The only freeze
     /// state stored; everything else about freezes is derived from the runs.
     var freezeApplications: [FreezeApplication]
+    /// What pays the tab (spec §28). Not a rule: the whole ledger replays
+    /// under the current value, history included (decisions §B.10).
+    var paymentMode: PaymentMode
+    /// Calories worth one mile in calorie mode. Reinterprets like the mode.
+    var caloriesPerMile: Double
 
-    init(openedAt: Date, rules: Rules = .default) {
+    init(openedAt: Date, rules: Rules = .default, payment: PaymentBasis = .runs) {
         version = Self.currentVersion
         booksOpenedAt = openedAt
         rulesHistory = [RulesChange(effectiveAt: openedAt, rules: rules)]
@@ -34,10 +39,13 @@ struct Ledger: Codable, Hashable, Sendable {
         runs = []
         excludedWorkoutIDs = []
         freezeApplications = []
+        paymentMode = payment.mode
+        caloriesPerMile = payment.caloriesPerMile
     }
 
     private enum CodingKeys: String, CodingKey {
-        case version, booksOpenedAt, rulesHistory, beers, runs, excludedWorkoutIDs, freezeApplications
+        case version, booksOpenedAt, rulesHistory, beers, runs, excludedWorkoutIDs, freezeApplications,
+             paymentMode, caloriesPerMile
     }
 
     init(from decoder: Decoder) throws {
@@ -50,6 +58,18 @@ struct Ledger: Codable, Hashable, Sendable {
         excludedWorkoutIDs = try c.decodeIfPresent(Set<UUID>.self, forKey: .excludedWorkoutIDs) ?? []
         // Absent in every ledger written before freezes existed.
         freezeApplications = try c.decodeIfPresent([FreezeApplication].self, forKey: .freezeApplications) ?? []
+        // Absent in every ledger written before calorie mode: runs, at the default rate.
+        paymentMode = try c.decodeIfPresent(PaymentMode.self, forKey: .paymentMode) ?? .runs
+        caloriesPerMile = try c.decodeIfPresent(Double.self, forKey: .caloriesPerMile)
+            ?? PaymentBasis.defaultCaloriesPerMile
+    }
+
+    var payment: PaymentBasis {
+        get { PaymentBasis(mode: paymentMode, caloriesPerMile: caloriesPerMile) }
+        set {
+            paymentMode = newValue.mode
+            caloriesPerMile = newValue.caloriesPerMile
+        }
     }
 
     var currentRules: Rules { rulesHistory.last?.rules ?? .default }

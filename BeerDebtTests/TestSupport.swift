@@ -66,3 +66,26 @@ func withChange(_ base: Ledger, at date: Date, _ mutate: (inout Rules) -> Void) 
     ledger.rulesHistory.append(RulesChange(effectiveAt: date, rules: rules))
     return ledger
 }
+
+/// `HKWorkoutActivityType.cycling.rawValue`.
+let cyclingActivityType: UInt = 13
+
+/// A non-running workout: calories, no distance (spec §28).
+func ride(kcal: Double?, endedAt: Date, workoutID: UUID = UUID()) -> RunEntry {
+    RunEntry(
+        healthKitWorkoutID: workoutID,
+        startedAt: endedAt.addingTimeInterval(-45 * 60),
+        endedAt: endedAt,
+        distanceMeters: 0,
+        importedAt: endedAt,
+        sourceName: "Test",
+        activityType: cyclingActivityType,
+        activeEnergyKcal: kcal
+    )
+}
+
+func inCalories(_ base: Ledger, caloriesPerMile: Double = PaymentBasis.defaultCaloriesPerMile) -> Ledger {
+    var ledger = base
+    ledger.payment = PaymentBasis(mode: .calories, caloriesPerMile: caloriesPerMile)
+    return ledger
+}

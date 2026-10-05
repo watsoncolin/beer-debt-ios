@@ -36,6 +36,14 @@ func run(_ miles: Double, endedAt: Date, importedAt: Date? = nil) -> RunEntry {
     RunEntry(id: uuid(), healthKitWorkoutID: uuid(), startedAt: endedAt.addingTimeInterval(-30 * 60), endedAt: endedAt,
              distanceMeters: miles * RunEntry.metersPerMile, importedAt: importedAt ?? endedAt, sourceName: "Fixture")
 }
+/// A non-running workout (HKWorkoutActivityType.cycling = 13): calories, no distance.
+func ride(kcal: Double?, endedAt: Date) -> RunEntry {
+    RunEntry(id: uuid(), healthKitWorkoutID: uuid(), startedAt: endedAt.addingTimeInterval(-45 * 60), endedAt: endedAt,
+             distanceMeters: 0, importedAt: endedAt, sourceName: "Fixture", activityType: 13, activeEnergyKcal: kcal)
+}
+func inCalories(_ base: Ledger, caloriesPerMile: Double = 100) -> Ledger {
+    var l = base; l.payment = PaymentBasis(mode: .calories, caloriesPerMile: caloriesPerMile); return l
+}
 var noDecay: Rules { var r = Rules.default; r.creditDecayRatePerWeek = 0; return r }
 var noStreak: Rules { var r = Rules.default; r.streakProtection = false; return r }
 func withChange(_ base: Ledger, at date: Date, _ mutate: (inout Rules) -> Void) -> Ledger {
@@ -213,6 +221,38 @@ add("streak: two runs in one day add up", ledger(openedAt: at(-day), runs: [run(
 add("streak: just under a mile does not count", ledger(openedAt: at(-day), runs: [run(0.999, endedAt: morning(0))]), at: t0)
 add("streak: survives a new beer during credit",
     ledger(openedAt: at(-day), beers: [beer(at(5 * day))], runs: (0..<6).map { run(1.5, endedAt: morning($0)) }), at: at(6 * day + hour))
+
+// MARK: - Calorie mode (spec §28; mirror CalorieModeTests). paymentMode and caloriesPerMile are on the ledger.
+
+add("calories: runs mode ignores a ride", ledger(beers: [beer(t0)], runs: [ride(kcal: 300, endedAt: at(hour))]), at: at(2 * hour))
+add("calories: a ride pays its calories at the rate",
+    inCalories(ledger(rules: noDecay, beers: [beer(t0)], runs: [ride(kcal: 150, endedAt: at(hour))])), at: at(2 * hour))
+add("calories: a run pays its distance, not its calories",
+    inCalories(ledger(rules: noDecay, beers: [beer(t0)], runs: [
+        RunEntry(id: uuid(), healthKitWorkoutID: uuid(), startedAt: t0, endedAt: at(hour), distanceMeters: RunEntry.metersPerMile,
+                 importedAt: at(hour), sourceName: "Fixture", activityType: 37, activeEnergyKcal: 500)])), at: at(2 * hour))
+add("calories: a workout with no calories pays nothing but is listed",
+    inCalories(ledger(beers: [beer(t0)], runs: [ride(kcal: nil, endedAt: at(hour))])), at: at(2 * hour))
+add("calories: a ride before the books opened is ignored", inCalories(ledger(runs: [ride(kcal: 500, endedAt: at(-hour))])), at: at(hour))
+do {
+    let mixed = ledger(beers: [beer(t0), beer(t0)], runs: [run(1, endedAt: at(hour)), ride(kcal: 100, endedAt: at(2 * hour))])
+    add("calories: switching replays history (runs)", mixed, at: at(5 * day))
+    add("calories: switching replays history (calories)", inCalories(mixed), at: at(5 * day))
+    let rated = ledger(rules: noDecay, beers: [beer(t0), beer(t0), beer(t0)], runs: [run(1, endedAt: at(hour)), ride(kcal: 150, endedAt: at(2 * hour))])
+    add("calories: rate 100", inCalories(rated, caloriesPerMile: 100), at: at(3 * hour))
+    add("calories: rate 150 rescales rides not runs", inCalories(rated, caloriesPerMile: 150), at: at(3 * hour))
+}
+do {
+    let l = ledger(beers: (0..<5).map { _ in beer(t0) }, runs: [run(1, endedAt: morning(1)), ride(kcal: 120, endedAt: morning(2))])
+    add("calories: a ride does not carry the streak in runs mode", l, at: at(2 * day + hour))
+    add("calories: a ride carries the streak in calorie mode", inCalories(l), at: at(2 * day + hour))
+    add("calories: just under a mile's worth does not qualify", inCalories(ledger(openedAt: at(-day), runs: [ride(kcal: 99, endedAt: morning(0))])), at: t0)
+    add("calories: a mile's worth qualifies", inCalories(ledger(openedAt: at(-day), runs: [ride(kcal: 100, endedAt: morning(0))])), at: t0)
+    let frozen = ledger(openedAt: utc.startOfDay(for: morning(0)), beers: (0..<5).map { _ in beer(t0) },
+                        runs: (0..<5).map { run(1.0, endedAt: morning($0)) } + [ride(kcal: 200, endedAt: morning(5))], freezes: [morning(5)])
+    add("calories: a freeze on a ride day holds in runs mode", frozen, at: at(5 * day + hour))
+    add("calories: a freeze on a ride day is refunded in calorie mode", inCalories(frozen), at: at(5 * day + hour))
+}
 
 let encoder = JSONEncoder()
 encoder.dateEncodingStrategy = .iso8601

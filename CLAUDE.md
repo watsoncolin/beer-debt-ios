@@ -82,9 +82,13 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
   so a later `reopenBooks` can't pull them back as pure credit. It returns
   `isPersisted` so the sheet can own up to a failed write. `BeerEntry` is id + `createdAt` (+
   `recordedAt`, when it was logged),
-  `RunEntry` (HealthKit workout UUID for dedup, meters), and `RulesChange`
-  (rules effective from an instant). The `Ledger` holds all three plus
-  `booksOpenedAt`. Never store a derived balance; always replay via
+  `RunEntry` (HealthKit workout UUID for dedup, meters; despite the name any
+  workout, with `activityType` and `activeEnergyKcal` for calorie mode), and
+  `RulesChange` (rules effective from an instant). The `Ledger` holds all three
+  plus `booksOpenedAt` and the payment basis (`paymentMode`,
+  `caloriesPerMile`, spec §28). The basis is **not** a rule: it reinterprets
+  the whole history on replay (decisions §B.10), so change it only through
+  `LedgerStore.updatePayment`, and never as a `RulesChange`. Never store a derived balance; always replay via
   `BalanceEngine.report(for:at:)`, which returns the `Balance` plus per-beer
   and per-run statements the Ledger screen renders.
 - `BalanceEngine.report(for:at:calendar:)`: the calendar decides streak days.
@@ -141,8 +145,8 @@ so keep the Apple Health section accurate when Health usage changes.
 The sister repo is `~/beer-debt-android` (github.com/watsoncolin/beer-debt-android).
 This repo leads; features are built and validated here first, then ported.
 The cross-platform contract is `docs/spec.md` + `docs/engine-fixtures/cases.json`,
-generated from the Swift engine by `scripts/fixtures.sh` (84 scenarios mirroring
-`BalanceEngineTests`; pure `swiftc`, no simulator). **After any engine or model
+generated from the Swift engine by `scripts/fixtures.sh` (99 scenarios mirroring
+`BalanceEngineTests` and `CalorieModeTests`; pure `swiftc`, no simulator). **After any engine or model
 change: run `scripts/fixtures.sh`, commit the JSON, and copy it to
 `~/beer-debt-android/engine/src/test/resources/cases.json`.** The Kotlin
 engine's test fails loudly if the numbers *drift*, but a **new field** is a
