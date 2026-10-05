@@ -173,7 +173,6 @@ struct PositionChart: View {
 /// Runs and beers get a strip each: one is miles, the other is a count, and
 /// putting them on one axis would be a lie about the units.
 struct FlowChart: View {
-    @Environment(\.units) private var units
     let points: [MileMarkersReport.Point]
     let value: (MileMarkersReport.Point) -> Double
     let colour: Color
@@ -255,7 +254,6 @@ private func dateAxis() -> some AxisContent {
 /// nothing happened — the streak's own palette (spec §25.1), so the grid reads
 /// the same way the streak screen does.
 struct StreakGrid: View {
-    @Environment(\.units) private var units
     let days: [MileMarkersReport.Day]
     var calendar: Calendar = .current
 

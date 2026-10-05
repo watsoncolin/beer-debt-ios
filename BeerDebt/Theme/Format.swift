@@ -203,10 +203,6 @@ struct Units: Equatable, Sendable {
     var keepGoing: String { isCalories ? "Keep burning \(number(1))+ kcal" : "Keep running 1+ mile" }
     /// SF Symbol for the workouts card and empty states.
     var workoutSymbol: String { isCalories ? "figure.mixed.cardio" : "figure.run" }
-
-    /// What a workout paid, in the mode's own terms: a run's distance, or
-    /// what anything else burned.
-    func effort(of workout: RunEntry) -> Double { payment.miles(paidBy: workout) ?? 0 }
 }
 
 extension Report {
