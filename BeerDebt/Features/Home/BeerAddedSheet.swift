@@ -6,6 +6,7 @@ import SwiftUI
 struct BeerAddedSheet: View {
     @Environment(LedgerStore.self) private var store
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.units) private var units
     let beerID: UUID
     @State private var editingDate = false
     @State private var date = Date.now
@@ -45,7 +46,7 @@ struct BeerAddedSheet: View {
                                     Text("\(current.streak.currentStreakDays) day streak")
                                         .font(.subheadline.weight(.semibold))
                                         .foregroundStyle(Theme.cream)
-                                    Text(current.streak.todayProtected ? "0% APR while your streak holds." : "Run 1+ mile today and this beer earns 0% APR.")
+                                    Text(current.streak.todayProtected ? "0% APR while your streak holds." : "\(units.dailyGoal) today and this beer earns 0% APR.")
                                         .font(.caption)
                                         .foregroundStyle(Theme.cream.opacity(0.7))
                                 }
@@ -101,18 +102,18 @@ struct BeerAddedSheet: View {
                     .font(.subheadline)
                     .opacity(0.7)
             } else {
-                Text("That's +\(Format.miles(opening.principalMiles))")
+                Text("That's +\(units.amount(opening.principalMiles))")
                     .font(.title3.weight(.semibold))
                 if opening.coveredByCreditMiles > BalanceEngine.epsilon {
-                    Text("\(Format.miles(opening.coveredByCreditMiles)) came out of credit.")
+                    Text("\(units.amount(opening.coveredByCreditMiles)) came out of credit.")
                         .font(.subheadline)
                         .opacity(0.7)
                 } else if entry.isBackdated, statement.isPaid {
-                    Text("Dated \(Format.dateTime(entry.createdAt)). Already paid off by a run.")
+                    Text("Dated \(Format.dateTime(entry.createdAt)). Already paid off by a \(units.workout).")
                         .font(.subheadline)
                         .opacity(0.7)
                 } else if entry.isBackdated, statement.interestAccruedMiles > BalanceEngine.epsilon {
-                    Text("Dated \(Format.dateTime(entry.createdAt)). Already \(Format.miles(statement.outstandingMiles, decimals: 2)) with interest.")
+                    Text("Dated \(Format.dateTime(entry.createdAt)). Already \(units.amount(statement.outstandingMiles, decimals: 2)) with interest.")
                         .font(.subheadline)
                         .opacity(0.7)
                 } else if rules.interestEnabled {
@@ -130,7 +131,7 @@ struct BeerAddedSheet: View {
     private func projection(_ statement: BeerStatement, rules: Rules, from now: Date) -> some View {
         VStack(spacing: 12) {
             if rules.interestEnabled {
-                Text("If you don't run it off, this beer will cost you:")
+                Text("If you don't \(units.payOffPhrase.lowercased()), this beer will cost you:")
                     .font(.subheadline)
                     .foregroundStyle(Theme.cream.opacity(0.8))
                     .multilineTextAlignment(.center)
@@ -140,7 +141,7 @@ struct BeerAddedSheet: View {
                         let future = now.addingTimeInterval(horizon.seconds)
                         let cost = store.report(at: future).statement(for: beerID)?.outstandingMiles ?? 0
                         HStack {
-                            Text(Format.miles(cost, decimals: 2))
+                            Text(units.amount(cost, decimals: 2))
                                 .font(.body.weight(.semibold))
                                 .foregroundStyle(Theme.debt)
                             Spacer()

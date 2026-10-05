@@ -9,6 +9,7 @@ import SwiftUI
 /// stays; the stamp is the payoff, so the reset has a moment of its own
 /// instead of dumping the user back into Settings with a changed number.
 struct BankruptcySheet: View {
+    @Environment(\.units) private var units
     @Environment(\.dismiss) private var dismiss
     /// The books as they stood when the sheet opened. Snapshotted so the line
     /// items hold still, including after a write that failed and left the
@@ -76,12 +77,12 @@ struct BankruptcySheet: View {
                         note(
                             "trash",
                             Theme.debt,
-                            "**Gone for good:** every beer, run, streak, and freeze on the books. There's no undo."
+                            "**Gone for good:** every beer, \(units.workout), streak, and freeze on the books. There's no undo."
                         )
                         note(
                             "checkmark.seal",
                             Theme.credit,
-                            "**Untouched:** the rules you set, and every run in Apple Health. They simply stop counting here."
+                            "**Untouched:** the rules you set, and every \(units.workout) in Apple Health. They simply stop counting here."
                         )
                     }
                     .padding(.horizontal, 4)
@@ -130,12 +131,12 @@ struct BankruptcySheet: View {
 
             lineItem("Beers", Format.beersLabel(Double(filing.beers)))
             if filing.outstandingMiles > 0 {
-                lineItem("Outstanding", Format.miles(filing.outstandingMiles), color: Theme.debt)
+                lineItem("Outstanding", units.amount(filing.outstandingMiles), color: Theme.debt)
             }
             if filing.creditMiles > 0 {
-                lineItem("Banked credit", Format.miles(filing.creditMiles), color: Theme.credit)
+                lineItem("Banked credit", units.amount(filing.creditMiles), color: Theme.credit)
             }
-            lineItem("Runs", "\(filing.runs)")
+            lineItem(units.workoutsTitle, "\(filing.runs)")
             if filing.streakDays > 0 {
                 lineItem("Streak", "\(filing.streakDays) day\(filing.streakDays == 1 ? "" : "s")", color: Theme.gold)
             }

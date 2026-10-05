@@ -36,7 +36,7 @@ struct BalanceProvider: TimelineProvider {
             completion(BalanceEntry(date: now, report: nil))
             return
         }
-        completion(BalanceEntry(date: now, report: BalanceEngine.report(for: ledger, at: now)))
+        completion(BalanceEntry(date: now, report: BalanceEngine.report(for: ledger, at: now), units: Units(payment: ledger.payment)))
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<BalanceEntry>) -> Void) {
@@ -50,7 +50,8 @@ struct BalanceProvider: TimelineProvider {
             now: now,
             nextInterestAt: BalanceEngine.report(for: ledger, at: now).nextInterestAt
         )
-        let entries = dates.map { BalanceEntry(date: $0, report: BalanceEngine.report(for: ledger, at: $0)) }
+        let units = Units(payment: ledger.payment)
+        let entries = dates.map { BalanceEntry(date: $0, report: BalanceEngine.report(for: ledger, at: $0), units: units) }
         completion(Timeline(entries: entries, policy: .after(refresh)))
     }
 }

@@ -149,3 +149,9 @@ struct Pill: View {
             .foregroundStyle(color)
     }
 }
+
+extension EnvironmentValues {
+    /// Miles or calories (spec §28). Set once at the root from the ledger;
+    /// every screen formats amounts through it.
+    @Entry var units: Units = .miles
+}

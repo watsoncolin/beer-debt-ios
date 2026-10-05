@@ -141,11 +141,80 @@ enum Format {
     }
 }
 
+/// How amounts read on screen: miles, or calories at the ledger's rate
+/// (spec §28). The engine works in miles either way; this is the one place
+/// they become calories, so views pass it miles and never multiply.
+///
+/// Calories are whole numbers. At the default rate they are about 100× the
+/// mile figure, so a decimal would be noise and the compact forms engage at
+/// four figures, not five.
+struct Units: Equatable, Sendable {
+    var payment: PaymentBasis
+
+    static let miles = Units(payment: .runs)
+
+    init(payment: PaymentBasis) { self.payment = payment }
+
+    var isCalories: Bool { payment.mode == .calories }
+
+    /// "mi" / "kcal"
+    var symbol: String { isCalories ? "kcal" : "mi" }
+    /// "miles" / "calories", for VoiceOver and running copy.
+    var word: String { isCalories ? "calories" : "miles" }
+
+    /// The display value for an engine amount.
+    func value(_ miles: Double) -> Double { isCalories ? miles * payment.caloriesPerMile : miles }
+
+    /// Bare number: miles at `decimals`, calories whole.
+    func number(_ miles: Double, decimals: Int = 1) -> String {
+        isCalories ? Format.number(value(miles), decimals: 0) : Format.number(miles, decimals: decimals)
+    }
+
+    /// "2.3 mi" / "230 kcal"
+    func amount(_ miles: Double, decimals: Int = 1) -> String { number(miles, decimals: decimals) + " " + symbol }
+
+    /// Short enough for a stat tile: "4.8k", "1.2M". Calories stay whole under a thousand.
+    func compact(_ miles: Double) -> String {
+        let shown = value(miles)
+        if isCalories, abs(shown) < 1_000 { return Format.number(shown, decimals: 0) }
+        return Format.compact(shown)
+    }
+
+    /// `compact`, with the unit.
+    func compactAmount(_ miles: Double) -> String { compact(miles) + " " + symbol }
+
+    // MARK: Words
+
+    /// What a single workout is called: "run" / "workout".
+    var workout: String { isCalories ? "workout" : "run" }
+    /// "Runs" / "Workouts", for the screen and its rows.
+    var workoutsTitle: String { isCalories ? "Workouts" : "Runs" }
+    /// Past tense of the effort: "run" / "burned", as in "4.2 mi run this week".
+    var effortPast: String { isCalories ? "burned" : "run" }
+    /// How the tab is paid off: "Run it off" / "Burn it off".
+    var payOffPhrase: String { isCalories ? "Burn it off" : "Run it off" }
+    /// The verb: "run" / "work out", as in "if you run today".
+    var verb: String { isCalories ? "work out" : "run" }
+    /// A day that counts toward the streak: "running day" / "workout day".
+    var activeDay: String { isCalories ? "workout day" : "running day" }
+    /// The streak's daily bar, one mile's worth (spec §25, §28): "Run 1+ mile" / "Burn 100+ kcal".
+    var dailyGoal: String { isCalories ? "Burn \(number(1))+ kcal" : "Run 1+ mile" }
+    /// "Keep running 1+ mile" / "Keep burning 100+ kcal".
+    var keepGoing: String { isCalories ? "Keep burning \(number(1))+ kcal" : "Keep running 1+ mile" }
+    /// SF Symbol for the workouts card and empty states.
+    var workoutSymbol: String { isCalories ? "figure.mixed.cardio" : "figure.run" }
+
+    /// What a workout paid, in the mode's own terms: a run's distance, or
+    /// what anything else burned.
+    func effort(of workout: RunEntry) -> Double { payment.miles(paidBy: workout) ?? 0 }
+}
+
 extension Report {
-    /// Miles from counted runs that ended in the same calendar week as `now`.
+    /// Miles from counted workouts that ended in the same calendar week as
+    /// `now`: a run's distance, or a ride's calories at the rate.
     func milesRun(inWeekOf now: Date, calendar: Calendar = .current) -> Double {
         runs
             .filter { !$0.ignored && calendar.isDate($0.run.endedAt, equalTo: now, toGranularity: .weekOfYear) }
-            .reduce(0) { $0 + $1.run.distanceMiles }
+            .reduce(0) { $0 + $1.paidMiles }
     }
 }

@@ -10,6 +10,7 @@ import SwiftUI
 /// `MileMarkersRange.samples`. The result is cached in `@State` and rebuilt
 /// only when the range or the ledger changes, never in `body`.
 struct MileMarkersView: View {
+    @Environment(\.units) private var units
     @Environment(LedgerStore.self) private var store
     @State private var range: MileMarkersRange = .quarter
     @State private var report: MileMarkersReport?
@@ -47,7 +48,7 @@ struct MileMarkersView: View {
             } else if building {
                 placeholder("Reading the books…")
             } else if report != nil {
-                placeholder("Nothing on the books over \(range.phrase). Log a beer or go for a run.")
+                placeholder("Nothing on the books over \(range.phrase). Log a beer or \(units.isCalories ? "go work out" : "go for a run").")
             }
         }
         .listStyle(.plain)
@@ -74,7 +75,7 @@ struct MileMarkersView: View {
             VStack(alignment: .leading, spacing: 12) {
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(alignment: .firstTextBaseline) {
-                        Text(Format.compactMiles(report.debtAtEndMiles))
+                        Text(units.compactAmount(report.debtAtEndMiles))
                             .font(.system(size: 38, weight: .black, design: .rounded))
                             .foregroundStyle(Theme.cream)
                         Spacer()
@@ -90,8 +91,8 @@ struct MileMarkersView: View {
                 key(legend(for: report), note: chart.isLogarithmic ? "log scale" : nil)
 
                 VStack(alignment: .leading, spacing: 2) {
-                    strip("miles run", Theme.creditSoft)
-                    FlowChart(points: report.points, value: { $0.runMiles }, colour: Theme.creditSoft)
+                    strip("\(units.word) \(units.effortPast)", Theme.creditSoft)
+                    FlowChart(points: report.points, value: { [units] in units.value($0.runMiles) }, colour: Theme.creditSoft)
                         .frame(height: 38)
                     strip("beers", Theme.caution)
                     FlowChart(points: report.points, value: { Double($0.beers) }, colour: Theme.caution)
@@ -107,7 +108,7 @@ struct MileMarkersView: View {
                                     .font(.caption.weight(.semibold).monospacedDigit())
                                     .foregroundStyle(Theme.cream.opacity(0.55))
                                     .frame(width: 52, alignment: .leading)
-                                Text(event.title)
+                                Text(event.title(units: units))
                                     .font(.caption)
                                     .foregroundStyle(Theme.cream.opacity(0.8))
                             }
@@ -129,7 +130,7 @@ struct MileMarkersView: View {
         return HStack(spacing: 4) {
             Image(systemName: flat ? "equal" : (delta < 0 ? "arrow.down.right" : "arrow.up.right"))
                 .font(.caption.weight(.bold))
-            Text(flat ? "flat" : Format.compactMiles(abs(delta)))
+            Text(flat ? "flat" : units.compactAmount(abs(delta)))
                 .font(.subheadline.weight(.semibold))
         }
         .foregroundStyle(flat ? Theme.cream.opacity(0.6) : (delta < 0 ? Theme.credit : Theme.debt))
@@ -142,9 +143,9 @@ struct MileMarkersView: View {
         Section {
             VStack(spacing: 12) {
                 HStack(spacing: 10) {
-                    tile(Format.compact(report.milesRun), "miles run", "figure.run", Theme.creditSoft)
+                    tile(units.compact(report.milesRun), "\(units.word) \(units.effortPast)", units.workoutSymbol, Theme.creditSoft)
                     tile("\(report.beersAdded)", report.beersAdded == 1 ? "beer" : "beers", "mug.fill", Theme.gold)
-                    tile(Format.compact(report.interestChargedMiles), "mi interest", "percent", Theme.debt)
+                    tile(units.compact(report.interestChargedMiles), "\(units.symbol) interest", "percent", Theme.debt)
                 }
                 // The number no other app can show: what the streak kept off
                 // the books, from replaying the same ledger unprotected.
@@ -152,7 +153,7 @@ struct MileMarkersView: View {
                     HStack(spacing: 10) {
                         Image(systemName: "snowflake")
                             .foregroundStyle(Theme.frost)
-                        Text("Your streak waived **\(Format.compactMiles(report.interestWaivedMiles))** of interest.")
+                        Text("Your streak waived **\(units.compactAmount(report.interestWaivedMiles))** of interest.")
                             .font(.footnote)
                             .foregroundStyle(Theme.cream.opacity(0.85))
                         Spacer(minLength: 0)
@@ -182,21 +183,21 @@ struct MileMarkersView: View {
                     // buried, because this compares what the beers cost and the
                     // tab is what the waiting turned that into.
                     if report.interestChargedMiles > 0.05 {
-                        Text("Interest put \(Format.compactMiles(report.interestChargedMiles)) on top of that.")
+                        Text("Interest put \(units.compactAmount(report.interestChargedMiles)) on top of that.")
                             .font(.caption)
                             .foregroundStyle(Theme.debt.opacity(0.9))
                     }
                 }
                 OutpacingChart(points: report.points)
                     .frame(height: 130)
-                key([(Theme.caution, "beer miles"), (Theme.credit, "miles run")])
+                key([(Theme.caution, "beer \(units.word)"), (Theme.credit, "\(units.word) \(units.effortPast)")])
             }
             .padding(.vertical, 8)
             .plainRow()
         } header: {
             header("Keeping Up?")
         } footer: {
-            Text("Beer miles are what the beers cost when you drank them. Interest is the tab above.")
+            Text("Beer \(units.word) are what the beers cost when you drank them. Interest is the tab above.")
                 .font(.caption)
                 .foregroundStyle(Theme.cream.opacity(0.5))
                 .padding(.horizontal, 4)
@@ -208,10 +209,10 @@ struct MileMarkersView: View {
     /// disagree with their own caption.
     private func verdict(owed: Double, run: Double) -> String {
         let gap = run - owed
-        if abs(gap) < 0.1 { return "Dead even — every beer run off." }
+        if abs(gap) < 0.1 { return "Dead even — every beer \(units.isCalories ? "burned" : "run") off." }
         return gap > 0
-            ? "Run \(Format.compactMiles(gap)) more than you drank."
-            : "Drunk \(Format.compactMiles(-gap)) more than you've run."
+            ? "\(units.isCalories ? "Burned" : "Run") \(units.compactAmount(gap)) more than you drank."
+            : "Drunk \(units.compactAmount(-gap)) more than you've \(units.effortPast)."
     }
 
     private func streak(_ report: MileMarkersReport) -> some View {
@@ -231,7 +232,7 @@ struct MileMarkersView: View {
             .padding(.vertical, 8)
             .plainRow()
         } header: {
-            header("Running Days")
+            header(units.isCalories ? "Workout Days" : "Running Days")
         } footer: {
             Text("Records are all-time. The grid covers \(range == .all ? "up to the last year" : range.phrase).")
                 .font(.caption)
@@ -245,10 +246,10 @@ struct MileMarkersView: View {
             VStack(spacing: 0) {
                 if let beer = report.priciestBeer, report.priciestBeerInterestMiles > 0.05 {
                     row("Priciest beer", "#\(beer.number)",
-                        "\(Format.compactMiles(report.priciestBeerInterestMiles)) of interest", Theme.debt)
+                        "\(units.compactAmount(report.priciestBeerInterestMiles)) of interest", Theme.debt)
                 }
                 if let run = report.longestRun {
-                    row("Longest run", Format.miles(run.run.distanceMiles), Format.day(run.run.endedAt), Theme.creditSoft)
+                    row(units.isCalories ? "Biggest burn" : "Longest run", units.amount(run.paidMiles), Format.day(run.run.endedAt), Theme.creditSoft)
                 }
                 if report.biggestDayBeers > 1, let day = report.biggestDay {
                     row("Biggest day", "\(report.biggestDayBeers) beers", Format.day(day), Theme.gold)

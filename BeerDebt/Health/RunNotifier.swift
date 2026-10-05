@@ -56,31 +56,35 @@ final class RunNotifier {
         var streakDay: Bool = false
         /// This sync made it two days in a row: interest just paused.
         var streakActivated: Bool = false
+        /// Miles or calories, and which workouts count (spec §28).
+        var units: Units = .miles
     }
 
     /// Pure, so the copy can be tested. Plain and fun, no ledger-speak.
     nonisolated static func message(for change: Change) -> Message? {
-        let miles = change.addedRuns.reduce(0) { $0 + $1.distanceMiles }
+        let units = change.units
+        let miles = change.addedRuns.reduce(0) { $0 + (units.payment.miles(paidBy: $1) ?? 0) }
         let after = change.after
+        let noun = units.workout
 
         if change.addedRuns.isEmpty {
             guard change.removedRuns > 0 else { return nil }
-            let title = change.removedRuns == 1 ? "A run was removed from Health" : "\(change.removedRuns) runs were removed from Health"
-            return Message(title: title, body: "You're at \(standing(after)).")
+            let title = change.removedRuns == 1 ? "A \(noun) was removed from Health" : "\(change.removedRuns) \(noun)s were removed from Health"
+            return Message(title: title, body: "You're at \(standing(after, units)).")
         }
 
         let title = change.addedRuns.count == 1
-            ? "Run logged: \(Format.miles(miles))"
-            : "\(change.addedRuns.count) runs logged: \(Format.miles(miles))"
+            ? "\(WorkoutKind(change.addedRuns[0]).name) logged: \(units.amount(miles))"
+            : "\(change.addedRuns.count) \(noun)s logged: \(units.amount(miles))"
 
         let body: String
         switch (change.before.state, after.state) {
         case (.debt, .debt):
             let knocked = max(0, change.debtPaidMiles)
             if change.beersPaidOff > 0 {
-                body = "Paid off \(beers(change.beersPaidOff)). \(Format.miles(after.debtMiles)) still owed."
+                body = "Paid off \(beers(change.beersPaidOff)). \(units.amount(after.debtMiles)) still owed."
             } else {
-                body = "Knocked \(Format.miles(knocked)) off your tab. \(Format.miles(after.debtMiles)) still owed."
+                body = "Knocked \(units.amount(knocked)) off your tab. \(units.amount(after.debtMiles)) still owed."
             }
         case (.debt, .credit):
             body = "Tab paid, and \(Format.beersLabel(after.creditBeers)) banked. Cheers."
@@ -97,7 +101,7 @@ final class RunNotifier {
             body = "Books are clean."
         }
         if change.removedRuns > 0 {
-            return Message(title: "Runs updated", body: "You're at \(standing(after)).")
+            return Message(title: "\(units.workoutsTitle) updated", body: "You're at \(standing(after, units)).")
         }
         if change.streakActivated {
             return Message(
@@ -109,14 +113,14 @@ final class RunNotifier {
             return Message(title: title, body: "\(body) 🔥 \(change.streakDays) day streak, interest paused.")
         }
         if change.streakDay, change.streakDays == 1 {
-            return Message(title: title, body: "\(body) 🔥 Day one of a streak. Run 1+ mile tomorrow to pause interest.")
+            return Message(title: title, body: "\(body) 🔥 Day one of a streak. \(units.dailyGoal) tomorrow to pause interest.")
         }
         return Message(title: title, body: body)
     }
 
-    nonisolated private static func standing(_ balance: Balance) -> String {
+    nonisolated private static func standing(_ balance: Balance, _ units: Units) -> String {
         switch balance.state {
-        case .debt: "\(Format.miles(balance.debtMiles)) owed"
+        case .debt: "\(units.amount(balance.debtMiles)) owed"
         case .credit: "\(Format.beersLabel(balance.creditBeers)) banked"
         case .even: "zero. Books are clean"
         }

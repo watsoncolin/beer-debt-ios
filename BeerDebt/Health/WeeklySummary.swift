@@ -86,23 +86,24 @@ final class WeeklySummary {
     nonisolated static func message(ledger: Ledger, at fireDate: Date, calendar: Calendar) -> RunNotifier.Message {
         let weekStart = fireDate.addingTimeInterval(-7 * 86_400)
         let beers = ledger.beers.filter { $0.createdAt >= weekStart && $0.createdAt < fireDate }.count
+        let units = Units(payment: ledger.payment)
         let miles = ledger.runs
             .filter { $0.endedAt >= weekStart && $0.endedAt < fireDate && $0.endedAt >= ledger.booksOpenedAt }
-            .reduce(0) { $0 + $1.distanceMiles }
+            .reduce(0) { $0 + (ledger.payment.miles(paidBy: $1) ?? 0) }
         let balance = BalanceEngine.report(for: ledger, at: fireDate).balance
 
         let standing: String
         switch balance.state {
-        case .debt: standing = "You're at \(Format.miles(balance.debtMiles)) owed."
+        case .debt: standing = "You're at \(units.amount(balance.debtMiles)) owed."
         case .credit: standing = "You've got \(Format.beersLabel(balance.creditBeers)) banked."
         case .even: standing = "Books are clean."
         }
-        let tally = "\(beers == 1 ? "1 beer" : "\(beers) beers"), \(Format.miles(miles)) run."
+        let tally = "\(beers == 1 ? "1 beer" : "\(beers) beers"), \(units.amount(miles)) \(units.effortPast)."
         let body: String
         if beers == 0 && miles < 0.05 {
             body = "\(tally) Nothing to report. Suspicious."
         } else if beers > 0 && miles < 0.05 {
-            body = "\(tally) The running part is optional, apparently. \(standing)"
+            body = "\(tally) The \(units.isCalories ? "workout" : "running") part is optional, apparently. \(standing)"
         } else {
             body = "\(tally) \(standing)"
         }

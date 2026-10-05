@@ -4,6 +4,8 @@ import WidgetKit
 struct BalanceEntry: TimelineEntry {
     let date: Date
     let report: Report?
+    /// Miles or calories, from the same ledger as the report (spec §28).
+    var units: Units = .miles
 }
 
 /// When the widget's timeline entries land and when WidgetKit should come back
@@ -98,8 +100,8 @@ struct BalanceWidgetView: View {
             VStack(alignment: .leading, spacing: 10) {
                 if let balance, balance.state == .debt {
                     HStack(spacing: 14) {
-                        stat(Format.number(balance.principalMiles), "principal")
-                        stat(Format.number(balance.interestMiles), "interest")
+                        stat(units.number(balance.principalMiles), "principal")
+                        stat(units.number(balance.interestMiles), "interest")
                     }
                 } else if let balance, balance.state == .credit {
                     Text("Credit slowly expires.")
@@ -110,7 +112,7 @@ struct BalanceWidgetView: View {
                         .font(.caption)
                         .foregroundStyle(Theme.cream.opacity(0.7))
                 }
-                Label(runLine, systemImage: "figure.run")
+                Label(runLine, systemImage: units.workoutSymbol)
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(Theme.cream)
             }
@@ -187,7 +189,8 @@ struct BalanceWidgetView: View {
     private var heroNumber: String {
         guard let balance else { return "–" }
         switch balance.state {
-        case .debt: return Format.number(balance.debtMiles)
+        // Calories run to four figures fast; compact keeps the small face legible.
+        case .debt: return units.isCalories ? units.compact(balance.debtMiles) : Format.number(balance.debtMiles)
         case .credit: return Format.beers(balance.creditBeers)
         case .even: return "0"
         }
@@ -196,7 +199,7 @@ struct BalanceWidgetView: View {
     private var heroCaption: String {
         guard let balance else { return "open the app" }
         switch balance.state {
-        case .debt: return "mi owed"
+        case .debt: return "\(units.symbol) owed"
         case .credit: return balance.creditBeers < 1.05 ? "beer banked" : "beers banked"
         case .even: return "BOOKS ARE CLEAN"
         }
@@ -212,7 +215,7 @@ struct BalanceWidgetView: View {
 
     private var circularCaption: String {
         switch balance?.state {
-        case .debt: "mi owed"
+        case .debt: "\(units.symbol) owed"
         case .credit: "banked"
         default: "clean"
         }
@@ -221,7 +224,7 @@ struct BalanceWidgetView: View {
     private var standing: String {
         guard let balance else { return "Open the app" }
         switch balance.state {
-        case .debt: return "\(Format.miles(balance.debtMiles)) owed"
+        case .debt: return "\(units.amount(balance.debtMiles)) owed"
         case .credit: return "\(Format.beersLabel(balance.creditBeers)) banked"
         case .even: return "Books are clean"
         }
@@ -230,6 +233,8 @@ struct BalanceWidgetView: View {
     private var runLine: String {
         guard let report = entry.report else { return "" }
         let miles = report.milesRun(inWeekOf: entry.date)
-        return "\(Format.miles(miles)) \(report.balance.state == .debt ? "paid" : "run") this week"
+        return "\(units.amount(miles)) \(report.balance.state == .debt ? "paid" : units.effortPast) this week"
     }
+
+    private var units: Units { entry.units }
 }

@@ -3,6 +3,7 @@ import SwiftUI
 /// One beer's full statement (spec §12): principal, interest, repaid, age,
 /// status. The date is editable so a forgotten beer can be dated back.
 struct BeerDetailSheet: View {
+    @Environment(\.units) private var units
     @Environment(LedgerStore.self) private var store
     @Environment(\.dismiss) private var dismiss
     let beerID: UUID
@@ -34,18 +35,18 @@ struct BeerDetailSheet: View {
                     }
 
                     Section {
-                        LabeledContent("Cost", value: Format.miles(statement.costMiles, decimals: 2))
+                        LabeledContent("Cost", value: units.amount(statement.costMiles, decimals: 2))
                         if statement.coveredByCreditMiles > BalanceEngine.epsilon {
-                            LabeledContent("Paid from credit", value: Format.miles(statement.coveredByCreditMiles, decimals: 2))
+                            LabeledContent("Paid from credit", value: units.amount(statement.coveredByCreditMiles, decimals: 2))
                         }
-                        LabeledContent("Principal", value: Format.miles(statement.principalMiles, decimals: 2))
-                        LabeledContent("Interest accrued", value: Format.miles(statement.interestAccruedMiles, decimals: 2))
-                        LabeledContent("Repaid by running", value: Format.miles(statement.paidMiles, decimals: 2))
+                        LabeledContent("Principal", value: units.amount(statement.principalMiles, decimals: 2))
+                        LabeledContent("Interest accrued", value: units.amount(statement.interestAccruedMiles, decimals: 2))
+                        LabeledContent(units.isCalories ? "Repaid by workouts" : "Repaid by running", value: units.amount(statement.paidMiles, decimals: 2))
                         if statement.writtenOffMiles > BalanceEngine.epsilon {
-                            LabeledContent("Written off", value: Format.miles(statement.writtenOffMiles, decimals: 2))
+                            LabeledContent("Written off", value: units.amount(statement.writtenOffMiles, decimals: 2))
                         }
                         LabeledContent("Outstanding") {
-                            Text(Format.miles(statement.outstandingMiles, decimals: 2))
+                            Text(units.amount(statement.outstandingMiles, decimals: 2))
                                 .fontWeight(.semibold)
                                 .foregroundStyle(statement.isPaid ? Color.secondary : Theme.debt)
                         }
@@ -92,7 +93,7 @@ struct BeerDetailSheet: View {
                 dismiss()
             }
         } message: {
-            Text("Any run that paid for it goes to your other beers or to credit instead.")
+            Text("Any \(units.workout) that paid for it goes to your other beers or to credit instead.")
         }
         .onAppear {
             if !loaded, let entry {

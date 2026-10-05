@@ -4,6 +4,7 @@ import SwiftUI
 /// line of running context; one line of copy. Nothing else.
 struct HomeView: View {
     @Environment(LedgerStore.self) private var store
+    @Environment(\.units) private var units
     @State private var addedBeer: BeerEntry?
 
     var body: some View {
@@ -79,12 +80,12 @@ struct HomeView: View {
 
                 NavigationLink(value: Route.runs) {
                     HStack(spacing: 12) {
-                        Image(systemName: "figure.run")
+                        Image(systemName: units.workoutSymbol)
                             .font(.title3)
                         VStack(alignment: .leading, spacing: 2) {
-                            Text(Format.miles(report.milesRun(inWeekOf: now)))
+                            Text(units.amount(report.milesRun(inWeekOf: now)))
                                 .font(.headline)
-                            Text(balance.state == .debt ? "paid this week" : "run this week")
+                            Text(balance.state == .debt ? "paid this week" : "\(units.effortPast) this week")
                                 .font(.caption)
                                 .opacity(0.7)
                         }
@@ -125,11 +126,11 @@ struct HomeView: View {
         case .debt:
             balance.interestMiles > 0.05
                 ? "Your tab is getting expensive."
-                : "Your drinking is currently outpacing your running."
+                : "Your drinking is currently outpacing your \(units.isCalories ? "workouts" : "running")."
         case .credit:
             balance.creditBeers >= 2 ? "You've earned a couple." : "You've earned one."
         case .even:
-            "Every beer has a price. Yours is measured in miles."
+            "Every beer has a price. Yours is measured in \(units.word)."
         }
     }
 }
@@ -137,6 +138,7 @@ struct HomeView: View {
 /// The number that dominates the screen, per state (spec §10, §19).
 private struct BalanceHero: View {
     let report: Report
+    @Environment(\.units) private var units
 
     private var balance: Balance { report.balance }
 
@@ -144,12 +146,12 @@ private struct BalanceHero: View {
         switch balance.state {
         case .debt:
             VStack(spacing: 0) {
-                bigNumber(Format.number(balance.debtMiles))
-                Text("mi owed")
+                bigNumber(units.number(balance.debtMiles))
+                Text("\(units.symbol) owed")
                     .font(.title2.weight(.semibold))
                     .foregroundStyle(Theme.cream.opacity(0.85))
                 HStack(spacing: 0) {
-                    stat(Format.number(balance.principalMiles), "principal")
+                    stat(units.number(balance.principalMiles), "principal")
                     Rectangle()
                         .fill(Theme.cream.opacity(0.25))
                         .frame(width: 1, height: 36)
