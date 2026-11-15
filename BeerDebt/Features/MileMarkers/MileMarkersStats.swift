@@ -137,12 +137,14 @@ struct MileMarkersReport: Equatable, Sendable {
         let kind: Kind
         var id: Date { date }
 
-        var title: String {
+        var title: String { title(units: .miles) }
+
+        func title(units: Units) -> String {
             switch kind {
             case .bigDay(let beers): "Big one: +\(beers) beers"
             case .streakStarted(let days): "\(days) day streak started"
             case .restDay: "Rest day — freeze spent"
-            case .lowPoint(let miles): miles < 0.05 ? "Lowest tab of the range" : "Lowest tab: \(Format.miles(miles))"
+            case .lowPoint(let miles): miles < 0.05 ? "Lowest tab of the range" : "Lowest tab: \(units.amount(miles))"
             case .clean: "Books went clean"
             }
         }
@@ -236,7 +238,7 @@ enum MileMarkersStats {
             let beers = i == 0 ? [] : beersInRange.filter { inBucket($0.createdAt) }
             let runs = i == 0 ? [] : runsInRange.filter { inBucket($0.run.endedAt) }
             cumulativeBeerMiles += beers.reduce(0) { $0 + $1.costMiles }
-            cumulativeRunMiles += runs.reduce(0) { $0 + $1.run.distanceMiles }
+            cumulativeRunMiles += runs.reduce(0) { $0 + $1.paidMiles }
             let balance = balances[i]
             points.append(MileMarkersReport.Point(
                 date: instant,
@@ -245,7 +247,7 @@ enum MileMarkersStats {
                 interestMiles: balance.interestMiles,
                 creditMiles: balance.creditMiles,
                 beers: beers.count,
-                runMiles: runs.reduce(0) { $0 + $1.run.distanceMiles },
+                runMiles: runs.reduce(0) { $0 + $1.paidMiles },
                 cumulativeBeerMiles: cumulativeBeerMiles,
                 cumulativeRunMiles: cumulativeRunMiles
             ))
@@ -275,7 +277,7 @@ enum MileMarkersStats {
             events: events(points: points, days: days, beers: beersInRange, streak: final.streak, calendar: calendar),
             beersAdded: beersInRange.count,
             runCount: runsInRange.count,
-            milesRun: runsInRange.reduce(0) { $0 + $1.run.distanceMiles },
+            milesRun: runsInRange.reduce(0) { $0 + $1.paidMiles },
             interestChargedMiles: charged,
             interestWaivedMiles: waived,
             debtChangeMiles: (balances.last?.debtMiles ?? 0) - (balances.first?.debtMiles ?? 0),
@@ -291,7 +293,7 @@ enum MileMarkersStats {
             longestDrySpellDays: longestDrySpell(beers: beersInRange, from: start, to: end, calendar: calendar),
             biggestDayBeers: big?.count ?? 0,
             biggestDay: big?.day,
-            longestRun: runsInRange.max { $0.run.distanceMiles < $1.run.distanceMiles }
+            longestRun: runsInRange.max { $0.paidMiles < $1.paidMiles }
         )
     }
 

@@ -2,6 +2,7 @@ import SwiftUI
 
 /// Shown once when a synced run clears the tab (spec §19, concept art screen 6).
 struct DebtFreeSheet: View {
+    @Environment(\.units) private var units
     @Environment(\.dismiss) private var dismiss
     let celebration: DebtFreeCelebration
 
@@ -27,7 +28,7 @@ struct DebtFreeSheet: View {
                 HStack(spacing: 0) {
                     stat("\(celebration.totalBeers)", "total beers")
                     divider
-                    stat(Format.number(celebration.milesRepaid), "miles repaid")
+                    stat(units.number(celebration.milesRepaid), "\(units.word) repaid")
                     divider
                     stat(Format.beers(celebration.creditBeers), "beers banked")
                 }

@@ -3,6 +3,7 @@ import SwiftUI
 /// Tune the rules (spec §13). Every change is recorded as a forward-only
 /// rules event; nothing historical is recalculated.
 struct SettingsView: View {
+    @Environment(\.units) private var units
     @Environment(LedgerStore.self) private var store
     @Environment(HealthSync.self) private var sync
     @State private var draft = Rules.default
@@ -13,6 +14,7 @@ struct SettingsView: View {
     @State private var filing: BankruptcySheet.Filing?
 
     private static let milesPresets: [Double] = [0.5, 1, 1.5, 2, 3, 5]
+    private static let caloriePresets: [Double] = [80, 100, 120, 150]
     private static let ratePresets: [Double] = [0, 0.05, 0.10, 0.15, 0.20, 0.25]
     private static let gracePresets: [TimeInterval] = [0, 12 * 3_600, 24 * 3_600, 48 * 3_600, 7 * 86_400]
     private static let decayPresets: [Double] = [0, 0.05, 0.10, 0.20, 0.25]
@@ -20,9 +22,45 @@ struct SettingsView: View {
     var body: some View {
         Form {
             Section {
-                Picker("Miles per Beer", selection: $draft.milesPerBeer) {
+                Picker("Pay With", selection: Binding(
+                    get: { store.ledger.paymentMode },
+                    set: { mode in
+                        var payment = store.ledger.payment
+                        payment.mode = mode
+                        Task { await sync.updatePayment(payment) }
+                    }
+                )) {
+                    Text("Runs").tag(PaymentMode.runs)
+                    Text("Calories").tag(PaymentMode.calories)
+                }
+                .pickerStyle(.segmented)
+                if units.isCalories {
+                    Picker("Calories per Mile", selection: Binding(
+                        get: { store.ledger.caloriesPerMile },
+                        set: { rate in
+                            var payment = store.ledger.payment
+                            payment.caloriesPerMile = rate
+                            Task { await sync.updatePayment(payment) }
+                        }
+                    )) {
+                        ForEach(options(Self.caloriePresets, including: store.ledger.caloriesPerMile), id: \.self) {
+                            Text("\(Format.number($0, decimals: 0)) kcal").tag($0)
+                        }
+                    }
+                }
+            } header: {
+                Text("Pay With")
+            } footer: {
+                Text(units.isCalories
+                    ? "Every workout counts. A run pays its distance; anything else pays the active calories it burned, at \(Format.number(store.ledger.caloriesPerMile, decimals: 0)) kcal a mile. Switching re-reads your whole history, and switching back loses nothing."
+                    : "Only running workouts count, by distance. Switch to calories to let rides, swims and lifts pay too. Switching re-reads your whole history, and switching back loses nothing.")
+            }
+            .listRowBackground(Theme.card)
+
+            Section {
+                Picker(units.isCalories ? "Calories per Beer" : "Miles per Beer", selection: $draft.milesPerBeer) {
                     ForEach(options(Self.milesPresets, including: draft.milesPerBeer), id: \.self) {
-                        Text(Format.miles($0)).tag($0)
+                        Text(units.amount($0)).tag($0)
                     }
                 }
                 Picker("Interest Rate", selection: $draft.interestRate) {
@@ -74,7 +112,7 @@ struct SettingsView: View {
                     if let last = sync.lastSyncAt {
                         LabeledContent("Last sync", value: Format.dateTime(last))
                     }
-                    Toggle("Notify me when a run lands", isOn: Binding(
+                    Toggle("Notify me when a \(units.workout) lands", isOn: Binding(
                         get: { sync.runNotificationsEnabled },
                         set: { on in
                             Task {
@@ -106,7 +144,9 @@ struct SettingsView: View {
             } header: {
                 Text("Health & Data")
             } footer: {
-                Text("Only running workouts count toward your balance. Runs sync when you open the app and, once connected, in the background when a workout is saved. If runs aren't showing up, check Settings › Health › Data Access & Devices › Beer Debt.")
+                Text(units.isCalories
+                    ? "Every workout counts toward your balance, by calories burned. Workouts sync when you open the app and, once connected, in the background when one is saved. If calories aren't showing up, allow Workouts and Active Energy in Settings › Health › Data Access & Devices › Beer Debt."
+                    : "Only running workouts count toward your balance. Runs sync when you open the app and, once connected, in the background when a workout is saved. If runs aren't showing up, check Settings › Health › Data Access & Devices › Beer Debt.")
             }
             .listRowBackground(Theme.card)
 
@@ -145,7 +185,7 @@ struct SettingsView: View {
             } header: {
                 Text("Weekly Summary")
             } footer: {
-                Text("A once-a-week recap: beers, miles, and where your tab stands.")
+                Text("A once-a-week recap: beers, \(units.word), and where your tab stands.")
             }
             .listRowBackground(Theme.card)
 
@@ -160,7 +200,7 @@ struct SettingsView: View {
             } header: {
                 Text("About")
             } footer: {
-                Text("Runs that ended before the books opened don't count. Tap the date to open the books earlier and pull those runs in from Apple Health.")
+                Text("\(units.workoutsTitle) that ended before the books opened don't count. Tap the date to open the books earlier and pull those \(units.workout)s in from Apple Health.")
             }
             .listRowBackground(Theme.card)
 
@@ -174,7 +214,7 @@ struct SettingsView: View {
             } header: {
                 Text("Fresh Start")
             } footer: {
-                Text("Tab got away from you? Write the whole thing off and open clean books. Your rules carry over; the beers, runs, and streak don't.")
+                Text("Tab got away from you? Write the whole thing off and open clean books. Your rules carry over; the beers, \(units.workout)s, and streak don't.")
             }
             .listRowBackground(Theme.card)
         }
@@ -237,6 +277,7 @@ struct SettingsView: View {
 /// Pick an earlier opening for the books (Settings › About). Earlier only,
 /// at most a year back; the sync re-reads Health afterwards.
 private struct ReopenBooksSheet: View {
+    @Environment(\.units) private var units
     @Environment(\.dismiss) private var dismiss
     let current: Date
     let onPick: (Date) -> Void
@@ -256,7 +297,7 @@ private struct ReopenBooksSheet: View {
                                in: Date.now.addingTimeInterval(-LedgerStore.reopeningWindow)...current)
                         .datePickerStyle(.graphical)
                 } footer: {
-                    Text("Runs from Apple Health that ended after this instant count. Beers already on the tab and interest already posted stay as they are.")
+                    Text("\(units.workoutsTitle) from Apple Health that ended after this instant count. Beers already on the tab and interest already posted stay as they are.")
                 }
                 .listRowBackground(Theme.card)
             }

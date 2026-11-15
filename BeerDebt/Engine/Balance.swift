@@ -74,6 +74,11 @@ struct RunStatement: Identifiable, Equatable, Sendable {
     let streakDayNumber: Int?
 
     var id: UUID { run.id }
+
+    /// Everything the workout was worth in miles: debt paid, credit earned,
+    /// and whatever the cap discarded. For a run, its distance; for anything
+    /// else in calorie mode, its calories at the rate (spec §28).
+    var paidMiles: Double { debtPaidMiles + creditEarnedMiles + discardedMiles }
 }
 
 /// Everything the UI needs for one instant.

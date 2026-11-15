@@ -13,10 +13,11 @@ import SwiftUI
 struct InterestRateStat: View {
     let report: Report
     var alignment: Alignment = .center
+    @Environment(\.units) private var units
 
     private var paused: Bool { report.streak.todayProtected }
     private var on: Bool { report.rules.interestEnabled }
-    private var value: String { Format.number(report.balance.interestPerPeriodMiles, decimals: 2) }
+    private var value: String { units.number(report.balance.interestPerPeriodMiles, decimals: 2) }
     private var label: String { on ? report.rules.interestPeriod.perLabel : "interest off" }
 
     var body: some View {
@@ -40,7 +41,7 @@ struct InterestRateStat: View {
 
     private var spoken: String {
         guard on else { return "Interest is off" }
-        let amount = "\(value) miles \(label) in interest"
+        let amount = "\(value) \(units.word) \(label) in interest"
         return paused ? "\(amount), paused by your streak today" : amount
     }
 }

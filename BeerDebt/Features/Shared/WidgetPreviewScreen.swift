@@ -8,7 +8,7 @@ struct WidgetPreviewScreen: View {
     @Environment(LedgerStore.self) private var store
 
     var body: some View {
-        let entry = BalanceEntry(date: .now, report: store.report())
+        let entry = BalanceEntry(date: .now, report: store.report(), units: Units(payment: store.ledger.payment))
         ScrollView {
             VStack(spacing: 24) {
                 widgetFrame(width: 170, height: 170) {

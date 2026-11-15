@@ -12,6 +12,7 @@ import SwiftUI
 /// flat line followed by a wall: literally true, and useless for seeing when
 /// things turned.
 struct PositionChart: View {
+    @Environment(\.units) private var units
     let points: [MileMarkersReport.Point]
     /// Protected stretches and frozen days, washed in behind the curve. Faint
     /// on purpose: this is the answer to "why did it flatten here?", not a
@@ -113,7 +114,7 @@ struct PositionChart: View {
                 AxisGridLine().foregroundStyle(Theme.cream.opacity(0.12))
                 AxisValueLabel {
                     if let miles = value.as(Double.self) {
-                        Text(Format.compact(miles))
+                        Text(units.compact(miles))
                     }
                 }
                 .font(.caption2)
@@ -199,6 +200,7 @@ struct FlowChart: View {
 /// Are you outpacing it? Two cumulative lines: miles the beers put on the tab,
 /// and miles actually run. The gap between them is the whole app.
 struct OutpacingChart: View {
+    @Environment(\.units) private var units
     let points: [MileMarkersReport.Point]
 
     var body: some View {
@@ -206,7 +208,7 @@ struct OutpacingChart: View {
             ForEach(points) { point in
                 LineMark(
                     x: .value("Date", point.date),
-                    y: .value("Miles", point.cumulativeBeerMiles),
+                    y: .value("Amount", units.value(point.cumulativeBeerMiles)),
                     series: .value("Series", "Owed")
                 )
                 .foregroundStyle(Theme.caution)
@@ -215,7 +217,7 @@ struct OutpacingChart: View {
             ForEach(points) { point in
                 LineMark(
                     x: .value("Date", point.date),
-                    y: .value("Miles", point.cumulativeRunMiles),
+                    y: .value("Amount", units.value(point.cumulativeRunMiles)),
                     series: .value("Series", "Run")
                 )
                 .foregroundStyle(Theme.credit)

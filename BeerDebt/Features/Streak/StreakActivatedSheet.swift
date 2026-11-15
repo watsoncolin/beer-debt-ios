@@ -4,6 +4,7 @@ import SwiftUI
 /// streak earns its 0% rate (spec §25). Pairs with `DebtFreeSheet`.
 struct StreakActivatedSheet: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.units) private var units
     let celebration: StreakCelebration
 
     var body: some View {
@@ -29,7 +30,7 @@ struct StreakActivatedSheet: View {
                     .font(.title3.weight(.semibold))
                     .foregroundStyle(Theme.cream)
 
-                Text("Your debt interest is now paused. Keep running 1+ mile a day to keep it that way.")
+                Text("Your debt interest is now paused. \(units.keepGoing) a day to keep it that way.")
                     .font(.subheadline)
                     .foregroundStyle(Theme.cream.opacity(0.8))
                     .multilineTextAlignment(.center)

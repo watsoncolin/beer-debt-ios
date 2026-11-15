@@ -4,6 +4,7 @@ import SwiftUI
 /// the records, and the rule in plain words.
 struct StreakView: View {
     @Environment(LedgerStore.self) private var store
+    @Environment(\.units) private var units
 
     var body: some View {
         let now = Date.now
@@ -18,14 +19,14 @@ struct StreakView: View {
                             Text(streak.currentStreakDays == 1 ? "1 day" : "\(streak.currentStreakDays) days")
                                 .font(.system(size: 40, weight: .heavy, design: .rounded))
                                 .foregroundStyle(Theme.cream)
-                            Text(streak.todayFrozen ? StreakCopy.restDayStanding(streak) : StreakCopy.standing(streak))
+                            Text(streak.todayFrozen ? StreakCopy.restDayStanding(streak) : StreakCopy.standing(streak, units: units))
                                 .font(.subheadline.weight(.semibold))
                                 .foregroundStyle(streak.todayFrozen ? Theme.frost
                                     : (streak.interestProtectionActive ? Theme.gold : Theme.cream.opacity(0.7)))
                         }
                         Spacer()
                     }
-                    Text(StreakCopy.detail(streak))
+                    Text(StreakCopy.detail(streak, units: units))
                         .font(.footnote)
                         .foregroundStyle(Theme.cream.opacity(0.7))
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -54,10 +55,12 @@ struct StreakView: View {
 
             Section("How it works") {
                 VStack(alignment: .leading, spacing: 8) {
-                    rule("Run at least 1.0 mile of verified running each day. Two short runs add up.")
+                    rule(units.isCalories
+                        ? "\(units.dailyGoal) in workouts each day. A run counts its distance; anything else counts what it burned. Two short workouts add up."
+                        : "Run at least 1.0 mile of verified running each day. Two short runs add up.")
                     rule("After two days in a row, interest on your beer debt pauses.")
-                    rule("Keep running daily to keep your 0% rate. Miss a day and the streak ends.")
-                    rule("Every \(StreakEngine.daysPerFreeze) running days earn one streak freeze: a rest day that keeps your streak and your 0% rate. It adds no miles and pays nothing off.")
+                    rule("Keep \(units.isCalories ? "working out" : "running") daily to keep your 0% rate. Miss a day and the streak ends.")
+                    rule("Every \(StreakEngine.daysPerFreeze) \(units.activeDay)s earn one streak freeze: a rest day that keeps your streak and your 0% rate. It adds no \(units.word) and pays nothing off.")
                     rule("Your streak never reduces what you already owe.")
                 }
                 .padding(.vertical, 4)

@@ -9,6 +9,7 @@ import SwiftUI
 /// day has already been missed.
 struct FreezeSection: View {
     @Environment(LedgerStore.self) private var store
+    @Environment(\.units) private var units
     let report: Report
     let now: Date
 
@@ -30,7 +31,7 @@ struct FreezeSection: View {
                     body: StreakCopy.repairOfferBody(streak, formattedDay: Format.dayPhrase(day, now: now, calendar: streak.calendar)),
                     button: StreakCopy.repairOfferButton
                 ) { store.applyFreeze(on: day, now: now) }
-            } else if let progress = StreakCopy.freezeProgress(streak) {
+            } else if let progress = StreakCopy.freezeProgress(streak, units: units) {
                 Text(progress)
                     .font(.footnote)
                     .foregroundStyle(Theme.cream.opacity(0.7))

@@ -3,8 +3,13 @@ import SwiftUI
 /// Minimal first-run flow (spec §20): explain the one permission, ask for it,
 /// and handle "not now" gracefully. The app still works without Health; the
 /// beers just never get paid.
+///
+/// What pays the tab is chosen here, before the permission ask (spec §28), so
+/// the system sheet asks for exactly what the chosen mode reads the first time.
 struct HealthOnboardingView: View {
     @Environment(HealthSync.self) private var sync
+    @Environment(LedgerStore.self) private var store
+    @Environment(\.units) private var units
     @State private var connecting = false
     var onDone: () -> Void
 
@@ -30,8 +35,21 @@ struct HealthOnboardingView: View {
                 Spacer()
 
                 VStack(alignment: .leading, spacing: 16) {
-                    rule("mug.fill", "Every beer costs a mile.", "Tap + Beer and it goes on your tab.")
-                    rule("figure.run", "Runs pay the tab.", "Apple Health hands over your runs. Only running counts. We'll ping you when one lands.")
+                    rule("mug.fill", units.isCalories ? "Every beer costs \(units.amount(1))." : "Every beer costs a mile.", "Tap + Beer and it goes on your tab.")
+                    if units.isCalories {
+                        rule(units.workoutSymbol, "Workouts pay the tab.", "Apple Health hands over every workout. A run pays its distance; anything else, what it burned. We'll ping you when one lands.")
+                    } else {
+                        rule("figure.run", "Runs pay the tab.", "Apple Health hands over your runs. Only running counts. We'll ping you when one lands.")
+                    }
+                    Picker("Pay with", selection: Binding(
+                        get: { store.ledger.paymentMode },
+                        // Not connected yet: nothing to re-read, so the store alone.
+                        set: { store.updatePayment(PaymentBasis(mode: $0, caloriesPerMile: store.ledger.caloriesPerMile)) }
+                    )) {
+                        Text("Pay with runs").tag(PaymentMode.runs)
+                        Text("Pay with calories").tag(PaymentMode.calories)
+                    }
+                    .pickerStyle(.segmented)
                     rule("percent", "Ignore it and it grows.", "Interest starts after 24 hours. The rules are yours to tune.")
                 }
                 .padding(20)

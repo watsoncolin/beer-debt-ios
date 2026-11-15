@@ -137,6 +137,8 @@ This is intentional: the app should keep the user honest.
 
 Only actual running workouts should count. Do not use general walking/running distance because normal daily walking should not accidentally repay beer debt.
 
+(Calorie mode, §28, lets every workout pay by calories burned. Runs remain the default. Passive activity, like step counts and all-day energy, never pays in either mode.)
+
 For each imported workout store enough information to prevent the same HealthKit workout from being applied twice.
 
 Example:
@@ -484,6 +486,10 @@ Keep this secondary to the main balance.
 
 MVP settings:
 
+### Pay With
+
+Runs (default) or Calories. See §28.
+
 ### Miles per Beer
 
 Default:
@@ -540,7 +546,8 @@ Display connection/authorization state.
 
 Explain:
 
-**Only running workouts count toward your balance.**
+**Only running workouts count toward your balance.** (In calorie mode:
+**Every workout counts, by calories burned.**, §28.)
 
 ---
 
@@ -554,7 +561,8 @@ Do not request unnecessary health permissions.
 
 Important requirements:
 
-- Count running workouts only.
+- Count running workouts only (in runs mode; calorie mode, §28, reads every
+  workout type plus active energy, and asks for it only when chosen).
 - Capture HealthKit workout identifiers to prevent duplicate processing.
 - Handle HealthKit authorization denial gracefully.
 - Sync newly available workouts when the app becomes active.
@@ -1072,3 +1080,106 @@ linear axis on an exponential tab is a flat line followed by a wall.
 **Copy.** "The Tab", "on the tab", "books are clean", "Keeping Up?", "Run 4.2
 mi more than you drank", "Interest put 1.2k mi on top of that", "Your streak
 waived 340 mi of interest", "Priciest beer", "Longest dry spell".
+
+---
+
+# 28. Calorie Mode
+
+Added 2026-10-04. Runs stay the default. A user who also rides, swims or lifts
+can switch the books to **calories**, in Settings or during onboarding, and
+any workout in Apple Health then pays down the tab. Switching back is always
+possible and loses nothing.
+
+### The two modes
+
+- **Runs** (default). Exactly today's behaviour: only running workouts pay,
+  by distance.
+- **Calories.** Every workout type pays. A **run** still pays by distance,
+  converted at the calorie rate, so a mile is worth the same in either mode.
+  Any **other workout** pays its **active** energy (`activeEnergyBurned`),
+  converted back at the same rate. Total energy is never used, because it
+  includes resting burn and would pay the user for being alive. A non-run
+  workout with no energy recorded pays nothing, and its card says so.
+
+### One unit underneath
+
+The engine keeps working in miles. Calorie mode is a conversion at the edges:
+
+- **Calories per mile** — the rate. Default **100 kcal**, about what a mile of
+  running burns, so a 1-mile run pays one beer in either mode and switching
+  modes is not a hidden change of price. User-adjustable.
+- A non-run workout pays `activeKcal ÷ caloriesPerMile` miles.
+- Every amount is displayed as `miles × caloriesPerMile` kcal: the balance,
+  interest, credit, beer prices, run payments, streak thresholds.
+
+### Switching reinterprets the whole history
+
+The mode and the rate are settings on the ledger, not rules changes (§13,
+decisions §B.10). The entire ledger is replayed under whichever mode is in
+force now:
+
+- In calorie mode, every workout since the books opened pays, including ones
+  from before the switch. Back in runs mode, only runs pay again. The balance,
+  posted interest, streak days and freezes all follow.
+- A day carried by a bike ride counts toward the streak in calorie mode. A
+  freeze spent on a day that now qualifies goes back into inventory, as it
+  does when a late run lands (§25.1).
+- Changing calories per mile rescales what every non-run workout paid. Runs
+  are unaffected.
+- Toggling is not an event and earns nothing on its own: no debt-free
+  celebration, no notification. If the switch clears the tab, Home simply
+  shows the clean books.
+
+### Health
+
+- Calorie mode needs permission to read all workout types and active energy.
+  It is asked for when the user picks calories, not before, so a runs-only
+  user never sees the wider request.
+- Picking calories re-reads Health from the day the books opened, so the
+  user's earlier rides count straight away. Re-reading is safe: workouts are
+  deduplicated by their Health ID (§14).
+- If the user declines the energy permission, the switch still happens but
+  only runs pay, and the Apple Health row says why.
+- In runs mode, non-running workouts are never imported. Ones imported while
+  in calorie mode stay on disk and are ignored.
+- Deleting a workout, in Health or in the app, and declaring bankruptcy (§26)
+  apply to every workout type, not just runs.
+- A workout recorded by two sources (Watch + a third-party app) is counted
+  twice, as runs already are (decisions §C). More likely now; still out of
+  scope.
+
+### Display
+
+- Calories are whole numbers ("345 kcal"), never decimals. Interest on a
+  1-beer debt reads "+10 kcal a day".
+- Calorie balances are about 100× the mile figure, so compact formatting
+  ("12.4k kcal") kicks in much sooner. Home's hero number, stat tiles and
+  every widget face must fit a four-figure calorie number at full size.
+- Wherever copy says "run", calorie mode says "work out" or "burn": "Burn it
+  off", "Workouts" for the Runs screen, "Your ride paid 120 kcal" in
+  notifications, "Burn 100 kcal today" on the streak card. The finance tone
+  stays.
+- Mile Markers reads in calories: "Calories burned" for miles run, "Biggest
+  burn" for longest run. Pace is hidden. The screen keeps its name.
+- Workout cards show the activity's own SF Symbol and name.
+
+### Settings
+
+- **Pay with** — Runs / Calories, a segmented control at the top of the rules.
+- **Calories per Mile** — shown only in calorie mode. Presets 80 / 100 / 120 /
+  150 plus custom.
+- **Miles per Beer** reads as **Calories per Beer** in calorie mode
+  ("1 beer = 100 kcal"). It still edits `milesPerBeer` (forward-only, as
+  today); the presets are the mile presets times the rate.
+- **Apple Health** explains whichever mode is in force: "Only running
+  workouts count" or "Every workout counts, by calories burned".
+
+### Onboarding
+
+The same Runs / Calories choice appears before the Health permission step, so
+the user is asked for the right permissions the first time. Runs is
+preselected.
+
+**Copy.** "Pay with", "Runs", "Calories", "Every workout counts, by calories
+burned.", "A mile of running is worth 100 kcal.", "Burn it off", "kcal owed",
+"Books are clean."

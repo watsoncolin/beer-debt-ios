@@ -36,7 +36,18 @@ final class HealthSync {
     private let defaults: UserDefaults
 
     private static let connectedKey = "health.connected"
-    private static let anchorKey = "health.anchor"
+    /// One anchor per payment mode, because each reads a different slice of
+    /// Health: switching to calories starts that mode's read from scratch
+    /// (picking up every earlier ride) without touching where runs mode
+    /// stood, and a sync already in flight when the mode flips can only
+    /// advance the anchor of the mode it started in. Runs keeps the original
+    /// key, so an upgrade carries on where it was.
+    private static func anchorKey(for mode: PaymentMode) -> String {
+        switch mode {
+        case .runs: "health.anchor"
+        case .calories: "health.anchor.calories"
+        }
+    }
     /// Bump when the way workouts are read changes; the next sync starts
     /// from scratch so workouts an older build skipped are picked up. The
     /// store dedups on workout id, so a full re-read is harmless.
@@ -58,6 +69,12 @@ final class HealthSync {
     /// True while the app is in the foreground; syncs then update the UI
     /// directly instead of notifying.
     var isAppActive = false
+    /// A sync was asked for while one was running; run again when it ends.
+    private var syncRequested = false
+    /// The next completed sync is the re-read after a mode switch. What it
+    /// imports was always there, so it celebrates and notifies nothing
+    /// (spec §28: a toggle is not an event).
+    private var quietUntilSynced = false
     var celebration: DebtFreeCelebration?
     var streakCelebration: StreakCelebration?
     var freezeEarned: FreezeEarnedCelebration?
@@ -82,7 +99,7 @@ final class HealthSync {
             return
         }
         do {
-            try await health.requestAuthorization()
+            try await health.requestAuthorization(for: store.ledger.paymentMode)
             isConnected = true
             defaults.set(true, forKey: Self.connectedKey)
             startBackgroundObserving()
@@ -97,7 +114,8 @@ final class HealthSync {
     }
 
     /// Call at every launch. Registers for background delivery and starts the
-    /// observer that triggers a sync whenever running workouts change.
+    /// observer that triggers a sync whenever the workouts the payment mode
+    /// reads change.
     func startBackgroundObserving() {
         guard isConnected, isAvailable else { return }
         Task { [health] in
@@ -109,7 +127,7 @@ final class HealthSync {
                 // A locked phone or missing permission: nothing to fix here.
             }
         }
-        health.startObservingWorkouts { [weak self] in
+        health.startObservingWorkouts(for: store.ledger.paymentMode) { [weak self] in
             await self?.sync()
         }
     }
@@ -166,22 +184,74 @@ final class HealthSync {
     /// id, so nothing already imported doubles up).
     func reopenBooks(at date: Date) async {
         guard store.reopenBooks(at: date) else { return }
-        defaults.removeObject(forKey: Self.anchorKey)
+        dropAnchors()
         await syncIfConnected()
     }
 
+    /// Switches what pays the tab (spec §28) and replays the books under it.
+    ///
+    /// Choosing calories asks for the wider Health permission first, then
+    /// re-reads Health from scratch through that mode's own anchor so every
+    /// workout since the books opened counts. Declining the permission still
+    /// switches the mode: workouts come in without calories and pay nothing,
+    /// and the Apple Health row says why. Switching back to runs needs no
+    /// re-read; the rides stay on disk and the engine ignores them. A rate
+    /// change alone is a replay and touches nothing in Health.
+    func updatePayment(_ payment: PaymentBasis) async {
+        let switching = payment.mode != store.ledger.paymentMode
+        store.updatePayment(payment)
+        guard switching, isConnected, isAvailable else { return }
+        if payment.mode == .calories {
+            do {
+                try await health.requestAuthorization(for: .calories)
+            } catch {
+                let failure = HealthFailure(error)
+                lastError = failure.message(or: error.localizedDescription)
+                if failure.isReportable {
+                    Telemetry.report(error, context: "health", ["op": "authorizeCalories"])
+                }
+            }
+        }
+        startBackgroundObserving()
+        quietUntilSynced = true
+        await sync()
+    }
+
+    private func dropAnchors() {
+        for mode in PaymentMode.allCases {
+            defaults.removeObject(forKey: Self.anchorKey(for: mode))
+        }
+    }
+
     /// Reads what changed in Health since the last anchor and applies it.
+    /// Asked for while one is running, it runs again once that one ends, so a
+    /// mode switch mid-sync still gets its re-read.
     func sync() async {
-        guard isConnected, !isSyncing else { return }
+        guard isConnected else { return }
+        guard !isSyncing else {
+            syncRequested = true
+            return
+        }
         isSyncing = true
         defer { isSyncing = false }
+        repeat {
+            syncRequested = false
+            await syncOnce()
+        } while syncRequested
+    }
 
+    private func syncOnce() async {
+        // Captured once: a mode switch mid-read can only move the anchor of
+        // the mode the read started in.
+        let mode = store.ledger.paymentMode
+        let anchorKey = Self.anchorKey(for: mode)
+        let quiet = quietUntilSynced
         do {
             if defaults.integer(forKey: Self.importVersionKey) < Self.importVersion {
-                defaults.removeObject(forKey: Self.anchorKey)
+                dropAnchors()
                 defaults.set(Self.importVersion, forKey: Self.importVersionKey)
             }
-            let result = try await health.fetchRunningWorkouts(anchor: defaults.data(forKey: Self.anchorKey))
+            let result = try await health.fetchWorkouts(for: mode, anchor: defaults.data(forKey: anchorKey))
             let before = store.report()
             let eligible = result.runs.filter { $0.endedAt >= store.ledger.booksOpenedAt }
             let added = store.importRuns(eligible)
@@ -199,9 +269,10 @@ final class HealthSync {
                 lastError = "Couldn't write the books to this phone. Your runs are safe in Health and will be read again next sync."
                 return
             }
-            defaults.set(result.anchor, forKey: Self.anchorKey)
+            defaults.set(result.anchor, forKey: anchorKey)
             lastSyncAt = .now
             lastError = nil
+            if quiet, mode == store.ledger.paymentMode { quietUntilSynced = false }
             // Even when nothing changed. A reload asked for on a background
             // wake can be dropped, and the sync that would ask again imports
             // nothing the second time, so it never saves; this is what
@@ -211,6 +282,7 @@ final class HealthSync {
             guard !added.isEmpty || removed > 0 else { return }
             let after = store.report()
             await weekly.reschedule(ledger: store.ledger)
+            guard !quiet else { return }
 
             if !added.isEmpty, before.balance.state == .debt, after.balance.state != .debt {
                 let party = DebtFreeCelebration(
@@ -262,7 +334,8 @@ final class HealthSync {
                     beersPaidOff: max(0, paidAfter - paidBefore),
                     streakDays: after.streak.currentStreakDays,
                     streakDay: added.contains { after.streak.qualifies(on: $0.endedAt) },
-                    streakActivated: streakActivated
+                    streakActivated: streakActivated,
+                    units: Units(payment: store.ledger.payment)
                 )
                 if let message = RunNotifier.message(for: change) {
                     await notifier.post(message)
@@ -273,7 +346,7 @@ final class HealthSync {
             lastError = failure.message(or: error.localizedDescription)
             if failure.isReportable {
                 Telemetry.report(error, context: "health", [
-                    "op": "sync", "hadAnchor": defaults.data(forKey: Self.anchorKey) != nil,
+                    "op": "sync", "mode": mode.rawValue, "hadAnchor": defaults.data(forKey: anchorKey) != nil,
                 ])
             }
         }

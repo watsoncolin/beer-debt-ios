@@ -3,6 +3,7 @@ import SwiftUI
 /// Your Debt (concept art screen 3): active beers with what they cost now,
 /// paid beers below. Tap for the statement; swipe to take one off the books.
 struct DebtView: View {
+    @Environment(\.units) private var units
     enum Filter: String, CaseIterable, Identifiable {
         case active = "Active"
         case paid = "Paid"
@@ -48,7 +49,7 @@ struct DebtView: View {
 
             Section {
                 if shown.isEmpty {
-                    Text(filter == .active ? "Nothing owed. Books are clean." : "No beers paid off yet. Go for a run.")
+                    Text(filter == .active ? "Nothing owed. Books are clean." : "No beers paid off yet. \(units.isCalories ? "Go work out." : "Go for a run.")")
                         .foregroundStyle(Theme.cream.opacity(0.7))
                         .cardRow()
                 } else {
@@ -68,7 +69,7 @@ struct DebtView: View {
             }
 
             if filter == .active, !active.isEmpty {
-                Label("Runs are applied to your oldest beers first.", systemImage: "info.circle")
+                Label("\(units.workoutsTitle) are applied to your oldest beers first.", systemImage: "info.circle")
                     .font(.footnote)
                     .foregroundStyle(Theme.cream.opacity(0.6))
                     .listRowBackground(Color.clear)
@@ -94,7 +95,7 @@ struct DebtView: View {
                 store.removeBeer(id: statement.id)
             }
         } message: { _ in
-            Text("Any run that paid for it goes to your other beers or to credit instead.")
+            Text("Any \(units.workout) that paid for it goes to your other beers or to credit instead.")
         }
         .onAppear {
             #if DEBUG
@@ -108,6 +109,7 @@ struct DebtView: View {
 /// the Home hero; Home now leads with what a period of the tab costs, and the
 /// standing figures belong here, next to the beers they came from.
 private struct TotalsPanel: View {
+    @Environment(\.units) private var units
     let report: Report
 
     private var balance: Balance { report.balance }
@@ -135,7 +137,7 @@ private struct TotalsPanel: View {
         switch balance.state {
         case .debt:
             caption("TOTAL OWED")
-            bigNumber(Format.miles(balance.debtMiles, decimals: 2), color: Theme.debt)
+            bigNumber(units.amount(balance.debtMiles, decimals: 2), color: Theme.debt)
         case .credit:
             caption("BANKED")
             bigNumber(Format.beersLabel(balance.creditBeers), color: Theme.creditSoft)
@@ -152,12 +154,12 @@ private struct TotalsPanel: View {
         HStack(alignment: .top, spacing: 0) {
             switch balance.state {
             case .debt:
-                stat(Format.number(balance.principalMiles, decimals: 2), "principal")
-                stat(Format.number(balance.interestMiles, decimals: 2), "interest so far")
+                stat(units.number(balance.principalMiles, decimals: 2), "principal")
+                stat(units.number(balance.interestMiles, decimals: 2), "interest so far")
                 InterestRateStat(report: report, alignment: .leading)
             case .credit, .even:
-                stat(Format.number(balance.creditMiles, decimals: 2), "miles banked")
-                stat(Format.number(report.creditExpiringThisWeekMiles, decimals: 2), "expires this week")
+                stat(units.number(balance.creditMiles, decimals: 2), "\(units.word) banked")
+                stat(units.number(report.creditExpiringThisWeekMiles, decimals: 2), "expires this week")
                 Spacer(minLength: 0).frame(maxWidth: .infinity)
             }
         }
@@ -192,6 +194,7 @@ private struct TotalsPanel: View {
 }
 
 private struct BeerCard: View {
+    @Environment(\.units) private var units
     let statement: BeerStatement
     let now: Date
 
@@ -216,17 +219,17 @@ private struct BeerCard: View {
                     // What it actually took to run off, not what it cost at the
                     // bar: a beer left alone accrues interest, so 1.00 is only
                     // ever the opening price.
-                    Text(Format.miles(statement.paidMiles, decimals: 2))
+                    Text(units.amount(statement.paidMiles, decimals: 2))
                         .font(ranAway ? .subheadline.weight(.semibold) : .subheadline)
                         .foregroundStyle(paidColor)
                     Text(paidCaption)
                         .font(.caption)
                         .foregroundStyle(Theme.cream.opacity(0.5))
                 } else {
-                    Text(Format.miles(statement.outstandingMiles, decimals: 2))
+                    Text(units.amount(statement.outstandingMiles, decimals: 2))
                         .font(.headline)
                         .foregroundStyle(Theme.debt)
-                    Text(Format.miles(statement.principalMiles, decimals: 2))
+                    Text(units.amount(statement.principalMiles, decimals: 2))
                         .font(.subheadline)
                         .foregroundStyle(Theme.cream.opacity(0.65))
                     Text(Format.age(from: statement.createdAt, to: now))

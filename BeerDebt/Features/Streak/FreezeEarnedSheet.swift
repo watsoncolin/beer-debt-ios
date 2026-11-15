@@ -5,6 +5,7 @@ import SwiftUI
 /// credit for running that wasn't done, so it states the fact and gets out.
 struct FreezeEarnedSheet: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.units) private var units
     let celebration: FreezeEarnedCelebration
 
     var body: some View {
@@ -21,13 +22,13 @@ struct FreezeEarnedSheet: View {
                     .tracking(2)
                     .foregroundStyle(Theme.frost)
 
-                Text(StreakCopy.freezeEarnedBody())
+                Text(StreakCopy.freezeEarnedBody(units: units))
                     .font(.title3.weight(.semibold))
                     .foregroundStyle(Theme.cream)
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
 
-                Text("It keeps your \(celebration.streakDays) day streak and your 0% rate. It adds no miles and pays nothing off your tab.")
+                Text("It keeps your \(celebration.streakDays) day streak and your 0% rate. It adds no \(units.word) and pays nothing off your tab.")
                     .font(.footnote)
                     .foregroundStyle(Theme.cream.opacity(0.7))
                     .multilineTextAlignment(.center)

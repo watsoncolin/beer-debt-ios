@@ -3,8 +3,10 @@ import SwiftUI
 
 /// Runs (concept art screen 4): a range picker, the total for the range, a
 /// bar chart, and the runs themselves as cards. Swipe a run to take it off
-/// the books.
+/// the books. In calorie mode (spec §28) it is "Workouts": every workout on
+/// the books, totalled in calories.
 struct RunsView: View {
+    @Environment(\.units) private var units
     enum Range: String, CaseIterable, Identifiable {
         case week = "This Week"
         case month = "This Month"
@@ -28,7 +30,7 @@ struct RunsView: View {
         let report = store.report()
         let runs = RunChart.runs(in: range, from: report, now: report.at)
         let buckets = RunChart.buckets(for: range, runs: runs, now: report.at)
-        let total = runs.reduce(0) { $0 + $1.run.distanceMiles }
+        let total = runs.reduce(0) { $0 + $1.paidMiles }
 
         List {
             Section {
@@ -39,7 +41,7 @@ struct RunsView: View {
                     .pickerStyle(.segmented)
 
                     VStack(spacing: 2) {
-                        Text(Format.miles(total))
+                        Text(units.amount(total))
                             .font(.system(size: 44, weight: .black, design: .rounded))
                             .foregroundStyle(Theme.cream)
                         Text(range.caption)
@@ -59,7 +61,7 @@ struct RunsView: View {
 
             Section {
                 if runs.isEmpty {
-                    Text(range == .all ? "No runs yet. Apple Health will hand them over." : "No runs \(range.caption).")
+                    Text(range == .all ? "No \(units.workout)s yet. Apple Health will hand them over." : "No \(units.workout)s \(range.caption).")
                         .foregroundStyle(Theme.cream.opacity(0.7))
                         .cardRow()
                 } else {
@@ -74,7 +76,7 @@ struct RunsView: View {
                     }
                 }
             } header: {
-                Text("Recent Runs")
+                Text("Recent \(units.workoutsTitle)")
                     .font(.title3.weight(.bold))
                     .foregroundStyle(Theme.cream)
                     .textCase(nil)
@@ -83,15 +85,15 @@ struct RunsView: View {
         }
         .listStyle(.plain)
         .forestScreen()
-        .navigationTitle("Runs")
+        .navigationTitle(units.workoutsTitle)
         .navigationBarTitleDisplayMode(.inline)
         .confirmationDialog(
-            "Take this run off the books?",
+            "Take this \(units.workout) off the books?",
             isPresented: Binding(get: { runToDelete != nil }, set: { if !$0 { runToDelete = nil } }),
             titleVisibility: .visible,
             presenting: runToDelete
         ) { statement in
-            Button("Delete \(Format.miles(statement.run.distanceMiles)) run", role: .destructive) {
+            Button("Delete \(units.amount(statement.paidMiles)) \(WorkoutKind(statement.run).name.lowercased())", role: .destructive) {
                 store.deleteRun(id: statement.id)
             }
         } message: { _ in
@@ -101,19 +103,20 @@ struct RunsView: View {
 }
 
 private struct RunCard: View {
+    @Environment(\.units) private var units
     let statement: RunStatement
 
     var body: some View {
         HStack(spacing: 14) {
-            Image(systemName: "figure.run")
+            Image(systemName: kind.symbol)
                 .font(.title2)
                 .foregroundStyle(Theme.cream)
                 .frame(width: 32)
             VStack(alignment: .leading, spacing: 2) {
-                Text(Format.miles(statement.run.distanceMiles))
+                Text(units.amount(statement.paidMiles))
                     .font(.headline)
                     .foregroundStyle(Theme.cream)
-                Text(Format.dateTime(statement.run.endedAt))
+                Text(subtitle)
                     .font(.subheadline)
                     .foregroundStyle(Theme.cream.opacity(0.65))
                 if !statement.ignored, let detail = breakdown {
@@ -136,11 +139,28 @@ private struct RunCard: View {
         }
     }
 
+    private var kind: WorkoutKind { WorkoutKind(statement.run) }
+
+    /// When it ended, and in calorie mode what it was: "Ride · Sep 9, 8:13 PM",
+    /// "Run · 3.1 mi · …". A workout that recorded no calories says so rather
+    /// than reading as a zero nobody can explain.
+    private var subtitle: String {
+        let when = Format.dateTime(statement.run.endedAt)
+        guard units.isCalories else { return when }
+        if statement.run.isRunning {
+            return "\(kind.name) · \(Format.miles(statement.run.distanceMiles)) · \(when)"
+        }
+        if statement.run.activeEnergyKcal == nil {
+            return "\(kind.name) · No calories recorded · \(when)"
+        }
+        return "\(kind.name) · \(when)"
+    }
+
     private var breakdown: String? {
         var parts: [String] = []
-        if statement.debtPaidMiles > BalanceEngine.epsilon { parts.append("\(Format.miles(statement.debtPaidMiles)) to debt") }
-        if statement.creditEarnedMiles > BalanceEngine.epsilon { parts.append("\(Format.miles(statement.creditEarnedMiles)) banked") }
-        if statement.discardedMiles > BalanceEngine.epsilon { parts.append("\(Format.miles(statement.discardedMiles)) over the cap") }
+        if statement.debtPaidMiles > BalanceEngine.epsilon { parts.append("\(units.amount(statement.debtPaidMiles)) to debt") }
+        if statement.creditEarnedMiles > BalanceEngine.epsilon { parts.append("\(units.amount(statement.creditEarnedMiles)) banked") }
+        if statement.discardedMiles > BalanceEngine.epsilon { parts.append("\(units.amount(statement.discardedMiles)) over the cap") }
         return parts.isEmpty ? nil : parts.joined(separator: " · ")
     }
 }
@@ -176,7 +196,7 @@ struct RunChart {
             guard let interval = calendar.dateInterval(of: .weekOfYear, for: now) else { return [] }
             return (0..<7).map { offset in
                 let day = calendar.date(byAdding: .day, value: offset, to: interval.start)!
-                let miles = runs.filter { calendar.isDate($0.run.endedAt, inSameDayAs: day) }.reduce(0) { $0 + $1.run.distanceMiles }
+                let miles = runs.filter { calendar.isDate($0.run.endedAt, inSameDayAs: day) }.reduce(0) { $0 + $1.paidMiles }
                 let symbol = calendar.shortWeekdaySymbols[calendar.component(.weekday, from: day) - 1]
                 return Bucket(id: offset, label: symbol, miles: miles, showsLabel: true)
             }
@@ -185,7 +205,7 @@ struct RunChart {
                   let days = calendar.range(of: .day, in: .month, for: now) else { return [] }
             return days.map { dayNumber in
                 let day = calendar.date(byAdding: .day, value: dayNumber - 1, to: interval.start)!
-                let miles = runs.filter { calendar.isDate($0.run.endedAt, inSameDayAs: day) }.reduce(0) { $0 + $1.run.distanceMiles }
+                let miles = runs.filter { calendar.isDate($0.run.endedAt, inSameDayAs: day) }.reduce(0) { $0 + $1.paidMiles }
                 return Bucket(id: dayNumber, label: "\(dayNumber)", miles: miles, showsLabel: dayNumber == 1 || dayNumber % 5 == 0)
             }
         case .all:
@@ -193,7 +213,7 @@ struct RunChart {
             return (0..<12).reversed().map { back in
                 let start = calendar.date(byAdding: .month, value: -back, to: monthStart)!
                 let end = calendar.date(byAdding: .month, value: 1, to: start)!
-                let miles = runs.filter { $0.run.endedAt >= start && $0.run.endedAt < end }.reduce(0) { $0 + $1.run.distanceMiles }
+                let miles = runs.filter { $0.run.endedAt >= start && $0.run.endedAt < end }.reduce(0) { $0 + $1.paidMiles }
                 let label = calendar.shortMonthSymbols[calendar.component(.month, from: start) - 1]
                 return Bucket(id: 11 - back, label: label, miles: miles, showsLabel: back % 2 == 0)
             }
@@ -202,9 +222,11 @@ struct RunChart {
 }
 
 private struct RunChartView: View {
+    @Environment(\.units) private var units
     let buckets: [RunChart.Bucket]
 
-    private var yMax: Double { max(2, (buckets.map(\.miles).max() ?? 0) * 1.15) }
+    /// In display units, so the axis reads in calories when the books do.
+    private var yMax: Double { max(units.value(2), (buckets.map { units.value($0.miles) }.max() ?? 0) * 1.15) }
 
     var body: some View {
         Chart(buckets) { bucket in
@@ -212,7 +234,7 @@ private struct RunChartView: View {
             let isStub = bucket.miles < BalanceEngine.epsilon
             BarMark(
                 x: .value("Period", bucket.label),
-                y: .value("Miles", isStub ? yMax * 0.015 : bucket.miles),
+                y: .value(units.word.capitalized, isStub ? yMax * 0.015 : units.value(bucket.miles)),
                 width: .ratio(buckets.count > 12 ? 0.6 : 0.45)
             )
             .foregroundStyle(Theme.creditSoft.opacity(isStub ? 0.5 : 1))

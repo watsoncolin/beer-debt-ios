@@ -64,6 +64,8 @@ struct RootView: View {
             Task { await sync.rescheduleWeeklySummary() }
         }
         .onAppear(perform: applyDebugLaunch)
+        // Outermost, so the sheets above inherit it too.
+        .environment(\.units, Units(payment: store.ledger.payment))
     }
 
     /// Screenshot / manual-test helper: `-debugScreen ledger|paid|runs|settings|bankruptcy|bankruptcyWrittenOff|streak|mileMarkers|debtFree|streakActivated|freezeEarned|beerDetail|beerAdded`

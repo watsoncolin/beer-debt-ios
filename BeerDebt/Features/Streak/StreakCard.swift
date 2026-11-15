@@ -6,6 +6,7 @@ import SwiftUI
 struct StreakCard: View {
     let streak: StreakStatus
     let balance: BalanceState
+    @Environment(\.units) private var units
 
     private var lit: Bool { streak.currentStreakDays >= 1 }
     private var earned: Bool { streak.interestProtectionActive }
@@ -17,7 +18,7 @@ struct StreakCard: View {
                 Text(StreakCopy.title(streak))
                     .font(.headline)
                     .foregroundStyle(Theme.cream)
-                Text(StreakCopy.subtitle(streak, balance: balance))
+                Text(StreakCopy.subtitle(streak, balance: balance, units: units))
                     .font(.caption)
                     .foregroundStyle(earned && streak.todayProtected ? Theme.gold : Theme.cream.opacity(0.7))
                     .fixedSize(horizontal: false, vertical: true)

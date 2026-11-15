@@ -35,7 +35,7 @@ CONTAINER=$(xcrun simctl get_app_container "$UDID" "$BUNDLE" group.me.colinwatso
 LEDGER="$CONTAINER/BeerDebt/ledger.json"
 mkdir -p "$(dirname "$LEDGER")"
 
-seed() { # seed <debt|credit|freeze|restday|fresh>
+seed() { # seed <debt|credit|freeze|restday|calories|fresh>
   if [ "$1" = "fresh" ]; then rm -f "$LEDGER"; return; fi
   python3 - "$LEDGER" "$1" <<'PY'
 import json, sys, uuid
@@ -51,7 +51,14 @@ local = now.astimezone()
 def morning(days_back, miles): return (local.replace(hour=7, minute=12, second=0) - days_back*D).astimezone(timezone.utc), miles
 # Freeze applications are keyed to midday of the local day (spec §25.1).
 freezes = []
-if mode == "debt":
+# Calorie mode (spec §28): (days back, kcal, HKWorkoutActivityType raw) for non-runs.
+others = []
+if mode == "calories":
+    # Six beers, a run, then rides and a lift carrying the streak: in debt, paid in calories.
+    beers = [now - 6*D - H, now - 5*D - 2*H, now - 4*D - 3*H, now - 3*D - H, now - 2*D - 2*H, now - 6*H]
+    runs = [morning(4, 1.2)]
+    others = [(2, 140.0, 13), (1, 120.0, 50), (0, 110.0, 13)]
+elif mode == "debt":
     # Six beers over the week, a three-day streak through this morning: in debt, interest paused.
     beers = [now - 6*D - H, now - 5*D - 2*H, now - 4*D - 3*H, now - 3*D - H, now - 2*D - 2*H, now - 6*H]
     runs = [morning(5, 1.0), morning(2, 1.1), morning(1, 1.2), morning(0, 1.0)]
@@ -78,7 +85,14 @@ ledger = {
             "startedAt": iso(e - timedelta(minutes=32)), "endedAt": iso(e), "distanceMeters": m * 1609.344,
             "importedAt": iso(e + H), "sourceName": "Apple Watch"} for e, m in runs],
   "freezeApplications": [{"id": str(uuid.uuid4()).upper(), "day": iso(d), "appliedAt": iso(d)} for d in freezes],
+  "paymentMode": "calories" if mode == "calories" else "runs",
+  "caloriesPerMile": 100.0,
 }
+for days_back, kcal, kind in others:
+    e, _ = morning(days_back, 0)
+    ledger["runs"].append({"id": str(uuid.uuid4()).upper(), "healthKitWorkoutID": str(uuid.uuid4()).upper(),
+        "startedAt": iso(e - timedelta(minutes=48)), "endedAt": iso(e), "distanceMeters": 0.0,
+        "importedAt": iso(e + H), "sourceName": "Apple Watch", "activityType": kind, "activeEnergyKcal": kcal})
 json.dump(ledger, open(path, "w"), indent=2)
 PY
 }
@@ -118,5 +132,13 @@ shoot streak-restday streak
 shoot home-restday
 seed credit
 shoot home-credit
+seed calories
+shoot home-calories
+shoot workouts-calories runs
+shoot settings-calories settings
+shoot ledger-calories ledger
+shoot streak-calories streak
+shoot mile-markers-calories mileMarkers
+shoot widgets-calories widgets
 xcrun simctl terminate "$UDID" "$BUNDLE" 2>/dev/null || true
 echo "Screenshots in $OUT"
