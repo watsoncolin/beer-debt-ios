@@ -6,6 +6,8 @@ struct HomeView: View {
     @Environment(LedgerStore.self) private var store
     @Environment(\.units) private var units
     @State private var addedBeer: BeerEntry?
+    @State private var filing: BankruptcySheet.Filing?
+    @AppStorage(BankruptcyOffer.dismissedTierKey) private var dismissedOfferTier: Int?
 
     var body: some View {
         // Re-render each minute so an interest posting shows up while the app is open.
@@ -29,6 +31,11 @@ struct HomeView: View {
         .sheet(item: $addedBeer) { beer in
             BeerAddedSheet(beerID: beer.id)
         }
+        .sheet(item: $filing) { filing in
+            BankruptcySheet(filing: filing) {
+                store.declareBankruptcy()
+            }
+        }
         .sensoryFeedback(.success, trigger: addedBeer)
         .onAppear {
             #if DEBUG
@@ -39,6 +46,8 @@ struct HomeView: View {
 
     private func content(report: Report, now: Date) -> some View {
         let balance = report.balance
+        let offerTier = BankruptcyOffer.tier(for: balance)
+        let offering = BankruptcyOffer.shows(tier: offerTier, dismissedTier: dismissedOfferTier)
         return ZStack {
             Backdrop()
 
@@ -65,6 +74,14 @@ struct HomeView: View {
                 .buttonStyle(.plain)
 
                 Spacer(minLength: 0)
+
+                if offering {
+                    BankruptcyOfferCard(owed: units.compactAmount(balance.debtMiles)) {
+                        filing = BankruptcySheet.Filing(report: store.report())
+                    } onDismiss: {
+                        dismissedOfferTier = offerTier
+                    }
+                }
 
                 NavigationLink(value: Route.streak) {
                     StreakCard(streak: report.streak, balance: balance.state)
@@ -110,14 +127,24 @@ struct HomeView: View {
                 }
                 .buttonStyle(.plain)
 
-                Text(quip(for: balance))
-                    .font(.footnote)
-                    .italic()
-                    .foregroundStyle(Theme.cream.opacity(0.7))
-                    .multilineTextAlignment(.center)
+                // The offer takes the quip's place: past 100 mi they say the
+                // same thing, and Home has no room for both (spec §29).
+                if !offering {
+                    Text(quip(for: balance))
+                        .font(.footnote)
+                        .italic()
+                        .foregroundStyle(Theme.cream.opacity(0.7))
+                        .multilineTextAlignment(.center)
+                }
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 12)
+        }
+        // Under the threshold, a "Not now" is forgotten, so a tab that recovers
+        // and then gets away again is offered afresh (spec §29). Bankruptcy
+        // lands here too: clean books have no tier.
+        .onChange(of: offerTier, initial: true) { _, tier in
+            if tier == nil { dismissedOfferTier = nil }
         }
     }
 
@@ -146,7 +173,7 @@ private struct BalanceHero: View {
         switch balance.state {
         case .debt:
             VStack(spacing: 0) {
-                bigNumber(units.number(balance.debtMiles))
+                bigNumber(units.hero(balance.debtMiles))
                 Text("\(units.symbol) owed")
                     .font(.title2.weight(.semibold))
                     .foregroundStyle(Theme.cream.opacity(0.85))

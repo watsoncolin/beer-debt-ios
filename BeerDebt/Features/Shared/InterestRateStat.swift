@@ -17,7 +17,7 @@ struct InterestRateStat: View {
 
     private var paused: Bool { report.streak.todayProtected }
     private var on: Bool { report.rules.interestEnabled }
-    private var value: String { units.number(report.balance.interestPerPeriodMiles, decimals: 2) }
+    private var value: String { units.charge(report.balance.interestPerPeriodMiles) }
     private var label: String { on ? report.rules.interestPeriod.perLabel : "interest off" }
 
     var body: some View {
