@@ -47,6 +47,7 @@ struct HomeView: View {
     private func content(report: Report, now: Date) -> some View {
         let balance = report.balance
         let offerTier = BankruptcyOffer.tier(for: balance)
+        let offering = BankruptcyOffer.shows(tier: offerTier, dismissedTier: dismissedOfferTier)
         return ZStack {
             Backdrop()
 
@@ -74,7 +75,7 @@ struct HomeView: View {
 
                 Spacer(minLength: 0)
 
-                if BankruptcyOffer.shows(tier: offerTier, dismissedTier: dismissedOfferTier) {
+                if offering {
                     BankruptcyOfferCard(owed: units.compactAmount(balance.debtMiles)) {
                         filing = BankruptcySheet.Filing(report: store.report())
                     } onDismiss: {
@@ -126,11 +127,15 @@ struct HomeView: View {
                 }
                 .buttonStyle(.plain)
 
-                Text(quip(for: balance))
-                    .font(.footnote)
-                    .italic()
-                    .foregroundStyle(Theme.cream.opacity(0.7))
-                    .multilineTextAlignment(.center)
+                // The offer takes the quip's place: past 100 mi they say the
+                // same thing, and Home has no room for both (spec §29).
+                if !offering {
+                    Text(quip(for: balance))
+                        .font(.footnote)
+                        .italic()
+                        .foregroundStyle(Theme.cream.opacity(0.7))
+                        .multilineTextAlignment(.center)
+                }
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 12)

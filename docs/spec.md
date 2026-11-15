@@ -1214,6 +1214,9 @@ opening Settings months ago. Once a tab is past running off, Home offers it.
   Filing, confirmation and the WRITTEN OFF stamp are unchanged; the offer
   only shortens the path to it.
 - **"Not now"** dismisses it.
+- While the card shows, it takes the place of Home's one line of copy (§10):
+  past 100 mi the quip says the same thing, and Home has no room for both on
+  a smaller phone.
 
 ### Not nagging
 
