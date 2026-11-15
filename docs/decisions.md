@@ -356,6 +356,34 @@ Spec §28 is the feature. Colin's calls and the reasoning behind them:
   engine inputs, so `cases.json` gains calorie scenarios and the Kotlin
   `FixtureTest` must name and assert them explicitly (CLAUDE.md, Android).
 
+### 11. Bankruptcy offer — DECIDED (2026-11-15)
+
+Spec §29 is the feature. Colin set the threshold at 100 miles after the
+Android emulator turned up a 174,417.9 mi tab clipped to "17441" on Home.
+
+- **100 miles, of total debt.** About four marathons, or a month of serious
+  training: under it a determined runner can still clear the tab, so an
+  offer reads as giving up early; over it the number has stopped motivating
+  anyone. Total debt rather than principal, because the interest is the
+  part that made it unpayable. A higher bar buys little: at the default rate
+  1,000 mi arrives about three weeks after 100.
+- **An offer, never an automatic write-off.** Bankruptcy is the one
+  destructive act and has no undo (§7). The threshold only shortens the path
+  to the sheet; the sheet's two phases are unchanged.
+- **Interest is not capped.** Capping the debt would be a rules change with
+  knock-on effects on streak protection and freezes, and the offer answers
+  the real problem, which is a tab nobody will pay.
+- **Not in the engine.** The engine keeps no notion of the feature (as with
+  §7). The offer is a comparison on `Balance.debtMiles` plus a dismissal
+  preference, so it needs no `cases.json` scenarios; the Android port
+  follows spec §29 directly.
+- **Tiers by powers of ten.** The tab compounds, so a fixed re-offer interval
+  in miles would fire ever more often. Tenfold steps track the growth: about
+  once a month at the default rate, whatever the size.
+- **The dismissal lives in UserDefaults, not `ledger.json`.** It is a UI
+  preference, not a fact about the books; the widget never shows the offer
+  and has no reason to read it.
+
 ## C. HealthKit
 
 - Read types: workouts + `distanceWalkingRunning` (needed to read a workout's
