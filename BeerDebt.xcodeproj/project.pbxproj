@@ -61,8 +61,10 @@
 		B57CB8E81B835936A2796CFF /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8895D27A0E8BFF2CD3C05ED3 /* Theme.swift */; };
 		BC98266DEBFC1FD655FA621F /* TelemetryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C617334E978B6B8AF690345 /* TelemetryPolicy.swift */; };
 		C0311E03B43FDD7536B4B136 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7EA25B56EB364CFF949547 /* Balance.swift */; };
+		C06456E747EB2DBAFAF335F5 /* BankruptcyOfferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44BBAC4517026A3DBF94B08 /* BankruptcyOfferTests.swift */; };
 		C1A555394BC694B6E8E18838 /* BalanceEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA24F799AD90E047DAF88CA /* BalanceEngineTests.swift */; };
 		C1E0B85E8BDD2EFCE8ECCAE2 /* Ledger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568BC38579E75979D912ED09 /* Ledger.swift */; };
+		C4043DFF0E8D55BE50711717 /* BankruptcyOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD657D3CDCF202153A950F /* BankruptcyOffer.swift */; };
 		C63825C3CC8F36FB5C87A90D /* LedgerFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB29A3932321621173E1571 /* LedgerFile.swift */; };
 		CA56A1BF558F71CCC7669330 /* PaymentBasis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADCADAD2478C91C15540D36 /* PaymentBasis.swift */; };
 		CA5906FAB0234ED4A516B460 /* RunNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F281F27E5E4F30CAE118040E /* RunNotifier.swift */; };
@@ -174,10 +176,12 @@
 		C7AB983CBC5031A20F27EB8D /* StreakEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakEngineTests.swift; sourceTree = "<group>"; };
 		CF4A1D26C957BBC123CFBBE9 /* BalanceTimelineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceTimelineTests.swift; sourceTree = "<group>"; };
 		CF8D829DDEF1ADD2D48822DE /* RunNotifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunNotifierTests.swift; sourceTree = "<group>"; };
+		DCCD657D3CDCF202153A950F /* BankruptcyOffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankruptcyOffer.swift; sourceTree = "<group>"; };
 		DE97EF8404186E7696DB346F /* FormatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatTests.swift; sourceTree = "<group>"; };
 		DF96B312665AF484ED7C3A06 /* CalorieModeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalorieModeTests.swift; sourceTree = "<group>"; };
 		E1F29F2C4116B049DAAC197D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E31AFC2644E14EA452E9060D /* BalanceEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceEngine.swift; sourceTree = "<group>"; };
+		E44BBAC4517026A3DBF94B08 /* BankruptcyOfferTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankruptcyOfferTests.swift; sourceTree = "<group>"; };
 		E7C6AD8667348087D47C1A05 /* FreezeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreezeSection.swift; sourceTree = "<group>"; };
 		E9AEB00D0551225924ADA400 /* HealthFailureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthFailureTests.swift; sourceTree = "<group>"; };
 		F281F27E5E4F30CAE118040E /* RunNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunNotifier.swift; sourceTree = "<group>"; };
@@ -261,6 +265,7 @@
 		5C7CEC7EF360E72F3987CFF3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				DCCD657D3CDCF202153A950F /* BankruptcyOffer.swift */,
 				13822F7CA03A532EE9930030 /* BeerAddedSheet.swift */,
 				9C5C88CBF61288D3D21372F5 /* DebtFreeSheet.swift */,
 				AD4E75F6C65601E3E849D39C /* HomeView.swift */,
@@ -425,6 +430,7 @@
 			children = (
 				FDA24F799AD90E047DAF88CA /* BalanceEngineTests.swift */,
 				CF4A1D26C957BBC123CFBBE9 /* BalanceTimelineTests.swift */,
+				E44BBAC4517026A3DBF94B08 /* BankruptcyOfferTests.swift */,
 				86C0F0D239E3DBA1062B0CAB /* CalorieDisplayTests.swift */,
 				DF96B312665AF484ED7C3A06 /* CalorieModeTests.swift */,
 				DE97EF8404186E7696DB346F /* FormatTests.swift */,
@@ -567,6 +573,7 @@
 				D0DA12AEB23E3FF139BD50F1 /* Balance.swift in Sources */,
 				711B864C99E5392E019D7BEC /* BalanceEngine.swift in Sources */,
 				AF59A50D358315B3C6CC0D3E /* BalanceWidgetViews.swift in Sources */,
+				C4043DFF0E8D55BE50711717 /* BankruptcyOffer.swift in Sources */,
 				13CB1FD44EF45F1E8B22CFF1 /* BankruptcySheet.swift in Sources */,
 				01E384CCA31E273A3511B0A7 /* BeerAddedSheet.swift in Sources */,
 				7811A645719CC0DD6EC62609 /* BeerDebtApp.swift in Sources */,
@@ -617,6 +624,7 @@
 			files = (
 				C1A555394BC694B6E8E18838 /* BalanceEngineTests.swift in Sources */,
 				276CE44F867C7B185F141989 /* BalanceTimelineTests.swift in Sources */,
+				C06456E747EB2DBAFAF335F5 /* BankruptcyOfferTests.swift in Sources */,
 				D7344020E11D70F18A0358F5 /* CalorieDisplayTests.swift in Sources */,
 				2597856022C48A721ABB539C /* CalorieModeTests.swift in Sources */,
 				53445DBF913FF50BE1C9790D /* FormatTests.swift in Sources */,

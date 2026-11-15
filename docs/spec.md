@@ -1233,7 +1233,7 @@ A user who says "Not now" keeps watching the number, so Home's hero must
 show any size of tab in full width: it scales to fit on one line on both
 platforms and is never clipped. From six displayed figures (≥ 100,000, so
 1,000 mi in calorie mode at the default rate) the hero uses the compact form
-(`174k`, `17.4M`). Smaller tabs keep their full number.
+(`174k`, `17M`). Smaller tabs keep their full number.
 
 **Copy.** Deadpan paperwork, as §26. Never says the user should have run
 more. "This tab got away.", "You owe {amount}. Some tabs are better closed

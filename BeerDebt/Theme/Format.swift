@@ -183,6 +183,13 @@ struct Units: Equatable, Sendable {
     /// `compact`, with the unit.
     func compactAmount(_ miles: Double) -> String { compact(miles) + " " + symbol }
 
+    /// Home's hero (spec §29): the full number until it reaches six displayed
+    /// figures, then compact. A tab past the bankruptcy offer keeps growing, and
+    /// "17,441,788" says nothing "17M" doesn't.
+    func hero(_ miles: Double) -> String {
+        abs(value(miles)) >= 100_000 ? Format.compact(value(miles)) : number(miles)
+    }
+
     // MARK: Words
 
     /// What a single workout is called: "run" / "workout".
