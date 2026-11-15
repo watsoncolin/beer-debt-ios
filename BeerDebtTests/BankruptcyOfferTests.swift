@@ -62,4 +62,13 @@ struct HeroNumberTests {
         #expect(kcal.hero(1_000) == "100k")
         #expect(kcal.hero(174_417.88) == "17M")
     }
+
+    @Test func theDailyChargeGoesCompactAtFourFigures() {
+        #expect(Units.miles.charge(0.1) == "0.10")
+        #expect(Units.miles.charge(999.99) == "999.99")
+        #expect(Units.miles.charge(1_234) == "1.2k")
+        #expect(Units.miles.charge(17_699) == "18k")
+        #expect(kcal.charge(0.1) == "10")
+        #expect(kcal.charge(17.7) == "1.8k")
+    }
 }

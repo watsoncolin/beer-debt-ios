@@ -190,6 +190,13 @@ struct Units: Equatable, Sendable {
         abs(value(miles)) >= 100_000 ? Format.compact(value(miles)) : number(miles)
     }
 
+    /// The daily charge beside the hero (spec §29): a narrower tile, so compact
+    /// from four displayed figures. Below that, the decimals asked for, which is
+    /// what lets a one-beer tab read "0.10 a day".
+    func charge(_ miles: Double, decimals: Int = 2) -> String {
+        abs(value(miles)) >= 1_000 ? compact(miles) : number(miles, decimals: decimals)
+    }
+
     // MARK: Words
 
     /// What a single workout is called: "run" / "workout".
