@@ -84,8 +84,16 @@ func ride(kcal: Double?, endedAt: Date, workoutID: UUID = UUID()) -> RunEntry {
     )
 }
 
+/// Calorie mode since the books opened.
 func inCalories(_ base: Ledger, caloriesPerMile: Double = PaymentBasis.defaultCaloriesPerMile) -> Ledger {
     var ledger = base
     ledger.payment = PaymentBasis(mode: .calories, caloriesPerMile: caloriesPerMile)
+    return ledger
+}
+
+/// A switch of payment basis at `date`, from then on (decisions §B.10).
+func switched(_ base: Ledger, at date: Date, to payment: PaymentBasis) -> Ledger {
+    var ledger = base
+    ledger.paymentHistory.append(PaymentChange(effectiveAt: date, payment: payment))
     return ledger
 }

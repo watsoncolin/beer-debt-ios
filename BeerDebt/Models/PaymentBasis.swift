@@ -13,9 +13,12 @@ enum PaymentMode: String, Codable, CaseIterable, Identifiable, Sendable {
 /// The mode and the calorie rate together: everything the engine needs to
 /// turn a workout into miles paid.
 ///
-/// Not a rule. Rules are forward-only; this reinterprets the whole ledger
-/// on every replay (decisions §B.10), which is why it lives on `Ledger`
-/// beside the rules history rather than inside it.
+/// Forward-only, like the rules (decisions §B.10): `Ledger.paymentHistory`
+/// records when each basis took effect, and a workout pays under the basis
+/// in force when it ended. A payment once posted stays posted; switching
+/// modes never reaches back into what earlier workouts paid. It has its own
+/// history rather than living in `Rules` because changing it also changes
+/// what Health is asked for (`HealthSync.updatePayment`).
 struct PaymentBasis: Hashable, Sendable {
     /// About what a mile of running burns, so a beer costs the same effort in
     /// either mode.
@@ -39,4 +42,19 @@ struct PaymentBasis: Hashable, Sendable {
         guard caloriesPerMile > 0 else { return 0 }
         return (workout.activeEnergyKcal ?? 0) / caloriesPerMile
     }
+}
+
+/// A payment basis, effective from `effectiveAt` forward (decisions §B.10).
+struct PaymentChange: Codable, Hashable, Sendable {
+    let effectiveAt: Date
+    let mode: PaymentMode
+    let caloriesPerMile: Double
+
+    init(effectiveAt: Date, payment: PaymentBasis) {
+        self.effectiveAt = effectiveAt
+        mode = payment.mode
+        caloriesPerMile = payment.caloriesPerMile
+    }
+
+    var payment: PaymentBasis { PaymentBasis(mode: mode, caloriesPerMile: caloriesPerMile) }
 }

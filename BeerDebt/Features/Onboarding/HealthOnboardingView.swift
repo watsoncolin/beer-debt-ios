@@ -43,8 +43,9 @@ struct HealthOnboardingView: View {
                     }
                     Picker("Pay with", selection: Binding(
                         get: { store.ledger.paymentMode },
-                        // Not connected yet: nothing to re-read, so the store alone.
-                        set: { store.updatePayment(PaymentBasis(mode: $0, caloriesPerMile: store.ledger.caloriesPerMile)) }
+                        // Not connected yet and nothing paid: the choice is the
+                        // opening basis, so it covers the books from day one.
+                        set: { store.chooseOpeningPayment(PaymentBasis(mode: $0, caloriesPerMile: store.ledger.caloriesPerMile)) }
                     )) {
                         Text("Pay with runs").tag(PaymentMode.runs)
                         Text("Pay with calories").tag(PaymentMode.calories)

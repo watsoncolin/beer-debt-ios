@@ -36,18 +36,26 @@ final class HealthSync {
     private let defaults: UserDefaults
 
     private static let connectedKey = "health.connected"
-    /// One anchor per payment mode, because each reads a different slice of
-    /// Health: switching to calories starts that mode's read from scratch
-    /// (picking up every earlier ride) without touching where runs mode
-    /// stood, and a sync already in flight when the mode flips can only
-    /// advance the anchor of the mode it started in. Runs keeps the original
-    /// key, so an upgrade carries on where it was.
-    private static func anchorKey(for mode: PaymentMode) -> String {
-        switch mode {
+    /// One anchor per read scope, because each reads a different slice of
+    /// Health: widening to every workout starts that scope's read from
+    /// scratch without touching where the runs-only read stood, and a sync
+    /// already in flight when the scope widens can only advance the anchor
+    /// of the scope it started in. Runs keeps the original key, so an
+    /// upgrade carries on where it was.
+    private static func anchorKey(for scope: PaymentMode) -> String {
+        switch scope {
         case .runs: "health.anchor"
         case .calories: "health.anchor.calories"
         }
     }
+
+    /// What to read from Health: running workouts only until calorie mode has
+    /// ever been in force, every workout from then on, whatever the mode now.
+    /// A ride that ended in calorie mode but syncs after a switch back to runs
+    /// still pays, and its deletion from Health is still seen. Rides that
+    /// ended while runs were in force are read and dropped at import, so a
+    /// runs-only user is never asked for, or read beyond, their runs.
+    private var readScope: PaymentMode { store.ledger.hasCaloriePeriod ? .calories : .runs }
     /// Bump when the way workouts are read changes; the next sync starts
     /// from scratch so workouts an older build skipped are picked up. The
     /// store dedups on workout id, so a full re-read is harmless.
@@ -71,10 +79,6 @@ final class HealthSync {
     var isAppActive = false
     /// A sync was asked for while one was running; run again when it ends.
     private var syncRequested = false
-    /// The next completed sync is the re-read after a mode switch. What it
-    /// imports was always there, so it celebrates and notifies nothing
-    /// (spec §28: a toggle is not an event).
-    private var quietUntilSynced = false
     var celebration: DebtFreeCelebration?
     var streakCelebration: StreakCelebration?
     var freezeEarned: FreezeEarnedCelebration?
@@ -99,7 +103,7 @@ final class HealthSync {
             return
         }
         do {
-            try await health.requestAuthorization(for: store.ledger.paymentMode)
+            try await health.requestAuthorization(for: readScope)
             isConnected = true
             defaults.set(true, forKey: Self.connectedKey)
             startBackgroundObserving()
@@ -114,8 +118,8 @@ final class HealthSync {
     }
 
     /// Call at every launch. Registers for background delivery and starts the
-    /// observer that triggers a sync whenever the workouts the payment mode
-    /// reads change.
+    /// observer that triggers a sync whenever the workouts in the read scope
+    /// change.
     func startBackgroundObserving() {
         guard isConnected, isAvailable else { return }
         Task { [health] in
@@ -127,7 +131,7 @@ final class HealthSync {
                 // A locked phone or missing permission: nothing to fix here.
             }
         }
-        health.startObservingWorkouts(for: store.ledger.paymentMode) { [weak self] in
+        health.startObservingWorkouts(for: readScope) { [weak self] in
             await self?.sync()
         }
     }
@@ -188,17 +192,18 @@ final class HealthSync {
         await syncIfConnected()
     }
 
-    /// Switches what pays the tab (spec §28) and replays the books under it.
+    /// Switches what pays the tab from now on (spec §28, decisions §B.10).
     ///
-    /// Choosing calories asks for the wider Health permission first, then
-    /// re-reads Health from scratch through that mode's own anchor so every
-    /// workout since the books opened counts. Declining the permission still
-    /// switches the mode: workouts come in without calories and pay nothing,
-    /// and the Apple Health row says why. Switching back to runs needs no
-    /// re-read; the rides stay on disk and the engine ignores them. A rate
-    /// change alone is a replay and touches nothing in Health.
+    /// Forward-only: nothing already on the books changes, so there is
+    /// nothing to re-read for the past and nothing to celebrate. The first
+    /// switch to calories asks for the wider Health permission and widens
+    /// the read to every workout, which then stays wide (`readScope`).
+    /// Declining the permission still switches the mode: workouts come in
+    /// without calories and pay nothing, and the Apple Health row says why.
+    /// A rate change alone touches nothing in Health.
     func updatePayment(_ payment: PaymentBasis) async {
         let switching = payment.mode != store.ledger.paymentMode
+        let scope = readScope
         store.updatePayment(payment)
         guard switching, isConnected, isAvailable else { return }
         if payment.mode == .calories {
@@ -212,8 +217,8 @@ final class HealthSync {
                 }
             }
         }
+        guard readScope != scope else { return }
         startBackgroundObserving()
-        quietUntilSynced = true
         await sync()
     }
 
@@ -225,7 +230,7 @@ final class HealthSync {
 
     /// Reads what changed in Health since the last anchor and applies it.
     /// Asked for while one is running, it runs again once that one ends, so a
-    /// mode switch mid-sync still gets its re-read.
+    /// scope widened mid-sync still gets its read.
     func sync() async {
         guard isConnected else { return }
         guard !isSyncing else {
@@ -241,19 +246,25 @@ final class HealthSync {
     }
 
     private func syncOnce() async {
-        // Captured once: a mode switch mid-read can only move the anchor of
-        // the mode the read started in.
-        let mode = store.ledger.paymentMode
-        let anchorKey = Self.anchorKey(for: mode)
-        let quiet = quietUntilSynced
+        // Captured once: a scope widened mid-read can only move the anchor of
+        // the scope the read started in.
+        let scope = readScope
+        let anchorKey = Self.anchorKey(for: scope)
         do {
             if defaults.integer(forKey: Self.importVersionKey) < Self.importVersion {
                 dropAnchors()
                 defaults.set(Self.importVersion, forKey: Self.importVersionKey)
             }
-            let result = try await health.fetchWorkouts(for: mode, anchor: defaults.data(forKey: anchorKey))
+            let result = try await health.fetchWorkouts(for: scope, anchor: defaults.data(forKey: anchorKey))
             let before = store.report()
-            let eligible = result.runs.filter { $0.endedAt >= store.ledger.booksOpenedAt }
+            // Forward-only (decisions §B.10): a workout that the basis in force
+            // when it ended doesn't count will never count, so it never reaches
+            // the books. That is a ride from a runs-mode stretch, read because
+            // the scope went wide.
+            let ledger = store.ledger
+            let eligible = result.runs.filter {
+                $0.endedAt >= ledger.booksOpenedAt && ledger.miles(paidBy: $0) != nil
+            }
             let added = store.importRuns(eligible)
             let removed = store.removeRuns(healthKitWorkoutIDs: Set(result.deletedWorkoutIDs))
             // The anchor is the only record of which workouts have been read,
@@ -272,7 +283,6 @@ final class HealthSync {
             defaults.set(result.anchor, forKey: anchorKey)
             lastSyncAt = .now
             lastError = nil
-            if quiet, mode == store.ledger.paymentMode { quietUntilSynced = false }
             // Even when nothing changed. A reload asked for on a background
             // wake can be dropped, and the sync that would ask again imports
             // nothing the second time, so it never saves; this is what
@@ -282,7 +292,6 @@ final class HealthSync {
             guard !added.isEmpty || removed > 0 else { return }
             let after = store.report()
             await weekly.reschedule(ledger: store.ledger)
-            guard !quiet else { return }
 
             if !added.isEmpty, before.balance.state == .debt, after.balance.state != .debt {
                 let party = DebtFreeCelebration(
@@ -331,6 +340,9 @@ final class HealthSync {
                     debtPaidMiles: after.runs
                         .filter { addedIDs.contains($0.run.id) }
                         .reduce(0) { $0 + $1.debtPaidMiles },
+                    paidMiles: after.runs
+                        .filter { addedIDs.contains($0.run.id) }
+                        .reduce(0) { $0 + $1.paidMiles },
                     beersPaidOff: max(0, paidAfter - paidBefore),
                     streakDays: after.streak.currentStreakDays,
                     streakDay: added.contains { after.streak.qualifies(on: $0.endedAt) },
@@ -346,7 +358,7 @@ final class HealthSync {
             lastError = failure.message(or: error.localizedDescription)
             if failure.isReportable {
                 Telemetry.report(error, context: "health", [
-                    "op": "sync", "mode": mode.rawValue, "hadAnchor": defaults.data(forKey: anchorKey) != nil,
+                    "op": "sync", "scope": scope.rawValue, "hadAnchor": defaults.data(forKey: anchorKey) != nil,
                 ])
             }
         }

@@ -143,10 +143,11 @@ private struct RunCard: View {
 
     /// When it ended, and in calorie mode what it was: "Ride · Sep 9, 8:13 PM",
     /// "Run · 3.1 mi · …". A workout that recorded no calories says so rather
-    /// than reading as a zero nobody can explain.
+    /// than reading as a zero nobody can explain. Back in runs mode a ride
+    /// that paid while calories were in force still says what it was.
     private var subtitle: String {
         let when = Format.dateTime(statement.run.endedAt)
-        guard units.isCalories else { return when }
+        guard units.isCalories || !statement.run.isRunning else { return when }
         if statement.run.isRunning {
             return "\(kind.name) · \(Format.miles(statement.run.distanceMiles)) · \(when)"
         }

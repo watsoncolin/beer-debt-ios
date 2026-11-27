@@ -1087,8 +1087,8 @@ waived 340 mi of interest", "Priciest beer", "Longest dry spell".
 
 Added 2026-10-04. Runs stay the default. A user who also rides, swims or lifts
 can switch the books to **calories**, in Settings or during onboarding, and
-any workout in Apple Health then pays down the tab. Switching back is always
-possible and loses nothing.
+any workout in Apple Health then pays down the tab from then on. Switching
+back is always possible, and what was already paid stays paid.
 
 ### The two modes
 
@@ -1112,36 +1112,44 @@ The engine keeps working in miles. Calorie mode is a conversion at the edges:
 - Every amount is displayed as `miles × caloriesPerMile` kcal: the balance,
   interest, credit, beer prices, run payments, streak thresholds.
 
-### Switching reinterprets the whole history
+### Switching applies from now on
 
-The mode and the rate are settings on the ledger, not rules changes (§13,
-decisions §B.10). The entire ledger is replayed under whichever mode is in
-force now:
+Changed 2026-11-27 (decisions §B.10). The mode and the rate are forward-only,
+like the rules (§13): a workout pays under the mode and rate in force when it
+ended, and what it paid never changes afterwards.
 
-- In calorie mode, every workout since the books opened pays, including ones
-  from before the switch. Back in runs mode, only runs pay again. The balance,
-  posted interest, streak days and freezes all follow.
-- A day carried by a bike ride counts toward the streak in calorie mode. A
-  freeze spent on a day that now qualifies goes back into inventory, as it
-  does when a late run lands (§25.1).
-- Changing calories per mile rescales what every non-run workout paid. Runs
-  are unaffected.
-- Toggling is not an event and earns nothing on its own: no debt-free
-  celebration, no notification. If the switch clears the tab, Home simply
-  shows the clean books.
+- A walk that paid the tab in calorie mode stays paid after a switch back to
+  runs. Walks that end after the switch pay nothing.
+- Switching to calories does not reach back: a ride that ended while runs
+  were in force never pays. (1.2 re-read the whole history on a switch; that
+  backfill is gone.)
+- A day a ride carried in calorie mode stays a streak day after a switch to
+  runs, so a freeze spent on it is still refunded (§25.1).
+- Changing calories per mile prices workouts that end afterwards. What
+  earlier workouts paid is unchanged. Runs are unaffected either way.
+- Switching moves nothing already on the books, so the balance doesn't jump
+  and there is nothing to celebrate or notify.
+- Amounts always display in the mode in force now, at the current rate.
+- The mode chosen during onboarding, before anything is paid, applies from
+  the day the books open.
+- Ledgers from 1.2 read as having had their current mode and rate since the
+  books opened, which is how 1.2 replayed them, so nobody's numbers move on
+  upgrade.
 
 ### Health
 
 - Calorie mode needs permission to read all workout types and active energy.
   It is asked for when the user picks calories, not before, so a runs-only
   user never sees the wider request.
-- Picking calories re-reads Health from the day the books opened, so the
-  user's earlier rides count straight away. Re-reading is safe: workouts are
-  deduplicated by their Health ID (§14).
+- Once calories have been picked, the app reads every workout type from
+  Health, even after a switch back to runs. That way a ride that ended in
+  calorie mode but syncs late still pays, and deleting it in Health is still
+  seen. A workout that the mode in force when it ended doesn't count is
+  dropped at import and never reaches the books.
 - If the user declines the energy permission, the switch still happens but
   only runs pay, and the Apple Health row says why.
-- In runs mode, non-running workouts are never imported. Ones imported while
-  in calorie mode stay on disk and are ignored.
+- A runs-only user (calories never picked) is never read beyond their runs.
+  Non-running workouts that ended in runs mode are never imported.
 - Deleting a workout, in Health or in the app, and declaring bankruptcy (§26)
   apply to every workout type, not just runs.
 - A workout recorded by two sources (Watch + a third-party app) is counted
