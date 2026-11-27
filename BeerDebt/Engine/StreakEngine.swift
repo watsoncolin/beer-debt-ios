@@ -107,17 +107,18 @@ enum StreakEngine {
     static let maximumFreezes = 1
 
     ///
-    /// `payment` decides which workouts count and for how much (spec §28): in
-    /// calorie mode a ride's calories arrive as miles, so a day qualifies at
-    /// one mile's worth of burn by the same rule.
+    /// `payment` gives the basis in force at an instant, and decides which
+    /// workouts count and for how much (spec §28): a ride that ended in
+    /// calorie mode arrives as miles, so its day qualifies at one mile's
+    /// worth of burn by the same rule.
     static func calculate(
         runs: [RunEntry],
         freezeApplications: [FreezeApplication] = [],
-        payment: PaymentBasis = .runs,
+        payment: (Date) -> PaymentBasis = { _ in .runs },
         at now: Date,
         calendar: Calendar
     ) -> StreakStatus {
-        let counted = runs.filter { $0.endedAt <= now && payment.miles(paidBy: $0) != nil }
+        let counted = runs.filter { $0.endedAt <= now && payment($0.endedAt).miles(paidBy: $0) != nil }
         let today = calendar.startOfDay(for: now)
         // Applications are keyed by start-of-day so they survive a device whose
         // clock or zone moved between the tap and the replay.
@@ -129,7 +130,7 @@ enum StreakEngine {
         for run in counted {
             // A run's own meters, not a round trip through miles, so a watch
             // reading of exactly a mile still clears the threshold.
-            let meters = run.isRunning ? run.distanceMeters : (payment.miles(paidBy: run) ?? 0) * RunEntry.metersPerMile
+            let meters = run.isRunning ? run.distanceMeters : (payment(run.endedAt).miles(paidBy: run) ?? 0) * RunEntry.metersPerMile
             metersByDay[calendar.startOfDay(for: run.endedAt), default: 0] += meters
         }
         let firstDay = min(metersByDay.keys.min() ?? today, appliedDays.min() ?? today, today)

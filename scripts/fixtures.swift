@@ -41,8 +41,13 @@ func ride(kcal: Double?, endedAt: Date) -> RunEntry {
     RunEntry(id: uuid(), healthKitWorkoutID: uuid(), startedAt: endedAt.addingTimeInterval(-45 * 60), endedAt: endedAt,
              distanceMeters: 0, importedAt: endedAt, sourceName: "Fixture", activityType: 13, activeEnergyKcal: kcal)
 }
+/// Calorie mode since the books opened.
 func inCalories(_ base: Ledger, caloriesPerMile: Double = 100) -> Ledger {
     var l = base; l.payment = PaymentBasis(mode: .calories, caloriesPerMile: caloriesPerMile); return l
+}
+/// A payment basis switch at `date`, from then on (decisions §B.10).
+func switched(_ base: Ledger, at date: Date, to payment: PaymentBasis) -> Ledger {
+    var l = base; l.paymentHistory.append(PaymentChange(effectiveAt: date, payment: payment)); return l
 }
 var noDecay: Rules { var r = Rules.default; r.creditDecayRatePerWeek = 0; return r }
 var noStreak: Rules { var r = Rules.default; r.streakProtection = false; return r }
@@ -222,7 +227,8 @@ add("streak: just under a mile does not count", ledger(openedAt: at(-day), runs:
 add("streak: survives a new beer during credit",
     ledger(openedAt: at(-day), beers: [beer(at(5 * day))], runs: (0..<6).map { run(1.5, endedAt: morning($0)) }), at: at(6 * day + hour))
 
-// MARK: - Calorie mode (spec §28; mirror CalorieModeTests). paymentMode and caloriesPerMile are on the ledger.
+// MARK: - Calorie mode (spec §28; mirror CalorieModeTests). The basis is the ledger's paymentHistory:
+// forward-only, a workout pays under the entry in force when it ended (decisions §B.10).
 
 add("calories: runs mode ignores a ride", ledger(beers: [beer(t0)], runs: [ride(kcal: 300, endedAt: at(hour))]), at: at(2 * hour))
 add("calories: a ride pays its calories at the rate",
@@ -235,9 +241,17 @@ add("calories: a workout with no calories pays nothing but is listed",
     inCalories(ledger(beers: [beer(t0)], runs: [ride(kcal: nil, endedAt: at(hour))])), at: at(2 * hour))
 add("calories: a ride before the books opened is ignored", inCalories(ledger(runs: [ride(kcal: 500, endedAt: at(-hour))])), at: at(hour))
 do {
-    let mixed = ledger(beers: [beer(t0), beer(t0)], runs: [run(1, endedAt: at(hour)), ride(kcal: 100, endedAt: at(2 * hour))])
-    add("calories: switching replays history (runs)", mixed, at: at(5 * day))
-    add("calories: switching replays history (calories)", inCalories(mixed), at: at(5 * day))
+    let paid = inCalories(ledger(rules: noDecay, beers: [beer(t0), beer(t0)], runs: [ride(kcal: 100, endedAt: at(hour))]))
+    add("calories: a ride paid in calories stays paid after switching to runs", switched(paid, at: at(2 * hour), to: .runs), at: at(3 * hour))
+    let late = inCalories(ledger(rules: noDecay, beers: [beer(t0)], runs: [ride(kcal: 300, endedAt: at(3 * hour))]))
+    add("calories: a ride after switching to runs pays nothing", switched(late, at: at(2 * hour), to: .runs), at: at(4 * hour))
+    let early = ledger(rules: noDecay, beers: [beer(t0)], runs: [ride(kcal: 300, endedAt: at(hour))])
+    add("calories: a ride before switching to calories never pays",
+        switched(early, at: at(2 * hour), to: PaymentBasis(mode: .calories)), at: at(3 * hour))
+    let twoRides = inCalories(ledger(rules: noDecay, beers: [beer(t0), beer(t0), beer(t0)],
+                                     runs: [ride(kcal: 150, endedAt: at(hour)), ride(kcal: 150, endedAt: at(3 * hour))]))
+    add("calories: a rate change is forward-only",
+        switched(twoRides, at: at(2 * hour), to: PaymentBasis(mode: .calories, caloriesPerMile: 150)), at: at(4 * hour))
     let rated = ledger(rules: noDecay, beers: [beer(t0), beer(t0), beer(t0)], runs: [run(1, endedAt: at(hour)), ride(kcal: 150, endedAt: at(2 * hour))])
     add("calories: rate 100", inCalories(rated, caloriesPerMile: 100), at: at(3 * hour))
     add("calories: rate 150 rescales rides not runs", inCalories(rated, caloriesPerMile: 150), at: at(3 * hour))
@@ -246,6 +260,8 @@ do {
     let l = ledger(beers: (0..<5).map { _ in beer(t0) }, runs: [run(1, endedAt: morning(1)), ride(kcal: 120, endedAt: morning(2))])
     add("calories: a ride does not carry the streak in runs mode", l, at: at(2 * day + hour))
     add("calories: a ride carries the streak in calorie mode", inCalories(l), at: at(2 * day + hour))
+    add("calories: a ride day still carries the streak after switching to runs",
+        switched(inCalories(l), at: morning(2).addingTimeInterval(hour), to: .runs), at: at(2 * day + 2 * hour))
     add("calories: just under a mile's worth does not qualify", inCalories(ledger(openedAt: at(-day), runs: [ride(kcal: 99, endedAt: morning(0))])), at: t0)
     add("calories: a mile's worth qualifies", inCalories(ledger(openedAt: at(-day), runs: [ride(kcal: 100, endedAt: morning(0))])), at: t0)
     let frozen = ledger(openedAt: utc.startOfDay(for: morning(0)), beers: (0..<5).map { _ in beer(t0) },

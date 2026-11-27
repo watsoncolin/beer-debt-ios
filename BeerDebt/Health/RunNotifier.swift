@@ -50,6 +50,12 @@ final class RunNotifier {
         /// overstates it, often by more than the run itself. The streak's share
         /// is already announced on its own line; counting it here said it twice.
         var debtPaidMiles: Double
+        /// Everything the new workouts were worth, from their own statements:
+        /// each paid under the basis in force when it ended, which for a ride
+        /// that syncs late is not necessarily today's (decisions §B.10). Nil
+        /// prices them at `units`' basis, which is the same thing whenever the
+        /// mode hasn't changed since they ended.
+        var paidMiles: Double? = nil
         var beersPaidOff: Int
         /// The streak after the sync, and whether the new runs landed on a streak day.
         var streakDays: Int = 0
@@ -63,7 +69,8 @@ final class RunNotifier {
     /// Pure, so the copy can be tested. Plain and fun, no ledger-speak.
     nonisolated static func message(for change: Change) -> Message? {
         let units = change.units
-        let miles = change.addedRuns.reduce(0) { $0 + (units.payment.miles(paidBy: $1) ?? 0) }
+        let miles = change.paidMiles
+            ?? change.addedRuns.reduce(0) { $0 + (units.payment.miles(paidBy: $1) ?? 0) }
         let after = change.after
         let noun = units.workout
 

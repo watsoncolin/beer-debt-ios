@@ -89,7 +89,7 @@ final class WeeklySummary {
         let units = Units(payment: ledger.payment)
         let miles = ledger.runs
             .filter { $0.endedAt >= weekStart && $0.endedAt < fireDate && $0.endedAt >= ledger.booksOpenedAt }
-            .reduce(0) { $0 + (ledger.payment.miles(paidBy: $1) ?? 0) }
+            .reduce(0) { $0 + (ledger.miles(paidBy: $1) ?? 0) }
         let balance = BalanceEngine.report(for: ledger, at: fireDate).balance
 
         let standing: String
