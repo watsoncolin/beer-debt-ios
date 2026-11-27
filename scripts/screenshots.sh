@@ -85,8 +85,9 @@ ledger = {
             "startedAt": iso(e - timedelta(minutes=32)), "endedAt": iso(e), "distanceMeters": m * 1609.344,
             "importedAt": iso(e + H), "sourceName": "Apple Watch"} for e, m in runs],
   "freezeApplications": [{"id": str(uuid.uuid4()).upper(), "day": iso(d), "appliedAt": iso(d)} for d in freezes],
-  "paymentMode": "calories" if mode == "calories" else "runs",
-  "caloriesPerMile": 100.0,
+  # Forward-only payment basis (decisions §B.10): one opening entry, in force since the books opened.
+  "paymentHistory": [{"effectiveAt": iso(now - 10*D), "mode": "calories" if mode == "calories" else "runs",
+                      "caloriesPerMile": 100.0}],
 }
 for days_back, kcal, kind in others:
     e, _ = morning(days_back, 0)
