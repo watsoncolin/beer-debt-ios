@@ -52,8 +52,8 @@ struct SettingsView: View {
                 Text("Pay With")
             } footer: {
                 Text(units.isCalories
-                    ? "Every workout counts. A run pays its distance; anything else pays the active calories it burned, at \(Format.number(store.ledger.caloriesPerMile, decimals: 0)) kcal a mile. Switching re-reads your whole history, and switching back loses nothing."
-                    : "Only running workouts count, by distance. Switch to calories to let rides, swims and lifts pay too. Switching re-reads your whole history, and switching back loses nothing.")
+                    ? "Every workout counts. A run pays its distance; anything else pays the active calories it burned, at \(Format.number(store.ledger.caloriesPerMile, decimals: 0)) kcal a mile. Changes apply from now on: what's already paid stays paid."
+                    : "Only running workouts count, by distance. Switch to calories to let rides, swims and lifts pay from now on. What's already paid stays paid.")
             }
             .listRowBackground(Theme.card)
 

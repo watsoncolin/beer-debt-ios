@@ -301,18 +301,26 @@ is noticed rather than silently re-breaking the copy.
 
 Spec §28 is the feature. Colin's calls and the reasoning behind them:
 
-- **Mode and rate are ledger settings, not rules, and they reinterpret
-  history.** This is a deliberate exception to forward-only rules (above).
-  `Ledger.paymentMode` and `Ledger.caloriesPerMile` sit beside the rules
-  history rather than inside it, and every replay reads the current values.
-  Making the toggle a `RulesChange` was weighed and turned down. It would
-  have kept the balance from jumping on a switch and made the switch
-  ungameable. Colin chose reinterpretation: the toggle means "this is how
-  my books work", not "from now on". (A user can already reshape the tab by
-  deleting runs, so this door is not entirely new.) Accepted costs: flipping modes moves the
-  balance, posted interest, streak days and freezes, and a user can flip to
-  whichever mode is cheaper. They live in `ledger.json` (not UserDefaults)
-  so the widget replays the same books.
+- **Mode and rate are forward-only — REVISED (2026-11-27).** 1.2 shipped
+  them as ledger settings that reinterpreted history: every replay read the
+  current mode, so flipping it moved the balance, posted interest, streak
+  days and freezes. Colin hit the cost while testing: walks paid the tab
+  down in calorie mode, then a switch to runs put it back up. It was
+  confusing, and it broke the finance metaphor (a posted payment got
+  reversed by a settings toggle). It was also the one exception to
+  forward-only rules, and it let a user flip to whichever mode was cheaper.
+  Now `Ledger.paymentHistory` holds `PaymentChange`s (mode + rate, effective
+  from an instant), the same shape as `rulesHistory` but kept apart because a
+  switch also changes what Health is asked for. A workout pays under the
+  entry in force when it **ended**; `LedgerStore.updatePayment` appends.
+  Accepted cost: no backfill. Switching to calories no longer makes earlier
+  rides count. Onboarding's choice (`chooseOpeningPayment`) replaces the
+  opening entry, since nothing is paid yet. A 1.2 ledger decodes its
+  `paymentMode`/`caloriesPerMile` as the opening entry, which is what 1.2
+  replayed, so nothing moves on upgrade. Bankruptcy collapses the history to
+  the basis in force; `reopenBooks` moves the opening entry with the books.
+  The basis lives in `ledger.json` (not UserDefaults) so the widget replays
+  the same books.
 - **The engine stays in miles.** Calories are converted on the way in
   (non-run workouts only) and on the way out (display). No second balance,
   no unit tag on events, and every existing fixture holds unchanged with the
@@ -320,8 +328,8 @@ Spec §28 is the feature. Colin's calls and the reasoning behind them:
 - **A run pays by distance in both modes.** A mile is worth the same in
   either mode, and a run never depends on whether its source recorded
   energy (phone-only and some third-party runs don't). It also makes
-  `caloriesPerMile` a pure display factor for runs-only books, so changing
-  the rate rescales only what non-run workouts paid.
+  `caloriesPerMile` a pure display factor for runs-only books. A rate change
+  prices only non-run workouts that end after it.
 - **Default 100 kcal per mile.** That is roughly what a mile of running
   burns, so a beer still costs about one mile of effort, and switching modes
   changes the *display* of a runner's tab, not its size. 150 kcal (a
@@ -340,20 +348,24 @@ Spec §28 is the feature. Colin's calls and the reasoning behind them:
   calories arrive as miles. With the default rate that is 100 kcal.
 - **Health scope widens only on request.** Runs mode keeps today's read
   types and predicate. Choosing calories asks for every workout type plus
-  `activeEnergyBurned`, widens the predicate and drops the anchor so Health
-  is re-read from `booksOpenedAt` (the `reopenBooks` mechanism). Dedup by
-  workout UUID makes the re-read idempotent. Workouts imported in calorie
-  mode are kept after switching back, and the engine ignores non-runs in
-  runs mode, so a second switch needs no re-read.
+  `activeEnergyBurned`, and widens the predicate. Once any calorie period
+  exists the read **stays wide** (`HealthSync.readScope`) whatever the mode
+  now, with its own anchor (`health.anchor.calories`). A ride that ended in
+  calorie mode but syncs after a switch back still lands, and so does its
+  deletion. Import keeps only workouts that the basis in force at their end
+  pays, so rides from runs stretches never reach the books. Runs-only users
+  keep the original predicate and anchor.
 - **`RunEntry` grows; its JSON keys don't change.** New optional
   `activityType` (an `HKWorkoutActivityType` raw value; absent means
   running) and `activeEnergyKcal`. `distanceMeters` stays, and is 0 for
   workouts without distance. Older ledgers decode as all-runs.
-- **A toggle is not an event.** No debt-free celebration and no
-  notification come from flipping a setting, even if it clears the tab. The
-  celebration and `RunNotifier` fire on imported workouts only, as now.
+- **A toggle is not an event.** Forward-only, a switch moves nothing already
+  on the books, so there is nothing to celebrate. The celebration and
+  `RunNotifier` fire on imported workouts only, and the notifier is told
+  what each workout paid under its own basis (`Change.paidMiles`), not
+  today's.
 - **Cross-platform.** The mode, the rate and the new workout fields are
-  engine inputs, so `cases.json` gains calorie scenarios and the Kotlin
+  engine inputs (now `Ledger.paymentHistory`), so `cases.json` gains calorie scenarios and the Kotlin
   `FixtureTest` must name and assert them explicitly (CLAUDE.md, Android).
 
 ### 11. Bankruptcy offer — DECIDED (2026-11-15)

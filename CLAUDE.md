@@ -85,10 +85,14 @@ Keep the seed shapes in that script in sync with `Ledger`'s JSON.
   `RunEntry` (HealthKit workout UUID for dedup, meters; despite the name any
   workout, with `activityType` and `activeEnergyKcal` for calorie mode), and
   `RulesChange` (rules effective from an instant). The `Ledger` holds all three
-  plus `booksOpenedAt` and the payment basis (`paymentMode`,
-  `caloriesPerMile`, spec §28). The basis is **not** a rule: it reinterprets
-  the whole history on replay (decisions §B.10), so change it only through
-  `LedgerStore.updatePayment`, and never as a `RulesChange`. Never store a derived balance; always replay via
+  plus `booksOpenedAt` and `paymentHistory` (`PaymentChange`: mode +
+  `caloriesPerMile` effective from an instant, spec §28). The basis is
+  forward-only like the rules (decisions §B.10): a workout pays under the
+  entry in force when it ended (`Ledger.miles(paidBy:)`), and
+  `Ledger.payment` is only the current one, for display. Switch it through
+  `HealthSync.updatePayment` → `LedgerStore.updatePayment` (appends), never
+  as a `RulesChange`; only onboarding replaces the opening entry
+  (`chooseOpeningPayment`). Never store a derived balance; always replay via
   `BalanceEngine.report(for:at:)`, which returns the `Balance` plus per-beer
   and per-run statements the Ledger screen renders.
 - `BalanceEngine.report(for:at:calendar:)`: the calendar decides streak days.
@@ -150,7 +154,7 @@ so keep the Apple Health section accurate when Health usage changes.
 The sister repo is `~/beer-debt-android` (github.com/watsoncolin/beer-debt-android).
 This repo leads; features are built and validated here first, then ported.
 The cross-platform contract is `docs/spec.md` + `docs/engine-fixtures/cases.json`,
-generated from the Swift engine by `scripts/fixtures.sh` (99 scenarios mirroring
+generated from the Swift engine by `scripts/fixtures.sh` (102 scenarios mirroring
 `BalanceEngineTests` and `CalorieModeTests`; pure `swiftc`, no simulator). **After any engine or model
 change: run `scripts/fixtures.sh`, commit the JSON, and copy it to
 `~/beer-debt-android/engine/src/test/resources/cases.json`.** The Kotlin

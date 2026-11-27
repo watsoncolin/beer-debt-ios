@@ -15,10 +15,11 @@ import Foundation
 /// - A beer spends credit first; the remainder opens a debt.
 /// - A run pays the oldest debt first (interest, then principal). Leftover
 ///   miles become credit up to the cap; anything past the cap is discarded.
-///   Which workouts pay, and how many miles each is worth, is the ledger's
-///   `payment` (spec §28): runs by distance always, other workouts by active
-///   energy in calorie mode only. It is read whole, not forward-only, so
-///   switching modes replays every workout under the new one.
+///   Which workouts pay, and how many miles each is worth, is the payment
+///   basis in force when the workout ended (spec §28, decisions §B.10): runs
+///   by distance always, other workouts by active energy in calorie mode
+///   only. Forward-only like the rules, so switching modes or rates never
+///   changes what an earlier workout paid.
 /// - Rules changes apply forward only. Past postings are never recalculated.
 /// - A posting that falls on an interest-protected streak day (spec §25: the
 ///   day and the day before each had a mile of running) is skipped while the
@@ -122,7 +123,7 @@ private struct Replay {
             // Freezes before the books opened are meaningless, the same way
             // pre-books runs are.
             freezeApplications: ledger.freezeApplications.filter { $0.day >= calendar.startOfDay(for: ledger.booksOpenedAt) },
-            payment: ledger.payment,
+            payment: ledger.payment(at:),
             at: now,
             calendar: calendar
         )
@@ -132,7 +133,7 @@ private struct Replay {
         let events = (ledger.rulesHistory.map(Event.rules)
             + ledger.beers.map(Event.beer)
             + ledger.runs.compactMap { run in
-                ledger.payment.miles(paidBy: run).map { Event.run(run, miles: $0) }
+                ledger.miles(paidBy: run).map { Event.run(run, miles: $0) }
             })
             .filter { $0.time <= now }
             .sorted { a, b in

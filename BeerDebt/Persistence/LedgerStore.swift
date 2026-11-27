@@ -194,7 +194,7 @@ final class LedgerStore {
     /// Moves the opening of the books earlier, so runs that ended in the newly
     /// covered window can count. Earlier only (a later date would strand runs
     /// already on the books), no more than a year back. The opening rules
-    /// move with it so they stay effective from day one. The caller must
+    /// and payment basis move with it so they stay effective from day one. The caller must
     /// re-read Health from scratch afterwards, since older workouts were
     /// dropped at import. Returns false if the date wasn't earlier.
     @discardableResult
@@ -206,6 +206,10 @@ final class LedgerStore {
         ledger.booksOpenedAt = opened
         if let first = ledger.rulesHistory.first, first.effectiveAt == previous {
             ledger.rulesHistory[0] = RulesChange(effectiveAt: opened, rules: first.rules)
+        }
+        // The opening payment basis covers the newly opened days too.
+        if let first = ledger.paymentHistory.first, first.effectiveAt == previous {
+            ledger.paymentHistory[0] = PaymentChange(effectiveAt: opened, payment: first.payment)
         }
         save()
         return true
@@ -237,7 +241,8 @@ final class LedgerStore {
         let opened = now.flooredToSecond
         let rules = ledger.currentRules
         let excluded = ledger.excludedWorkoutIDs.union(ledger.runs.map(\.healthKitWorkoutID))
-        // The payment basis survives like the rules: it is how the books work, not what is on them.
+        // The payment basis survives like the rules: it is how the books work,
+        // not what is on them. Its history collapses to the one in force.
         ledger = Ledger(openedAt: opened, rules: rules, payment: ledger.payment)
         ledger.excludedWorkoutIDs = excluded
         save()
@@ -257,16 +262,44 @@ final class LedgerStore {
     /// The calorie rate the store accepts. Outside this a typo, not a choice.
     static let caloriesPerMileRange: ClosedRange<Double> = 20...500
 
-    /// Switches what pays the tab (spec §28). Not an event: the whole ledger
-    /// replays under the new basis, history included (decisions §B.10). The
-    /// rate is clamped to `caloriesPerMileRange` and whole calories.
-    func updatePayment(_ payment: PaymentBasis) {
-        var payment = payment
-        payment.caloriesPerMile = min(max(payment.caloriesPerMile.rounded(), Self.caloriesPerMileRange.lowerBound),
-                                      Self.caloriesPerMileRange.upperBound)
+    /// Switches what pays the tab from `date` forward (spec §28, decisions
+    /// §B.10). Like a rules change it is appended, never rewritten: workouts
+    /// that already ended keep paying what they paid under the basis they
+    /// ended in. The rate is clamped to `caloriesPerMileRange` and whole
+    /// calories. No-op if nothing changed.
+    func updatePayment(_ payment: PaymentBasis, at date: Date = .now) {
+        let payment = Self.clamped(payment)
         guard payment != ledger.payment else { return }
+        let lastEffective = ledger.paymentHistory.last?.effectiveAt ?? ledger.booksOpenedAt
+        let effectiveAt = max(date.flooredToSecond, lastEffective)
+        // Two changes in the same second: the later one is the one in force.
+        if ledger.paymentHistory.count > 1, ledger.paymentHistory.last?.effectiveAt == effectiveAt {
+            ledger.paymentHistory.removeLast()
+        }
+        if ledger.paymentHistory.last?.payment == payment {
+            // Flipped and flipped back within the second: nothing to record.
+        } else {
+            ledger.paymentHistory.append(PaymentChange(effectiveAt: effectiveAt, payment: payment))
+        }
+        save()
+    }
+
+    /// The basis the books open under, chosen during onboarding before Health
+    /// is connected. Replaces the history rather than appending, so the
+    /// choice covers every workout since the books opened. Only for books
+    /// with nothing paid yet; on live books use `updatePayment`.
+    func chooseOpeningPayment(_ payment: PaymentBasis) {
+        let payment = Self.clamped(payment)
+        guard ledger.paymentHistory != [PaymentChange(effectiveAt: ledger.booksOpenedAt, payment: payment)] else { return }
         ledger.payment = payment
         save()
+    }
+
+    private static func clamped(_ payment: PaymentBasis) -> PaymentBasis {
+        var payment = payment
+        payment.caloriesPerMile = min(max(payment.caloriesPerMile.rounded(), caloriesPerMileRange.lowerBound),
+                                      caloriesPerMileRange.upperBound)
+        return payment
     }
 
     // MARK: Persistence
