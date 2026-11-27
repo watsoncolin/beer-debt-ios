@@ -1005,7 +1005,8 @@ resurrection.
 # 26. Bankruptcy
 
 Added 2026-10-03. A way out for a tab that got away from the user, in
-Settings › Fresh Start. The only destructive act in the app.
+Settings › Fresh Start, and offered on Home once the tab passes 100 miles
+(§29). The only destructive act in the app.
 
 - **What it does.** Writes off everything on the books and reopens them at
   that instant: beers, runs, and freeze applications all go, and the streak
@@ -1191,3 +1192,63 @@ preselected.
 **Copy.** "Pay with", "Runs", "Calories", "Every workout counts, by calories
 burned.", "A mile of running is worth 100 kcal.", "Burn it off", "kcal owed",
 "Books are clean."
+
+---
+
+# 29. Bankruptcy Offer
+
+Added 2026-11-15. Fresh Start (§26) exists for a tab that got away, but it
+sits in Settings, and the user who most needs it is the one who stopped
+opening Settings months ago. Once a tab is past running off, Home offers it.
+
+### When
+
+- **Debt ≥ 100 miles**, measured on `Balance.debtMiles` (principal plus
+  interest), in engine miles. Calorie mode changes how the number is shown,
+  not when the offer appears: 100 mi is 10,000 kcal at the default rate.
+  Miles per Beer does not move it either; the question is whether the tab can
+  be run off, and that is measured in miles.
+- Only in debt. Credit and clean books never show it.
+- The streak does not suppress it. A user running every day can still owe
+  more than they will ever run.
+
+### Where
+
+- **A card on Home**, under the balance and above the streak card. Never on
+  the widget, never as a notification, never in the weekly summary. It is
+  something the user finds when they look at the tab, not something sent to
+  find them.
+- **"Fresh Start"** opens the existing bankruptcy sheet (§26) from Home.
+  Filing, confirmation and the WRITTEN OFF stamp are unchanged; the offer
+  only shortens the path to it.
+- **"Not now"** dismisses it.
+- While the card shows, it takes the place of Home's one line of copy (§10):
+  past 100 mi the quip says the same thing, and Home has no room for both on
+  a smaller phone.
+
+### Not nagging
+
+- The offer appears once per **tier**: 100 mi, 1,000 mi, 10,000 mi, and so
+  on, each ten times the last. Dismissing it hides it until the debt reaches
+  the next tier. At the default 10% a day an ignored tab grows tenfold in
+  about 24 days, so a dismissed offer returns roughly once a month, and never
+  sooner.
+- Falling back under 100 mi forgets the dismissal, so a tab that recovers and
+  then gets away again is offered afresh from the first tier.
+- The dismissal is a per-device preference (UserDefaults), not part of the
+  books. Declaring bankruptcy clears it along with everything else.
+
+### Display past the offer
+
+A user who says "Not now" keeps watching the number, so Home's hero must
+show any size of tab in full width: it scales to fit on one line on both
+platforms and is never clipped. From six displayed figures (≥ 100,000, so
+1,000 mi in calorie mode at the default rate) the hero uses the compact form
+(`174k`, `17M`). Smaller tabs keep their full number. The daily charge
+beside it ("a day", §10) sits in a narrower tile and goes compact from four
+displayed figures: `18k`, not `17,699.00`. Below that it keeps its decimals
+(`0.10`).
+
+**Copy.** Deadpan paperwork, as §26. Never says the user should have run
+more. "This tab got away.", "You owe {amount}. Some tabs are better closed
+than run off.", "Fresh Start", "Not now".

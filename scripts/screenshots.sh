@@ -35,7 +35,7 @@ CONTAINER=$(xcrun simctl get_app_container "$UDID" "$BUNDLE" group.me.colinwatso
 LEDGER="$CONTAINER/BeerDebt/ledger.json"
 mkdir -p "$(dirname "$LEDGER")"
 
-seed() { # seed <debt|credit|freeze|restday|calories|fresh>
+seed() { # seed <debt|credit|freeze|restday|calories|runaway|fresh>
   if [ "$1" = "fresh" ]; then rm -f "$LEDGER"; return; fi
   python3 - "$LEDGER" "$1" <<'PY'
 import json, sys, uuid
@@ -58,6 +58,11 @@ if mode == "calories":
     beers = [now - 6*D - H, now - 5*D - 2*H, now - 4*D - 3*H, now - 3*D - H, now - 2*D - 2*H, now - 6*H]
     runs = [morning(4, 1.2)]
     others = [(2, 140.0, 13), (1, 120.0, 50), (0, 110.0, 13)]
+elif mode == "runaway":
+    # Two beers left alone for four months at 10% a day: past the
+    # bankruptcy offer, with a six-figure hero in compact form (spec §29).
+    beers = [now - 120*D, now - 120*D + H]
+    runs = []
 elif mode == "debt":
     # Six beers over the week, a three-day streak through this morning: in debt, interest paused.
     beers = [now - 6*D - H, now - 5*D - 2*H, now - 4*D - 3*H, now - 3*D - H, now - 2*D - 2*H, now - 6*H]
@@ -76,10 +81,11 @@ else:
     # One beer long paid; runs three days running, nothing yet today: credit, streak alive.
     beers = [now - 6*D]
     runs = [morning(3, 1.0), morning(2, 1.2), morning(1, 2.4)]
+opened = now - (121*D if mode == "runaway" else 10*D)
 ledger = {
   "version": 1,
-  "booksOpenedAt": iso(now - 10*D),
-  "rulesHistory": [{"effectiveAt": iso(now - 10*D), "rules": rules}],
+  "booksOpenedAt": iso(opened),
+  "rulesHistory": [{"effectiveAt": iso(opened), "rules": rules}],
   "beers": [{"id": str(uuid.uuid4()).upper(), "createdAt": iso(b)} for b in beers],
   "runs": [{"id": str(uuid.uuid4()).upper(), "healthKitWorkoutID": str(uuid.uuid4()).upper(),
             "startedAt": iso(e - timedelta(minutes=32)), "endedAt": iso(e), "distanceMeters": m * 1609.344,
@@ -133,6 +139,9 @@ shoot streak-restday streak
 shoot home-restday
 seed credit
 shoot home-credit
+seed runaway
+xcrun simctl spawn "$UDID" defaults delete "$BUNDLE" bankruptcyOfferDismissedTier 2>/dev/null || true
+shoot home-runaway
 seed calories
 shoot home-calories
 shoot workouts-calories runs
